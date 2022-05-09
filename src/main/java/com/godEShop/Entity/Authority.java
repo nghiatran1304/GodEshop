@@ -1,17 +1,15 @@
 package com.godEShop.Entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,21 +19,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Roles")
-public class Role implements Serializable{
+@Table(name = "Authorities")
+public class Authority implements Serializable{
     
     private static final long serialVersionUID = 1L;
     
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     
-    @Column(name = "Name")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "RoleId")
+    Role role;
     
-    @JsonIgnore
-    @OneToMany(mappedBy = "role")
-    List<Authority> authorities;
+    @ManyToOne
+    @JoinColumn(name = "Username")
+    Account account;
     
 }
