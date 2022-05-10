@@ -1,7 +1,6 @@
 package com.godEShop.Entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,44 +20,33 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * The persistent class for the Vouchers database table.
+ * The persistent class for the SubCategories database table.
  * 
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Vouchers")
-public class Voucher implements Serializable {
+@Table(name = "SubCategories")
+public class SubCategory implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CreateDate")
-    private Date createDate;
-
-    @Column(name = "Discount")
-    private Integer discount;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "EndDate")
-    private Date endDate;
+    private Integer id;
 
     @Column(name = "Name")
     private String name;
 
-    // bi-directional many-to-one association to VoucherList
+    // bi-directional many-to-one association to Product
     @JsonIgnore
-    @OneToMany(mappedBy = "voucher")
-    private List<VoucherList> voucherLists;
+    @OneToMany(mappedBy = "subCategory")
+    private List<Product> products;
 
-    // bi-directional many-to-one association to Account
+    // bi-directional many-to-one association to Category
     @ManyToOne
-    @JoinColumn(name = "CreateBy")
-    private Account account;
+    @JoinColumn(name = "CategoryId")
+    private Category category;
 
 }

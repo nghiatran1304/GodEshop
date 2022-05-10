@@ -22,8 +22,6 @@ CREATE TABLE Accounts(
 	Password VARCHAR(250) NOT NULL,
 	CreateDate DATETIME NOT NULL,
 	IsDeleted BIT DEFAULT 0,
-	RoleId VARCHAR(15) NOT NULL,
-	FOREIGN KEY (RoleId) REFERENCES Roles(Id)
 );
 GO
 
@@ -51,7 +49,7 @@ CREATE TABLE Users(
 	Dob DATE NOT NULL,
 	Gender INT DEFAULT 1, -- 0 Nữ | 1 Nam | 2 Others 
 	Phone VARCHAR(12) NOT NULL,
-	Email VARCHAR(100) NOT NULL,
+	Email VARCHAR(100) UNIQUE  NOT NULL,
 	Photo VARCHAR(255) NULL,
 	Username VARCHAR(50) NOT NULL,
 	FOREIGN KEY (Username) REFERENCES Accounts(Username)
@@ -123,7 +121,7 @@ GO
 
 CREATE TABLE Products(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
-	Name NVARCHAR(100) NOT NULL,
+	Name NVARCHAR(255) NOT NULL,
 	Price FLOAT DEFAULT 0,
 	Material NVARCHAR(200) NOT NULL, -- chất liệu
 	MadeIn NVARCHAR(50) NOT NULL,
@@ -265,23 +263,23 @@ INSERT INTO Roles(Id, Name) VALUES
 GO
 
 --======= Accounts
-INSERT INTO Accounts(Username, Password, CreateDate, IsDeleted, RoleId) VALUES
-('admin01', 'admin01', '2021-07-19', 0, 'ADMIN'),
-('manager01', 'manager01', '2021-07-19', 0, 'MANAGER'),
-('manager02', '123', '2021-07-19', 0, 'MANAGER'),
-('customer1', 'customer1', '2021-12-13', 0, 'CUSTOMER'),
-('customer2', '123', '2022-02-26', 0, 'CUSTOMER'),
-('customer3', '123', '2022-02-26', 0, 'CUSTOMER'),
-('customer4', '123', '2022-02-26', 0, 'CUSTOMER'),
-('customer5', '123', '2021-12-13', 0, 'CUSTOMER'),
-('customer6', '123', '2021-12-13', 0, 'CUSTOMER'),
-('customer7', '123', '2021-12-13', 0, 'CUSTOMER'),
-('customer8', '123', '2021-12-13', 0, 'CUSTOMER'),
-('customer9', '123', '2022-04-15', 0, 'CUSTOMER'),
-('customer10', '123', '2022-04-15', 0, 'CUSTOMER'),
-('customer11', '123', '2022-04-13', 0, 'CUSTOMER'),
-('customer12', '123', '2022-03-15', 0, 'CUSTOMER'),
-('customer13', '123', '2022-01-15', 0, 'CUSTOMER')
+INSERT INTO Accounts(Username, Password, CreateDate, IsDeleted) VALUES
+('admin01', 'admin01', '2021-07-19 10:00:00 AM', 0),
+('manager01', 'manager01', '2021-07-19', 0),
+('manager02', '123', '2021-07-19', 0),
+('customer1', 'customer1', '2021-12-13', 0),
+('customer2', '123', '2022-02-26', 0),
+('customer3', '123', '2022-02-26', 0),
+('customer4', '123', '2022-02-26', 0),
+('customer5', '123', '2021-12-13', 0),
+('customer6', '123', '2021-12-13', 0),
+('customer7', '123', '2021-12-13', 0),
+('customer8', '123', '2021-12-13', 0),
+('customer9', '123', '2022-04-15', 0),
+('customer10', '123', '2022-04-15', 0),
+('customer11', '123', '2022-04-13', 0),
+('customer12', '123', '2022-03-15', 0),
+('customer13', '123', '2022-01-15', 0)
 GO
 
 --======= RefAccounts
@@ -834,7 +832,6 @@ INSERT INTO Brands(Name) VALUES
 ('Zadig & Voltaire')
 GO
 
-
 --======= Categories
 INSERT INTO Categories(Name) VALUES
 (N'ĐỒNG HỒ'),
@@ -850,6 +847,7 @@ INSERT INTO Categories(Name) VALUES
 --======
 
 GO
+
 --======= SubCategories
 INSERT INTO SubCategories (Name,CategoryId) VALUES
 

@@ -19,15 +19,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * The persistent class for the Users database table.
+ * The persistent class for the Histories database table.
  * 
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Users")
-public class User implements Serializable {
+@Table(name = "Histories")
+public class History implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -35,24 +35,21 @@ public class User implements Serializable {
     @Column(name = "Id")
     private Long id;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "Dob")
-    private Date dob;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CreateDate")
+    private Date createDate;
 
-    @Column(name = "Email")
-    private String email;
+    @Column(name = "DetailKey")
+    private String detailKey;
 
-    @Column(name = "Fullname")
-    private String fullname;
+    @Column(name = "DetailValue")
+    private String detailValue;
 
-    @Column(name = "Gender")
-    private Integer gender;
+    @Column(name = "IdObject")
+    private String idObject;
 
-    @Column(name = "Phone")
-    private String phone;
-
-    @Column(name = "Photo")
-    private String photo;
+    @Column(name = "ObjectName")
+    private String objectName;
 
     // bi-directional many-to-one association to Account
     @ManyToOne

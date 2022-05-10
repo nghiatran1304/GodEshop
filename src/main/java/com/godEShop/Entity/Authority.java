@@ -15,26 +15,31 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The persistent class for the Authorities database table.
+ * 
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "Authorities")
-public class Authority implements Serializable{
-    
+public class Authority implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @ManyToOne
-    @JoinColumn(name = "RoleId")
-    Role role;
-    
+    @Column(name = "Id")
+    private Integer id;
+
+    // bi-directional many-to-one association to Account
     @ManyToOne
     @JoinColumn(name = "Username")
-    Account account;
-    
+    private Account account;
+
+    // bi-directional many-to-one association to Role
+    @ManyToOne
+    @JoinColumn(name = "RoleId")
+    private Role role;
+
 }

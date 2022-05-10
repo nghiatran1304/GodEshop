@@ -16,16 +16,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * The persistent class for the RefAccounts database table.
+ * The persistent class for the ProductDetails database table.
  * 
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "RefAccounts")
-public class RefAccount implements Serializable {
-    
+@Table(name = "ProductDetails")
+public class ProductDetail implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -33,15 +32,15 @@ public class RefAccount implements Serializable {
     @Column(name = "Id")
     private Long id;
 
-    @Column(name = "IsReward")
-    private boolean isReward;
+    @Column(name = "DetailKey")
+    private String detailKey;
 
-    @Column(name = "Refer")
-    private String refer;
+    @Column(name = "DetailValue")
+    private String detailValue;
 
-    // bi-directional many-to-one association to Account
+    // bi-directional many-to-one association to Product
     @ManyToOne
-    @JoinColumn(name = "Receiver")
-    private Account account;
+    @JoinColumn(name = "ProductId")
+    private Product product;
 
 }

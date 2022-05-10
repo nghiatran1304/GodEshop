@@ -19,15 +19,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * The persistent class for the Users database table.
+ * The persistent class for the ProductDiscounts database table.
  * 
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Users")
-public class User implements Serializable {
+@Table(name = "ProductDiscounts")
+public class ProductDiscount implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -35,28 +35,25 @@ public class User implements Serializable {
     @Column(name = "Id")
     private Long id;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "Dob")
-    private Date dob;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CreateDate")
+    private Date createDate;
 
-    @Column(name = "Email")
-    private String email;
+    @Column(name = "Discount")
+    private Integer discount;
 
-    @Column(name = "Fullname")
-    private String fullname;
-
-    @Column(name = "Gender")
-    private Integer gender;
-
-    @Column(name = "Phone")
-    private String phone;
-
-    @Column(name = "Photo")
-    private String photo;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "EndDate")
+    private Date endDate;
 
     // bi-directional many-to-one association to Account
     @ManyToOne
-    @JoinColumn(name = "Username")
+    @JoinColumn(name = "CreateBy")
     private Account account;
+
+    // bi-directional many-to-one association to Product
+    @ManyToOne
+    @JoinColumn(name = "ProductId")
+    private Product product;
 
 }
