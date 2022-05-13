@@ -29,7 +29,7 @@
 
 </head>
 <body>
-	<div class="wrapper home-one">
+	<div class="wrapper home-one " th:classappend="${isHomePage} ? '' : 'single-product-page'">
 		<!--================ Start Header Menu Area =================-->
 		<div th:replace="/layout/_header.html"></div>
 		<!--================ End Header Menu Area =================-->
