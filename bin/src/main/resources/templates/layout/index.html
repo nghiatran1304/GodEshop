@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(main)">
+<!-- th:replace="~{/layout/index/layout.html :: dynamic(~{::main})}" -->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Bege || Home</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="/assets/images/icons/icon_logo.png">
+<!-- Place favicon.ico in the root directory -->
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/ionicons.min.css">
+<link rel="stylesheet" href="/assets/css/css-plugins-call.css">
+<link rel="stylesheet" href="/assets/css/bundle.css">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/responsive.css">
+<link rel="stylesheet" href="/assets/css/colors.css">
+<!--
+<link rel="icon" href="/assets/img/Fevicon.png" type="image/png">
+	-->
+<!-- Bootstrap CSS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+	<div class="wrapper home-one " th:classappend="${isHomePage} ? '' : 'single-product-page'">
+		<!--================ Start Header Menu Area =================-->
+		<div th:replace="/layout/_header.html"></div>
+		<!--================ End Header Menu Area =================-->
+
+		<!-- START MAIN -->
+		<div th:replace="${main}"></div>
+		<!-- END MAIN -->
+
+		<!--================ Start footer Area  =================-->
+		<div th:replace="/layout/_footer.html"></div>
+		<!--================ End footer Area  =================-->
+
+	</div>
+
+	<!-- jQuery CDN -->
+	<script src="/assets/js/jquery-1.12.4.min.js"></script>
+
+	<!-- jQuery Local -->
+
+	<!-- Popper min js -->
+	<script src="/assets/js/popper.min.js"></script>
+	<!-- Bootstrap min js  -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- nivo slider pack js  -->
+	<script src="/assets/js/jquery.nivo.slider.pack.js"></script>
+	<!-- All plugins here -->
+	<script src="/assets/js/plugins.js"></script>
+	<!-- Main js  -->
+	<script src="/assets/js/main.js"></script>
+
+
+
+	<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+	<script>
+		window.ga = function() {
+			ga.q.push(arguments)
+		};
+		ga.q = [];
+		ga.l = +new Date;
+		ga('create', 'UA-XXXXX-Y', 'auto');
+		ga('send', 'pageview')
+	</script>
+	<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+</body>
+</html>
