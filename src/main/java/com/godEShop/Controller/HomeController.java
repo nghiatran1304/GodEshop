@@ -15,6 +15,16 @@ public class HomeController {
     public String aboutus() {
 	return "about/AboutUs";
     }
+    
+    @GetMapping("/blog")
+    public String blog() {
+	return "blog/Blog";
+    }
+    
+    @GetMapping("/contact")
+    public String contact() {
+	return "contact/Contact";
+    }
 
     @GetMapping("/ErrorPage")
     public String errorPage() {
