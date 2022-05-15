@@ -18,6 +18,7 @@ public class BrandServiceImpl implements BrandService{
     @Override
     public List<Brand> findAll() {
 	// TODO Auto-generated method stub
+	// lấy tất cả danh sách hãng
 	return brandDAO.findAll();
     }
 
