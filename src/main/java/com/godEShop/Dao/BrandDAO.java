@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.godEShop.Entity.Brand;
 
 @Repository
-public interface BrandDAO extends JpaRepository<Brand, Long>{
+public interface BrandDAO extends JpaRepository<Brand, Integer>{
 
 }
