@@ -34,7 +34,7 @@ public class ProductComment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "CommentContent")
     private String commentContent;

@@ -37,17 +37,17 @@ public class Voucher implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CreateDate")
+    @Column(name = "Createdate")
     private Date createDate;
 
     @Column(name = "Discount")
     private Integer discount;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "EndDate")
+    @Column(name = "Enddate")
     private Date endDate;
 
     @Column(name = "Name")

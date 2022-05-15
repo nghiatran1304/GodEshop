@@ -25,23 +25,22 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "RefAccounts")
 public class RefAccount implements Serializable {
-    
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
-    @Column(name = "IsReward")
-    private boolean isReward;
+    @Column(name = "Isreward")
+    private Boolean isReward;
 
-    @Column(name = "Refer")
-    private String refer;
+    @Column(name = "Newaccount")
+    private String newAccount;
 
     // bi-directional many-to-one association to Account
     @ManyToOne
-    @JoinColumn(name = "Receiver")
+    @JoinColumn(name = "OldAccount")
     private Account account;
 
 }

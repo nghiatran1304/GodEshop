@@ -10,14 +10,15 @@ import com.godEShop.Entity.Category;
 import com.godEShop.Service.CategoryService;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl implements CategoryService{
 
     @Autowired
-    CategoryDAO categoryDAO;
-
+    CategoryDAO categoryDao;
+    
     @Override
     public List<Category> findAll() {
 	// TODO Auto-generated method stub
-	return categoryDAO.findAll();
+	return categoryDao.findAll();
     }
+
 }

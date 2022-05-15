@@ -10,6 +10,11 @@ public class HomeController {
     public String index() {
 	return "layout/homepage";
     }
+    
+    @GetMapping("/about")
+    public String aboutus() {
+	return "about/AboutUs";
+    }
 
     @GetMapping("/ErrorPage")
     public String errorPage() {

@@ -30,9 +30,9 @@ public class ProductLike implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
-    @Column(name = "IsLiked")
+    @Column(name = "Isliked")
     private Boolean isLiked;
 
     // bi-directional many-to-one association to Account

@@ -30,7 +30,7 @@ public class ProductReply implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "ReplyContent")
     private String replyContent;

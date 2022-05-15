@@ -33,7 +33,10 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
+
+    @Column(name = "Address")
+    private String address;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "Dob")
@@ -58,5 +61,4 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(name = "Username")
     private Account account;
-
 }

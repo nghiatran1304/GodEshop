@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,15 +18,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * The persistent class for the SubCategories database table.
+ * The persistent class for the OrderMethods database table.
  * 
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "SubCategories")
-public class SubCategory implements Serializable {
+@Table(name = "OrderMethods")
+public class OrderMethod implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -39,14 +37,9 @@ public class SubCategory implements Serializable {
     @Column(name = "Name")
     private String name;
 
-    // bi-directional many-to-one association to Product
+    // bi-directional many-to-one association to Order
     @JsonIgnore
-    @OneToMany(mappedBy = "subCategory")
-    private List<Product> products;
-
-    // bi-directional many-to-one association to Category
-    @ManyToOne
-    @JoinColumn(name = "CategoryId")
-    private Category category;
+    @OneToMany(mappedBy = "orderMethod")
+    private List<Order> orders;
 
 }

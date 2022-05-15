@@ -250,26 +250,13 @@
 							<nav>
 								<ul class="categori-menu-list menu-hidden">
 									<li th:each="lst, state : ${lstCategory}">
-										<a href="shop.html">
-											<span>
+										<a th:href="@{|/product/category/${lst.id}|}">
+											<!-- <span>
 												<img th:src="@{|/assets/images/GIcon/${state.index + 1}.png|}" alt="menu-icon">
-											</span>
+											</span> -->
 											[[${lst.name}]]
-											<i class="fa fa-angle-right" aria-hidden="true"></i>
-										</a>
-										<!-- categori Mega-Menu Start -->
-										<ul class="ht-dropdown megamenu first-megamenu">
-											<!-- Single Column Start -->
-											<li class="single-megamenu row">
-												<ul class="col-6 pr-0" th:each="lstSub : ${lstSubCategory}" th:if="${lstSub.category.id} == ${lst.id}">
-													<li class="menu-tile">
-														<a href="#">[[${lstSub.name}]]</a>
-													</li>
-												</ul>
-											</li>
-											<!-- Single Column End -->
-										</ul>
-										<!-- categori Mega-Menu End -->
+											<!-- <i class="fa fa-angle-right" aria-hidden="true"></i> -->
+										</a>										
 									</li>
 								</ul>
 							</nav>
@@ -281,18 +268,16 @@
 							<nav>
 								<ul>
 									<li class="current">
-										<a th:href="@{|/index|}">
-											Home
-										</a>
+										<a th:href="@{|/index|}"> Home </a>
 									</li>
 									<li>
-										<a href="shop.html">Shop</a>
+										<a th:href="@{|/product|}">Shop</a>
 									</li>
 									<li>
 										<a href="blog.html">Blog</a>
 									</li>
 									<li>
-										<a href="about-us.html">About Us</a>
+										<a th:href="@{|/about|}">About Us</a>
 									</li>
 									<li>
 										<a href="contact-us.html">Contact</a>

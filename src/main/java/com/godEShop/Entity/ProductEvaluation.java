@@ -30,7 +30,7 @@ public class ProductEvaluation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "Evaluation")
     private Integer evaluation;

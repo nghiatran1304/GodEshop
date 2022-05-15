@@ -42,9 +42,4 @@ public class Category implements Serializable {
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 
-    // bi-directional many-to-one association to SubCategory
-    @JsonIgnore
-    @OneToMany(mappedBy = "category")
-    private List<SubCategory> subCategories;
-
 }

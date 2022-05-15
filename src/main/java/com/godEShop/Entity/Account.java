@@ -1,16 +1,15 @@
 package com.godEShop.Entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,30 +33,21 @@ public class Account implements Serializable {
     @Column(name = "Username")
     private String username;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CreateDate")
-    private Date createDate;
-
-    @Column(name = "IsDeleted")
-    private boolean isDeleted;
+    @Column(name = "Isdelete")
+    private Boolean isDelete;
 
     @Column(name = "Password")
     private String password;
 
-    // bi-directional many-to-one association to Authority
-    @JsonIgnore
-    @OneToMany(mappedBy = "account")
-    private List<Authority> authorities;
+    // bi-directional many-to-one association to Role
+    @ManyToOne
+    @JoinColumn(name = "RoleId")
+    private Role role;
 
     // bi-directional many-to-one association to Gcoin
     @JsonIgnore
     @OneToMany(mappedBy = "account")
     private List<Gcoin> gcoins;
-
-    // bi-directional many-to-one association to History
-    @JsonIgnore
-    @OneToMany(mappedBy = "account")
-    private List<History> histories;
 
     // bi-directional many-to-one association to Order
     @JsonIgnore

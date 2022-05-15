@@ -1,46 +1,45 @@
 package com.godEShop.Entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * The persistent class for the ProductDetails database table.
+ * The persistent class for the MachineInsides database table.
  * 
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ProductDetails")
-public class ProductDetail implements Serializable {
+@Table(name = "MachineInsides")
+public class MachineInside implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
-    @Column(name = "DetailKey")
-    private String detailKey;
+    @Column(name = "Name")
+    private String name;
 
-    @Column(name = "DetailValue")
-    private String detailValue;
-
-    // bi-directional many-to-one association to Product
-    @ManyToOne
-    @JoinColumn(name = "ProductId")
-    private Product product;
+    // bi-directional many-to-one association to Watch
+    @JsonIgnore
+    @OneToMany(mappedBy = "machineInside")
+    private List<Watch> watches;
 
 }

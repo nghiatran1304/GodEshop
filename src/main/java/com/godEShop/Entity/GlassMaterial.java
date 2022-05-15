@@ -1,30 +1,32 @@
 package com.godEShop.Entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * The persistent class for the Authorities database table.
+ * The persistent class for the GlassMaterials database table.
  * 
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Authorities")
-public class Authority implements Serializable {
+@Table(name = "GlassMaterials")
+public class GlassMaterial implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -32,14 +34,11 @@ public class Authority implements Serializable {
     @Column(name = "Id")
     private Integer id;
 
-    // bi-directional many-to-one association to Account
-    @ManyToOne
-    @JoinColumn(name = "Username")
-    private Account account;
+    @Column(name = "Name")
+    private String name;
 
-    // bi-directional many-to-one association to Role
-    @ManyToOne
-    @JoinColumn(name = "RoleId")
-    private Role role;
-
+    // bi-directional many-to-one association to Watch
+    @JsonIgnore
+    @OneToMany(mappedBy = "glassMaterial")
+    private List<Watch> watches;
 }

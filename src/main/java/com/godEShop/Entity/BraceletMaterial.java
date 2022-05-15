@@ -18,15 +18,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * The persistent class for the OrderStatuses database table.
+ * The persistent class for the BraceletMaterials database table.
  * 
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "OrderStatuses")
-public class OrderStatus implements Serializable {
+@Table(name = "BraceletMaterials")
+public class BraceletMaterial implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -37,9 +37,14 @@ public class OrderStatus implements Serializable {
     @Column(name = "Name")
     private String name;
 
-    // bi-directional many-to-one association to Order
+    // bi-directional many-to-one association to Accessory
     @JsonIgnore
-    @OneToMany(mappedBy = "orderStatus")
-    private List<Order> orders;
+    @OneToMany(mappedBy = "braceletMaterial")
+    private List<Accessory> accessories;
+
+    // bi-directional many-to-one association to Watch
+    @JsonIgnore
+    @OneToMany(mappedBy = "braceletMaterial")
+    private List<Watch> watches;
 
 }

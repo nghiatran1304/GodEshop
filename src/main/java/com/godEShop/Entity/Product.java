@@ -37,29 +37,34 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private Integer id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CreateDate")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "Createdate")
     private Date createDate;
 
     @Column(name = "Detail")
     private String detail;
 
-    @Column(name = "Gender")
-    private Integer gender;
-
-    @Column(name = "MadeIn")
+    @Column(name = "Madein")
     private String madeIn;
-
-    @Column(name = "Material")
-    private String material;
 
     @Column(name = "Name")
     private String name;
 
     @Column(name = "Price")
     private Double price;
+
+    @Column(name = "Quantity")
+    private Integer quantity;
+
+    @Column(name = "Warranty")
+    private Integer warranty;
+
+    // bi-directional many-to-one association to Accessory
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<Accessory> accessories;
 
     // bi-directional many-to-one association to OrderDetail
     @JsonIgnore
@@ -70,11 +75,6 @@ public class Product implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<ProductComment> productComments;
-
-    // bi-directional many-to-one association to ProductDetail
-    @JsonIgnore
-    @OneToMany(mappedBy = "product")
-    private List<ProductDetail> productDetails;
 
     // bi-directional many-to-one association to ProductDiscount
     @JsonIgnore
@@ -106,9 +106,9 @@ public class Product implements Serializable {
     @JoinColumn(name = "CategoryId")
     private Category category;
 
-    // bi-directional many-to-one association to SubCategory
-    @ManyToOne
-    @JoinColumn(name = "SubCategoryId")
-    private SubCategory subCategory;
+    // bi-directional many-to-one association to Watch
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<Watch> watches;
 
 }
