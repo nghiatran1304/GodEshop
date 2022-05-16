@@ -198,7 +198,7 @@
 										</li>
 									</ul>
 								</div>
-								<p class="woocommerce-result-count">Showing 1–12 of 42 results</p>
+								<p class="woocommerce-result-count">Showing <span class="text-primary">[[${fromProduct}]]</span>–<span class="text-primary">[[${toProduct}]]</span> of <span class="text-primary">[[${totalProducts}]]</span> results</p>
 								<div class="woocommerce-ordering">
 									<form method="get" class="woocommerce-ordering hidden-xs">
 										<div class="orderby-wrapper">
@@ -222,23 +222,26 @@
 							<!-- END PRODUCT LIST -->
 						</div>
 						<nav class="woocommerce-pagination">
-							<ul class="page-numbers">
+							<!-- 							<ul class="page-numbers">
 								<li>
-									<span aria-current="page" class="page-numbers current">1</span>
+									<a class="btn btn-primary" th:href="@{|/product?p=0|}">First</a>
 								</li>
 								<li>
-									<a class="page-numbers" href="#">2</a>
+									<a class="page-numbers" th:href="@{|/product?p=${page.number-1}|}">Prev</a>
 								</li>
 								<li>
-									<a class="page-numbers" href="#">3</a>
+									<a class="page-numbers" th:href="@{|/product?p=${page.number+1}|}">Next</a>
 								</li>
 								<li>
-									<a class="page-numbers" href="#">4</a>
+									<a class="next page-numbers" th:href="@{|/product?p=${page.totalPages-1}|}">Last</a>
 								</li>
-								<li>
-									<a class="next page-numbers" href="#">→</a>
-								</li>
-							</ul>
+							</ul> -->
+							<div class="col-12 text-center">
+								<a th:href="@{|/product?p=0|}" class="btn btn-primary font-weight-bold a1">First</a>
+								<a th:href="@{|/product?p=${page.number-1}|}" class="btn btn-primary font-weight-bold a1">Prev</a>
+								<a th:href="@{|/product?p=${page.number+1}|}" class="btn btn-primary font-weight-bold a1">Next</a>
+								<a th:href="@{|/product?p=${page.totalPages-1}|}" class="btn btn-primary font-weight-bold a1">Last</a>
+							</div>
 						</nav>
 					</div>
 				</div>

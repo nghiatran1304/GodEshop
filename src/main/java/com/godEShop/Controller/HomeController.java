@@ -61,14 +61,4 @@ public class HomeController {
 	return "order/checkout";
     }
 
-    @GetMapping("/singleproduct")
-    public String singleproductPage() {
-	return "product/single-product";
-    }
-
-    @GetMapping("/product")
-    public String productPage() {
-	return "product/product";
-    }
-
 }

@@ -4,7 +4,6 @@
 	DROP DATABASE GodShop
 	GO
 */
----------update lần cuối--7:50 15/05/2022----------------
 CREATE DATABASE GodShop
 GO
 
@@ -361,59 +360,78 @@ INSERT INTO Products(Name,Quantity,Price,CreateDate,Warranty,MadeIn,Detail,Brand
 (N'BA-130-7A1DR',1,2,'2022-05-15',60,N'Mỹ',N'Từ BABY-G, dòng đồng hồ thường ngày dành cho nữ giới năng động, chúng tôi đã cho ra mắt các mẫu mới để tô điểm cho thời trang đường phố.
 Mẫu cơ bản là BA-130, phiên bản nhỏ gọn của thiết kế G-SHOCK được ưa chuộng. Sắc trắng và hồng của mẫu sản phẩm này kết hợp với màu kim loại của các bộ phận mặt đồng hồ đem đến diện mạo tươi sáng. Tông màu đơn sắc tinh tế của mẫu đồng hồ màu đen để lại ấn tượng về vẻ ngoài sành điệu.
 Thiết kế vỏ nam tính kết hợp với các màu sắc kim loại nữ tính tạo nên thiết kế đồng hồ vô cùng phù hợp với thời trang đường phố.',1,1),
+
 (N'BA-120TG-4ADR',3,5,'2022-05-15',60,N'Mỹ',N'Thuộc dòng BA-120LP-7A2DR – dòng baby-g kim số được mệnh danh là G-shock GA-120 phiên bản nữ; BA-120LP-7A2 với ,ặt số ở vị trí 6 giờ và 9 giờ của mẫu đồng hồ kim-số này được bố trí dễ đọc.
 Điều này hơn nữa tạo một thiết kế dày dặn rất phù hợp với trang phục xuống phố cũng như thời trang thường ngày.',1,2),
+
 (N'BGD-560CF-7DR',5,10,'2022-05-15',60,N'Mỹ',N'Lấy cảm hứng từ phong cách bãi biển phía Tây Hoa Kỳ.',1,3),
+
 (N'BGA-151EF-1BDR',7,15,'2022-05-15',60,N'Mỹ',N'Ba mặt số cung cấp thông tin về ngày tháng, Giờ thế giới, đồng hồ bấm giờ và nhiều hơn nữa.Từ dòng BGA-150 mặt to phổ biến đã xuất hiện các mẫu mới với số Ả Rập tuyệt vời cho bốn vạch giờ. Mẫu màu hồng nhạt và trắng kết hợp vạch giờ số Ả Rập màu vàng hồng mang đến họa tiết màu sắc nữ tính và thanh lịch. Ba mặt số cung cấp thông tin về ngày tháng, Giờ thế giới, đồng hồ bấm giờ và nhiều hơn nữa.
 Thiết kế nữ tính cực kỳ phù hợp với thời trang nữ với các tính năng và chức năng tiện dụng và dễ đọc.',1,12),
+
 (N'BGA-190-3BDR',7,2,'2022-05-15',60,N'Mỹ',N'Với tính năng Dual Dial World Time (Giờ thế giới hai vòng quay), mẫu này rất lý tưởng cho những phụ nữ thích đi du lịch thế giới ngày nay. Bạn có thể xem nhanh thời gian ở vị trí hiện tại của bạn (kim chính) và một vị trí khác (mặt số ở vị trí 6 giờ), hoán đổi mặt số chính và mặt số giờ bằng cách đơn giản là nhấn vào nút phía dưới bên phải.
 Màu của mẫu này đã được lựa chọn đặc biệt để phù hợp với các khu nghỉ dưỡng trên bãi biển trên toàn cầu và họa tiết du lịch được nhấn mạnh hơn bằng kim phút hình máy bay trong mặt số và thiết kế mặt đồng hồ hình bản đồ thế giới.',1,4),
 
 (N'Bulova 96L257',9,200,'2022-05-16',60,N'Mỹ',N'Bulova 96L257 - Đồng Hồ Nữ - Pin / Quartz - Kính Khoáng - Size Mặt 33mm - Bảo Hành 5 Năm - Chính Hãng 100%',2,7),
+
 (N'Bulova 98A187',1,250,'2022-05-16',60,N'Mỹ',N'Bulova 98A187 - Đồng Hồ Nam - Cơ - Automatic - Kính Khoáng - Size Mặt 41mm - Bảo Hành 5 Năm - Chính Hãng 100%',2,3),
+
 (N'BULOVA 98A137',3,200,'2022-05-16',60,N'Mỹ',N'BULOVA 98A137 - Đồng Hồ Nam - Pin / Quartz - Kính Khoáng - Bảo Hành 5 Năm - Chính Hãng 100%',2,7),
+
 (N'Bulova 97B165',5,200,'2022-05-16',60,N'Mỹ',N'Bulova 97B165 - Đồng Hồ Nam - Pin / Quartz - Kính Khoáng - Size Mặt 37mm - Bảo Hành 5 Năm - Chính Hãng 100%',2,7),
+
 (N'Bulova 96C132',5,250,'2022-05-16',60,N'Mỹ',N'Bulova 96C132 - Đồng Hồ Nam - Cơ - Automatic - Kính Khoáng - Size Mặt 42mm - Bảo Hành 5 Năm - Chính Hãng 100%',2,3),
 
 (N'CALVIN KLEIN K3M51T5N',9,100,'2022-05-17',60,N'Thụy Sỹ',N'CALVIN KLEIN K3M51T5N - Đồng Hồ Nam - Pin / Quartz - Kính Khoáng - Size Mặt 40mm - Bảo Hành 5 Năm - Chính Hãng 100%',3,7),
+
 (N'CALVIN KLEIN STRAP 22MM',7,60,'2022-05-17',24,N'Thụy Sỹ',N'Dây đeo CALVIN KLEIN làm từ da cao cấp phù hợp với các loại đồng hồ cùng hãng',3,13),
+
 (N'Calvin Klein K2G236X6',5,100,'2022-05-17',60,N'Thụy Sỹ',N'Đồng Hồ Nữ - Pin / Quartz - Kính Khoáng - Size Mặt 31mm - Bảo Hành 5 Năm - Chính Hãng 100%',3,6),
+
 (N'Calvin Klein K4D221CY',3,100,'2022-05-17',60,N'Thụy Sỹ',N'Calvin Klein K4D221CY - Đồng Hồ Nữ - Pin / Quartz - Kính Khoáng - Size Mặt 32mm - Bảo Hành 5 Năm - Chính Hãng 100%',3,8),
+
 (N'Calvin Klein K6R23526',1,100,'2022-05-17',60,N'Thụy Sỹ',N'Calvin Klein K6R23526 - Đồng Hồ Nữ - Pin / Quartz - Kính Khoáng - Size Mặt 32mm - Bảo Hành 5 Năm - Chính Hãng 100%',3,9),
 
-(N'Đồng Hồ Jacob & Co Astronomia Solar Baguette - Jewellery - Planets - Zodiac AS910.40.BD.BD.A6',1,649702,'2022-05-18',60,N'Mỹ',N'Mang sự sáng tạo đánh tan những chuẩn mực thiết kế thông thường 
+(N'Jacob & Co Astronomia Solar Baguette',1,649702,'2022-05-18',60,N'Mỹ',N'Mang sự sáng tạo đánh tan những chuẩn mực thiết kế thông thường 
 vẫn luôn là cách mà thương hiệu đồng hồ Jacob & Co ghi dấu ấn mạnh mẽ trong lòng người hâm mộ trên thế giới có một không hai, không thể nhầm lẫn.',4,12),
-(N'Đồng Hồ Jacob & Co Bugatti Chiron Sapphire Crystal BU800.30.BE.UA.ABRUA',1,349702,'2022-05-18',60,N'Mỹ',N'Jacob & Co Bugatti Chiron Tourbillon BU800.30.BE.UA.ABRUA này thì
+
+(N'Jacob & Co Bugatti Chiron Sapphire',1,349702,'2022-05-18',60,N'Mỹ',N'Jacob & Co Bugatti Chiron Tourbillon BU800.30.BE.UA.ABRUA này thì
 chúng ta có thêm bộ vỏ nạm đá Tsavorite màu xanh lá cực kỳ nổi bật.',4,12),
-(N'Đồng Hồ Jacob & Co Brilliant Flying Tourbillon Arlequino Pastel BT543.30.HX.UC.B',1,649702,'2022-05-18',60,N'Mỹ',N'Là một chiếc đồng hồ thuộc bộ sưu tập High Jewelry Masterpiece, Jacob & Co Brilliant Flying
+
+(N'Jacob & Co Brilliant Flying Tourbillon',1,649702,'2022-05-18',60,N'Mỹ',N'Là một chiếc đồng hồ thuộc bộ sưu tập High Jewelry Masterpiece, Jacob & Co Brilliant Flying
 Tourbillon Arlequino nổi bật với hàng trăm viên đá quý lấp lánh được nạm trên cả mặt số và viền bezel đồng hồ tạo nên một sự cuốn hút ngay từ cái nhìn đầu tiên.',4,12),
+
 (N'JACOB & CO Astronomia Solar',1,300,'2022-05-18',60,N'Mỹ',N'JACOB & CO Astronomia Solar  với cổ máy Tourbillon lấy cảm hứng từ dãi thiên Hà quay quanh hệ mặt trời .',4,12),
+
 (N'JACOB & CO EPIC SF24 FLYING TOURBILLON',1,500,'2022-05-18',60,N'Mỹ',N'Jacob & Co Epic SF24 Flying Tourbillon là một trong những thiết kế đáng kinh ngạc của Jacob & Co khi mang tới một cỗ máy đầy thể thao cùng thiết kế mặt số skeleton đầy táo bạo cùng những đường nét thủ công không thể tuyệt vời hơn.',4,10),
 
 
-(N'Đồng hồ CASIO 44.4 × 43.2 mm Unisex W-218HC-4AVDF',5,25,'2022-05-19',60,N'Nhật Bản',N'Đồng hồ được trang bị khung viền và dây đeo nhựa có trọng lượng nhẹ, chịu lực tốt, hạn chế hư hỏng và tạo cảm giác mềm mại khi đeo.',5,9),
-(N'Đồng hồ CASIO 52 mm Nam AEQ-120W-9AVDF',3,20,'2022-05-19',60,N'Nhật Bản',N'Mẫu đồng hồ này đến từ thương hiệu đồng hồ Casio nổi tiếng Nhật Bản. Thương hiệu với nhiều mẫu mã đa dạng phù hợp nhiều đối tượng sử dụng.',5,8),
-(N'Đồng hồ CASIO 29 mm Nữ LA680WGA-9DF',5,35,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,5),
-(N'Đồng hồ CASIO 34 mm Nữ LRW-200H-4B2VDF',5,30,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,2),
-(N'Đồng hồ CASIO 31 mm Nữ LTP-1308D-2AVDF ',5,25,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,4),
+(N'Đồng hồ CASIO Unisex W-218HC-4AVDF',5,25,'2022-05-19',60,N'Nhật Bản',N'Đồng hồ được trang bị khung viền và dây đeo nhựa có trọng lượng nhẹ, chịu lực tốt, hạn chế hư hỏng và tạo cảm giác mềm mại khi đeo.',5,9),
 
+(N'Đồng hồ CASIO AEQ-120W-9AVDF',3,20,'2022-05-19',60,N'Nhật Bản',N'Mẫu đồng hồ này đến từ thương hiệu đồng hồ Casio nổi tiếng Nhật Bản. Thương hiệu với nhiều mẫu mã đa dạng phù hợp nhiều đối tượng sử dụng.',5,8),
+
+(N'Đồng hồ CASIO LA680WGA-9DF',5,35,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,5),
+
+(N'Đồng hồ CASIO LRW-200H-4B2VDF',5,30,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,2),
+
+(N'Đồng hồ CASIO LTP-1308D-2AVDF ',5,25,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,4),
 
 
 
 -----------------Nam------------------
 
 
-(N'Đồng Hồ Citizen NH8352-53P',2,220,'2022-05-14',60,N'Nhật Bản',N'Đồng Hồ Citizen NH8352-53P Cho Nam là chiếc đồng hồ cao cấp đến từ thương hiệu Citizen nổi tiếng. Sở hữu gam màu nổi bật ngay từ khi có mặt trên thị trường Citizen NH8352-53P được nhiều tín đồ thời trang săn đón.',6,1), --== nam
-(N'CITIZEN BM683809X CHANDLER MILITARY',4,170,'2022-05-14',60,N'Nhật Bản',N'Đồng hồ CITIZEN Chandler Military, được đánh bóng và thoải mái, là sự bổ sung hoàn hảo cho bộ sưu tập đồng hồ của bạn. Nổi bật ở đây là vỏ bằng thép không gỉ, dây đeo màu nâu sẫm với mặt số và ngày tháng màu xanh lá cây. Với công nghệ Eco-Drive của chúng tôi - được cung cấp bởi ánh sáng, bất kỳ ánh sáng nào.',6,10),  --==nam
-(N'Đồng Hồ Nam Citizen NH8365-19F',6,200,'2022-05-14',60,N'Nhật Bản',N'Đồng hồ Citizen NH8365-19F cho Nam có thiết kế đơn giản nhưng nam tính, với mặt màu đen sử dụng số La Mã và dây được làm từ chất liệu da cao cấp, mang đến nét mạnh mẽ cho người đeo. Đường kính mặt 41mm với độ dày 11mm phù hợp với mọi cổ tay nam giới.',6,3), --== nam
-(N'Đồng Hồ Citizen AN8167-53X',8,160,'2022-05-14',60,N'Nhật Bản',N'Đồng Hồ Citizen AN8167-53X Nam Chronograph Màu Đen Mặt Nâu đỏ là chiếc đồng hồ cao cấp đến từ thương hiệu Citizen nổi tiếng. Sở hữu thiết kế hiện đại cùng gam màu nổi bật Citizen AN8167-53X cho người dùng vẻ sang trọng, lịch lãm.',6,4), --==nam
-(N'Đồng Hồ Citizen ER0212-50P',10,135,'2022-05-14',60,N'Nhật Bản',N'Đồng Hồ Citizen ER0212-50P Cho Nữ là chiếc đồng hồ cao cấp đến từ thương hiệu Citizen nổi tiếng. Khi sở hữu siêu phẩm này bạn sẽ thấy như cả thế giới ở trên cổ tay của mình. Ngay từ khi có mặt trên thị trường Citizen ER0212-50P đã được rất nhiều tín đồ thời trang yêu thích. ',6,6), --==nữ
+(N'Citizen NH8352-53P',2,220,'2022-05-14',60,N'Nhật Bản',N'Đồng Hồ Citizen NH8352-53P Cho Nam là chiếc đồng hồ cao cấp đến từ thương hiệu Citizen nổi tiếng. Sở hữu gam màu nổi bật ngay từ khi có mặt trên thị trường Citizen NH8352-53P được nhiều tín đồ thời trang săn đón.',6,1), --== nam
+(N'CITIZEN BM683809X',4,170,'2022-05-14',60,N'Nhật Bản',N'Đồng hồ CITIZEN Chandler Military, được đánh bóng và thoải mái, là sự bổ sung hoàn hảo cho bộ sưu tập đồng hồ của bạn. Nổi bật ở đây là vỏ bằng thép không gỉ, dây đeo màu nâu sẫm với mặt số và ngày tháng màu xanh lá cây. Với công nghệ Eco-Drive của chúng tôi - được cung cấp bởi ánh sáng, bất kỳ ánh sáng nào.',6,10),  --==nam
+(N'Citizen NH8365-19F',6,200,'2022-05-14',60,N'Nhật Bản',N'Đồng hồ Citizen NH8365-19F cho Nam có thiết kế đơn giản nhưng nam tính, với mặt màu đen sử dụng số La Mã và dây được làm từ chất liệu da cao cấp, mang đến nét mạnh mẽ cho người đeo. Đường kính mặt 41mm với độ dày 11mm phù hợp với mọi cổ tay nam giới.',6,3), --== nam
+(N'Citizen AN8167-53X',8,160,'2022-05-14',60,N'Nhật Bản',N'Đồng Hồ Citizen AN8167-53X Nam Chronograph Màu Đen Mặt Nâu đỏ là chiếc đồng hồ cao cấp đến từ thương hiệu Citizen nổi tiếng. Sở hữu thiết kế hiện đại cùng gam màu nổi bật Citizen AN8167-53X cho người dùng vẻ sang trọng, lịch lãm.',6,4), --==nam
+(N'Citizen ER0212-50P',10,135,'2022-05-14',60,N'Nhật Bản',N'Đồng Hồ Citizen ER0212-50P Cho Nữ là chiếc đồng hồ cao cấp đến từ thương hiệu Citizen nổi tiếng. Khi sở hữu siêu phẩm này bạn sẽ thấy như cả thế giới ở trên cổ tay của mình. Ngay từ khi có mặt trên thị trường Citizen ER0212-50P đã được rất nhiều tín đồ thời trang yêu thích. ',6,6), --==nữ
 
-(N'Đồng hồ Daniel Wellington 0102DW',2,145,'2022-05-14',60,N'Thụy Điển',N'Đồng hồ Daniel Wellington 0102DW có vỏ kim loại màu vàng sang trọng bao quanh nền số màu trắng trang nhã, kim chỉ và vạch số mỏng nổi bật trên nền số màu trắng trang nhã, logo DW được đặt ngay vị trí 12h nổi bật.',7,1), --== nam
-(N'Đồng Hồ Daniel Wellington 0952DW',2,145,'2022-05-14',60,N'Thụy Điển',N'Đồng Hồ Daniel Wellington 0952DW được thiết kế tinh xảo đến từng chi tiết cùng dây vải Nato cao cấp với màu sắc ngọt ngào, nữ tính giúp phụ nữ thêm phần nổi bật',7,6), --==nữ
-(N'Đồng Hồ Daniel Wellington Men’s 0206DW',2,150,'2022-05-14',60,N'Thụy Điển',N'Đồng hồ Daniel Wellington Men’s 0206DW với dây da màu đen sang trọng, lịch sự và nam tính giúp bạn luôn tự tin mỗi khi xuất hiện. Chiếc đồng hồ Daniel Wellington gọn nhẹ dễ dàng kết hợp với các loại trang phục khác nhau.',7,7), --== nam
-(N'Đồng Hồ Daniel Wellington DW00100130',2,155,'2022-05-14',60,N'Nhật Bản',N'Đồng hồ Daniel Wellington DW00100130 là chiếc đồng hồ đẹp xuất sắc từ thương hiệu Daniel Wellington sở hữu thiết kế tối giản với mặt số đơn giản ít chi tiết, dây da có phần cổ điển, lịch lãm.',7,3), --== nam
-(N'Đồng Hồ Daniel Wellington 0902DW',2,120,'2022-05-14',60,N'Nhật Bản',N'Đồng hồ Daniel Wellington 0902DW với dây da cao cấp khỏe khoắn, trẻ trung và hiện đại giúp phái nữ luôn nổi bật với sự xuất hiện của mình ',7,6), --== nữ
+(N'Daniel Wellington 0102DW',2,145,'2022-05-14',60,N'Thụy Điển',N'Đồng hồ Daniel Wellington 0102DW có vỏ kim loại màu vàng sang trọng bao quanh nền số màu trắng trang nhã, kim chỉ và vạch số mỏng nổi bật trên nền số màu trắng trang nhã, logo DW được đặt ngay vị trí 12h nổi bật.',7,1), --== nam
+(N'Daniel Wellington 0952DW',2,145,'2022-05-14',60,N'Thụy Điển',N'Đồng Hồ Daniel Wellington 0952DW được thiết kế tinh xảo đến từng chi tiết cùng dây vải Nato cao cấp với màu sắc ngọt ngào, nữ tính giúp phụ nữ thêm phần nổi bật',7,6), --==nữ
+(N'Daniel Wellington Men’s 0206DW',2,150,'2022-05-14',60,N'Thụy Điển',N'Đồng hồ Daniel Wellington Men’s 0206DW với dây da màu đen sang trọng, lịch sự và nam tính giúp bạn luôn tự tin mỗi khi xuất hiện. Chiếc đồng hồ Daniel Wellington gọn nhẹ dễ dàng kết hợp với các loại trang phục khác nhau.',7,7), --== nam
+(N'Daniel Wellington DW00100130',2,155,'2022-05-14',60,N'Nhật Bản',N'Đồng hồ Daniel Wellington DW00100130 là chiếc đồng hồ đẹp xuất sắc từ thương hiệu Daniel Wellington sở hữu thiết kế tối giản với mặt số đơn giản ít chi tiết, dây da có phần cổ điển, lịch lãm.',7,3), --== nam
+(N'Daniel Wellington 0902DW',2,120,'2022-05-14',60,N'Nhật Bản',N'Đồng hồ Daniel Wellington 0902DW với dây da cao cấp khỏe khoắn, trẻ trung và hiện đại giúp phái nữ luôn nổi bật với sự xuất hiện của mình ',7,6), --== nữ
 
 (N'DOXA D154TWH',2,6500,'2022-05-14',60,N'Thụy Sĩ',N'Mẫu Doxa D154TWH phiên bản giới hạn 1000 chiếc trên toàn thế giới, sự kết hợp cách điệu giữa các vạch số cùng chữ số la mã được mạ vàng sang trọng, điểm nhấn với nền mặt số Skeleton lộ máy.',8,12), --== nam
 (N'DOXA D221RSV',4,1800,'2022-05-14',60,N'Thụy Sĩ',N'Ẩn bên dưới mặt kính Sapphire với nền mặt số được gia công tinh xảo đính các viên kim cương tạo nên phụ kiện thời trang sang trọng dành cho phái đẹp với phiên bản Doxa D221RSV.',8,3), --== nữ
@@ -620,7 +638,7 @@ INSERT INTO ProductPhotos VALUES
 ('calvinklein-quartz-p11-4.jpg',11),
 
 
-('calvinklein-phukien-p12-1-.jpg',12),
+('calvinklein-phukien-p12-1.jpg',12),
 
 ('calvinklein-dress-p13-1.jpg',13),
 ('calvinklein-dress-p13-2.jpg',13),
@@ -689,91 +707,95 @@ INSERT INTO ProductPhotos VALUES
 
 -----------------NAM---------------------
 
-('citizen-analog-p26-1',26),
-('citizen-analog-p26-2',26),
-('citizen-analog-p26-3',26),
-('citizen-field-p27-1',27),
-('citizen-field-p27-2',27),
-('citizen-field-p27-3',27),
-('citizen-automatic-p28-1',28),
-('citizen-automatic-p28-2',28),
-('citizen-automatic-p28-3',28),
-('citizen-automatic-p29-1',29),
-('citizen-automatic-p29-2',29),
-('citizen-automatic-p29-3',29),
-('citizen-dress-p30-1',30),
-('citizen-dress-p30-2',30),
-('citizen-dress-p30-3',30),
+('citizen-analog-p26-1.jpg',26),
+('citizen-analog-p26-2.jpg',26),
+('citizen-analog-p26-3.jpg',26),
+
+('citizen-field-p27-1.jpg',27),
+('citizen-field-p27-2.jpg',27),
+('citizen-field-p27-3.jpg',27),
+
+('citizen-automatic-p28-1.jpg',28),
+('citizen-automatic-p28-2.jpg',28),
+('citizen-automatic-p28-3.jpg',28),
+
+('citizen-automatic-p29-1.jpg',29),
+('citizen-automatic-p29-2.jpg',29),
+('citizen-automatic-p29-3.jpg',29),
+
+('citizen-dress-p30-1.jpg',30),
+('citizen-dress-p30-2.jpg',30),
+('citizen-dress-p30-3.jpg',30),
 
 
-('daniel wellington-analog-p31-1',31),
-('daniel wellington-analog-p31-2',31),
-('daniel wellington-analog-p31-3',31),
-('daniel wellington-dress-p32-1',32),
-('daniel wellington-dress-p32-2',32),
-('daniel wellington-dress-p32-3',32),
-('daniel wellington-quartz-p33-1',33),
-('daniel wellington-quartz-p33-2',33),
-('daniel wellington-quartz-p33-3',33),
-('daniel wellington-automatic-p34-1',34),
-('daniel wellington-automatic-p34-2',34),
-('daniel wellington-automatic-p34-3',34),
-('daniel wellington-dress-p35-1',35),
-('daniel wellington-dress-p35-2',35),
-('daniel wellington-dress-p35-3',35),
+('daniel wellington-analog-p31-1.jpg',31),
+('daniel wellington-analog-p31-2.jpg',31),
+('daniel wellington-analog-p31-3.jpg',31),
+('daniel wellington-dress-p32-1.jpg',32),
+('daniel wellington-dress-p32-2.jpg',32),
+('daniel wellington-dress-p32-3.jpg',32),
+('daniel wellington-quartz-p33-1.jpg',33),
+('daniel wellington-quartz-p33-2.jpg',33),
+('daniel wellington-quartz-p33-3.jpg',33),
+('daniel wellington-automatic-p34-1.jpg',34),
+('daniel wellington-automatic-p34-2.jpg',34),
+('daniel wellington-automatic-p34-3.jpg',34),
+('daniel wellington-dress-p35-1.jpg',35),
+('daniel wellington-dress-p35-2.jpg',35),
+('daniel wellington-dress-p35-3.jpg',35),
 
-('doxa-automatic-p36-1',36),
-('doxa-automatic-p36-2',36),
-('doxa-automatic-p36-3',36),
-('doxa-luxury-p37-1',37),
-('doxa-luxury-p37-2',37),
-('doxa-luxury-p37-3',37),
-('doxa-quartz-p38-1',38),
-('doxa-quartz-p38-2',38),
-('doxa-quartz-p38-3',38),
-('doxa-luxury-p39-1',39),
-('doxa-luxury-p39-2',39),
-('doxa-luxury-p39-3',39),
-('doxa-luxury-p40-1',40),
+('doxa-automatic-p36-1.jpg',36),
+('doxa-automatic-p36-2.jpg',36),
+('doxa-automatic-p36-3.jpg',36),
+('doxa-luxury-p37-1.jpg',37),
+('doxa-luxury-p37-2.jpg',37),
+('doxa-luxury-p37-3.jpg',37),
+('doxa-quartz-p38-1.jpg',38),
+('doxa-quartz-p38-2.jpg',38),
+('doxa-quartz-p38-3.jpg',38),
+('doxa-luxury-p39-1.jpg',39),
+('doxa-luxury-p39-2.jpg',39),
+('doxa-luxury-p39-3.jpg',39),
+('doxa-luxury-p40-1.jpg',40),
 
-('fossil-analog-p41-1',41),
-('fossil-analog-p41-2',41),
-('fossil-analog-p41-3',41),
-('fossil-quartz-p42-1',42),
-('fossil-quartz-p42-2',42),
-('fossil-quartz-p42-3',42),
-('fossil-dress-p43-1',43),
-('fossil-dress-p43-2',43),
-('fossil-dress-p43-3',43),
-('fossil-automatic-p44-1',44),
-('fossil-automatic-p44-2',44),
-('fossil-automatic-p44-3',44),
-('fossil-automatic-p45-1',45),
-('fossil-automatic-p45-2',45),
-('fossil-automatic-p45-3',45),
+('fossil-analog-p41-1.jpg',41),
+('fossil-analog-p41-2.jpg',41),
+('fossil-analog-p41-3.jpg',41),
+('fossil-quartz-p42-1.jpg',42),
+('fossil-quartz-p42-2.jpg',42),
+('fossil-quartz-p42-3.jpg',42),
+('fossil-dress-p43-1.jpg',43),
+('fossil-dress-p43-2.jpg',43),
+('fossil-dress-p43-3.jpg',43),
+('fossil-automatic-p44-1.jpg',44),
+('fossil-automatic-p44-2.jpg',44),
+('fossil-automatic-p44-3.jpg',44),
+('fossil-automatic-p45-1.jpg',45),
+('fossil-automatic-p45-2.jpg',45),
+('fossil-automatic-p45-3.jpg',45),
 
-('gshock-quartz-p46-1',46),
-('gshock-quartz-p46-2',46),
-('gshock-quartz-p46-3',46),
-('gshock-quartz-p47-1',47),
-('gshock-quartz-p47-2',47),
-('gshock-quartz-p47-3',47),
-('gshock-quartz-p48-1',48),
-('gshock-quartz-p48-2',48),
-('gshock-quartz-p48-3',48),
-('gshock-quartz-p49-1',49),
-('gshock-quartz-p49-2',49),
-('gshock-quartz-p49-3',49),
-('gshock-quartz-p50-1',50),
-('gshock-quartz-p50-2',50),
-('gshock-quartz-p50-3',50),
+('gshock-quartz-p46-1.jpg',46),
+('gshock-quartz-p46-2.jpg',46),
+('gshock-quartz-p46-3.jpg',46),
+('gshock-quartz-p47-1.jpg',47),
+('gshock-quartz-p47-2.jpg',47),
+('gshock-quartz-p47-3.jpg',47),
+('gshock-quartz-p48-1.jpg',48),
+('gshock-quartz-p48-2.jpg',48),
+('gshock-quartz-p48-3.jpg',48),
+('gshock-quartz-p49-1.jpg',49),
+('gshock-quartz-p49-2.jpg',49),
+('gshock-quartz-p49-3.jpg',49),
+('gshock-quartz-p50-1.jpg',50),
+('gshock-quartz-p50-2.jpg',50),
+('gshock-quartz-p50-3.jpg',50),
 
 
 ---------------VƯƠNG------------------
 ('longines-analog-p1-1.jpg',51),
 ('longines-analog-p1-2.jpg',51),
-('longines-analog-p1-3',51),
-('longines-analog-p1-4',51),
+('longines-analog-p1-3.jpg',51),
+('longines-analog-p1-4.jpg',51),
 ('longines-digital-p2-1.jpg',52),
 ('longines-digital-p2-2.jpg',52),
 ('longines-digital-p2-3.jpg',52),
@@ -848,8 +870,8 @@ INSERT INTO ProductPhotos VALUES
 ('seiko-quartz-p4-4.jpg',69),
 ('seiko-analog-p5-1.jpg',70),
 ('seiko-analog-p5-2.jpg',70),
-('seiko-analog-p5-3',70),
-('seiko-analog-p5-4',70),
+('seiko-analog-p5-3.jpg',70),
+('seiko-analog-p5-4.jpg',70),
 --rolex
 ('rolex-luxury-p1-1.jpg',71),
 ('rolex-luxury-p1-2.jpg',71),
@@ -871,6 +893,19 @@ INSERT INTO ProductPhotos VALUES
 ('rolex-luxury-p5-2.jpg',75),
 ('rolex-luxury-p5-3.jpg',75),
 ('rolex-luxury-p5-4.jpg',75)
+GO
 
 
-
+--====================================================
+-- Products (Id, Name, Price, Image)
+IF OBJECT_ID('sp_getProductAndOneImage') IS NOT NULL
+	DROP PROC sp_getProductAndOneImage
+GO
+CREATE PROC sp_getProductAndOneImage
+AS
+	BEGIN
+		SELECT MIN(pp.Id) AS 'ImageName' FROM Products AS p
+		INNER JOIN ProductPhotos AS pp ON p.Id = pp.ProductId
+		GROUP BY p.Id
+	END
+GO
