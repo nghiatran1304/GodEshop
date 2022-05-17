@@ -22,4 +22,8 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.category.id=?1 AND p.isDeleted = 0")
     Page<Product> findAllProductByCategoryId(int id, Pageable pageable);
     
+    // tìm sản phẩm theo brands
+    @Query("SELECT p FROM Product p WHERE p.brand.id=?1 AND p.isDeleted = 0")
+    Page<Product> findAllProductByBrandId(int id, Pageable pageable);
+    
 }

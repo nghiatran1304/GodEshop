@@ -30,7 +30,7 @@
 							<div class="widget-content">
 								<ul class="product-categories">
 									<li class="cat-item" th:each="lst, state : ${lstBrands}">
-										<a th:href="@{|/product/category/${lst.id}|}">[[${lst.name}]]</a>
+										<a th:href="@{|/product/brand/${lst.id}|}">[[${lst.name}]]</a>
 										<span class="count">(5)</span>
 									</li>
 								</ul>
@@ -181,7 +181,10 @@
 						</div>
 						<div class="product-toolbar">
 							<div class="topbar-title">
-								<h1>Shop > <span class="text-primary">[[${nameOfSearch}]]</span></h1>
+								<h1>
+									Shop >
+									<span class="text-primary">[[${nameOfSearch}]]</span>
+								</h1>
 							</div>
 							<div class="product-toolbar-inner">
 								<div class="product-view-mode">
@@ -256,6 +259,12 @@
 									<a th:href="@{|/product/category/${idCategory}?p=${page.number-1}|}" class="btn btn-primary font-weight-bold a1">Prev</a>
 									<a th:href="@{|/product/category/${idCategory}?p=${page.number+1}|}" class="btn btn-primary font-weight-bold a1">Next</a>
 									<a th:href="@{|/product/category/${idCategory}?p=${page.totalPages-1}|}" class="btn btn-primary font-weight-bold a1">Last</a>
+								</th:block>
+								<th:block th:if="${whichPagination == 3}">
+									<a th:href="@{|/product/brand/${idBrand}?p=0|}" class="btn btn-primary font-weight-bold a1">First</a>
+									<a th:href="@{|/product/brand/${idBrand}?p=${page.number-1}|}" class="btn btn-primary font-weight-bold a1">Prev</a>
+									<a th:href="@{|/product/brand/${idBrand}?p=${page.number+1}|}" class="btn btn-primary font-weight-bold a1">Next</a>
+									<a th:href="@{|/product/brand/${idBrand}?p=${page.totalPages-1}|}" class="btn btn-primary font-weight-bold a1">Last</a>
 								</th:block>
 							</div>
 						</nav>

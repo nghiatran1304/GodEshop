@@ -41,4 +41,10 @@ public class ProductServiceImpl implements ProductService {
 	return productDAO.findAllProductByCategoryId(id, pageable);
     }
 
+    @Override
+    public Page<Product> findAllProductByBrandId(int id, Pageable pageable) {
+	// TODO Auto-generated method stub
+	return productDAO.findAllProductByBrandId(id, pageable);
+    }
+
 }

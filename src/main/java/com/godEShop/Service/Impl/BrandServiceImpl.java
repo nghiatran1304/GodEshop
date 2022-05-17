@@ -22,4 +22,10 @@ public class BrandServiceImpl implements BrandService{
 	return brandDAO.findAll();
     }
 
+    @Override
+    public Brand getById(int id) {
+	// TODO Auto-generated method stub
+	return brandDAO.getById(id);
+    }
+
 }

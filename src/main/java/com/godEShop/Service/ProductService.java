@@ -13,6 +13,8 @@ public interface ProductService {
     
     Page<Product> findAllProductByCategoryId(int id, Pageable pageable);
     
+    Page<Product> findAllProductByBrandId(int id, Pageable pageable);
+    
     List<String> getProductAndOneImage();
 
     List<Product> findAll();

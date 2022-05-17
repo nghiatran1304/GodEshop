@@ -8,4 +8,5 @@ public interface BrandService {
     
     List<Brand> findAll();
     
+    Brand getById(int id);
 }
