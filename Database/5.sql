@@ -279,6 +279,8 @@ GO
 
 INSERT INTO Accounts(Username, Password, IsDelete, RoleId) VALUES
 ('admin01', '123', 0, 'Admin'),
+('admin02', '123', 0, 'Admin'),
+('admin03', '123', 0, 'Admin'),
 ('cust01', '123', 0, 'Customer'),
 ('cust02', '123', 0, 'Customer'),
 ('cust03', '123', 0, 'Customer'),
@@ -894,6 +896,306 @@ INSERT INTO ProductPhotos VALUES
 ('rolex-luxury-p5-2.jpg',75),
 ('rolex-luxury-p5-3.jpg',75),
 ('rolex-luxury-p5-4.jpg',75)
+GO
+
+--=== VƯƠNG
+---- Product Discount
+INSERT INTO ProductDiscounts(Discount,CreateDate,EndDate,ProductId,CreateBy) VALUES
+(3,'2022-05-15','2022-05-25',1,'admin01'),
+(3,'2022-05-15','2022-05-25',2,'admin01'),
+(3,'2022-05-15','2022-05-25',3,'admin01'),
+(3,'2022-05-15','2022-05-25',4,'admin01'),
+(3,'2022-05-15','2022-05-25',5,'admin01'),
+(3,'2022-05-15','2022-05-25',6,'admin01'),
+(3,'2022-05-15','2022-05-25',7,'admin01'),
+(3,'2022-05-15','2022-05-25',8,'admin01'),
+(4,'2022-05-15','2022-05-25',9,'admin01'),
+(4,'2022-05-15','2022-05-25',10,'admin01'),
+(4,'2022-05-15','2022-05-25',11,'admin01'),
+(4,'2022-05-15','2022-05-25',12,'admin01'),
+(4,'2022-05-15','2022-05-25',13,'admin01'),
+(4,'2022-05-15','2022-05-25',14,'admin01'),
+(4,'2022-05-15','2022-05-25',15,'admin01'),
+(4,'2022-05-15','2022-05-25',16,'admin01'),
+(4,'2022-05-15','2022-05-25',17,'admin01'),
+(4,'2022-05-15','2022-05-25',18,'admin01'),
+(4,'2022-05-15','2022-05-25',19,'admin01'),
+(4,'2022-05-15','2022-05-25',20,'admin01'),
+(4,'2022-05-15','2022-05-25',21,'admin01'),
+(5,'2022-05-15','2022-05-25',22,'admin01'),
+(5,'2022-05-15','2022-05-25',23,'admin01'),
+(5,'2022-05-15','2022-05-25',24,'admin01'),
+(5,'2022-05-15','2022-05-25',25,'admin01'),
+(5,'2022-05-15','2022-05-25',26,'admin01'),
+(5,'2022-05-15','2022-05-25',27,'admin01'),
+(5,'2022-05-15','2022-05-25',28,'admin01'),
+(5,'2022-05-15','2022-05-25',29,'admin01'),
+(6,'2022-05-15','2022-05-25',30,'admin01'),
+(6,'2022-05-15','2022-05-25',31,'admin01'),
+(6,'2022-05-15','2022-05-25',32,'admin01'),
+(6,'2022-05-15','2022-05-25',33,'admin01'),
+(6,'2022-05-15','2022-05-25',34,'admin01'),
+(6,'2022-05-15','2022-05-25',35,'admin01'),
+(6,'2022-05-15','2022-05-25',36,'admin01'),
+(6,'2022-05-15','2022-05-25',37,'admin01'),
+(6,'2022-05-15','2022-05-25',38,'admin01'),
+(6,'2022-05-15','2022-05-25',39,'admin01'),
+(6,'2022-05-15','2022-05-25',40,'admin01')
+GO
+
+
+------------G-Coin-------------
+-------------------------------
+INSERT INTO Gcoins(Gcoin,Username) VALUES
+('1200','cust01'),
+('850','cust02'),
+('50','cust03'),
+('12020','cust04'),
+('699','cust05')
+GO
+
+---- Vourcher 
+INSERT INTO Vouchers(Name,Discount,CreateDate,EndDate,CreateBy) VALUES
+('VC0101',2,'2022-05-12','2022-08-12','admin01'),
+('VC0102',4,'2022-05-12','2022-08-12','admin01'),
+('VC0103',3,'2022-05-12','2022-08-12','admin01'),
+('VC0104',7,'2022-05-12','2022-08-12','admin01'),
+('VC0105',6,'2022-05-12','2022-08-12','admin01'),
+('VC0106',5,'2022-05-18','2022-08-18','admin02'),
+('VC0107',8,'2022-05-18','2022-08-18','admin02'),
+('VC0108',3,'2022-05-19','2022-08-19','admin02'),
+('VC0109',6,'2022-05-19','2022-08-19','admin02'),
+('VC0110',9,'2022-04-25','2022-08-25','admin03'),
+('VC0111',2,'2022-04-25','2022-08-25','admin03'),
+('VC0112',5,'2022-04-25','2022-08-25','admin03'),
+('VC0113',9,'2022-04-25','2022-08-25','admin03'),
+('VC0114',3,'2022-04-25','2022-08-25','admin03'),
+('VC0115',6,'2022-04-25','2022-08-25','admin03')
+GO
+
+---- VourcherList of user
+INSERT INTO VoucherLists(IsUsed,VoucherID,Username) VALUES
+(1,1,'cust01'),
+(1,3,'cust01'),
+(0,5,'cust01'),
+(1,2,'cust02'),
+(1,4,'cust02'),
+(0,6,'cust02'),
+(1,8,'cust03'),
+(0,10,'cust03'),
+(1,1,'cust03'),
+(1,12,'cust04'),
+(0,11,'cust04'),
+(1,13,'cust04'),
+(1,14,'cust05'),
+(1,15,'cust05'),
+(0,10,'cust05')
+
+GO
+
+---OrderStatus---
+INSERT INTO OrderStatuses(NAME) VALUES
+(N'Chờ xác nhận'),
+(N'Đã xác nhận'),
+(N'Giao hàng'),
+(N'Hoàn thành')
+GO
+
+-- payment
+INSERT INTO OrderMethods(NAME) VALUES
+(N'Thanh toán khi nhận hàng - COD'),
+(N'Thanh toán qua Paypal'),
+(N'Thanh toán qua Momo'),
+(N'Thanh toán qua thẻ ghi nợ'),
+(N'Chuyển khoản ngân hàng')
+GO
+
+---- Order
+INSERT INTO Orders(CreateDate,Address,Username,OrderstatusId,OrdermethodId) VALUES
+--cust01
+('2022-05-16',N'383 Nguyễn Duy Trinh,Tp.Thủ Đức, Hồ Chí Minh','cust01',1,2),
+('2022-05-15',N'10 Điện Biên Phủ, Bình Thạnh, Hồ Chí Minh','cust01',2,1),
+('2022-05-12',N'38 Trần Não, Phường Bình An, Tp.Thủ Đức, Hồ Chí Minh','cust01',3,1),
+('2020-01-10',N'33 Lê Anh Xuân, Quận 1, Hồ Chí minh','cust01',4,1),
+--cust02
+('2022-05-18',N'B21/7, Tổ 27, Ấp 2B, Xã Vĩnh Lộc B, Huyện Bình Chánh, TP Hồ Chí Minh','cust02',1,3),
+('2022-05-17',N'25 Bàu Cát 2, Phường 14, Quận Tân Bình, TP Hồ Chí Minh','cust02',2,1),
+('2022-05-11',N'13/1 Đường 12, Phường Linh Chiểu, Thành phố Thủ Đức, TP Hồ Chí Minh','cust02',3,1),
+('2021-02-01',N'Tòa Nhà HM Town, 412 Nguyễn Thị Minh Khai, Phường 05, Quận 3, TP Hồ Chí Minh','cust02',4,1),
+--cust03
+('2022-05-17',N'18 Hoa Lan, Phường 02, Quận Phú Nhuận, TP Hồ Chí Minh','cust03',1,4),
+('2022-05-11',N'145 Nguyễn Thái Bình, Phường Nguyễn Thái Bình, Quận 1, TP Hồ Chí Minh','cust03',2,1),
+('2022-05-12',N'14/9 Thái Thị Nhạn, Phường 10, Quận Tân Bình, TP Hồ Chí Minh','cust03',3,1),
+('2019-05-02',N'208 Trần Quang Khải, Phường Tân Định, Quận 1, TP Hồ Chí Minh','cust03',4,5),
+--cust04
+('2022-05-17',N'2279/8 Huỳnh Tấn Phát, Khu phố 7, Thị Trấn Nhà Bè, Huyện Nhà Bè, TP Hồ Chí Minh','cust04',1,5),
+('2022-05-15',N'B208A KP3 Đông Hưng Thuận 13, Phường Tân Hưng Thuận, Quận 12, TP Hồ Chí Minh','cust04',2,3),
+('2022-05-13',N'269/11 Ngô Chí Quốc, Phường Bình Chiểu, Thành phố Thủ Đức, TP Hồ Chí Minh','cust04',3,1),
+('2020-05-10',N'61 Lâm Quang Vy, Phường Thạnh Mỹ Lợi, Thành phố Thủ Đức, TP Hồ Chí Minh','cust04',4,1),
+--cust05
+('2022-05-18',N'307 Phan Huy Ích, Phường 14, Quận Gò Vấp, TP Hồ Chí Minh','cust05',1,2),
+('2022-05-16',N'948 Phạm Văn Đồng, Khu Phố 9, Phường Hiệp Bình Chánh, Thành phố Thủ Đức, TP Hồ Chí Minh','cust05',2,1),
+('2022-05-13',N'101 Hồ Bá Kiện, Phường 15, Quận 10, TP Hồ Chí Minh','cust05',3,1),
+('2021-12-11',N'67 Hàn Thuyên, Phường Bình Thọ, Thành phố Thủ Đức, TP Hồ Chí Minh','cust05',4,2)
+GO
+
+--ORDERDETAILS
+INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
+(1,75,80000,1),
+(2,74,72500,1),
+(3,73,99600,1),
+(4,72,35000,1),
+(5,71,25000,1),
+(6,70,390,1),
+(7,69,310,1),
+(8,68,340,1),
+(9,67,340,1),
+(10,66,340,1),
+(11,65,110,1),
+(12,9,250,1),
+(13,8,200,1),
+(14,7,200,1),
+(15,6,250,1),
+(16,5,200,1),
+(17,4,2,1),
+(18,3,10,1),
+(19,2,5,1),
+(20,1,2,1)
+
+
+----OrderDetails
+
+
+---ProductLikes
+INSERT INTO ProductLikes(IsLiked,ProductId,Username) VALUES
+(0,1,'cust01'),
+(1,2,'cust01'),
+(1,3,'cust01'),
+(1,4,'cust01'),
+(1,5,'cust01'),
+(1,6,'cust01'),
+(1,7,'cust01'),
+(1,8,'cust01'),
+(1,9,'cust01'),
+(0,10,'cust02'),
+(0,11,'cust02'),
+(1,12,'cust02'),
+(1,13,'cust02'),
+(1,14,'cust02'),
+(1,15,'cust02'),
+(1,16,'cust02'),
+(1,17,'cust02'),
+(1,18,'cust02'),
+(1,19,'cust02'),
+(0,20,'cust02'),
+(0,21,'cust03'),
+(1,22,'cust03'),
+(1,23,'cust03'),
+(1,24,'cust03'),
+(1,25,'cust03'),
+(1,26,'cust03'),
+(1,27,'cust03'),
+(1,28,'cust03'),
+(1,29,'cust03'),
+(0,30,'cust04'),
+(0,31,'cust04'),
+(1,32,'cust04'),
+(1,33,'cust04'),
+(1,34,'cust04'),
+(1,35,'cust04'),
+(1,36,'cust04'),
+(1,37,'cust04'),
+(1,38,'cust04'),
+(1,39,'cust04'),
+(0,40,'cust05'),
+(0,41,'cust05'),
+(1,42,'cust05'),
+(1,43,'cust05'),
+(1,44,'cust05'),
+(1,45,'cust05'),
+(1,46,'cust05'),
+(1,47,'cust05'),
+(1,48,'cust05'),
+(1,49,'cust05'),
+(0,50,'cust05')
+GO
+
+----ProductEvaluations
+INSERT ProductEvaluations(Evaluation,ProductId,Username) VALUES
+(4,1,'cust01'),
+(4,2,'cust01'),
+(4,3,'cust01'),
+(4,4,'cust01'),
+(4,5,'cust01'),
+(4,6,'cust02'),
+(4,7,'cust02'),
+(5,8,'cust02'),
+(5,9,'cust02'),
+(5,10,'cust02'),
+(5,11,'cust03'),
+(5,12,'cust03'),
+(5,13,'cust03'),
+(5,14,'cust03'),
+(5,15,'cust03'),
+(5,16,'cust04'),
+(3,17,'cust04'),
+(3,18,'cust04'),
+(3,19,'cust04'),
+(3,20,'cust04'),
+(3,21,'cust05'),
+(5,22,'cust05'),
+(5,23,'cust05'),
+(5,24,'cust05'),
+(5,25,'cust05')
+GO
+
+--PRODUCT COMMENTS
+INSERT INTO ProductComments(TopicUsername,CommentContent,ProductId) VALUES
+(N'cust01',N'Sản phẩm quá đẹp, tuyệt vời',1),
+(N'cust01',N'Siêu phẩm năm nay',2),
+(N'cust01',N'Sản phẩm đẹp, nhẹ, sang trọng',3),
+(N'cust01',N'Tôi đã tham khảo rất nhiều nơi nhưng sản phẩm ở đây bán thật sự rất tốt',4),
+(N'cust01',N'Sản phẩm này được ra mắt khi nào vậy ạ?',5),
+--user2
+(N'cust02',N'Chiếc này và chiếc SE-1002 khác nhau chỗ nào vậy ạ',6),
+(N'cust02',N'Sản phẩm có hỗ trợ đổi trả không ??',7),
+(N'cust02',N'Sản phẩm free ship ở HCM không admin ơi?',8),
+(N'cust02',N'Chiếc này dây đeo bằng cacbon phải không shop?',9),
+(N'cust02',N'Địa chỉ shop ở đâu ạ',10),
+--user3
+(N'cust03',N'Shop có phiên bản giới hạn của chiếc này không?',11),
+(N'cust03',N'Khi nào hàng về ạ?',12),
+(N'cust03',N'Sản phẩm này có khuyến mãi kèm dây đeo không?',13),
+(N'cust03',N'Admin cho mình hỏi mình mua chiếc này giờ muốn thay dây thì làm thế nào ạ',14),
+(N'cust03',N'Khi nào có phiên bản v2 của sản phẩm này vậy ạ?',15)
+GO
+--Product Photo
+INSERT INTO CommentPhotos(ID,CommentId) VALUES
+('babyg-analog-p1-1.jpg',1),
+('babyg-automatic-p3-1.jpg',2),
+('babyg-digital-p2-1.jpg',3)
+GO
+
+
+INSERT INTO ProductReplies(CommentId,ReplyContent,Username) VALUES
+(1,N'Cảm ơn bạn đã chia sẻ','admin01'),
+(2,N'Godshop cảm ơn bạn đã ủng hộ','admin01'),
+(3,N'Cảm ơn thông tin đánh giá của bạn, mong bạn luôn ủng hộ shop','admin01'),
+(4,N'Cảm ơn (User01) đánh giá cao sản phẩm của GodShop','admin01'),
+(5,N'Dạ Sản Phẩm này được ra mắt vào thời điểm tháng 03-2022, đây là sản phẩm mới nhất của Shop ạ','admin01'),
+--reply user02
+(6,N'Dạ chiếc này sử dụng dây đeo tay bằng cacbon sợi và chiếc SE-1002 sử dụng dây đeo là titanium, 2 chất liệu dây khác nhau thôi ạ','admin02'),
+(7,N'Sản phẩm của GodShop đảm bảo giá tốt nhất từ hãng, hỗ trợ đổi trả sản phẩm trong 7 ngày nếu gặp lỗi, hỗ trợ thu lại giá = 90% trong 30 ngày đầu tiên','admin02'),
+(8,N'Shop miễn phí ship khắp khu vực Miền Nam và 1 số tỉnh thành phía Bắc bạn nhé','admin02'),
+(9,N'Dạ đúng rồi bạn, dây đeo tay bằng cacbon sợi','admin02'),
+(10,N'Địa chỉ của shop ở 112 Tên Lửa, Bình Trị Đông B, Quận Bình Tân,TP.HCM bạn nhé, mong bạn ghé ủng hộ','admin02'),
+
+--reply user03
+(11,N'Cảm ơn bạn đã quan tâm tới sản phẩm của chúng tôi, rất tiếc hiện tại chưa có thông tin nào về bản giới hạn của sản phẩm này ạ','admin03'),
+(12,N'Sản phẩm có sẵn tại shop, rất vui được phục vụ bạn','admin03'),
+(13,N'Sản phẩm không có kèm khuyến mại dây đeo, tuy nhiên GodShop có rất nhiều dây đeo chính hãng kiểu dáng lịch sự, hiện đại.. bạn có thể tham khảo trực tiếp tại cửa hàng ạ','admin03'),
+(14,N'Bạn vui để lòng giữ điện thoại, sẽ có nhân viên liên hệ với bạn để hướng dẫn','admin03'),
+(15,N'Phiên bản V2 sẽ được ra mắt trong tháng 11 năm nay, GodShop sẽ gửi 1 email tới bạn khi có sản phẩm V2, cảm ơn bạn đã quan tâm','admin03')
 GO
 
 

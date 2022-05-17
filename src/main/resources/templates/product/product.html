@@ -214,8 +214,8 @@
 									<form method="get" class="woocommerce-ordering hidden-xs">
 										<div class="orderby-wrapper">
 											<label>Sort By :</label>
-											<select class="nice-select-menu orderby">
-												<option dara-display="Select">Default sorting</option>
+											<select class="nice-select-menu orderby" onchange="location = this.value;">
+												<option value="/product" dara-display="Select">Default sorting</option>
 												<option value="popularity">Sort by popularity</option>
 												<option value="rating">Sort by average rating</option>
 												<option value="date">Sort by newness</option>

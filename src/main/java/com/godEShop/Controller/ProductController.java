@@ -61,6 +61,7 @@ public class ProductController {
 	String kwords = "";
 	if (kw.isPresent()) {
 	    kwords = kw.get();
+	    changedPagination(model, 1, "Search product : " + kwords); // by product
 	}
 
 	Pageable pageable = PageRequest.of(p.orElse(0), 12);
