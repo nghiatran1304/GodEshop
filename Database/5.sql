@@ -94,7 +94,8 @@ GO
 
 CREATE TABLE Products(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
-	Name NVARCHAR(250) NOT NULL,	
+	Name NVARCHAR(250) NOT NULL,
+	IsDeleted BIT DEFAULT 0, -- 0 là chưa xóa mặc định | 1 là đã xóa
 	Quantity INT DEFAULT 0, -- số lượng
 	Price FLOAT DEFAULT 0, -- Giá
 	CreateDate DATE NOT NULL, -- ngày tạo sản phẩm
@@ -909,3 +910,12 @@ AS
 		GROUP BY p.Id
 	END
 GO
+/*
+		SELECT p.name, MIN(pp.Id) AS 'ImageName' FROM Products AS p
+		INNER JOIN ProductPhotos AS pp ON p.Id = pp.ProductId
+		WHERE p.name = 'CALVIN KLEIN STRAP 22MM'
+		GROUP BY p.Id, p.name
+*/
+
+--====================================================
+-- 

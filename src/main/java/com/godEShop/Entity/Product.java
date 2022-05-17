@@ -52,6 +52,9 @@ public class Product implements Serializable {
     @Column(name = "Name")
     private String name;
 
+    @Column(name = "Isdeleted")
+    private Boolean isDeleted = false;
+
     @Column(name = "Price")
     private Double price;
 

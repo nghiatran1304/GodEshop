@@ -11,6 +11,8 @@ public interface ProductService {
     
     Page<Product> findAllByNameLike(String string, Pageable pageable);
     
+    Page<Product> findAllProductByCategoryId(int id, Pageable pageable);
+    
     List<String> getProductAndOneImage();
 
     List<Product> findAll();
