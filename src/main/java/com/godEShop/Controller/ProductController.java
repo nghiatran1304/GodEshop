@@ -29,7 +29,7 @@ public class ProductController {
 
     @Autowired
     CategoryService categoryService;
-    
+
     @Autowired
     BrandService brandService;
 
@@ -46,7 +46,7 @@ public class ProductController {
     // sản phẩm
     @GetMapping("/product")
     public String productPage(Model model, @RequestParam("p") Optional<Integer> p,
-	    @RequestParam("keywords") Optional<String> kw) {
+	    @RequestParam("keywords") Optional<String> kw, @RequestParam("sort") Optional<String> sort) {
 
 	if (p.isPresent()) {
 	    if (p.get() < 0) {
@@ -66,8 +66,20 @@ public class ProductController {
 
 	Pageable pageable = PageRequest.of(p.orElse(0), 12);
 
+	
+	// sorting
 	Page<Product> page = productService.findAllByNameLike("%" + kwords + "%", pageable);
-
+	
+	// giá tăng dần
+	if(sort.isPresent() && sort.get().equalsIgnoreCase("productPriceLow")) {
+	    page = productService.findAllPriceAsc("%" + kwords + "%", pageable);
+	}
+	// giá giảm dần
+	if(sort.isPresent() && sort.get().equalsIgnoreCase("productPriceHigh")) {
+	    page = productService.findAllPriceDec("%" + kwords + "%", pageable);
+	}
+	
+	// put in map
 	Map<String, Product> mapProducts = new HashMap<>();
 
 	for (int i = 0; i < page.getContent().size(); i++) {
@@ -93,7 +105,7 @@ public class ProductController {
     @GetMapping("/product/category/{id}")
     public String productPageByCategory(Model model, @RequestParam("p") Optional<Integer> p,
 	    @RequestParam("keywords") Optional<String> kw, @PathVariable("id") Integer id) {
-	
+
 	if (p.isPresent()) {
 	    if (p.get() < 0) {
 		p = Optional.of(0);
@@ -101,8 +113,8 @@ public class ProductController {
 	}
 
 	changedPagination(model, 2, "Category : " + categoryService.getById(id).getName()); // by category
-
 	model.addAttribute("idCategory", id);
+	
 	List<String> lstImage = productService.getProductAndOneImage(); // danh sách hình đầu tiên mỗi sản phẩm
 	List<Product> lstProducts = productService.findAll(); // danh sách các sản phẩm
 
@@ -135,13 +147,12 @@ public class ProductController {
 	return "product/product";
 
     }
-    
-    
+
     // sản phẩm theo thương hiệu
     @GetMapping("/product/brand/{id}")
     public String productPageByBrand(Model model, @RequestParam("p") Optional<Integer> p,
 	    @RequestParam("keywords") Optional<String> kw, @PathVariable("id") Integer id) {
-	
+
 	if (p.isPresent()) {
 	    if (p.get() < 0) {
 		p = Optional.of(0);
@@ -183,7 +194,7 @@ public class ProductController {
 	return "product/product";
 
     }
-    
+
     @GetMapping("/singleproduct")
     public String singleproductPage() {
 	return "product/single-product";

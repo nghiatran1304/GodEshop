@@ -8,13 +8,17 @@ import org.springframework.data.domain.Pageable;
 import com.godEShop.Entity.Product;
 
 public interface ProductService {
-    
+
     Page<Product> findAllByNameLike(String string, Pageable pageable);
-    
+
     Page<Product> findAllProductByCategoryId(int id, Pageable pageable);
-    
+
     Page<Product> findAllProductByBrandId(int id, Pageable pageable);
-    
+
+    Page<Product> findAllPriceAsc(String keywords, Pageable pageable);
+
+    Page<Product> findAllPriceDec(String keywords, Pageable pageable);
+
     List<String> getProductAndOneImage();
 
     List<Product> findAll();

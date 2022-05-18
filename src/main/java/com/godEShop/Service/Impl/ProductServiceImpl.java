@@ -47,4 +47,16 @@ public class ProductServiceImpl implements ProductService {
 	return productDAO.findAllProductByBrandId(id, pageable);
     }
 
+    @Override
+    public Page<Product> findAllPriceAsc(String keywords, Pageable pageable) {
+	// TODO Auto-generated method stub
+	return productDAO.findAllPriceAsc(keywords, pageable);
+    }
+
+    @Override
+    public Page<Product> findAllPriceDec(String keywords, Pageable pageable) {
+	// TODO Auto-generated method stub
+	return productDAO.findAllPriceDec(keywords, pageable);
+    }
+
 }
