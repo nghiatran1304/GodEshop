@@ -18,6 +18,12 @@ public interface ProductService {
     Page<Product> findAllPriceAsc(String keywords, Pageable pageable);
 
     Page<Product> findAllPriceDec(String keywords, Pageable pageable);
+    
+    Page<Product> findAllNewProduct(String keywords, Pageable pageable);
+    
+    List<Product> getProductByPopularity();
+    
+    List<Product> getProductByRating();
 
     List<String> getProductAndOneImage();
 

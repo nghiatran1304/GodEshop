@@ -101,7 +101,7 @@ CREATE TABLE Products(
 	CreateDate DATE NOT NULL, -- ngày tạo sản phẩm
 	Warranty INT DEFAULT 0, -- Bảo hành tính theo tháng
 	MadeIn NVARCHAR(50) NULL,
-	Detail NTEXT NULL, -- mô tả sản phẩm
+	Detail NVARCHAR(MAX) NULL, -- mô tả sản phẩm
 	BrandId INT NOT NULL, -- thương hiệu
 	CategoryId INT NULL, 
 	FOREIGN KEY (CategoryId) REFERENCES Categories(Id),
@@ -278,27 +278,93 @@ INSERT INTO Roles(Id, Name) VALUES
 GO
 
 INSERT INTO Accounts(Username, Password, IsDelete, RoleId) VALUES
-('admin01', '123', 0, 'Admin'),
-('admin02', '123', 0, 'Admin'),
-('admin03', '123', 0, 'Admin'),
-('cust01', '123', 0, 'Customer'),
-('cust02', '123', 0, 'Customer'),
-('cust03', '123', 0, 'Customer'),
-('cust04', '123', 1, 'Customer'),
-('cust05', '123', 0, 'Customer')
+('admin01','123',0, 'Admin'),
+('admin02','123',0, 'Admin'),
+('admin03','123',0, 'Admin'),
+('cust01','123',0, 'Customer'),
+('cust02','123',0, 'Customer'),
+('cust03','123',0, 'Customer'),
+('cust04','123',1, 'Customer'),
+('cust05','123',0, 'Customer'),
+('cust06','123',0, 'Customer'),
+('cust07','123',0, 'Customer'),
+('cust08','123',0, 'Customer'),
+('cust09','123',0, 'Customer'),
+('cust10','123',0, 'Customer'),
+('cust11','123',0, 'Customer'),
+('cust12','123',0, 'Customer'),
+('cust13','123',0, 'Customer'),
+('cust14','123',0, 'Customer'),
+('cust15','123',0, 'Customer'),
+('cust16','123',0, 'Customer'),
+('cust17','123',0, 'Customer'),
+('cust18','123',0, 'Customer'),
+('cust19','123',0, 'Customer'),
+('cust20','123',0, 'Customer'),
+('cust21','123',0, 'Customer'),
+('cust22','123',0, 'Customer'),
+('cust23','123',0, 'Customer'),
+('cust24','123',0, 'Customer'),
+('cust25','123',0, 'Customer'),
+('cust26','123',0, 'Customer'),
+('cust27','123',0, 'Customer'),
+('cust28','123',0, 'Customer'),
+('cust29','123',0, 'Customer'),
+('cust30','123',0, 'Customer'),
+('cust31','123',0, 'Customer'),
+('cust32','123',0, 'Customer'),
+('cust33','123',0, 'Customer'),
+('cust34','123',0, 'Customer'),
+('cust35','123',0, 'Customer')
 GO
 
 INSERT INTO Users(Fullname, Email, Gender, Dob, Phone, Photo, Address, Username) VALUES
-(N'Trần Trung Nghĩa', 'nghiattps14820@fpt.edu.vn', 1, '1997-04-13', '0366888470', 'nghia.jpg', 'Tân Bình', 'admin01'),
-(N'Doãn Hoài Nam', 'namdh123@gmail.com', 1, '1996-01-02', '0989878787', 'nam.jpg', 'Quận 11', 'cust01'),
-(N'Trần Nguyên Hải', 'haitn123@gmail.com', 1, '1992-01-02', '0387465739', 'hai.jpg', 'Quận Bình Thạnh', 'cust02'),
-(N'Lê Quý Vương', 'vuonglq123@gmail.com', 1, '1995-01-02', '0988767512', 'vuong.jpg', 'Quận 2', 'cust03'),
-(N'Hồ Trung Tính', 'tinhht321@gmail.com', 1, '2000-01-02', '0976352435', 'tinh.jpg', 'Quận 11', 'cust04'),
-(N'Trần Thị Hoàn', 'hoantt@gmail.com', 0, '2001-03-31', '0398767652', 'hoan.jpg', 'Quận 12', 'cust05')
+(N'Trần Trung Nghĩa', 'nghiattps14820@fpt.edu.vn', 1, '1997-04-13', '0366888470', 'nghia.jpg', N'Tân Bình', 'admin01'),
+(N'Trần Trung Tính', 'tinhttps14444@fpt.edu.vn', 1, '2001-04-06', '0366888471', 'admin02.jpg', N'Bình Trị Đông A', 'admin02'),
+(N'Trần Nguyên Hội', 'hointps15555@fpt.edu.vn', 1, '1999-01-13', '0366889911', 'admin03.jpg', N'Bình Trị Đông B', 'admin03'),
+(N'Doãn Hoài Nam', 'namdh123@gmail.com', 1, '1996-01-02', '0989878787', 'nam.jpg', N'Quận 11', 'cust01'),
+(N'Trần Nguyên Hải', 'haitn123@gmail.com', 1, '1992-01-02', '0387465739', 'hai.jpg', N'Quận Bình Thạnh', 'cust02'),
+(N'Lê Quý Vương', 'vuonglq123@gmail.com', 1, '1995-01-02', '0988767512', 'vuong.jpg', N'Quận 2', 'cust03'),
+(N'Hồ Trung Tính', 'tinhht321@gmail.com', 1, '2000-01-02', '0976352435', 'tinh.jpg', N'Quận 11', 'cust04'),
+(N'Trần Thị Hoàn', 'hoantt@gmail.com', 0, '2001-03-31', '0398767652', 'hoan.jpg', N'Quận 12', 'cust05'),
+(N'Trần Thanh Khiêm', 'cust06@gmail.com', 1, '1996-01-03', '0976484999', 'cust06.jpg', N'Số 3, D1, Khu tập thể Dệt Kim Đông Xuân, Phường Đồng Nhân, Quận Hai Bà Trưng, Hà Nội', 'cust06'),
+(N'Trịnh Thị Minh Ngọc', 'cust07@gmail.com', 0, '1992-02-20', '0824414555', 'cust07.jpg', N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội', 'cust07'),
+(N'Nguyễn Khánh Hân', 'cust08@gmail.com', 0, '1994-03-26', '0879462468', 'cust08.jpg', N'Số 119 phố Nguyễn An Ninh, Phường Tương Mai, Quận Hoàng Mai, Hà Nội', 'cust08'),
+(N'Nguyễn Tuấn Dũng', 'cust09@gmail.com', 1, '1984-04-21', '0372958288', 'cust09.jpg', N'Số 70 ngõ 172 đường Phú Diễn, Phường Phú Diễn, Quận Bắc Từ Liêm, Hà Nội', 'cust09'),
+(N'Đỗ Chiếm Dương', 'cust10@gmail.com', 1, '1974-05-18', '0979985490', 'cust10.jpg', N'Số 42 đường Nguyễn Khuyến, Phường Văn Quán, Quận Hà Đông, Hà Nội', 'cust10'),
+(N'Ngô Quốc Vinh', 'cust11@gmail.com', 1, '1976-06-17', '0972267861', 'cust11.jpg', N'Số 5A Hoàng Văn Thụ, Phường Minh Khai, Quận Hồng Bàng, Hải Phòng', 'cust11'),
+(N'Võ Minh Thịnh', 'cust12@gmail.com', 1, '1922-07-15', '0963651231', 'cust12.jpg', N'Số S5.04 Vinhome Marina, đường Võ Nguyên Giáp, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng', 'cust12'),
+(N'Từ Thị Yến Nhi', 'cust13@gmail.com', 0, '1997-08-14', '0964792996', 'cust13.jpg', N'96 Lý Thường Kiệt,, Phường Hoàng Văn Thụ, Quận Hồng Bàng, Hải Phòng', 'cust13'),
+(N'Trần Quốc Bảo', 'cust14@gmail.com', 1, '2003-09-13', '0965725673', 'cust14.jpg', N'Số 56 đường số 5B, Khu đô thị Waterfront,, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng', 'cust14'),
+(N'Dương Đình Thiện Vũ', 'cust15@gmail.com', 1, '1982-11-11', '0977474140', 'cust15.jpg', N'88 Bàu Gia Thượng 2,, Phường Hoà Thọ Đông, Quận Cẩm Lệ, Đà Nẵng', 'cust15'),
+(N'Trần Văn Đức', 'cust16@gmail.com', 1, '1985-12-10', '0964250417', 'cust16.jpg', N'Lô 11, Khu LK04A, khu đô thị Hòa Quý,, Phường Hoà Quý, Quận Ngũ Hành Sơn, Đà Nẵng', 'cust16'),
+(N'Võ Đức Huy', 'cust17@gmail.com', 1, '1988-05-09', '0966465470', 'cust17.jpg', N'51 Tống Phước Phổ, Phường Hoà Cường Bắc, Quận Hải Châu, Đà Nẵng', 'cust17'),
+(N'Nguyễn Thị Anh Thư', 'cust18@gmail.com', 0, '1956-01-08', '0964633324', 'cust18.jpg', N'48 Nguyễn Chí Thanh, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng', 'cust18'),
+(N'Võ Thị Yến Linh', 'cust19@gmail.com', 0, '1992-07-07', '0962788874', 'cust19.jpg', N' 132/78 Hùng Vương,, Phường Thới Bình, Quận Ninh Kiều, Cần Thơ', 'cust19'),
+(N'Trần Trung Sơn', 'cust20@gmail.com', 1, '1970-03-30', '0967343037', 'cust20.jpg', N'14 Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều, Cần Thơ', 'cust20'),
+(N'Đinh Tuấn Anh', 'cust21@gmail.com', 1, '1976-01-11', '0966551354', 'cust21.jpg', N'Số 356 Đội Cấn, Phường Cống Vị, Quận Ba Đình, Hà Nội', 'cust21'),
+(N'Lê Hoàng Phúc', 'cust22@gmail.com', 1, '1972-02-28', '0967870466', 'cust22.jpg', N'Số 6 Đặng Dung, Phường Trúc Bạch, Quận Ba Đình, Hà Nội', 'cust22'),
+(N'Nguyễn Viết Hoàng Thắng', 'cust23@gmail.com', 1, '1985-03-22', '0978604070', 'cust23.jpg', N'Số 28, ngõ 6, đường Võng Thị, Phường Bưởi, Quận Tây Hồ, Hà Nội', 'cust23'),
+(N'Phan Hoàng Phúc', 'cust24@gmail.com', 1, '2001-03-01', '0984496748', 'cust24.jpg', N'Số 606 Lạc Long Quân, Phường Nhật Tân, Quận Tây Hồ, Hà Nội', 'cust24'),
+(N'Nguyễn Hoàng Minh Tú', 'cust25@gmail.com', 1, '1973-03-25', '0987798493', 'cust25.jpg', N'Số nhà 52, ngõ 230, phố Lạc Trung, Phường Thanh Lương, Quận Hai Bà Trưng, Hà Nội', 'cust25'),
+(N'Doãn Hoài Nam', 'cust26@gmail.com', 1, '1976-06-03', '0964858380', 'cust26.jpg', N'Số 1529B đường 30/4, Phường 12, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu', 'cust26'),
+(N'Giang Hạc Minh', 'cust27@gmail.com', 1, '1989-12-05', '0967509510', 'cust27.jpg', N'Tổ 5, ấp Phước Lập, Xã Mỹ Xuân, Huyện Tân Thành, Bà Rịa - Vũng Tàu', 'cust27'),
+(N'Nguyễn Thùy Ngọc Hân', 'cust28@gmail.com', 0, '1991-03-07', '0969038041', 'cust28.jpg', N'Số 159 Võ Thị Sáu, Khu phố Long Nguyên, Thị trấn Long Điền, Huyện Long Điền, Bà Rịa - Vũng Tàu', 'cust28'),
+(N'Huỳnh Thị Đào Ty', 'cust29@gmail.com', 1, '1992-06-09', '0973421342', 'cust29.jpg', N'22D2 Tống Duy Tân, Phường 9, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu', 'cust29'),
+(N'Phan Hoàng Trâm Anh', 'cust30@gmail.com', 0, '1983-05-11', '0972303635', 'cust30.jpg', N'34 Sao Biển, Phường Vĩnh Hải, Thành phố Nha Trang, Khánh Hòa', 'cust30'),
+(N'Trần Ngọc Tố Ny', 'cust31@gmail.com', 0, '1991-07-13', '0965051054', 'cust31.jpg', N'212 Trần Quý Cáp, Phường Phương Sài, Thành phố Nha Trang, Khánh Hòa', 'cust31'),
+(N'Hoàng Văn Chinh', 'cust32@gmail.com', 1, '1992-02-15', '0968304230', 'cust32.jpg', N'43/1 Phước Long, Phường Phước Long, Thành phố Nha Trang, Khánh Hòa', 'cust32'),
+(N'Phạm Văn Khang', 'cust33@gmail.com', 1, '1993-04-17', '0983797594', 'cust33.jpg', N'34/2/28 Nguyễn Thiện Thuật, Phường Tân Lập, Thành phố Nha Trang, Khánh Hòa', 'cust33'),
+(N'Dương Văn Vĩ', 'cust34@gmail.com', 1, '1994-03-19', '0965787830', 'cust34.jpg', N' Số Nhà 199, Tổ 1 Phố Vàng,, Thị trấn Thanh Sơn, Huyện Thanh Sơn, Phú Thọ', 'cust34'),
+(N'Trần Thị Diễm My', 'cust35@gmail.com', 0, '1957-03-25', '0965368987', 'cust35.jpg', N'Số nhà 06, Khu Phú Lợi, Phường Phong Châu, Thị xã Phú Thọ, Phú Thọ', 'cust35')
 GO
 
 INSERT INTO RefAccounts(NewAccount, OldAccount, IsReward) VALUES
-('cust03', 'cust02', 0)
+('cust03', 'cust02', 0),
+('cust05', 'cust04', 0),
+('cust07', 'cust06', 0),
+('cust10', 'cust09', 0),
+('cust12', 'cust11', 0)
 GO
 
 INSERT INTO Brands(Name) VALUES
@@ -358,6 +424,7 @@ INSERT INTO MachineInsides(Name) VALUES
 (N'Cơ(Automatic)'),
 (N'Năng lượng mặt trời(Eco Drive)')
 GO
+
 INSERT INTO Products(Name,Quantity,Price,CreateDate,Warranty,MadeIn,Detail,BrandId,CategoryId) VALUES
 
 (N'BA-130-7A1DR',1,2,'2022-05-15',60,N'Mỹ',N'Từ BABY-G, dòng đồng hồ thường ngày dành cho nữ giới năng động, chúng tôi đã cho ra mắt các mẫu mới để tô điểm cho thời trang đường phố.
@@ -420,10 +487,7 @@ Tourbillon Arlequino nổi bật với hàng trăm viên đá quý lấp lánh �
 (N'Đồng hồ CASIO LTP-1308D-2AVDF ',5,25,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,4),
 
 
-
 -----------------Nam------------------
-
-
 (N'Citizen NH8352-53P',2,220,'2022-05-14',60,N'Nhật Bản',N'Đồng Hồ Citizen NH8352-53P Cho Nam là chiếc đồng hồ cao cấp đến từ thương hiệu Citizen nổi tiếng. Sở hữu gam màu nổi bật ngay từ khi có mặt trên thị trường Citizen NH8352-53P được nhiều tín đồ thời trang săn đón.',6,1), --== nam
 (N'CITIZEN BM683809X',4,170,'2022-05-14',60,N'Nhật Bản',N'Đồng hồ CITIZEN Chandler Military, được đánh bóng và thoải mái, là sự bổ sung hoàn hảo cho bộ sưu tập đồng hồ của bạn. Nổi bật ở đây là vỏ bằng thép không gỉ, dây đeo màu nâu sẫm với mặt số và ngày tháng màu xanh lá cây. Với công nghệ Eco-Drive của chúng tôi - được cung cấp bởi ánh sáng, bất kỳ ánh sáng nào.',6,10),  --==nam
 (N'Citizen NH8365-19F',6,200,'2022-05-14',60,N'Nhật Bản',N'Đồng hồ Citizen NH8365-19F cho Nam có thiết kế đơn giản nhưng nam tính, với mặt màu đen sử dụng số La Mã và dây được làm từ chất liệu da cao cấp, mang đến nét mạnh mẽ cho người đeo. Đường kính mặt 41mm với độ dày 11mm phù hợp với mọi cổ tay nam giới.',6,3), --== nam
@@ -898,7 +962,6 @@ INSERT INTO ProductPhotos VALUES
 ('rolex-luxury-p5-4.jpg',75)
 GO
 
---=== VƯƠNG
 ---- Product Discount
 INSERT INTO ProductDiscounts(Discount,CreateDate,EndDate,ProductId,CreateBy) VALUES
 (3,'2022-05-15','2022-05-25',1,'admin01'),
@@ -1036,7 +1099,131 @@ INSERT INTO Orders(CreateDate,Address,Username,OrderstatusId,OrdermethodId) VALU
 ('2022-05-18',N'307 Phan Huy Ích, Phường 14, Quận Gò Vấp, TP Hồ Chí Minh','cust05',1,2),
 ('2022-05-16',N'948 Phạm Văn Đồng, Khu Phố 9, Phường Hiệp Bình Chánh, Thành phố Thủ Đức, TP Hồ Chí Minh','cust05',2,1),
 ('2022-05-13',N'101 Hồ Bá Kiện, Phường 15, Quận 10, TP Hồ Chí Minh','cust05',3,1),
-('2021-12-11',N'67 Hàn Thuyên, Phường Bình Thọ, Thành phố Thủ Đức, TP Hồ Chí Minh','cust05',4,2)
+('2021-12-11',N'67 Hàn Thuyên, Phường Bình Thọ, Thành phố Thủ Đức, TP Hồ Chí Minh','cust05',4,2),
+--cust06
+('2022-04-18',N'Số 3, D1, Khu tập thể Dệt Kim Đông Xuân, Phường Đồng Nhân, Quận Hai Bà Trưng, Hà Nội','cust06',4,2),
+('2022-03-13',N'Số 3, D1, Khu tập thể Dệt Kim Đông Xuân, Phường Đồng Nhân, Quận Hai Bà Trưng, Hà Nội','cust06',4,1),
+('2021-02-11',N'Số 3, D1, Khu tập thể Dệt Kim Đông Xuân, Phường Đồng Nhân, Quận Hai Bà Trưng, Hà Nội','cust06',4,5),
+--cust07
+('2021-04-18',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust07',4,2),
+('2021-03-13',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust07',4,3),
+('2022-02-11',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust07',4,1),
+--cust08
+('2022-01-19',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust08',4,1),
+('2022-03-22',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust08',4,2),
+('2021-08-11',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust08',4,5),
+--cust09
+('2022-05-07',N'Số 70 ngõ 172 đường Phú Diễn, Phường Phú Diễn, Quận Bắc Từ Liêm, Hà Nội','cust09',4,1),
+('2022-05-13',N'Số 70 ngõ 172 đường Phú Diễn, Phường Phú Diễn, Quận Bắc Từ Liêm, Hà Nội','cust09',4,1),
+('2021-12-11',N'Số 70 ngõ 172 đường Phú Diễn, Phường Phú Diễn, Quận Bắc Từ Liêm, Hà Nội','cust09',4,5),
+--cust10
+('2022-04-07',N'Số 42 đường Nguyễn Khuyến, Phường Văn Quán, Quận Hà Đông, Hà Nội','cust10',4,1),
+('2022-01-13',N'Số 42 đường Nguyễn Khuyến, Phường Văn Quán, Quận Hà Đông, Hà Nội','cust10',4,1),
+('2021-12-08',N'Số 42 đường Nguyễn Khuyến, Phường Văn Quán, Quận Hà Đông, Hà Nội','cust10',4,5),
+('2021-02-08',N'Số 42 đường Nguyễn Khuyến, Phường Văn Quán, Quận Hà Đông, Hà Nội','cust10',4,2),
+--cust11 
+('2021-04-07',N'Số 5A Hoàng Văn Thụ, Phường Minh Khai, Quận Hồng Bàng, Hải Phòng','cust11',4,1),
+('2021-01-13',N'Số 5A Hoàng Văn Thụ, Phường Minh Khai, Quận Hồng Bàng, Hải Phòng','cust11',4,1),
+('2020-12-08',N'Số 5A Hoàng Văn Thụ, Phường Minh Khai, Quận Hồng Bàng, Hải Phòng','cust11',4,2),
+--cust12  
+('2019-07-07',N'Số S5.04 Vinhome Marina, đường Võ Nguyên Giáp, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust12',4,1),
+('2020-08-13',N'Số S5.04 Vinhome Marina, đường Võ Nguyên Giáp, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust12',4,2),
+('2021-10-08',N'Số S5.04 Vinhome Marina, đường Võ Nguyên Giáp, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust12',4,5),
+--cust13 
+('2020-08-07',N'96 Lý Thường Kiệt,, Phường Hoàng Văn Thụ, Quận Hồng Bàng, Hải Phòng','cust13',4,1),
+('2021-06-15',N'96 Lý Thường Kiệt,, Phường Hoàng Văn Thụ, Quận Hồng Bàng, Hải Phòng','cust13',4,2),
+('2018-10-19',N'96 Lý Thường Kiệt,, Phường Hoàng Văn Thụ, Quận Hồng Bàng, Hải Phòng','cust13',4,5),
+--cust14 
+('2021-03-09',N'Số 56 đường số 5B, Khu đô thị Waterfront, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust14',4,1),
+('2022-04-11',N'Số 56 đường số 5B, Khu đô thị Waterfront, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust14',4,2),
+('2019-08-21',N'Số 56 đường số 5B, Khu đô thị Waterfront, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust14',4,5),
+--cust15 
+('2018-03-09',N' 88 Bàu Gia Thượng 2, Phường Hoà Thọ Đông, Quận Cẩm Lệ, Đà Nẵng','cust15',4,1),
+('2020-02-11',N' 88 Bàu Gia Thượng 2, Phường Hoà Thọ Đông, Quận Cẩm Lệ, Đà Nẵng','cust15',4,2),
+('2019-01-21',N' 88 Bàu Gia Thượng 2, Phường Hoà Thọ Đông, Quận Cẩm Lệ, Đà Nẵng','cust15',4,5),
+
+--cust16 
+('2021-04-12',N'Lô 11, Khu LK04A, khu đô thị Hòa Quý,Phường Hoà Quý, Quận Ngũ Hành Sơn, Đà Nẵng','cust16',4,1),
+('2022-03-16',N'Lô 11, Khu LK04A, khu đô thị Hòa Quý, Phường Hoà Quý, Quận Ngũ Hành Sơn, Đà Nẵng','cust16',4,1),
+('2020-05-20',N'Lô 11, Khu LK04A, khu đô thị Hòa Quý, Phường Hoà Quý, Quận Ngũ Hành Sơn, Đà Nẵng','cust16',4,5),
+--cust17 
+('2021-06-12',N'51 Tống Phước Phổ, Phường Hoà Cường Bắc, Quận Hải Châu, Đà Nẵng','cust17',4,1),
+('2020-09-16',N'51 Tống Phước Phổ, Phường Hoà Cường Bắc, Quận Hải Châu, Đà Nẵng','cust17',4,5),
+('2019-07-20',N'51 Tống Phước Phổ, Phường Hoà Cường Bắc, Quận Hải Châu, Đà Nẵng','cust17',4,2),
+
+--cust18
+('2020-09-21',N'48 Nguyễn Chí Thanh, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng','cust18',4,2),
+('2021-10-20',N'48 Nguyễn Chí Thanh, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng','cust18',4,1),
+('2019-08-10',N'48 Nguyễn Chí Thanh, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng','cust18',4,5),
+--cust19 
+('2021-07-31',N'132/78 Hùng Vương,, Phường Thới Bình, Quận Ninh Kiều, Cần Thơ','cust19',4,2),
+('2020-02-20',N'132/78 Hùng Vương,, Phường Thới Bình, Quận Ninh Kiều, Cần Thơ','cust19',4,2),
+('2019-05-10',N'132/78 Hùng Vương,, Phường Thới Bình, Quận Ninh Kiều, Cần Thơ','cust19',4,1),
+--cust20 tới đây
+('2020-09-20',N'14 Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều, Cần Thơ','cust20',4,1),
+('2021-11-20',N'14 Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều, Cần Thơ','cust20',4,2),
+('2019-02-10',N'14 Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều, Cần Thơ','cust20',4,4),
+--cust21 
+('2021-06-28',N'Số 356 Đội Cấn, Phường Cống Vị, Quận Ba Đình, Hà Nội','cust21',4,2),
+('2020-02-20',N'Số 356 Đội Cấn, Phường Cống Vị, Quận Ba Đình, Hà Nội','cust21',4,1),
+('2019-08-07',N'Số 356 Đội Cấn, Phường Cống Vị, Quận Ba Đình, Hà Nội','cust21',4,1),
+--cust22: 
+('2019-05-23',N'Số 6 Đặng Dung, Phường Trúc Bạch, Quận Ba Đình, Hà Nội','cust22',4,1),
+('2020-03-20',N'Số 6 Đặng Dung, Phường Trúc Bạch, Quận Ba Đình, Hà Nội','cust22',4,2),
+('2021-01-07',N'Số 6 Đặng Dung, Phường Trúc Bạch, Quận Ba Đình, Hà Nội','cust22',4,1),
+--cust23 : 
+('2018-12-22',N'Số 28, ngõ 6, đường Võng Thị, Phường Bưởi, Quận Tây Hồ, Hà Nội','cust23',4,2),
+('2019-10-20',N'Số 28, ngõ 6, đường Võng Thị, Phường Bưởi, Quận Tây Hồ, Hà Nội','cust23',4,1),
+('2020-04-07',N'Số 28, ngõ 6, đường Võng Thị, Phường Bưởi, Quận Tây Hồ, Hà Nội','cust23',4,1),
+--cust24
+('2019-08-11',N'Số 606 Lạc Long Quân, Phường Nhật Tân, Quận Tây Hồ, Hà Nội','cust24',4,1),
+('2020-09-20',N'Số 606 Lạc Long Quân, Phường Nhật Tân, Quận Tây Hồ, Hà Nội','cust24',4,2),
+('2021-10-07',N'Số 606 Lạc Long Quân, Phường Nhật Tân, Quận Tây Hồ, Hà Nội','cust24',4,4),
+--cust25 : 
+('2022-02-14',N'Số nhà 52, ngõ 230, phố Lạc Trung, Phường Thanh Lương, Quận Hai Bà Trưng, Hà Nội','cust25',4,1),
+('2021-12-20',N'Số nhà 52, ngõ 230, phố Lạc Trung, Phường Thanh Lương, Quận Hai Bà Trưng, Hà Nội','cust25',4,3),
+('2020-11-07',N'Số nhà 52, ngõ 230, phố Lạc Trung, Phường Thanh Lương, Quận Hai Bà Trưng, Hà Nội','cust25',4,5),
+--cust26: 
+('2021-04-13',N'Số 1529B đường 30/4, Phường 12, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust26',4,2),
+('2020-09-20',N'Số 1529B đường 30/4, Phường 12, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust26',4,1),
+('2019-10-07',N'Số 1529B đường 30/4, Phường 12, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust26',4,5),
+--cust27 :
+('2018-11-12',N'Tổ 5, ấp Phước Lập, Xã Mỹ Xuân, Huyện Tân Thành, Bà Rịa - Vũng Tàu','cust27',4,1),
+('2019-12-20',N'Tổ 5, ấp Phước Lập, Xã Mỹ Xuân, Huyện Tân Thành, Bà Rịa - Vũng Tàu','cust27',4,1),
+('2020-02-05',N' Tổ 5, ấp Phước Lập, Xã Mỹ Xuân, Huyện Tân Thành, Bà Rịa - Vũng Tàu','cust27',4,5),
+--cust28: 
+('2020-01-10',N'Số 159 Võ Thị Sáu, Khu phố Long Nguyên, Thị trấn Long Điền, Huyện Long Điền, Bà Rịa - Vũng Tàu','cust28',4,1),
+('2021-02-24',N'Số 159 Võ Thị Sáu, Khu phố Long Nguyên, Thị trấn Long Điền, Huyện Long Điền, Bà Rịa - Vũng Tàu','cust28',4,1),
+('2022-03-02',N'Số 159 Võ Thị Sáu, Khu phố Long Nguyên, Thị trấn Long Điền, Huyện Long Điền, Bà Rịa - Vũng Tàu','cust28',4,5),
+--cust29 : 
+('2021-04-12',N'22D2 Tống Duy Tân, Phường 9, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust29',4,1),
+('2018-05-11',N'22D2 Tống Duy Tân, Phường 9, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust29',4,1),
+('2019-06-14',N'22D2 Tống Duy Tân, Phường 9, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust29',4,5),
+--cust30 : 
+('2020-07-14',N'34 Sao Biển, Phường Vĩnh Hải, Thành phố Nha Trang, Khánh Hòa','cust30',4,1),
+('2021-07-22',N'34 Sao Biển, Phường Vĩnh Hải, Thành phố Nha Trang, Khánh Hòa','cust30',4,1),
+('2019-08-25',N'34 Sao Biển, Phường Vĩnh Hải, Thành phố Nha Trang, Khánh Hòa','cust30',4,5),
+--cust31: 
+('2020-09-23',N'212 Trần Quý Cáp, Phường Phương Sài, Thành phố Nha Trang, Khánh Hòa','cust31',4,1),
+('2019-10-20',N'212 Trần Quý Cáp, Phường Phương Sài, Thành phố Nha Trang, Khánh Hòa','cust31',4,2),
+('2022-01-02',N'212 Trần Quý Cáp, Phường Phương Sài, Thành phố Nha Trang, Khánh Hòa','cust31',4,1),
+--cust32 : 
+('2020-12-10',N'43/1 Phước Long, Phường Phước Long, Thành phố Nha Trang, Khánh Hòa','cust32',4,2),
+('2022-02-20',N'43/1 Phước Long, Phường Phước Long, Thành phố Nha Trang, Khánh Hòa','cust32',4,1),
+('2019-01-11',N'43/1 Phước Long, Phường Phước Long, Thành phố Nha Trang, Khánh Hòa','cust32',4,5),
+--cust33:
+('2022-01-12',N'34/2/28 Nguyễn Thiện Thuật, Phường Tân Lập, Thành phố Nha Trang, Khánh Hòa','cust33',4,4),
+('2020-04-22',N'34/2/28 Nguyễn Thiện Thuật, Phường Tân Lập, Thành phố Nha Trang, Khánh Hòa','cust33',4,2),
+('2021-03-07',N'34/2/28 Nguyễn Thiện Thuật, Phường Tân Lập, Thành phố Nha Trang, Khánh Hòa','cust33',4,5),
+--cust34:  
+('2022-04-13',N'Số Nhà 199, Tổ 1 Phố Vàng,, Thị trấn Thanh Sơn, Huyện Thanh Sơn, Phú Thọ','cust34',4,2),
+('2020-08-20',N'Số Nhà 199, Tổ 1 Phố Vàng,, Thị trấn Thanh Sơn, Huyện Thanh Sơn, Phú Thọ','cust34',4,1),
+('2019-01-02',N'Số Nhà 199, Tổ 1 Phố Vàng,, Thị trấn Thanh Sơn, Huyện Thanh Sơn, Phú Thọ','cust34',4,1),
+--cust35: 
+('2022-06-10',N'Số nhà 06, Khu Phú Lợi, Phường Phong Châu, Thị xã Phú Thọ, Phú Thọ','cust35',4,5),
+('2019-02-20',N'Số nhà 06, Khu Phú Lợi, Phường Phong Châu, Thị xã Phú Thọ, Phú Thọ','cust35',4,1),
+('2020-10-07',N'Số nhà 06, Khu Phú Lợi, Phường Phong Châu, Thị xã Phú Thọ, Phú Thọ','cust35',4,1)
+
 GO
 
 --ORDERDETAILS
@@ -1052,19 +1239,137 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
 (9,67,340,1),
 (10,66,340,1),
 (11,65,110,1),
-(12,9,250,1),
+(12,9,200,1),
 (13,8,200,1),
-(14,7,200,1),
-(15,6,250,1),
-(16,5,200,1),
-(17,4,2,1),
+(14,7,250,1),
+(15,6,200,1),
+(16,5,2,1),
+(17,4,15,1),
 (18,3,10,1),
 (19,2,5,1),
-(20,1,2,1)
-
-
-----OrderDetails
-
+(20,1,2,1),
+(21,10,250,1),
+(22,11,100,1),
+(23,12,60,1),
+--cust07
+(24,13,100,1),
+(25,14,100,1),
+(26,15,100,1),
+--cust08
+(27,16,649702,1),
+(28,17,349702,1),
+(29,18,649702,1),
+--cust09
+(30,19,300,1),
+(31,20,500,1),
+(32,21,25,1),
+--cust10
+(33,22,20,1),
+(34,23,35,1),
+(35,24,30,1),
+(35,25,25,1),
+--cust11 
+(36,26,220,1),
+(37,27,170,1),
+(38,28,200,1),
+--cust12
+(39,29,160,1),
+(40,30,135,1),
+(41,31,145,1),
+--cust13
+(42,32,145,1),
+(43,33,150,1),
+(44,34,155,1),
+--cust14
+(45,35,120,1),
+(46,36,6500,1),
+(47,37,1800,1),
+--cust15
+(48,38,750,1),
+(49,39,2350,1),
+(50,40,6500,1),
+--cust16
+(51,41,185,1),
+(52,42,160,1),
+(53,43,185,1),
+--cust17
+(54,44,225,1),
+(55,45,350,1),
+(56,46,165,1),
+--cust18
+(57,47,225,1),
+(58,48,222,1),
+(59,49,165,1),
+--cust19
+(60,50,235,1),
+-- tới đây
+(61,51,3500,1),
+(61,52,2000,1),
+--cust20
+(63,53,2550,1),
+(64,54,1250,1),
+(65,55,3450,1),
+--cust21
+(66,56,3350,1),
+(67,57,120,1),
+(68,58,150,1),
+--cust22
+(69,59,75,1),
+(70,60,135,1),
+(71,61,125,1),
+--cust23
+(72,62,275,1),
+(73,63,550,1),
+(74,64,250,1),
+--cust24
+(75,65,110,1),
+(76,66,340,1),
+(77,67,340,1),
+--cust25
+(78,68,340,1),
+(79,69,310,1),
+(80,70,390,1),
+--cust26
+(81,71,25000,1),
+(82,72,35000,1),
+(83,73,99600,1),
+--cust27
+(84,74,72500,1),
+(85,75,80000,1),
+(86,75,80000,1),
+--cust28
+(87,74,72500,1),
+(88,73,99600,1),
+(89,72,35000,1),
+--cust29
+(90,71,25000,1),
+(91,70,390,1),
+(92,69,310,1),
+--cust30
+(93,68,340,1),
+(94,67,340,1),
+(95,66,340,1),
+--cust31
+(96,65,110,1),
+(97,64,250,1),
+(98,63,550,1),
+--cust32
+(99,62,275,1),
+(101,61,125,1),
+(102,60,135,1),
+--cust33
+(103,59,75,1),
+(104,8,150,1),
+(105,57,120,1),
+--cust34
+(106,56,3350,1),
+(107,55,3450,1),
+(108,54,1250,1),
+--cust35
+(109,53,2250,1),
+(110,52,2000,1),
+(11,51,3500,1)
+GO
 
 ---ProductLikes
 INSERT INTO ProductLikes(IsLiked,ProductId,Username) VALUES
@@ -1218,6 +1523,37 @@ GO
 		WHERE p.name = 'CALVIN KLEIN STRAP 22MM'
 		GROUP BY p.Id, p.name
 */
+--==================================================== 
+-- sắp xếp theo lược mua select * from products
+IF OBJECT_ID('sp_getProductByPopularity') IS NOT NULL
+	DROP PROC sp_getProductByPopularity
+GO
+CREATE PROC sp_getProductByPopularity
+AS
+	BEGIN
+		SELECT p.id FROM Products AS p
+		INNER JOIN OrderDetails AS od ON od.ProductId = p.Id
+		GROUP BY p.Id
+		ORDER BY COUNT(p.Id) DESC
+	END
+GO
+exec sp_getProductByPopularity
+GO
 
---====================================================
--- 
+--==================================================== 
+-- sắp xếp theo tỉ lệ đánh giá
+IF OBJECT_ID('sp_getProductByRating') IS NOT NULL
+	DROP PROC sp_getProductByRating
+GO
+CREATE PROC sp_getProductByRating
+AS
+	BEGIN
+		SELECT p.id FROM Products AS p
+		INNER JOIN ProductEvaluations AS pe ON p.Id = pe.ProductId
+		GROUP BY p.id, pe.Evaluation
+		ORDER BY pe.Evaluation DESC
+	END
+GO
+
+
+

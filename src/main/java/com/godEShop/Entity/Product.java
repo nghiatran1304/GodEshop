@@ -37,7 +37,7 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Integer id;
+    private Long id;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "Createdate")

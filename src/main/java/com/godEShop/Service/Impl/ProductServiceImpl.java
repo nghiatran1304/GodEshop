@@ -1,5 +1,6 @@
 package com.godEShop.Service.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,34 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> findAllPriceDec(String keywords, Pageable pageable) {
 	// TODO Auto-generated method stub
 	return productDAO.findAllPriceDec(keywords, pageable);
+    }
+
+    @Override
+    public Page<Product> findAllNewProduct(String keywords, Pageable pageable) {
+	// TODO Auto-generated method stub
+	return productDAO.findAllNewProduct(keywords, pageable);
+    }
+
+    @Override
+    public List<Product> getProductByPopularity() {
+	// TODO Auto-generated method stub
+	List<Product> lstProduct = new ArrayList<>();
+	List<Long> lstProductId = productDAO.getProductByPopularity();
+	lstProductId.forEach(a -> {
+	    lstProduct.add(productDAO.getById(a));
+	});
+	return lstProduct;
+    }
+
+    @Override
+    public List<Product> getProductByRating() {
+	// TODO Auto-generated method stub
+	List<Product> lstProduct = new ArrayList<>();
+	List<Long> lstProductId = productDAO.getProductByRating();
+	lstProductId.forEach(a -> {
+	    lstProduct.add(productDAO.getById(a));
+	});
+	return lstProduct;
     }
 
 }

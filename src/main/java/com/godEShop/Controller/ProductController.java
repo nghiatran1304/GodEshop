@@ -53,10 +53,12 @@ public class ProductController {
 		p = Optional.of(0);
 	    }
 	}
-
-	changedPagination(model, 1, "All Product"); // by product
-	List<String> lstImage = productService.getProductAndOneImage(); // danh sách hình đầu tiên mỗi sản phẩm
-	List<Product> lstProducts = productService.findAll(); // danh sách các sản phẩm
+	// by product
+	changedPagination(model, 1, "All Product");
+	// danh sách hình đầu tiên mỗi sản phẩm
+	List<String> lstImage = productService.getProductAndOneImage();
+	// danh sách các sản phẩm
+	List<Product> lstProducts = productService.findAll();
 
 	String kwords = "";
 	if (kw.isPresent()) {
@@ -66,19 +68,35 @@ public class ProductController {
 
 	Pageable pageable = PageRequest.of(p.orElse(0), 12);
 
-	
 	// sorting
 	Page<Product> page = productService.findAllByNameLike("%" + kwords + "%", pageable);
-	
-	// giá tăng dần
-	if(sort.isPresent() && sort.get().equalsIgnoreCase("productPriceLow")) {
+
+	// sắp xếp sản phẩm theo lượt mua
+	if (sort.isPresent() && sort.get().equalsIgnoreCase("productPopularity")) {
+	    lstProducts = productService.getProductByPopularity();	    
+	    model.addAttribute("sortSelected", "a");
+	}
+	// sắp xếp sản phẩm theo đánh giá
+	if (sort.isPresent() && sort.get().equalsIgnoreCase("productRating")) {
+	    lstProducts = productService.getProductByRating();
+	    model.addAttribute("sortSelected", "b");
+	}
+	// sắp xếp theo sản phẩm mới nhất
+	if (sort.isPresent() && sort.get().equalsIgnoreCase("productNewest")) {
+	    page = productService.findAllNewProduct("%" + kwords + "%", pageable);
+	    model.addAttribute("sortSelected", "c");
+	}
+	// sắp xếp theo giá tăng dần
+	if (sort.isPresent() && sort.get().equalsIgnoreCase("productPriceLow")) {
 	    page = productService.findAllPriceAsc("%" + kwords + "%", pageable);
+	    model.addAttribute("sortSelected", "d");
 	}
-	// giá giảm dần
-	if(sort.isPresent() && sort.get().equalsIgnoreCase("productPriceHigh")) {
+	// sắp xếp theo giá giảm dần
+	if (sort.isPresent() && sort.get().equalsIgnoreCase("productPriceHigh")) {
 	    page = productService.findAllPriceDec("%" + kwords + "%", pageable);
+	    model.addAttribute("sortSelected", "e");
 	}
-	
+
 	// put in map
 	Map<String, Product> mapProducts = new HashMap<>();
 
@@ -114,7 +132,7 @@ public class ProductController {
 
 	changedPagination(model, 2, "Category : " + categoryService.getById(id).getName()); // by category
 	model.addAttribute("idCategory", id);
-	
+
 	List<String> lstImage = productService.getProductAndOneImage(); // danh sách hình đầu tiên mỗi sản phẩm
 	List<Product> lstProducts = productService.findAll(); // danh sách các sản phẩm
 

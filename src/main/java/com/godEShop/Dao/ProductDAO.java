@@ -34,4 +34,15 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.name LIKE ?1 AND p.isDeleted = 0 ORDER BY p.price DESC")
     Page<Product> findAllPriceDec(String keywords, Pageable pageable);
 
+    // sắp xếp sản phẩm mới nhất
+    @Query("SELECT p FROM Product p WHERE p.name LIKE ?1 AND p.isDeleted = 0 ORDER BY p.createDate DESC")
+    Page<Product> findAllNewProduct(String keywords, Pageable pageable);
+
+    // sắp xếp sản phẩm theo lượt mua
+    @Query(value = "{CALL sp_getProductByPopularity()}", nativeQuery = true)
+    List<Long> getProductByPopularity();
+
+    // sắp xếp sản phẩm theo đánh giá
+    @Query(value = "{CALL sp_getProductByRating()}", nativeQuery = true)
+    List<Long> getProductByRating();
 }
