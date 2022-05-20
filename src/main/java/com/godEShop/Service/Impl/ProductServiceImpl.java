@@ -55,9 +55,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> findAllPriceDec(String keywords, Pageable pageable) {
+    public Page<Product> findAllPriceDesc(String keywords, Pageable pageable) {
 	// TODO Auto-generated method stub
-	return productDAO.findAllPriceDec(keywords, pageable);
+	return productDAO.findAllPriceDesc(keywords, pageable);
     }
 
     @Override
@@ -87,5 +87,36 @@ public class ProductServiceImpl implements ProductService {
 	});
 	return lstProduct;
     }
+
+    @Override
+    public List<Product> getTop10ProductDeal() {
+	// TODO Auto-generated method stub
+	List<Long> lstProductId = productDAO.getTop10ProductDeal();
+	List<Product> lstProduct = new ArrayList<>();
+	lstProductId.forEach(a -> {
+	    lstProduct.add(productDAO.getById(a));
+	});
+	return lstProduct;
+    }
+
+    @Override
+    public List<Long> getTop10BestSellers() {
+	// TODO Auto-generated method stub
+	return productDAO.getTop10BestSellers();
+    }
+
+    @Override
+    public Product getById(Long productId) {
+	// TODO Auto-generated method stub
+	return productDAO.getById(productId);
+    }
+
+    @Override
+    public List<Product> getAllNewProducts() {
+	// TODO Auto-generated method stub
+	return productDAO.getAllNewProducts();
+    }
+
+
 
 }

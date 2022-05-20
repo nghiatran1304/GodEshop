@@ -96,7 +96,7 @@
 						<!-- site-logo -->
 						<div class="site-logo">
 							<a href="index.html">
-								<img src="/assets/images/Glogo/logo.png" alt="Nikado">
+								<img src="/assets/images/Glogo/whileLogo.png" alt="Nikado">
 							</a>
 						</div>
 					</div>
@@ -104,13 +104,9 @@
 						<!-- header-search -->
 						<div class="header-search clearfix">
 							<div class="category-select pull-right">
-								<select class="nice-select-menu">
+								<select class="nice-select-menu" onchange="location = this.value;">
 									<option data-display="All Categories">All Categories</option>
-									<option value="1">Decor & Furniture</option>
-									<option value="2">Electronics</option>
-									<option value="3">Fashion & clothings</option>
-									<option value="4" disabled>Sport & Outdoors</option>
-									<option value="5">Toy, Kids & Baby</option>
+									<option th:each="lst, state : ${lstCategory}" th:value="@{|/product/category/${lst.id}|}">[[${lst.name}]]</option>
 								</select>
 							</div>
 							<div class="header-search-form">

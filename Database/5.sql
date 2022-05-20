@@ -476,15 +476,15 @@ Tourbillon Arlequino nổi bật với hàng trăm viên đá quý lấp lánh �
 (N'JACOB & CO EPIC SF24 FLYING TOURBILLON',1,500,'2022-05-18',60,N'Mỹ',N'Jacob & Co Epic SF24 Flying Tourbillon là một trong những thiết kế đáng kinh ngạc của Jacob & Co khi mang tới một cỗ máy đầy thể thao cùng thiết kế mặt số skeleton đầy táo bạo cùng những đường nét thủ công không thể tuyệt vời hơn.',4,10),
 
 
-(N'Đồng hồ CASIO Unisex W-218HC-4AVDF',5,25,'2022-05-19',60,N'Nhật Bản',N'Đồng hồ được trang bị khung viền và dây đeo nhựa có trọng lượng nhẹ, chịu lực tốt, hạn chế hư hỏng và tạo cảm giác mềm mại khi đeo.',5,9),
+(N'CASIO Unisex W-218HC-4AVDF',5,25,'2022-05-19',60,N'Nhật Bản',N'Đồng hồ được trang bị khung viền và dây đeo nhựa có trọng lượng nhẹ, chịu lực tốt, hạn chế hư hỏng và tạo cảm giác mềm mại khi đeo.',5,9),
 
-(N'Đồng hồ CASIO AEQ-120W-9AVDF',3,20,'2022-05-19',60,N'Nhật Bản',N'Mẫu đồng hồ này đến từ thương hiệu đồng hồ Casio nổi tiếng Nhật Bản. Thương hiệu với nhiều mẫu mã đa dạng phù hợp nhiều đối tượng sử dụng.',5,8),
+(N'CASIO AEQ-120W-9AVDF',3,20,'2022-05-19',60,N'Nhật Bản',N'Mẫu đồng hồ này đến từ thương hiệu đồng hồ Casio nổi tiếng Nhật Bản. Thương hiệu với nhiều mẫu mã đa dạng phù hợp nhiều đối tượng sử dụng.',5,8),
 
-(N'Đồng hồ CASIO LA680WGA-9DF',5,35,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,5),
+(N'CASIO LA680WGA-9DF',5,35,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,5),
 
-(N'Đồng hồ CASIO LRW-200H-4B2VDF',5,30,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,2),
+(N'CASIO LRW-200H-4B2VDF',5,30,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,2),
 
-(N'Đồng hồ CASIO LTP-1308D-2AVDF ',5,25,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,4),
+(N'CASIO LTP-1308D-2AVDF ',5,25,'2022-05-19',60,N'Nhật Bản',N'Mang thương hiệu đồng hồ Casio chất lượng và lâu đời của Nhật Bản, quen thuộc với người Việt Nam. Bộ sản phẩm gồm: Hộp, Thẻ bảo hành, Hướng dẫn sử dụng',5,4),
 
 
 -----------------Nam------------------
@@ -965,45 +965,45 @@ GO
 ---- Product Discount
 INSERT INTO ProductDiscounts(Discount,CreateDate,EndDate,ProductId,CreateBy) VALUES
 (3,'2022-05-15','2022-05-25',1,'admin01'),
-(3,'2022-05-15','2022-05-25',2,'admin01'),
-(3,'2022-05-15','2022-05-25',3,'admin01'),
-(3,'2022-05-15','2022-05-25',4,'admin01'),
-(3,'2022-05-15','2022-05-25',5,'admin01'),
-(3,'2022-05-15','2022-05-25',6,'admin01'),
-(3,'2022-05-15','2022-05-25',7,'admin01'),
-(3,'2022-05-15','2022-05-25',8,'admin01'),
-(4,'2022-05-15','2022-05-25',9,'admin01'),
-(4,'2022-05-15','2022-05-25',10,'admin01'),
-(4,'2022-05-15','2022-05-25',11,'admin01'),
-(4,'2022-05-15','2022-05-25',12,'admin01'),
-(4,'2022-05-15','2022-05-25',13,'admin01'),
-(4,'2022-05-15','2022-05-25',14,'admin01'),
-(4,'2022-05-15','2022-05-25',15,'admin01'),
-(4,'2022-05-15','2022-05-25',16,'admin01'),
-(4,'2022-05-15','2022-05-25',17,'admin01'),
-(4,'2022-05-15','2022-05-25',18,'admin01'),
-(4,'2022-05-15','2022-05-25',19,'admin01'),
-(4,'2022-05-15','2022-05-25',20,'admin01'),
-(4,'2022-05-15','2022-05-25',21,'admin01'),
-(5,'2022-05-15','2022-05-25',22,'admin01'),
-(5,'2022-05-15','2022-05-25',23,'admin01'),
-(5,'2022-05-15','2022-05-25',24,'admin01'),
-(5,'2022-05-15','2022-05-25',25,'admin01'),
-(5,'2022-05-15','2022-05-25',26,'admin01'),
-(5,'2022-05-15','2022-05-25',27,'admin01'),
-(5,'2022-05-15','2022-05-25',28,'admin01'),
-(5,'2022-05-15','2022-05-25',29,'admin01'),
-(6,'2022-05-15','2022-05-25',30,'admin01'),
-(6,'2022-05-15','2022-05-25',31,'admin01'),
-(6,'2022-05-15','2022-05-25',32,'admin01'),
-(6,'2022-05-15','2022-05-25',33,'admin01'),
-(6,'2022-05-15','2022-05-25',34,'admin01'),
-(6,'2022-05-15','2022-05-25',35,'admin01'),
-(6,'2022-05-15','2022-05-25',36,'admin01'),
-(6,'2022-05-15','2022-05-25',37,'admin01'),
-(6,'2022-05-15','2022-05-25',38,'admin01'),
-(6,'2022-05-15','2022-05-25',39,'admin01'),
-(6,'2022-05-15','2022-05-25',40,'admin01')
+(3,'2022-06-16','2022-06-26',2,'admin01'),
+(3,'2022-06-22','2022-06-27',3,'admin01'),
+(3,'2022-04-14','2022-04-21',4,'admin01'),
+(3,'2022-07-09','2022-07-11',5,'admin01'),
+(3,'2022-05-08','2022-05-22',6,'admin01'),
+(3,'2022-08-15','2022-08-25',7,'admin01'),
+(3,'2022-09-15','2022-09-22',8,'admin01'),
+(4,'2022-07-22','2022-07-29',9,'admin01'),
+(4,'2022-06-15','2022-06-21',10,'admin01'),
+(4,'2022-06-01','2022-06-07',11,'admin01'),
+(4,'2022-07-22','2022-07-2',12,'admin01'),
+(4,'2022-09-24','2022-09-30',13,'admin01'),
+(4,'2022-10-11','2022-05-18',14,'admin01'),
+(4,'2022-12-12','2022-12-19',15,'admin01'),
+(4,'2022-12-17','2022-12-24',16,'admin01'),
+(4,'2022-11-01','2022-11-08',17,'admin01'),
+(4,'2022-10-14','2022-10-21',18,'admin01'),
+(4,'2022-06-21','2022-06-28',19,'admin01'),
+(4,'2022-05-19','2022-05-26',20,'admin01'),
+(4,'2022-05-13','2022-05-20',21,'admin01'),
+(5,'2022-06-23','2022-06-30',22,'admin01'),
+(5,'2022-02-15','2022-02-22',23,'admin01'),
+(5,'2022-05-16','2022-05-23',24,'admin01'),
+(5,'2022-06-23','2022-06-29',25,'admin01'),
+(5,'2022-06-01','2022-06-08',26,'admin01'),
+(5,'2022-06-15','2022-06-21',27,'admin01'),
+(5,'2022-07-01','2022-07-08',28,'admin01'),
+(5,'2022-07-01','2022-07-08',29,'admin01'),
+(6,'2022-07-09','2022-07-16',30,'admin01'),
+(6,'2022-07-09','2022-07-16',31,'admin01'),
+(6,'2022-07-17','2022-07-24',32,'admin01'),
+(6,'2022-07-24','2022-07-30',33,'admin01'),
+(6,'2022-08-01','2022-08-08',34,'admin01'),
+(6,'2022-08-09','2022-08-09',35,'admin01'),
+(6,'2022-08-09','2022-08-16',36,'admin01'),
+(6,'2022-08-16','2022-08-23',37,'admin01'),
+(6,'2022-09-01','2022-09-15',38,'admin01'),
+(6,'2022-09-01','2022-09-08',39,'admin01'),
+(6,'2022-10-15','2022-10-22',40,'admin01')
 GO
 
 
@@ -1520,7 +1520,6 @@ GO
 /*
 		SELECT p.name, MIN(pp.Id) AS 'ImageName' FROM Products AS p
 		INNER JOIN ProductPhotos AS pp ON p.Id = pp.ProductId
-		WHERE p.name = 'CALVIN KLEIN STRAP 22MM'
 		GROUP BY p.Id, p.name
 */
 --==================================================== 
@@ -1555,5 +1554,33 @@ AS
 	END
 GO
 
+--==================================================== 
+-- lấy top 10 sản phẩm giảm giá gần nhất
+IF OBJECT_ID('sp_getTop10ProductDeal') IS NOT NULL
+	DROP PROC sp_getTop10ProductDeal
+GO
+CREATE PROC sp_getTop10ProductDeal
+AS
+	BEGIN
+		SELECT TOP 10 p.id FROM Products AS p
+		INNER JOIN ProductDiscounts AS pd ON p.Id = pd.ProductId
+		WHERE pd.EndDate > getdate()
+		ORDER BY pd.CreateDate ASC
+	END
+GO
 
-
+--==================================================== 
+-- lấy top 10 sản phẩm mua nhiều nhất
+IF OBJECT_ID('sp_getTop10BestSellers') IS NOT NULL
+	DROP PROC sp_getTop10BestSellers
+GO
+CREATE PROC sp_getTop10BestSellers
+AS
+	BEGIN
+		SELECT TOP 10 od.ProductId FROM OrderDetails AS od
+		INNER JOIN Orders AS o ON o.Id = od.OrderId
+		WHERE o.CreateDate <= GETDATE()
+		GROUP BY od.ProductId 		 
+		ORDER BY COUNT(od.ProductId) DESC
+	END
+GO

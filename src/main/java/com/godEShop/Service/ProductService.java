@@ -9,6 +9,8 @@ import com.godEShop.Entity.Product;
 
 public interface ProductService {
 
+    Product getById(Long productId);
+    
     Page<Product> findAllByNameLike(String string, Pageable pageable);
 
     Page<Product> findAllProductByCategoryId(int id, Pageable pageable);
@@ -17,15 +19,21 @@ public interface ProductService {
 
     Page<Product> findAllPriceAsc(String keywords, Pageable pageable);
 
-    Page<Product> findAllPriceDec(String keywords, Pageable pageable);
+    Page<Product> findAllPriceDesc(String keywords, Pageable pageable);
     
     Page<Product> findAllNewProduct(String keywords, Pageable pageable);
+    
+    List<Product> getTop10ProductDeal();
     
     List<Product> getProductByPopularity();
     
     List<Product> getProductByRating();
 
     List<String> getProductAndOneImage();
+    
+    List<Long> getTop10BestSellers();
 
     List<Product> findAll();
+    
+    List<Product> getAllNewProducts();
 }

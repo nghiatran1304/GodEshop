@@ -12,6 +12,8 @@ import com.godEShop.Entity.Product;
 
 @Repository
 public interface ProductDAO extends JpaRepository<Product, Long> {
+    
+
 
     Page<Product> findAllByNameLike(String keywords, Pageable pageable);
 
@@ -32,7 +34,7 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 
     // sắp xếp giá giảm dần
     @Query("SELECT p FROM Product p WHERE p.name LIKE ?1 AND p.isDeleted = 0 ORDER BY p.price DESC")
-    Page<Product> findAllPriceDec(String keywords, Pageable pageable);
+    Page<Product> findAllPriceDesc(String keywords, Pageable pageable);
 
     // sắp xếp sản phẩm mới nhất
     @Query("SELECT p FROM Product p WHERE p.name LIKE ?1 AND p.isDeleted = 0 ORDER BY p.createDate DESC")
@@ -45,4 +47,17 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     // sắp xếp sản phẩm theo đánh giá
     @Query(value = "{CALL sp_getProductByRating()}", nativeQuery = true)
     List<Long> getProductByRating();
+
+    // lấy top 10 sản phẩm giảm giá gần nhất
+    @Query(value = "{CALL sp_getTop10ProductDeal()}", nativeQuery = true)
+    List<Long> getTop10ProductDeal();
+    
+    // lấy top 10 sản phẩm mua nhiều nhất
+    @Query(value = "{CALL sp_getTop10BestSellers()}", nativeQuery = true)
+    List<Long> getTop10BestSellers();
+    
+    // lấy sản phẩm mới nhất
+    @Query("SELECT p FROM Product p ORDER BY p.createDate DESC")
+    List<Product> getAllNewProducts();
+
 }

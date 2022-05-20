@@ -215,7 +215,7 @@
 										<div class="orderby-wrapper">
 											<label>Sort By :</label>
 											<select class="nice-select-menu orderby" onchange="location = this.value;">
-												<option value="/product" dara-display="Select">Default sorting</option>
+												<option value="/product" th:selected="${sortSelected == 'df'}" dara-display="Select">Default sorting</option>
 												<option th:value="@{/product?sort=productPopularity}" th:selected="${sortSelected == 'a'}">Sort by popularity</option>
 												<option th:value="@{/product?sort=productRating}" th:selected="${sortSelected == 'b'}">Sort by average rating</option>
 												<option th:value="@{/product?sort=productNewest}" th:selected="${sortSelected == 'c'}">Sort by newnest</option>

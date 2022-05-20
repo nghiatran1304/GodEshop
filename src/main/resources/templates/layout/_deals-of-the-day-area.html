@@ -12,14 +12,14 @@
 			<div class="big-product-area">
 				<div class="row">
 					<div class="product-carousel-active owl-carousel">
-						<div class="col-sm-12">
+						<div class="col-sm-12" th:each="p : ${lstTop10ProductDeal}">
 							<!-- single product -->
 							<div class="single-product-area">
 								<div class="product-wrapper listview">
 									<div class="list-col4">
 										<div class="product-image">
-											<a href="#">
-												<img src="/assets/images/product/big/product4.jpg" alt="">
+											<a th:href="@{|/product/${p.productId}|}">
+												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" alt="" style="max-height: 350px">
 											</a>
 											<div class="quickviewbtn">
 												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
@@ -31,18 +31,37 @@
 									<div class="list-col8">
 										<div class="product-info">
 											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
+												<a href="single-product.html">[[${p.productName}]]</a>
 											</h2>
-											<span class="price"> <del>$ 77.00</del> $ 66.00
+											<span class="price">
+												<del>$ [[${p.productPrice}]]</del>											
+												<!-- <span th:with="te=${lstSum[state.index]}" th:utext="${te}"></span> -->
+												<span>$ [[${p.productPriceAfterDiscount}]]</span>
 											</span>
 											<div class="product-rattings">
-												<span><i class="fa fa-star"></i></span> <span><i class="fa fa-star"></i></span> <span><i class="fa fa-star"></i></span> <span><i class="fa fa-star-half-o"></i></span> <span><i class="fa fa-star-o"></i></span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star-half-o"></i>
+												</span>
+												<span>
+													<i class="fa fa-star-o"></i>
+												</span>
 											</div>
 											<div class="product-desc">
-												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus</p>
+												<textarea readonly rows="5" cols="5" style="overflow: hidden; resize: none; background-color: white; border: none;">[[${p.productDetail}]]</textarea>
 											</div>
 											<div class="deal-counter">
-												<div data-countdown="2021/08/02"></div>
+												<!-- <div data-countdown="2022/08/02"></div>  -->
+												<!-- <div th:data-countdown="${ed.get(state.index)}"></div> -->
+												<div th:data-countdown="${p.endDate}"></div>
 											</div>
 										</div>
 									</div>
@@ -50,83 +69,7 @@
 							</div>
 							<!-- single product end -->
 						</div>
-						<div class="col-sm-12">
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<span class="onsale">Sale!</span>
-												<img src="/assets/images/product/big/product5.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Consequuntur magni</a>
-											</h2>
-											<span class="price"> <del>$ 89.00</del> $ 80.00
-											</span>
-											<div class="product-rattings">
-												<span><i class="fa fa-star"></i></span> <span><i class="fa fa-star"></i></span> <span><i class="fa fa-star"></i></span> <span><i class="fa fa-star-half-o"></i></span> <span><i class="fa fa-star-o"></i></span>
-											</div>
-											<div class="product-desc">
-												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus</p>
-											</div>
-											<div class="deal-counter">
-												<div data-countdown="2021/08/02"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-						</div>
-						<div class="col-sm-12">
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/big/product6.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Epicuri per</a>
-											</h2>
-											<span class="price"> <del>$ 68.00</del> $ 62.00
-											</span>
-											<div class="product-rattings">
-												<span><i class="fa fa-star"></i></span> <span><i class="fa fa-star"></i></span> <span><i class="fa fa-star"></i></span> <span><i class="fa fa-star-half-o"></i></span> <span><i class="fa fa-star-o"></i></span>
-											</div>
-											<div class="product-desc">
-												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus</p>
-											</div>
-											<div class="deal-counter">
-												<div data-countdown="2021/08/02"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-						</div>
+
 					</div>
 				</div>
 			</div>
