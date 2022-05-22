@@ -28,4 +28,10 @@ public class BrandServiceImpl implements BrandService{
 	return brandDAO.getById(id);
     }
 
+    @Override
+    public List<Integer> getTop4BrandByEvaluation() {
+	// TODO Auto-generated method stub
+	return brandDAO.getTop4BrandByEvaluation();
+    }
+
 }

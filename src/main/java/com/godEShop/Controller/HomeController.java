@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.godEShop.Dto.ProductDiscountDto;
 import com.godEShop.Entity.Product;
+import com.godEShop.Service.BrandService;
 import com.godEShop.Service.ProductDiscountService;
 import com.godEShop.Service.ProductPhotoService;
 import com.godEShop.Service.ProductService;
@@ -26,6 +27,9 @@ public class HomeController {
 
     @Autowired
     ProductDiscountService productDiscountService;
+
+    @Autowired
+    BrandService brandService;
 
     public void GetProductDiscont(Model model) {
 	List<ProductDiscountDto> lstProductDiscountDto = new ArrayList<>();
@@ -88,8 +92,12 @@ public class HomeController {
 
 	    lstProductDiscountDto1.add(pdDto);
 	}
-	
+
 	model.addAttribute("lstNewProducts1", lstProductDiscountDto1);
+    }
+
+    public void top4BrandByEvaluation(Model model) {
+
     }
 
     @GetMapping("/index")
@@ -97,6 +105,8 @@ public class HomeController {
 	GetProductDiscont(model); // sản phẩm giảm giá
 	bestSeller(model); // sản phẩm bán chạy nhất
 	newProducts(model); // sản phẩm mới nhất
+	top4BrandByEvaluation(model); // top 4 thương hiệu được đánh giá cao
+
 	return "layout/homepage";
     }
 

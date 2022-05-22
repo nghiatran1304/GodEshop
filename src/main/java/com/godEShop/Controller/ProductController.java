@@ -1,21 +1,18 @@
 package com.godEShop.Controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.godEShop.Entity.Product;
+import com.godEShop.Dto.ProductShopDto;
 import com.godEShop.Service.BrandService;
 import com.godEShop.Service.CategoryService;
 import com.godEShop.Service.ProductService;
@@ -43,189 +40,44 @@ public class ProductController {
 
     }
 
-    // sản phẩm
     @GetMapping("/product")
-    public String productPage(Model model, @RequestParam("p") Optional<Integer> p,
+    public String productPage1(Model model, @RequestParam("p") Optional<Integer> p,
 	    @RequestParam("keywords") Optional<String> kw, @RequestParam("sort") Optional<String> sort) {
 
-	String kwords = "";
-	if (kw.isPresent()) {
-	    kwords = kw.get();
-	    changedPagination(model, 1, "Search product : " + kwords); // by product
-	}
-
-	if (p.isPresent()) {
-	    if (p.get() < 0) {
-		p = Optional.of(0);
-	    }
-	}
-
 	Pageable pageable = PageRequest.of(p.orElse(0), 12);
-
-	// by product
-	changedPagination(model, 1, "All Product");
-	// danh sách hình đầu tiên mỗi sản phẩm
-	List<String> lstImage = productService.getProductAndOneImage();
-	// danh sách các sản phẩm
-	List<Product> lstProducts = productService.findAll();
-
-	// danh sách hiển thị sản phẩm
-	Map<String, Product> mapProducts = new HashMap<>();
-
-	Map<Long, String> mapProductIdAndImage = new HashMap<>();
-	for (int i = 0; i < lstProducts.size(); i++) {
-	    mapProductIdAndImage.put(lstProducts.get(i).getId(), lstImage.get(i));
+	
+	if (!sort.isPresent()) {
+	    pageable = PageRequest.of(p.orElse(0), 12);
+	} else if (sort.get().equalsIgnoreCase("discount")) {
+	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("pd.discount").descending());
+	    model.addAttribute("sortSelected", sort.get());
+	} else if (sort.get().equalsIgnoreCase("rating")) {
+	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("pe.evaluation").descending());
+	    model.addAttribute("sortSelected", sort.get());
+	} else if (sort.get().equalsIgnoreCase("newest")) {
+	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("createDate").descending());
+	    model.addAttribute("sortSelected", sort.get());
+	} else if (sort.get().equalsIgnoreCase("lowtohigh")) {
+	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("price").ascending());
+	    model.addAttribute("sortSelected", sort.get());
+	} else if (sort.get().equalsIgnoreCase("hightolow")) {
+	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("price").descending());
+	    model.addAttribute("sortSelected", sort.get());
 	}
-
-	// sorting
-	Page<Product> page = productService.findAllByNameLike("%" + kwords + "%", pageable);
-
-	// sắp xếp sản phẩm theo lượt mua
-	if (sort.isPresent() && sort.get().equalsIgnoreCase("productPopularity")) {
-	    lstProducts = productService.getProductByPopularity();
-	    model.addAttribute("sortSelected", "a");
-	    session.set("sortSelected", "a");
-	}
-	// sắp xếp sản phẩm theo đánh giá
-	else if (sort.isPresent() && sort.get().equalsIgnoreCase("productRating")) {
-	    lstProducts = productService.getProductByRating();
-	    model.addAttribute("sortSelected", "b");
-	    session.set("sortSelected", "b");
-	}
-	// sắp xếp theo sản phẩm mới nhất
-	else if (sort.isPresent() && sort.get().equalsIgnoreCase("productNewest")) {
-	    page = productService.findAllNewProduct("%" + kwords + "%", pageable);
-	    model.addAttribute("sortSelected", "c");
-	    session.set("sortSelected", "c");
-	}
-	// sắp xếp theo giá tăng dần
-	else if (sort.isPresent() && sort.get().equalsIgnoreCase("productPriceLow")) {
-	    page = productService.findAllPriceAsc("%" + kwords + "%", pageable);
-	    model.addAttribute("sortSelected", "d");
-	    session.set("sortSelected", "d");
-	}
-	// sắp xếp theo giá giảm dần
-	else if (sort.isPresent() && sort.get().equalsIgnoreCase("productPriceHigh")) {
-	    page = productService.findAllPriceDesc("%" + kwords + "%", pageable);
-	    model.addAttribute("sortSelected", "e");
-	    session.set("sortSelected", "e");
-	} else {
-	    session.set("sortSelected", "df");
-	    model.addAttribute("sortSelected", "df");
-	}
-
-	for (int i = 0; i < page.getContent().size(); i++) {
-	    int index = lstProducts.indexOf(page.getContent().get(i));
-	    mapProducts.put(lstImage.get(index), page.getContent().get(i));
-	}
-
-	model.addAttribute("mapProducts", mapProducts);
-	model.addAttribute("page", page);
-
-	int totalProducts = kwords == "" ? lstProducts.size() : page.getNumberOfElements();
-	model.addAttribute("totalProducts", totalProducts);
-	int fromProduct = (mapProducts.size() * (p.orElse(0) >= 1 ? p.get() + 1 : 1)) - page.getNumberOfElements() + 1;
-	model.addAttribute("fromProduct", fromProduct);
-	int toProduct = mapProducts.size() * (p.orElse(0) >= 1 ? p.get() + 1 : 1);
-	model.addAttribute("toProduct", toProduct);
-
-	return "product/product";
-
-    }
-
-    // sản phẩm theo danh mục
-    @GetMapping("/product/category/{id}")
-    public String productPageByCategory(Model model, @RequestParam("p") Optional<Integer> p,
-	    @RequestParam("keywords") Optional<String> kw, @PathVariable("id") Integer id) {
-
-	if (p.isPresent()) {
-	    if (p.get() < 0) {
-		p = Optional.of(0);
-	    }
-	}
-
-	changedPagination(model, 2, "Category : " + categoryService.getById(id).getName()); // by category
-	model.addAttribute("idCategory", id);
-
-	List<String> lstImage = productService.getProductAndOneImage(); // danh sách hình đầu tiên mỗi sản phẩm
-	List<Product> lstProducts = productService.findAll(); // danh sách các sản phẩm
 
 	String kwords = "";
 	if (kw.isPresent()) {
 	    kwords = kw.get();
 	}
 
-	Pageable pageable = PageRequest.of(p.orElse(0), 12);
+	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", pageable);
 
-	Page<Product> page = productService.findAllProductByCategoryId(id, pageable);
-
-	Map<String, Product> mapProducts = new HashMap<>();
-
-	for (int i = 0; i < page.getContent().size(); i++) {
-	    int index = lstProducts.indexOf(page.getContent().get(i));
-	    mapProducts.put(lstImage.get(index), page.getContent().get(i));
-	}
-
-	model.addAttribute("mapProducts", mapProducts);
 	model.addAttribute("page", page);
 
-	int totalProducts = kwords == "" ? lstProducts.size() : page.getNumberOfElements();
-	model.addAttribute("totalProducts", totalProducts);
-	int fromProduct = (mapProducts.size() * (p.orElse(0) >= 1 ? p.get() + 1 : 1)) - page.getNumberOfElements() + 1;
-	model.addAttribute("fromProduct", fromProduct);
-	int toProduct = mapProducts.size() * (p.orElse(0) >= 1 ? p.get() + 1 : 1);
-	model.addAttribute("toProduct", toProduct);
-
 	return "product/product";
-
     }
 
-    // sản phẩm theo thương hiệu
-    @GetMapping("/product/brand/{id}")
-    public String productPageByBrand(Model model, @RequestParam("p") Optional<Integer> p,
-	    @RequestParam("keywords") Optional<String> kw, @PathVariable("id") Integer id) {
-
-	if (p.isPresent()) {
-	    if (p.get() < 0) {
-		p = Optional.of(0);
-	    }
-	}
-
-	changedPagination(model, 3, "Brands : " + brandService.getById(id).getName()); // by category
-
-	model.addAttribute("idBrand", id);
-	List<String> lstImage = productService.getProductAndOneImage(); // danh sách hình đầu tiên mỗi sản phẩm
-	List<Product> lstProducts = productService.findAll(); // danh sách các sản phẩm
-
-	String kwords = "";
-	if (kw.isPresent()) {
-	    kwords = kw.get();
-	}
-
-	Pageable pageable = PageRequest.of(p.orElse(0), 12);
-
-	Page<Product> page = productService.findAllProductByBrandId(id, pageable);
-
-	Map<String, Product> mapProducts = new HashMap<>();
-
-	for (int i = 0; i < page.getContent().size(); i++) {
-	    int index = lstProducts.indexOf(page.getContent().get(i));
-	    mapProducts.put(lstImage.get(index), page.getContent().get(i));
-	}
-
-	model.addAttribute("mapProducts", mapProducts);
-	model.addAttribute("page", page);
-
-	int totalProducts = kwords == "" ? lstProducts.size() : page.getNumberOfElements();
-	model.addAttribute("totalProducts", totalProducts);
-	int fromProduct = (mapProducts.size() * (p.orElse(0) >= 1 ? p.get() + 1 : 1)) - page.getNumberOfElements() + 1;
-	model.addAttribute("fromProduct", fromProduct);
-	int toProduct = mapProducts.size() * (p.orElse(0) >= 1 ? p.get() + 1 : 1);
-	model.addAttribute("toProduct", toProduct);
-
-	return "product/product";
-
-    }
+    
 
     @GetMapping("/singleproduct")
     public String singleproductPage() {
@@ -233,3 +85,43 @@ public class ProductController {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

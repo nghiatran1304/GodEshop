@@ -6,13 +6,13 @@
 			<div id="grid" class="tab-pane fade in show active">
 				<div class="row">
 					<!-- START -->
-					<div class="col-sm-6 col-md-4 col-xl-3" th:each="p : ${mapProducts}">
+					<div class="col-sm-6 col-md-4 col-xl-3" th:each="p : ${page.content}">
 						<div class="single-product-area">
 							<div class="product-wrapper gridview">
 								<div class="list-col4">
 									<div class="product-image">
 										<a href="">
-											<img th:src="@{|/upload/ProductImages/${p.key}|}" style="width: 350px; height: 350px" alt="">
+											<img th:src="@{|/upload/ProductImages/${p.productFirstImage}|}" style="width: 350px; height: 350px" alt="">
 										</a>
 										<div class="quickviewbtn">
 											<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
@@ -24,11 +24,16 @@
 								<div class="list-col8">
 									<div class="product-info">
 										<h2>
-											<a href="#">[[${p.value.name}]]</a>
+											<a href="#">[[${p.productName}]]</a>
 										</h2>
 										<span class="price">
-											<del>[[${p.value.price}]]</del>
-											$ 75.00
+											<th:block th:if="${p.productDiscount == null}">
+												$ [[${p.productPrice}]]
+											</th:block>
+											<th:block th:if="${p.productDiscount != null}">
+												<del>[[${p.productPrice}]]</del>
+											$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>												
+											</th:block>
 										</span>
 									</div>
 									<div class="product-hidden">
@@ -119,9 +124,7 @@
 											</span>
 										</div>
 										<div class="product-desc">
-											<p>
-												[[${p.value.detail}]]
-											</p>
+											<p>[[${p.value.detail}]]</p>
 										</div>
 									</div>
 									<div class="actions-wrapper">

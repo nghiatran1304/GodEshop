@@ -8,5 +8,7 @@ public interface BrandService {
     
     List<Brand> findAll();
     
+    List<Integer> getTop4BrandByEvaluation();
+    
     Brand getById(int id);
 }

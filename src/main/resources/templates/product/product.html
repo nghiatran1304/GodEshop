@@ -150,7 +150,7 @@
 							</div>
 							<div class="sidebar-single-banner">
 								<a href="#">
-									<img src="/assets/images/banner/shop-sidebar.jpg" alt="Banner">
+									<img src="/assets/images/GBanner/sale2.jpg" alt="Banner">
 								</a>
 							</div>
 							<div class="sidebar-tag">
@@ -177,7 +177,7 @@
 					</div>
 					<div class="col-xs-12 col-md-9 shop-content">
 						<div class="shop-banner">
-							<img src="/assets/images/banner/shop-category.jpg" alt="">
+							<img src="/assets/images/GBanner/banner3.jpg" alt="">
 						</div>
 						<div class="product-toolbar">
 							<div class="topbar-title">
@@ -215,12 +215,12 @@
 										<div class="orderby-wrapper">
 											<label>Sort By :</label>
 											<select class="nice-select-menu orderby" onchange="location = this.value;">
-												<option value="/product" th:selected="${sortSelected == 'df'}" dara-display="Select">Default sorting</option>
-												<option th:value="@{/product?sort=productPopularity}" th:selected="${sortSelected == 'a'}">Sort by popularity</option>
-												<option th:value="@{/product?sort=productRating}" th:selected="${sortSelected == 'b'}">Sort by average rating</option>
-												<option th:value="@{/product?sort=productNewest}" th:selected="${sortSelected == 'c'}">Sort by newnest</option>
-												<option th:value="@{/product?sort=productPriceLow}" th:selected="${sortSelected == 'd'}">Sort by price: low to high</option>
-												<option th:value="@{/product?sort=productPriceHigh}" th:selected="${sortSelected == 'e'}">Sort by price: high to low</option>
+												<option th:value="@{|/product|}" th:selected="${sortSelected == 'a'}" dara-display="Select">Default sorting</option>
+												<option th:value="@{|/product?sort=discount|}" th:selected="${sortSelected == 'b'}">Sort by discount</option>
+												<option th:value="@{|/product?sort=rating|}" th:selected="${sortSelected == 'c'}">Sort by average rating</option>
+												<option th:value="@{|/product?sort=newest|}" th:selected="${sortSelected == 'd'}">Sort by newnest</option>
+												<option th:value="@{|/product?sort=lowtohigh|}" th:selected="${sortSelected == 'e'}">Sort by price: low to high</option>
+												<option th:value="@{|/product?sort=hightolow|}" th:selected="${sortSelected == 'f'}">Sort by price: high to low</option>
 											</select>
 										</div>
 									</form>
@@ -248,24 +248,10 @@
 								</li>
 							</ul> -->
 							<div class="col-12 text-center">
-								<th:block th:if="${whichPagination == 1}">
-									<a th:href="@{|/product?p=0|}" class="btn btn-primary font-weight-bold a1">First</a>
-									<a th:href="@{|/product?p=${page.number-1}|}" class="btn btn-primary font-weight-bold a1">Prev</a>
-									<a th:href="@{|/product?p=${page.number+1}|}" class="btn btn-primary font-weight-bold a1">Next</a>
-									<a th:href="@{|/product?p=${page.totalPages-1}|}" class="btn btn-primary font-weight-bold a1">Last</a>
-								</th:block>
-								<th:block th:if="${whichPagination == 2}">
-									<a th:href="@{|/product/category/${idCategory}?p=0|}" class="btn btn-primary font-weight-bold a1">First</a>
-									<a th:href="@{|/product/category/${idCategory}?p=${page.number-1}|}" class="btn btn-primary font-weight-bold a1">Prev</a>
-									<a th:href="@{|/product/category/${idCategory}?p=${page.number+1}|}" class="btn btn-primary font-weight-bold a1">Next</a>
-									<a th:href="@{|/product/category/${idCategory}?p=${page.totalPages-1}|}" class="btn btn-primary font-weight-bold a1">Last</a>
-								</th:block>
-								<th:block th:if="${whichPagination == 3}">
-									<a th:href="@{|/product/brand/${idBrand}?p=0|}" class="btn btn-primary font-weight-bold a1">First</a>
-									<a th:href="@{|/product/brand/${idBrand}?p=${page.number-1}|}" class="btn btn-primary font-weight-bold a1">Prev</a>
-									<a th:href="@{|/product/brand/${idBrand}?p=${page.number+1}|}" class="btn btn-primary font-weight-bold a1">Next</a>
-									<a th:href="@{|/product/brand/${idBrand}?p=${page.totalPages-1}|}" class="btn btn-primary font-weight-bold a1">Last</a>
-								</th:block>
+								<a th:href="@{|/product?p=0&sort=${sortSelected}|}" class="btn btn-primary font-weight-bold a1">First</a>
+								<a th:href="@{|/product?p=${page.number-1}&sort=${sortSelected}|}" class="btn btn-primary font-weight-bold a1">Prev</a>
+								<a th:href="@{|/product?p=${page.number+1}&sort=${sortSelected}|}" class="btn btn-primary font-weight-bold a1">Next</a>
+								<a th:href="@{|/product?p=${page.totalPages-1}&sort=${sortSelected}|}" class="btn btn-primary font-weight-bold a1">Last</a>								
 							</div>
 						</nav>
 					</div>

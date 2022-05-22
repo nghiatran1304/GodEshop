@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.godEShop.Entity.ProductEvaluation;
 
 @Repository
-public interface ProductEvaluationDAO extends JpaRepository<ProductEvaluation, Long> {
+public interface ProductEvaluationDAO extends JpaRepository<ProductEvaluation, Integer> {
 
 }

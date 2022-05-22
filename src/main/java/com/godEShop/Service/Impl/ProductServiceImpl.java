@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.godEShop.Dao.ProductDAO;
+import com.godEShop.Dto.ProductShopDto;
 import com.godEShop.Entity.Product;
 import com.godEShop.Service.ProductService;
 
@@ -116,6 +117,19 @@ public class ProductServiceImpl implements ProductService {
 	// TODO Auto-generated method stub
 	return productDAO.getAllNewProducts();
     }
+
+    @Override
+    public List<Product> findAllByCategoryId(int id) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public Page<ProductShopDto> productShop(String kws, Pageable pageable) {
+	// TODO Auto-generated method stub
+	return  productDAO.productShop(kws, pageable);
+    }
+
 
 
 

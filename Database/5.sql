@@ -122,7 +122,7 @@ CREATE TABLE ProductDiscounts(
 	Discount INT DEFAULT 0,
 	CreateDate DATETIME NOT NULL,
 	EndDate DATETIME NOT NULL,
-	ProductId INT,
+	ProductId INT DEFAULT NULL,
 	CreateBy VARCHAR(50) NOT NULL,
 	FOREIGN KEY (CreateBy) REFERENCES Accounts(Username),
 	FOREIGN KEY (ProductId) REFERENCES Products(Id)
@@ -266,6 +266,7 @@ CREATE TABLE ProductReplies(
 	FOREIGN KEY (Username) REFERENCES Accounts(Username)
 );
 GO
+
 
 --==============================================================
 
@@ -1522,6 +1523,7 @@ GO
 		INNER JOIN ProductPhotos AS pp ON p.Id = pp.ProductId
 		GROUP BY p.Id, p.name
 */
+
 --==================================================== 
 -- sắp xếp theo lược mua select * from products
 IF OBJECT_ID('sp_getProductByPopularity') IS NOT NULL
@@ -1584,3 +1586,33 @@ AS
 		ORDER BY COUNT(od.ProductId) DESC
 	END
 GO
+
+--==================================================== 
+-- top 4 thương hiệu được đánh giá cao nhất
+IF OBJECT_ID('sp_getTop4BrandByEvaluation') IS NOT NULL
+	DROP PROC sp_getTop4BrandByEvaluation
+GO
+CREATE PROC sp_getTop4BrandByEvaluation
+AS
+	BEGIN
+		SELECT TOP 4 c.id
+		FROM ProductEvaluations AS pe
+		INNER JOIN Products AS p ON pe.ProductId = p.Id
+		INNER JOIN Categories AS c ON p.CategoryId = c.Id
+		GROUP BY c.Id
+		ORDER BY AVG(pe.Evaluation) DESC
+	END
+GO
+
+--==================================================== 
+
+
+--==================================================== 
+
+
+--==================================================== 
+
+
+--==================================================== 
+
+--==================================================== 
