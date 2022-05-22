@@ -125,9 +125,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductShopDto> productShop(String kws, Pageable pageable) {
+    public Page<ProductShopDto> productShop(String kws, String categoryName, String brandName, Pageable pageable) {
 	// TODO Auto-generated method stub
-	return  productDAO.productShop(kws, pageable);
+	return  productDAO.productShop(kws, categoryName, brandName, pageable);
     }
 
 

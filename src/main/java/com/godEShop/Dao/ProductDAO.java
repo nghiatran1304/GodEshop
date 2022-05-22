@@ -65,15 +65,16 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     // ------------------------------------------------------------------------
 
     @Query("SELECT new com.godEShop.Dto.ProductShopDto"
-    	+ "(p.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), pe.evaluation, pd.discount) "
+    	+ "(p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), pe.evaluation, pd.discount, p.detail) "
     	+ "FROM Product p "
     	+ "FULL JOIN p.productPhotos pp "
     	+ "FULL JOIN p.productEvaluations pe "
+    	+ "FULL JOIN p.brand pb "
     	+ "FULL JOIN p.productDiscounts pd "
     	+ "FULL JOIN p.category c "
-    	+ "WHERE p.isDeleted = 0 AND (p.name LIKE ?1 OR c.name LIKE ?1) "
-    	+ "GROUP BY p.id, p.name, p.price, p.createDate, c.name, pe.evaluation, pd.discount")
-    Page<ProductShopDto> productShop(String kws, Pageable pageable);
+    	+ "WHERE p.isDeleted = 0 AND (p.name LIKE ?1 OR c.name LIKE ?1) AND c.name LIKE ?2 AND pb.name LIKE ?3 "
+    	+ "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pe.evaluation, pd.discount, p.detail")
+    Page<ProductShopDto> productShop(String kws, String categoryName, String brandName,Pageable pageable);
 
 }
 

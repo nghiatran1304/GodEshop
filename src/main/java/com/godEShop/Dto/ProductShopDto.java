@@ -20,14 +20,14 @@ public class ProductShopDto implements Serializable{
     
     @Id
     private Long productId;
+    private Integer productCategoryId;
     private String productName;
     private Double productPrice;
     private Date productCreateDate;
     private String productCategoryName;
     private String productFirstImage;
     private Integer productEvaluation = 0;
-    private Integer productDiscount = 0;
-    
-    
+    private Integer productDiscount;
+    private String productDetail;
     
 }

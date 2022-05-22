@@ -106,7 +106,9 @@
 							<div class="category-select pull-right">
 								<select class="nice-select-menu" onchange="location = this.value;">
 									<option data-display="All Categories">All Categories</option>
-									<option th:each="lst, state : ${lstCategory}" th:value="@{|/product/category/${lst.id}|}">[[${lst.name}]]</option>
+									<option th:each="lst, state : ${lstCategory}" th:value="@{|/product?categoryId=${lst.id}|}">
+										<a th:href="@{|/product?categoryId=${lst.id}|}">[[${lst.name}]]</a>
+									</option>
 								</select>
 							</div>
 							<div class="header-search-form">
@@ -247,13 +249,14 @@
 							<span class="categorie-title">Categories</span>
 							<nav>
 								<ul class="categori-menu-list menu-hidden">
-									<li th:each="lst, state : ${lstCategory}">
-										<a th:href="@{|/product/category/${lst.id}|}">
-											<!-- <span>
-												<img th:src="@{|/assets/images/GIcon/${state.index + 1}.png|}" alt="menu-icon">
-											</span> -->
+									<li>
+										<a th:href="@{|/product|}">
+											All Products
+										</a>
+									</li>
+									<li th:each="lst: ${lstCategory}">
+										<a th:href="@{|/product?search-category=${lst.name}|}">
 											[[${lst.name}]]
-											<!-- <i class="fa fa-angle-right" aria-hidden="true"></i> -->
 										</a>
 									</li>
 								</ul>

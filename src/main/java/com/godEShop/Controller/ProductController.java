@@ -42,26 +42,34 @@ public class ProductController {
 
     @GetMapping("/product")
     public String productPage1(Model model, @RequestParam("p") Optional<Integer> p,
-	    @RequestParam("keywords") Optional<String> kw, @RequestParam("sort") Optional<String> sort) {
-
+	    @RequestParam("keywords") Optional<String> kw, @RequestParam("sort") Optional<String> sort,
+	    @RequestParam("search-category") Optional<String> cName,
+	    @RequestParam("search-brand") Optional<String> bName) {
+	
 	Pageable pageable = PageRequest.of(p.orElse(0), 12);
 	
 	if (!sort.isPresent()) {
 	    pageable = PageRequest.of(p.orElse(0), 12);
+	    model.addAttribute("sortChose", "a");
 	} else if (sort.get().equalsIgnoreCase("discount")) {
 	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("pd.discount").descending());
+	    model.addAttribute("sortChose", "b");
 	    model.addAttribute("sortSelected", sort.get());
 	} else if (sort.get().equalsIgnoreCase("rating")) {
 	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("pe.evaluation").descending());
+	    model.addAttribute("sortChose", "c");
 	    model.addAttribute("sortSelected", sort.get());
 	} else if (sort.get().equalsIgnoreCase("newest")) {
 	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("createDate").descending());
+	    model.addAttribute("sortChose", "d");
 	    model.addAttribute("sortSelected", sort.get());
 	} else if (sort.get().equalsIgnoreCase("lowtohigh")) {
 	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("price").ascending());
+	    model.addAttribute("sortChose", "e");
 	    model.addAttribute("sortSelected", sort.get());
 	} else if (sort.get().equalsIgnoreCase("hightolow")) {
 	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("price").descending());
+	    model.addAttribute("sortChose", "f");
 	    model.addAttribute("sortSelected", sort.get());
 	}
 
@@ -69,11 +77,23 @@ public class ProductController {
 	if (kw.isPresent()) {
 	    kwords = kw.get();
 	}
-
-	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", pageable);
+	
+	String categoryName = "";
+	if(cName.isPresent()) {
+	    categoryName = cName.get();
+	}
+	model.addAttribute("cateName", categoryName);
+	
+	String brandName = "";
+	if(bName.isPresent()) {
+	    brandName = bName.get();
+	}
+	model.addAttribute("brandName", brandName);
+	
+	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%", "%" + brandName + "%", pageable);
 
 	model.addAttribute("page", page);
-
+	
 	return "product/product";
     }
 

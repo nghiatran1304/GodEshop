@@ -12,6 +12,9 @@
 								<div class="list-col4">
 									<div class="product-image">
 										<a href="">
+											<th:block th:if="${p.productDiscount > 0}">
+												<span class="isSale">Sale!</span>
+											</th:block>
 											<img th:src="@{|/upload/ProductImages/${p.productFirstImage}|}" style="width: 350px; height: 350px" alt="">
 										</a>
 										<div class="quickviewbtn">
@@ -31,8 +34,8 @@
 												$ [[${p.productPrice}]]
 											</th:block>
 											<th:block th:if="${p.productDiscount != null}">
-												<del>[[${p.productPrice}]]</del>
-											$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>												
+												<del>$ [[${p.productPrice}]]</del>
+											$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
 											</th:block>
 										</span>
 									</div>
@@ -42,21 +45,64 @@
 										</div>
 										<div class="star-actions">
 											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
+												<th:block th:if="${p.productEvaluation == 5}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 4}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 3}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 2}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 1}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == null}">
+													
+												</th:block>
 											</div>
 											<ul class="actions">
 												<li>
@@ -81,14 +127,14 @@
 			</div>
 			<div id="list" class="tab-pane fade">
 				<div class="row">
-					<div class="col-sm-12" th:each="p : ${mapProducts}">
+					<div class="col-sm-12" th:each="p : ${page.content}">
 						<div class="single-product-area">
 							<div class="product-wrapper listview">
 								<div class="list-col4">
 									<div class="product-image">
 										<a href="">
 											<span class="onsale">Sale!</span>
-											<img th:src="@{|/upload/ProductImages/${p.key}|}" alt="">
+											<img th:src="@{|/upload/ProductImages/${p.productFirstImage}|}" style="width: 350px; height: 350px" alt="">
 										</a>
 										<div class="quickviewbtn">
 											<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
@@ -100,31 +146,79 @@
 								<div class="list-col8">
 									<div class="product-info">
 										<h2>
-											<a href="single-product.html">[[${p.value.name}]]</a>
+											<a href="single-product.html">[[${p.productName}]]</a>
 										</h2>
 										<span class="price">
-											<del>[[${p.value.price}]]</del>
-											$ 66.00
+											<th:block th:if="${p.productDiscount == null}">
+												$ [[${p.productPrice}]]
+											</th:block>
+											<th:block th:if="${p.productDiscount != null}">
+												<del>[[${p.productPrice}]]</del>
+											$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
+											</th:block>
 										</span>
 										<div class="product-rattings">
-											<span>
-												<i class="fa fa-star"></i>
-											</span>
-											<span>
-												<i class="fa fa-star"></i>
-											</span>
-											<span>
-												<i class="fa fa-star"></i>
-											</span>
-											<span>
-												<i class="fa fa-star-half-o"></i>
-											</span>
-											<span>
-												<i class="fa fa-star-o"></i>
-											</span>
-										</div>
+												<th:block th:if="${p.productEvaluation == 5}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 4}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 3}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 2}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 1}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == null}">
+													
+												</th:block>
+											</div>
 										<div class="product-desc">
-											<p>[[${p.value.detail}]]</p>
+											<p>[[${p.productDetail}]]</p>
 										</div>
 									</div>
 									<div class="actions-wrapper">

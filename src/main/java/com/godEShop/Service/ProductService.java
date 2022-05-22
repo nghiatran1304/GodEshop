@@ -41,5 +41,5 @@ public interface ProductService {
     List<Product> findAllByCategoryId(int id);
     
     //-------------------------
-    Page<ProductShopDto> productShop(String kws, Pageable pageable);
+    Page<ProductShopDto> productShop(String kws, String categoryName, String brandName,Pageable pageable);
 }
