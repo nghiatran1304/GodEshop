@@ -30,7 +30,7 @@
 							<div class="widget-content">
 								<ul class="product-categories">
 									<li class="cat-item" th:each="lst, state : ${lstBrands}">
-										<a th:href="@{|/product?search-brand=${lst.name}|}">[[${lst.name}]]</a>
+										<a th:href="@{|/product?search-category=${cateName}&search-brand=${lst.name}|}">[[${lst.name}]]</a>
 										<span class="count"></span>
 									</li>
 								</ul>
@@ -49,7 +49,7 @@
 										<button class="button" type="submit">Filter</button>
 									</div> -->
 
-									<form method="get" action="#">
+									<!-- <form method="get" action="#">
 										<div data-role="rangeslider">
 											<label for="price-min">Price:</label>
 											<input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
@@ -57,8 +57,7 @@
 											<input type="range" name="price-max" id="price-max" value="800" min="0" max="1000">
 										</div>
 										<input type="submit" data-inline="true" value="Submit">
-
-									</form>
+									</form> -->
 
 								</div>
 							</div>
