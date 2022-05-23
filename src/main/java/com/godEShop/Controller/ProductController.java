@@ -1,5 +1,7 @@
 package com.godEShop.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.godEShop.Dto.ProductDiscountDto;
 import com.godEShop.Dto.ProductShopDto;
 import com.godEShop.Service.BrandService;
 import com.godEShop.Service.CategoryService;
@@ -45,9 +48,16 @@ public class ProductController {
 	    @RequestParam("keywords") Optional<String> kw, @RequestParam("sort") Optional<String> sort,
 	    @RequestParam("search-category") Optional<String> cName,
 	    @RequestParam("search-brand") Optional<String> bName) {
-	
+
+	// top 2 seller
+	List<ProductDiscountDto> lstTopSeller = new ArrayList<>();
+	for (int i = 0; i < 3; i++) {
+	    lstTopSeller.add(productService.productBestSeller().get(i));
+	}
+	model.addAttribute("lstTopSeller", lstTopSeller);
+
 	Pageable pageable = PageRequest.of(p.orElse(0), 12);
-	
+
 	if (!sort.isPresent()) {
 	    pageable = PageRequest.of(p.orElse(0), 12);
 	    model.addAttribute("sortChose", "a");
@@ -77,27 +87,36 @@ public class ProductController {
 	if (kw.isPresent()) {
 	    kwords = kw.get();
 	}
-	
+
 	String categoryName = "";
-	if(cName.isPresent()) {
+	if (cName.isPresent()) {
 	    categoryName = cName.get();
 	}
 	model.addAttribute("cateName", categoryName);
-	
+
 	String brandName = "";
-	if(bName.isPresent()) {
+	if (bName.isPresent()) {
 	    brandName = bName.get();
 	}
 	model.addAttribute("brandName", brandName);
-	
-	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%", "%" + brandName + "%", pageable);
+
+	String s1 = kwords.length() == 0 ? "" : " > " + kwords;
+	String s2 = categoryName.length() == 0 ? "" : " > " + categoryName;
+	String s3 = brandName.length() == 0 ? "" : " > " + brandName;
+
+	model.addAttribute("nameOfSearch", (s1 + s2 + s3));
+
+	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%",
+		"%" + brandName + "%", pageable);
 
 	model.addAttribute("page", page);
-	
+
+	model.addAttribute("totalProducts", page.getTotalElements());
+	model.addAttribute("toProduct", page.getNumber());
+	model.addAttribute("totalPage", page.getPageable().getPageSize());
+
 	return "product/product";
     }
-
-    
 
     @GetMapping("/singleproduct")
     public String singleproductPage() {
@@ -105,43 +124,3 @@ public class ProductController {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

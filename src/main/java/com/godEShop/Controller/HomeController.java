@@ -1,6 +1,5 @@
 package com.godEShop.Controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.godEShop.Dto.ProductDiscountDto;
-import com.godEShop.Entity.Product;
 import com.godEShop.Service.BrandService;
 import com.godEShop.Service.ProductDiscountService;
 import com.godEShop.Service.ProductPhotoService;
@@ -31,81 +29,55 @@ public class HomeController {
     @Autowired
     BrandService brandService;
 
-    public void GetProductDiscont(Model model) {
-	List<ProductDiscountDto> lstProductDiscountDto = new ArrayList<>();
-
-	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-
-	List<Product> lstTop10ProductDeal = productService.getTop10ProductDeal();
-
-	for (int i = 0; i < lstTop10ProductDeal.size(); i++) {
-	    double ds = lstTop10ProductDeal.get(i).getPrice()
-		    * productDiscountService.getProductDiscount(lstTop10ProductDeal.get(i).getId()).getDiscount()
-		    / 100.0;
-	    double rs = lstTop10ProductDeal.get(i).getPrice() - ds;
-	    ProductDiscountDto pdDto = new ProductDiscountDto();
-	    pdDto.setProductId(lstTop10ProductDeal.get(i).getId());
-	    pdDto.setProductName(lstTop10ProductDeal.get(i).getName());
-	    pdDto.setProductPrice(String.format("%.2f", lstTop10ProductDeal.get(i).getPrice()));
-	    pdDto.setProductPriceAfterDiscount(String.format("%.2f", rs));
-	    pdDto.setEndDate(simpleDateFormat.format(
-		    productDiscountService.getProductDiscount(lstTop10ProductDeal.get(i).getId()).getEndDate()));
-	    pdDto.setProductImage(productPhotoService.productFirstPhotoname(lstTop10ProductDeal.get(i).getId()));
-	    pdDto.setProductDetail(lstTop10ProductDeal.get(i).getDetail());
-	    lstProductDiscountDto.add(pdDto);
-
-	}
-
-	model.addAttribute("lstTop10ProductDeal", lstProductDiscountDto);
+    public void GetProductDiscount(Model model) {
+	List<ProductDiscountDto> lstProductDiscountDto1 = productService.productDealOfTheDay();
+//	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+//	String d = simpleDateFormat.format(new Date());	
+	model.addAttribute("lstTop10ProductDeal", lstProductDiscountDto1);
     }
 
     public void bestSeller(Model model) {
-	List<Long> lstProductId = productService.getTop10BestSellers();
-	List<ProductDiscountDto> lstProductDiscountDto = new ArrayList<>();
-	for (int i = 0; i < lstProductId.size(); i++) {
-	    ProductDiscountDto pdDto = new ProductDiscountDto();
-	    Product p = productService.getById(lstProductId.get(i));
-	    pdDto.setProductId(p.getId());
-	    pdDto.setProductName(p.getName());
-	    pdDto.setProductPrice(String.format("%.2f", p.getPrice()));
-	    pdDto.setProductPriceAfterDiscount("");
-	    pdDto.setEndDate("");
-	    pdDto.setProductImage(productPhotoService.productFirstPhotoname(lstProductId.get(i)));
-	    pdDto.setProductDetail(p.getDetail());
-	    lstProductDiscountDto.add(pdDto);
+	List<ProductDiscountDto> lstProductDiscountDto2 = new ArrayList<>();
+	for(int i = 0; i < 10; i++) {
+	    lstProductDiscountDto2.add(productService.productBestSeller().get(i));
 	}
-	model.addAttribute("lstBestSeller", lstProductDiscountDto);
+	model.addAttribute("lstBestSeller", lstProductDiscountDto2);
     }
 
     public void newProducts(Model model) {
-	List<ProductDiscountDto> lstProductDiscountDto1 = new ArrayList<>();
-	List<Product> lstProduct = productService.getAllNewProducts();
-	for (int i = 0; i < (lstProduct.size() / 2); i++) {
-	    ProductDiscountDto pdDto = new ProductDiscountDto();
-	    pdDto.setProductId(lstProduct.get(i).getId());
-	    pdDto.setProductName(lstProduct.get(i).getName());
-	    pdDto.setProductPrice(String.format("%.2f", lstProduct.get(i).getPrice()));
-	    pdDto.setProductPriceAfterDiscount("");
-	    pdDto.setEndDate("");
-	    pdDto.setProductImage(productPhotoService.productFirstPhotoname(lstProduct.get(i).getId()));
-	    pdDto.setProductDetail(lstProduct.get(i).getDetail());
-
-	    lstProductDiscountDto1.add(pdDto);
+	List<ProductDiscountDto> lstProductDiscountDto3 = new ArrayList<>();
+	for(int i = 0; i < 10; i++) {
+	    lstProductDiscountDto3.add(productService.productNewArrivals().get(i));
 	}
-
-	model.addAttribute("lstNewProducts1", lstProductDiscountDto1);
+	
+	model.addAttribute("lstNewProducts1", lstProductDiscountDto3);
     }
 
-    public void top4BrandByEvaluation(Model model) {
-
+    public void top4Brand(Model model) {
+	List<ProductDiscountDto> lstRolex = new ArrayList<>();
+	List<ProductDiscountDto> lstCasio = new ArrayList<>();
+	List<ProductDiscountDto> lstGShock = new ArrayList<>();
+	List<ProductDiscountDto> lstSeiko = new ArrayList<>();
+	
+	for(int i = 0; i < 4; i++) {
+	    lstRolex.add(productService.productByIdBrands(15).get(i));
+	    lstCasio.add(productService.productByIdBrands(5).get(i));
+	    lstGShock.add(productService.productByIdBrands(10).get(i));
+	    lstSeiko.add(productService.productByIdBrands(14).get(i));
+	}
+	model.addAttribute("lstRolex", lstRolex);
+	model.addAttribute("lstCasio", lstCasio);
+	model.addAttribute("lstGShock", lstGShock);
+	model.addAttribute("lstSeiko", lstSeiko);
+	
     }
 
     @GetMapping("/index")
     public String index(Model model) {
-	GetProductDiscont(model); // sản phẩm giảm giá
+	GetProductDiscount(model); // sản phẩm giảm giá
 	bestSeller(model); // sản phẩm bán chạy nhất
 	newProducts(model); // sản phẩm mới nhất
-	top4BrandByEvaluation(model); // top 4 thương hiệu được đánh giá cao
+	top4Brand(model); // top 4 thương hiệu được đánh giá cao
 
 	return "layout/homepage";
     }

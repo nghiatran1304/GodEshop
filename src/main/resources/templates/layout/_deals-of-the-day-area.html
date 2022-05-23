@@ -5,7 +5,9 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="section-title">
-						<h3>Deals Of The Day</h3>
+						<h3>
+							<a th:href="@{|/product?sort=discount&search-category=&search-brand=|}">Best Sale</a>
+						</h3>
 					</div>
 				</div>
 			</div>
@@ -22,7 +24,7 @@
 												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" alt="" style="max-height: 350px">
 											</a>
 											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
+												<a th:href="@{|/product/${p.productId}|}" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
 													<i class="ion-eye"></i>
 												</a>
 											</div>
@@ -31,32 +33,75 @@
 									<div class="list-col8">
 										<div class="product-info">
 											<h2>
-												<a href="single-product.html">[[${p.productName}]]</a>
+												<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
 											</h2>
 											<span class="price">
-												<del>$ [[${p.productPrice}]]</del>											
+												<del>$ [[${p.productPrice}]]</del>
 												<!-- <span th:with="te=${lstSum[state.index]}" th:utext="${te}"></span> -->
-												<span>$ [[${p.productPriceAfterDiscount}]]</span>
+												<span>$ [[${p.productPrice - (p.productPrice * p.productDiscount / 100)}]]</span>
 											</span>
 											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
+												<th:block th:if="${p.productEvaluation == 5}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 4}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 3}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 2}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 1}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == null}">
+													
+												</th:block>
 											</div>
 											<div class="product-desc">
-												<textarea readonly rows="5" cols="5" style="overflow: hidden; resize: none; background-color: white; border: none;">[[${p.productDetail}]]</textarea>
+												<textarea readonly rows="3" cols="5" style="resize: none; background-color: white; border: none;">[[${p.productDetail}]]</textarea>
 											</div>
 											<div class="deal-counter">
 												<!-- <div data-countdown="2022/08/02"></div>  -->

@@ -1,6 +1,5 @@
 package com.godEShop.Service.Impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.godEShop.Dao.ProductDAO;
+import com.godEShop.Dto.ProductDiscountDto;
 import com.godEShop.Dto.ProductShopDto;
 import com.godEShop.Entity.Product;
 import com.godEShop.Service.ProductService;
@@ -18,12 +18,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     ProductDAO productDAO;
-
-    @Override
-    public List<String> getProductAndOneImage() {
-	// TODO Auto-generated method stub
-	return productDAO.getProductAndOneImage();
-    }
 
     @Override
     public List<Product> findAll() {
@@ -66,46 +60,7 @@ public class ProductServiceImpl implements ProductService {
 	// TODO Auto-generated method stub
 	return productDAO.findAllNewProduct(keywords, pageable);
     }
-
-    @Override
-    public List<Product> getProductByPopularity() {
-	// TODO Auto-generated method stub
-	List<Product> lstProduct = new ArrayList<>();
-	List<Long> lstProductId = productDAO.getProductByPopularity();
-	lstProductId.forEach(a -> {
-	    lstProduct.add(productDAO.getById(a));
-	});
-	return lstProduct;
-    }
-
-    @Override
-    public List<Product> getProductByRating() {
-	// TODO Auto-generated method stub
-	List<Product> lstProduct = new ArrayList<>();
-	List<Long> lstProductId = productDAO.getProductByRating();
-	lstProductId.forEach(a -> {
-	    lstProduct.add(productDAO.getById(a));
-	});
-	return lstProduct;
-    }
-
-    @Override
-    public List<Product> getTop10ProductDeal() {
-	// TODO Auto-generated method stub
-	List<Long> lstProductId = productDAO.getTop10ProductDeal();
-	List<Product> lstProduct = new ArrayList<>();
-	lstProductId.forEach(a -> {
-	    lstProduct.add(productDAO.getById(a));
-	});
-	return lstProduct;
-    }
-
-    @Override
-    public List<Long> getTop10BestSellers() {
-	// TODO Auto-generated method stub
-	return productDAO.getTop10BestSellers();
-    }
-
+    
     @Override
     public Product getById(Long productId) {
 	// TODO Auto-generated method stub
@@ -130,7 +85,28 @@ public class ProductServiceImpl implements ProductService {
 	return  productDAO.productShop(kws, categoryName, brandName, pageable);
     }
 
+    @Override
+    public List<ProductDiscountDto> productDealOfTheDay() {
+	// TODO Auto-generated method stub
+	return productDAO.productDealOfTheDay();
+    }
 
+    @Override
+    public List<ProductDiscountDto> productBestSeller() {
+	// TODO Auto-generated method stub
+	return productDAO.productBestSeller();
+    }
 
+    @Override
+    public List<ProductDiscountDto> productNewArrivals() {
+	// TODO Auto-generated method stub
+	return productDAO.productNewArrivals();
+    }
 
+    @Override
+    public List<ProductDiscountDto> productByIdBrands(Integer id) {
+	// TODO Auto-generated method stub
+	return productDAO.productByIdBrands(id);
+    }
+    
 }

@@ -1452,7 +1452,121 @@ INSERT ProductEvaluations(Evaluation,ProductId,Username) VALUES
 (5,22,'cust05'),
 (5,23,'cust05'),
 (5,24,'cust05'),
-(5,25,'cust05')
+(5,25,'cust05'),
+(3,26,'cust06'),
+(5,27,'cust06'),
+(5,28,'cust06'),
+(5,29,'cust06'),
+(5,30,'cust06'),
+
+(5,26,'cust07'),
+(5,27,'cust07'),
+(5,28,'cust07'),
+(5,29,'cust07'),
+(5,30,'cust07'),
+
+(5,26,'cust08'),
+(5,27,'cust08'),
+(5,28,'cust08'),
+(5,29,'cust08'),
+(5,30,'cust08'),
+
+(5,26,'cust10'),
+(5,27,'cust10'),
+(5,28,'cust10'),
+(5,29,'cust10'),
+(5,30,'cust10'),
+(3,70,'cust09'),
+(5,71,'cust09'),
+(5,72,'cust09'),
+(5,73,'cust09'),
+(5,74,'cust09'),
+
+(5,75,'cust11'),
+(5,74,'cust11'),
+(5,73,'cust11'),
+(5,72,'cust11'),
+(5,71,'cust11'),
+
+(5,70,'cust13'),
+(5,71,'cust13'),
+(5,72,'cust13'),
+(5,73,'cust13'),
+(5,74,'cust13'),
+
+(5,46,'cust14'),
+(5,47,'cust14'),
+(5,48,'cust14'),
+(5,49,'cust14'),
+(5,50,'cust14'),
+
+(5,46,'cust15'),
+(5,47,'cust15'),
+(5,48,'cust15'),
+(5,49,'cust15'),
+(5,50,'cust15'),
+(5,46,'cust15'),
+
+(5,47,'cust16'),
+(5,48,'cust16'),
+(5,49,'cust16'),
+(5,50,'cust16'),
+(5,46,'cust16'),
+
+(5,40,'cust17'),
+(5,41,'cust17'),
+(5,42,'cust17'),
+(5,43,'cust17'),
+(5,44,'cust17'),
+(5,26,'cust18'),
+(5,45,'cust18'),
+(5,46,'cust18'),
+(5,47,'cust18'),
+(5,48,'cust18'),
+(5,49,'cust18'),
+(5,50,'cust18'),
+(5,51,'cust19'),
+(5,52,'cust19'),
+(5,53,'cust19'),
+(5,54,'cust19'),
+(5,55,'cust19'),
+(5,56,'cust19'),
+(5,57,'cust20'),
+(5,58,'cust20'),
+(5,59,'cust20'),
+(5,60,'cust20'),
+(5,61,'cust20'),
+(5,62,'cust20'),
+(5,62,'cust20'),
+(5,63,'cust21'),
+(5,64,'cust21'),
+(5,65,'cust21'),
+(5,66,'cust21'),
+(5,67,'cust21'),
+(5,68,'cust21'),
+(5,69,'cust21'),
+(5,66,'cust21'),
+(5,45,'cust21'),
+(5,56,'cust22'),
+(5,57,'cust22'),
+(5,58,'cust22'),
+(5,59,'cust22'),
+(5,60,'cust22'),
+(5,55,'cust22'),
+(5,54,'cust22'), 
+(5,31,'cust23'),
+(5,32,'cust24'),
+(5,33,'cust25'),
+(5,34,'cust26'),
+(5,35,'cust27'),
+(5,36,'cust28'),
+(5,37,'cust29'),
+(5,38,'cust30'),
+(5,39,'cust31'),
+(5,40,'cust32'),
+(5,41,'cust33'),
+(5,43,'cust34'),
+(5,44,'cust35')
 GO
 
 --PRODUCT COMMENTS
@@ -1506,112 +1620,6 @@ GO
 
 
 --====================================================
--- Products (Id, Name, Price, Image)
-IF OBJECT_ID('sp_getProductAndOneImage') IS NOT NULL
-	DROP PROC sp_getProductAndOneImage
-GO
-CREATE PROC sp_getProductAndOneImage
-AS
-	BEGIN
-		SELECT MIN(pp.Id) AS 'ImageName' FROM Products AS p
-		INNER JOIN ProductPhotos AS pp ON p.Id = pp.ProductId
-		GROUP BY p.Id
-	END
-GO
-/*
-		SELECT p.name, MIN(pp.Id) AS 'ImageName' FROM Products AS p
-		INNER JOIN ProductPhotos AS pp ON p.Id = pp.ProductId
-		GROUP BY p.Id, p.name
-*/
-
---==================================================== 
--- sắp xếp theo lược mua select * from products
-IF OBJECT_ID('sp_getProductByPopularity') IS NOT NULL
-	DROP PROC sp_getProductByPopularity
-GO
-CREATE PROC sp_getProductByPopularity
-AS
-	BEGIN
-		SELECT p.id FROM Products AS p
-		INNER JOIN OrderDetails AS od ON od.ProductId = p.Id
-		GROUP BY p.Id
-		ORDER BY COUNT(p.Id) DESC
-	END
-GO
-exec sp_getProductByPopularity
-GO
-
---==================================================== 
--- sắp xếp theo tỉ lệ đánh giá
-IF OBJECT_ID('sp_getProductByRating') IS NOT NULL
-	DROP PROC sp_getProductByRating
-GO
-CREATE PROC sp_getProductByRating
-AS
-	BEGIN
-		SELECT p.id FROM Products AS p
-		INNER JOIN ProductEvaluations AS pe ON p.Id = pe.ProductId
-		GROUP BY p.id, pe.Evaluation
-		ORDER BY pe.Evaluation DESC
-	END
-GO
-
---==================================================== 
--- lấy top 10 sản phẩm giảm giá gần nhất
-IF OBJECT_ID('sp_getTop10ProductDeal') IS NOT NULL
-	DROP PROC sp_getTop10ProductDeal
-GO
-CREATE PROC sp_getTop10ProductDeal
-AS
-	BEGIN
-		SELECT TOP 10 p.id FROM Products AS p
-		INNER JOIN ProductDiscounts AS pd ON p.Id = pd.ProductId
-		WHERE pd.EndDate > getdate()
-		ORDER BY pd.CreateDate ASC
-	END
-GO
-
---==================================================== 
--- lấy top 10 sản phẩm mua nhiều nhất
-IF OBJECT_ID('sp_getTop10BestSellers') IS NOT NULL
-	DROP PROC sp_getTop10BestSellers
-GO
-CREATE PROC sp_getTop10BestSellers
-AS
-	BEGIN
-		SELECT TOP 10 od.ProductId FROM OrderDetails AS od
-		INNER JOIN Orders AS o ON o.Id = od.OrderId
-		WHERE o.CreateDate <= GETDATE()
-		GROUP BY od.ProductId 		 
-		ORDER BY COUNT(od.ProductId) DESC
-	END
-GO
-
---==================================================== 
--- top 4 thương hiệu được đánh giá cao nhất
-IF OBJECT_ID('sp_getTop4BrandByEvaluation') IS NOT NULL
-	DROP PROC sp_getTop4BrandByEvaluation
-GO
-CREATE PROC sp_getTop4BrandByEvaluation
-AS
-	BEGIN
-		SELECT TOP 4 c.id
-		FROM ProductEvaluations AS pe
-		INNER JOIN Products AS p ON pe.ProductId = p.Id
-		INNER JOIN Categories AS c ON p.CategoryId = c.Id
-		GROUP BY c.Id
-		ORDER BY AVG(pe.Evaluation) DESC
-	END
-GO
-
---==================================================== 
-
-
---==================================================== 
-
-
---==================================================== 
-
 
 --==================================================== 
 

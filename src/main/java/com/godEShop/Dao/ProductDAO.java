@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.godEShop.Dto.ProductDiscountDto;
 import com.godEShop.Dto.ProductShopDto;
 import com.godEShop.Entity.Product;
 
@@ -42,80 +43,80 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.name LIKE ?1 AND p.isDeleted = 0 ORDER BY p.createDate DESC")
     Page<Product> findAllNewProduct(String keywords, Pageable pageable);
 
-    // sắp xếp sản phẩm theo lượt mua
-    @Query(value = "{CALL sp_getProductByPopularity()}", nativeQuery = true)
-    List<Long> getProductByPopularity();
-
-    // sắp xếp sản phẩm theo đánh giá
-    @Query(value = "{CALL sp_getProductByRating()}", nativeQuery = true)
-    List<Long> getProductByRating();
-
-    // lấy top 10 sản phẩm giảm giá gần nhất
-    @Query(value = "{CALL sp_getTop10ProductDeal()}", nativeQuery = true)
-    List<Long> getTop10ProductDeal();
-
-    // lấy top 10 sản phẩm mua nhiều nhất
-    @Query(value = "{CALL sp_getTop10BestSellers()}", nativeQuery = true)
-    List<Long> getTop10BestSellers();
-
     // lấy sản phẩm mới nhất
     @Query("SELECT p FROM Product p ORDER BY p.createDate DESC")
     List<Product> getAllNewProducts();
 
     // ------------------------------------------------------------------------
-
+    // Product for shop page
     @Query("SELECT new com.godEShop.Dto.ProductShopDto"
-    	+ "(p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), pe.evaluation, pd.discount, p.detail) "
-    	+ "FROM Product p "
-    	+ "FULL JOIN p.productPhotos pp "
-    	+ "FULL JOIN p.productEvaluations pe "
-    	+ "FULL JOIN p.brand pb "
-    	+ "FULL JOIN p.productDiscounts pd "
-    	+ "FULL JOIN p.category c "
-    	+ "WHERE p.isDeleted = 0 AND (p.name LIKE ?1 OR c.name LIKE ?1) AND c.name LIKE ?2 AND pb.name LIKE ?3 "
-    	+ "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pe.evaluation, pd.discount, p.detail")
-    Page<ProductShopDto> productShop(String kws, String categoryName, String brandName,Pageable pageable);
+	    + "(p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), pe.evaluation, pd.discount, p.detail) "
+	    + "FROM Product p " 
+	    + "FULL JOIN p.productPhotos pp " 
+	    + "FULL JOIN p.productEvaluations pe "
+	    + "FULL JOIN p.brand pb " 
+	    + "FULL JOIN p.productDiscounts pd " 
+	    + "FULL JOIN p.category c "
+	    + "WHERE p.isDeleted = 0 AND (p.name LIKE ?1 OR c.name LIKE ?1) AND c.name LIKE ?2 AND pb.name LIKE ?3 "
+	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pe.evaluation, pd.discount, p.detail")
+    Page<ProductShopDto> productShop(String kws, String categoryName, String brandName, Pageable pageable);
 
+    // -------------------------------------------------------------------------
+    // Product for deal of the day
+    @Query("SELECT new com.godEShop.Dto.ProductDiscountDto"
+	    + "(p.id, p.name, p.price, pd.discount, pe.evaluation, MIN(pp.id), pd.endDate, p.detail) "
+	    + "FROM Product p " 
+	    + "FULL JOIN p.productPhotos pp " 
+	    + "FULL JOIN p.productEvaluations pe "
+	    + "FULL JOIN p.productDiscounts pd "
+	    + "WHERE p.isDeleted = 0 AND pd.discount > 0 AND pd.endDate >= GETDATE() "
+	    + "GROUP BY p.id, p.name, p.price, pd.discount, pe.evaluation, pd.endDate, p.detail "
+	    + "ORDER BY pd.endDate ASC")
+    List<ProductDiscountDto> productDealOfTheDay();
+
+    // -------------------------------------------------------------------------
+    // Product for best seller
+    @Query("SELECT new com.godEShop.Dto.ProductDiscountDto"
+	    + "(p.id, p.name, p.price, pd.discount, pe.evaluation, MIN(pp.id), pd.endDate, p.detail) "
+	    + "FROM Product p " 
+	    + "FULL JOIN p.productPhotos pp " 
+	    + "FULL JOIN p.productEvaluations pe "
+	    + "FULL JOIN p.productDiscounts pd " 
+	    + "FULL JOIN p.orderDetails pod " 
+	    + "WHERE p.isDeleted = 0 "
+	    + "GROUP BY p.id, p.name, p.price, pd.discount, pe.evaluation, pd.endDate, p.detail "
+	    + "ORDER BY COUNT(pod.product.id) DESC")
+    List<ProductDiscountDto> productBestSeller();
+
+    // -------------------------------------------------------------------------
+    // Product for new arrivals
+    @Query("SELECT new com.godEShop.Dto.ProductDiscountDto"
+	    + "(p.id, p.name, p.price, pd.discount, pe.evaluation, MIN(pp.id), pd.endDate, p.detail) "
+	    + "FROM Product p " 
+	    + "FULL JOIN p.productPhotos pp " 
+	    + "FULL JOIN p.productEvaluations pe "
+	    + "FULL JOIN p.productDiscounts pd " 
+	    + "FULL JOIN p.orderDetails pod " 
+	    + "WHERE p.isDeleted = 0 "
+	    + "GROUP BY p.id, p.name, p.price, pd.discount, pe.evaluation, pd.endDate, p.detail, p.createDate "
+	    + "ORDER BY p.createDate DESC")
+    List<ProductDiscountDto> productNewArrivals();
+
+    // -------------------------------------------------------------------------
+    @Query("SELECT new com.godEShop.Dto.ProductDiscountDto"
+	    + "(p.id, p.name, p.price, pd.discount, pe.evaluation, MIN(pp.id), pd.endDate, p.detail) "
+	    + "FROM Product p " 
+	    + "FULL JOIN p.productPhotos pp " 
+	    + "FULL JOIN p.productEvaluations pe "
+	    + "FULL JOIN p.productDiscounts pd " 
+	    + "FULL JOIN p.orderDetails pod " 
+	    + "WHERE p.isDeleted = 0 AND p.brand.id=?1 "
+	    + "GROUP BY p.id, p.name, p.price, pd.discount, pe.evaluation, pd.endDate, p.detail, p.createDate "
+	    + "ORDER BY p.price DESC")
+    List<ProductDiscountDto> productByIdBrands(Integer id);
+    
+    
+    // -------------------------------------------------------------------------
+
+    // -------------------------------------------------------------------------
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

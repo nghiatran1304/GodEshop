@@ -33,7 +33,12 @@
 											<h2>
 												<a href="single-product.html">[[${p.productName}]]</a>
 											</h2>
-											<span class="price"> $ [[${p.productPrice}]] </span>
+											<th:block th:if="${p.productDiscount == null}">
+												<span class="price">$ [[${p.productPrice}]] </span>
+											</th:block>
+											<th:block th:if="${p.productDiscount != null}">		
+												<span class="price"><del>$ [[${p.productPrice}]]</del> $ [[${p.productPrice - (p.productPrice * p.productDiscount / 100)}]] </span>
+											</th:block>
 										</div>
 										<div class="product-hidden">
 											<div class="add-to-cart">
@@ -41,21 +46,64 @@
 											</div>
 											<div class="star-actions">
 												<div class="product-rattings">
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star-half-o"></i>
-													</span>
-													<span>
-														<i class="fa fa-star-o"></i>
-													</span>
+													<th:block th:if="${p.productEvaluation == 5}">
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+													</th:block>
+													<th:block th:if="${p.productEvaluation == 4}">
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+													</th:block>
+													<th:block th:if="${p.productEvaluation == 3}">
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+													</th:block>
+													<th:block th:if="${p.productEvaluation == 2}">
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+													</th:block>
+													<th:block th:if="${p.productEvaluation == 1}">
+														<span>
+															<i class="fa fa-star"></i>
+														</span>
+													</th:block>
+													<th:block th:if="${p.productEvaluation == null}">
+
+													</th:block>
 												</div>
 												<ul class="actions">
 													<li>

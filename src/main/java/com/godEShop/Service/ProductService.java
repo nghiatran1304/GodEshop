@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.godEShop.Dto.ProductDiscountDto;
 import com.godEShop.Dto.ProductShopDto;
 import com.godEShop.Entity.Product;
 
@@ -24,16 +25,6 @@ public interface ProductService {
 
     Page<Product> findAllNewProduct(String keywords, Pageable pageable);
 
-    List<Product> getTop10ProductDeal();
-
-    List<Product> getProductByPopularity();
-
-    List<Product> getProductByRating();
-
-    List<String> getProductAndOneImage();
-
-    List<Long> getTop10BestSellers();
-
     List<Product> findAll();
 
     List<Product> getAllNewProducts();
@@ -42,4 +33,16 @@ public interface ProductService {
     
     //-------------------------
     Page<ProductShopDto> productShop(String kws, String categoryName, String brandName,Pageable pageable);
+
+    //-------------------------
+    List<ProductDiscountDto> productDealOfTheDay();
+    
+    //-------------------------
+    List<ProductDiscountDto> productBestSeller();
+    
+    //-------------------------
+    List<ProductDiscountDto> productNewArrivals();
+    
+    //-------------------------
+    List<ProductDiscountDto> productByIdBrands(Integer id);
 }
