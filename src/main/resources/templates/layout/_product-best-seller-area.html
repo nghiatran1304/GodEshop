@@ -22,7 +22,8 @@
 												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" style="height: 300px" alt="">
 											</a>
 											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
+												<!-- <a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View"> -->
+												<a th:href="@{|product/${p.productId}|}" data-original-title="Quick View">
 													<i class="ion-eye"></i>
 												</a>
 											</div>
@@ -31,7 +32,7 @@
 									<div class="list-col8">
 										<div class="product-info">
 											<h2>
-												<a href="single-product.html">[[${p.productName}]]</a>
+												<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
 											</h2>
 											<th:block th:if="${p.productDiscount == null}">
 												<span class="price">$ [[${p.productPrice}]] </span>

@@ -11,14 +11,15 @@
 							<div class="product-wrapper gridview">
 								<div class="list-col4">
 									<div class="product-image">
-										<a href="">
+										<a th:href="@{|/product/${p.productId}|}">
 											<th:block th:if="${p.productDiscount > 0}">
 												<span class="isSale">Sale!</span>
 											</th:block>
 											<img th:src="@{|/upload/ProductImages/${p.productFirstImage}|}" style="width: 350px; height: 350px" alt="">
 										</a>
 										<div class="quickviewbtn">
-											<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
+											<!-- <a th:href="@{|/product/${p.productId}|}" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View"> -->
+											<a th:href="@{|/product/${p.productId}|}" data-original-title="Quick View">	
 												<i class="ion-eye"></i>
 											</a>
 										</div>
@@ -27,7 +28,7 @@
 								<div class="list-col8">
 									<div class="product-info">
 										<h2>
-											<a href="#">[[${p.productName}]]</a>
+											<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
 										</h2>
 										<span class="price">
 											<th:block th:if="${p.productDiscount == null}">
@@ -132,7 +133,7 @@
 							<div class="product-wrapper listview">
 								<div class="list-col4">
 									<div class="product-image">
-										<a href="">
+										<a th:href="@{|/product/${p.productId}|}">
 											<span class="onsale">Sale!</span>
 											<img th:src="@{|/upload/ProductImages/${p.productFirstImage}|}" style="width: 350px; height: 350px" alt="">
 										</a>
@@ -146,7 +147,7 @@
 								<div class="list-col8">
 									<div class="product-info">
 										<h2>
-											<a href="single-product.html">[[${p.productName}]]</a>
+											<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
 										</h2>
 										<span class="price">
 											<th:block th:if="${p.productDiscount == null}">

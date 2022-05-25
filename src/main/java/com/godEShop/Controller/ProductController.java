@@ -12,14 +12,18 @@ import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.godEShop.Dao.ProductPhotoDAO;
+import com.godEShop.Dto.AccessoryDto;
 import com.godEShop.Dto.ProductDiscountDto;
 import com.godEShop.Dto.ProductShopDto;
+import com.godEShop.Dto.WatchDto;
+import com.godEShop.Entity.ProductPhoto;
 import com.godEShop.Service.BrandService;
 import com.godEShop.Service.CategoryService;
 import com.godEShop.Service.ProductService;
-import com.godEShop.Service.SessionService;
 
 @Controller
 public class ProductController {
@@ -34,14 +38,7 @@ public class ProductController {
     BrandService brandService;
 
     @Autowired
-    SessionService session;
-
-    public void changedPagination(Model model, int choose, String nameOfSearch) {
-	int whichPagination = choose;
-	model.addAttribute("whichPagination", whichPagination);
-	model.addAttribute("nameOfSearch", nameOfSearch);
-
-    }
+    ProductPhotoDAO productPhotoDAO;
 
     @GetMapping("/product")
     public String productPage1(Model model, @RequestParam("p") Optional<Integer> p,
@@ -56,6 +53,7 @@ public class ProductController {
 	}
 	model.addAttribute("lstTopSeller", lstTopSeller);
 
+	//---------------
 	Pageable pageable = PageRequest.of(p.orElse(0), 12);
 
 	if (!sort.isPresent()) {
@@ -106,8 +104,7 @@ public class ProductController {
 
 	model.addAttribute("nameOfSearch", (s1 + s2 + s3));
 
-	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%",
-		"%" + brandName + "%", pageable);
+	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%", "%" + brandName + "%", pageable);
 
 	model.addAttribute("page", page);
 
@@ -118,9 +115,32 @@ public class ProductController {
 	return "product/product";
     }
 
-    @GetMapping("/singleproduct")
-    public String singleproductPage() {
+    @GetMapping("/product/{id}")
+    public String singleproductPage(Model model, @PathVariable("id") Long id) {
+	
+	List<ProductPhoto> lstPhotoByProductId = productPhotoDAO.getAllProductPhotoByProductId(id);
+	model.addAttribute("lstPhotoByProductId", lstPhotoByProductId);
+
+	ProductShopDto productItem = productService.productShopById(id);
+	model.addAttribute("productItem", productItem);
+	
+	if(productItem.getProductCategoryId() == 13) {
+	    AccessoryDto accessoryDto = productService.getAccessoryDtoById(id);
+	    model.addAttribute("watchDetail", accessoryDto);
+	    model.addAttribute("isWatch", false);
+	}else {
+	    WatchDto watchDto = productService.getWatchById(id);
+	    model.addAttribute("watchDetail", watchDto);
+	    model.addAttribute("isWatch", true);
+	}
+	List<ProductDiscountDto> lstRd = new ArrayList<>();
+	int maxLength = productService.productByIdBrands(productItem.getProductCategoryId()).size() > 5 ? 5 : productService.productByIdBrands(productItem.getProductCategoryId()).size();
+	for (int i = 0; i < maxLength; i++) {
+	    lstRd.add(productService.productByIdBrands(productItem.getProductCategoryId()).get(i));
+	}
+	model.addAttribute("lstRelateProduct", lstRd);
+	
 	return "product/single-product";
     }
-
+    
 }

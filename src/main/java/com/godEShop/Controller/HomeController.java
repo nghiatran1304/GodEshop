@@ -38,7 +38,7 @@ public class HomeController {
 
     public void bestSeller(Model model) {
 	List<ProductDiscountDto> lstProductDiscountDto2 = new ArrayList<>();
-	for(int i = 0; i < 10; i++) {
+	for (int i = 0; i < 10; i++) {
 	    lstProductDiscountDto2.add(productService.productBestSeller().get(i));
 	}
 	model.addAttribute("lstBestSeller", lstProductDiscountDto2);
@@ -46,10 +46,10 @@ public class HomeController {
 
     public void newProducts(Model model) {
 	List<ProductDiscountDto> lstProductDiscountDto3 = new ArrayList<>();
-	for(int i = 0; i < 10; i++) {
+	for (int i = 0; i < 10; i++) {
 	    lstProductDiscountDto3.add(productService.productNewArrivals().get(i));
 	}
-	
+
 	model.addAttribute("lstNewProducts1", lstProductDiscountDto3);
     }
 
@@ -58,8 +58,8 @@ public class HomeController {
 	List<ProductDiscountDto> lstCasio = new ArrayList<>();
 	List<ProductDiscountDto> lstGShock = new ArrayList<>();
 	List<ProductDiscountDto> lstSeiko = new ArrayList<>();
-	
-	for(int i = 0; i < 4; i++) {
+
+	for (int i = 0; i < 4; i++) {
 	    lstRolex.add(productService.productByIdBrands(15).get(i));
 	    lstCasio.add(productService.productByIdBrands(5).get(i));
 	    lstGShock.add(productService.productByIdBrands(10).get(i));
@@ -69,7 +69,7 @@ public class HomeController {
 	model.addAttribute("lstCasio", lstCasio);
 	model.addAttribute("lstGShock", lstGShock);
 	model.addAttribute("lstSeiko", lstSeiko);
-	
+
     }
 
     @GetMapping("/index")
@@ -78,7 +78,6 @@ public class HomeController {
 	bestSeller(model); // sản phẩm bán chạy nhất
 	newProducts(model); // sản phẩm mới nhất
 	top4Brand(model); // top 4 thương hiệu được đánh giá cao
-
 	return "layout/homepage";
     }
 

@@ -26,7 +26,7 @@ public class ProductShopDto implements Serializable{
     private Date productCreateDate;
     private String productCategoryName;
     private String productFirstImage;
-    private Integer productEvaluation = 0;
+    private Integer productEvaluation = null;
     private Integer productDiscount;
     private String productDetail;
     

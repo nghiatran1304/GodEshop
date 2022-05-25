@@ -24,7 +24,8 @@
 												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" alt="" style="max-height: 350px">
 											</a>
 											<div class="quickviewbtn">
-												<a th:href="@{|/product/${p.productId}|}" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
+												<!-- <a th:href="@{|/product/${p.productId}|}" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View"> -->
+												<a th:href="@{|/product/${p.productId}|}" data-original-title="Quick View">
 													<i class="ion-eye"></i>
 												</a>
 											</div>
@@ -97,7 +98,7 @@
 													</span>
 												</th:block>
 												<th:block th:if="${p.productEvaluation == null}">
-													
+
 												</th:block>
 											</div>
 											<div class="product-desc">
