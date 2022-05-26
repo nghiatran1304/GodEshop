@@ -120,10 +120,10 @@
 										</th:block>
 									</div>
 									<span class="price">
-										<th:block th:if="*{productDiscount == null}">
+										<th:block th:if="${productItem.productDiscount == null || productItem.productDiscount == 0 || productItem.productEndDiscount.compareTo(timeNow) == -1}">
 											<span class="price">$ [[*{productPrice}]] </span>
 										</th:block>
-										<th:block th:if="*{productDiscount != null}">
+										<th:block th:if="${productItem.productDiscount != null && (productItem.productEndDiscount.compareTo(timeNow) == 1 || productItem.productEndDiscount.compareTo(timeNow) == 0) }">
 											<span class="price">
 												<del>$ [[*{productPrice}]]</del>
 												$ [[*{productPrice - (productPrice * productDiscount / 100)}]]
@@ -135,7 +135,7 @@
 										<form action="#">
 											<input class="quantity mr-40" min="1" value="1" type="number">
 										</form>
-										<a class="add-cart" href="cart.html">add to cart</a>
+										<a class="add-cart btn" th:attr="ng-click=@{|cart.add(*{productId})|}">add to cart</a>
 									</div>
 									<div class="wishlist-compear-area">
 										<a href="wishlist.html">

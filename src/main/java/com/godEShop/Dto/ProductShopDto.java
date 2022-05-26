@@ -29,5 +29,17 @@ public class ProductShopDto implements Serializable{
     private Integer productEvaluation = null;
     private Integer productDiscount;
     private String productDetail;
+    private Date productEndDiscount;
+    
+    public double getFinalPrice() {
+	Date nowTime = new Date();
+	if(this.productEndDiscount.compareTo(nowTime) == -1 ) {
+	    return this.productPrice;
+	}
+	double p = this.productPrice;
+	Integer d = this.productDiscount == null ? 0 : this.productDiscount;
+	double rs = p - (p * d / 100.0);
+	return rs;
+    }
     
 }

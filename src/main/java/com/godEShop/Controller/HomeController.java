@@ -121,11 +121,6 @@ public class HomeController {
 	return "account/forgot-password";
     }
 
-    @GetMapping("/viewcart")
-    public String viewCartPage() {
-	return "cart/view-cart";
-    }
-
     @GetMapping("/checkout")
     public String checkoutPage() {
 	return "order/checkout";

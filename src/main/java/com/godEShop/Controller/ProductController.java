@@ -1,6 +1,7 @@
 package com.godEShop.Controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,7 +65,7 @@ public class ProductController {
 	    model.addAttribute("sortChose", "b");
 	    model.addAttribute("sortSelected", sort.get());
 	} else if (sort.get().equalsIgnoreCase("rating")) {
-	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("pe.evaluation").descending());
+	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("CAST(AVG(pe.evaluation) AS int)").descending());
 	    model.addAttribute("sortChose", "c");
 	    model.addAttribute("sortSelected", sort.get());
 	} else if (sort.get().equalsIgnoreCase("newest")) {
@@ -105,9 +106,13 @@ public class ProductController {
 	model.addAttribute("nameOfSearch", (s1 + s2 + s3));
 
 	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%", "%" + brandName + "%", pageable);
-
+	
 	model.addAttribute("page", page);
 
+	Date d = new Date();
+		
+	model.addAttribute("timeNow", d);
+	
 	model.addAttribute("totalProducts", page.getTotalElements());
 	model.addAttribute("toProduct", page.getNumber());
 	model.addAttribute("totalPage", page.getPageable().getPageSize());
@@ -117,6 +122,10 @@ public class ProductController {
 
     @GetMapping("/product/{id}")
     public String singleproductPage(Model model, @PathVariable("id") Long id) {
+	
+	Date d = new Date();
+	
+	model.addAttribute("timeNow", d);
 	
 	List<ProductPhoto> lstPhotoByProductId = productPhotoDAO.getAllProductPhotoByProductId(id);
 	model.addAttribute("lstPhotoByProductId", lstPhotoByProductId);
