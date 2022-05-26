@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index.html :: dynamic(~{::main})}">
 <body>
 	<main>
 		<!-- Breadcrumbs -->
@@ -8,8 +9,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<nav class="woocommerce-breadcrumb">
-							<a href="index.html">Home</a>
-							<span class="separator">/</span>
+							<a href="index.html">Home</a> <span class="separator">/</span>
 							sign in
 						</nav>
 					</div>
@@ -41,7 +41,9 @@
 									<p class="mtb-10">
 										<strong>Register</strong>
 									</p>
-									<p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made</p>
+									<p>By creating an account you will be able to shop faster,
+										be up to date on an order's status, and keep track of the
+										orders you have previously made</p>
 									<a class="customer-btn" href="register.html">continue</a>
 								</div>
 							</div>
@@ -55,14 +57,22 @@
 									<p class="mb-10">
 										<strong>I am a returning customer</strong>
 									</p>
-									<form action="#">
+									<form th:action="@{/account/login}" method="post">
 										<div class="form-group">
-											<label>Email</label>
-											<input type="text" name="email" placeholder="Enter your email address..." id="input-email" class="form-control">
+											<label>Username</label> <input type="text" name="username"
+												placeholder="Enter your username" id="input-username"
+												class="form-control">
 										</div>
 										<div class="form-group">
-											<label>Password</label>
-											<input type="text" name="pass" placeholder="Password" id="input-password" class="form-control">
+											<label>Password</label> <input type="text" name="password"
+												placeholder="Password" id="input-password"
+												class="form-control">
+										</div>
+										<div class="form-check mb-3">
+											<input class="form-check-input" type="checkbox" value=""
+												name="remember-me" id="rememberPasswordCheck"> <label
+												class="form-check-label" for="rememberPasswordCheck">
+												Keep me logged in </label>
 										</div>
 										<p class="lost-password">
 											<a href="forgot-password.html">Forgot password?</a>

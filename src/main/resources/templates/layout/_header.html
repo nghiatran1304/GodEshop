@@ -32,22 +32,24 @@
 							<div class="wpb_wrapper">
 								<!-- my account -->
 								<div class="menu-my-account-container">
-									<a href="#">
-										My Account
+									<a href="#">Welcome [[${#request.remoteUser}]]						
 										<i class="ion-ios-arrow-down"></i>
 									</a>
 									<ul>
 										<li>
-											<a href="my-account.html">My Account</a>
+											<a href="/information"> My Account</a>
 										</li>
 										<li>
-											<a href="login.html">Login</a>
+											<a href="/account/login/form">Login</a>
 										</li>
 										<li>
-											<a href="register.html">Register</a>
+											<a href="/register">Register</a>
 										</li>
 										<li>
-											<a href="checkout.html">Checkout</a>
+											<a href="/checkout">Checkout</a>
+										</li>
+										<li>
+											<a th:href="@{/account/logoff}">Logout</a>
 										</li>
 									</ul>
 								</div>
