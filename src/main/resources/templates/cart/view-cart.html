@@ -9,7 +9,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<nav class="woocommerce-breadcrumb">
-							<a href="index.html">Home</a>
+							<a th:href="@{|/index|}">Home</a>
 							<span class="separator">/</span>
 							Cart
 						</nav>
@@ -41,59 +41,37 @@
 								<table>
 									<thead>
 										<tr>
-											<th class="product-thumbnail">Image</th>
-											<th class="product-name">Product</th>
-											<th class="product-price">Price</th>
-											<th class="product-quantity">Quantity</th>
-											<th class="product-subtotal">Total</th>
-											<th class="product-remove">Remove</th>
+											<th class="product-thumbnail" style="font-size: 20px; font-weight: bold" >Image</th>
+											<th class="product-name" style="font-size: 20px; font-weight: bold">Product</th>
+											<th class="product-price" style="font-size: 20px; font-weight: bold">Price</th>
+											<th class="product-quantity" style="font-size: 20px; font-weight: bold">Quantity</th>
+											<th class="product-subtotal" style="font-size: 20px; font-weight: bold">Total</th>
+											<th class="product-remove" style="font-size: 20px; font-weight: bold">Remove</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<tr ng-repeat="item in cart.items">
 											<td class="product-thumbnail">
 												<a href="#">
-													<img src="/assets/images/product/1.jpg" alt="cart-image">
+													<img th:src="@{|/upload/ProductImages/{{item.productFirstImage}}|}" alt="cart-image">
 												</a>
 											</td>
 											<td class="product-name">
-												<a href="#">dictum idrisus</a>
+												<a th:href="@{|/product/{{item.productId}}|}" style="font-size: 20px" class="font-weight-bold">{{item.productName}}</a>
 											</td>
 											<td class="product-price">
-												<span class="amount">£165.00</span>
+												<span class="amount" style="font-size: 20px" >£ {{item.finalPrice}}</span>
 											</td>
 											<td class="product-quantity">
-												<input type="number" value="1">
+												<input type="number" min="1" style="color: black;" class="text-center font-weight-bold" ng-change="cart.saveToLocalStorage()" ng-model="item.qty">
 											</td>
-											<td class="product-subtotal">£165.00</td>
+											<td class="product-subtotal" style="font-size: 20px" >£ {{item.finalPrice * item.qty}}</td>
 											<td class="product-remove">
-												<a href="#">
-													<i class="fa fa-times" aria-hidden="true"></i>
+												<a class="btn btn-danger" ng-click="cart.remove(item.productId)">
+													<i class="fa fa-times" aria-hidden="true" style="color: white;"></i>
 												</a>
 											</td>
-										</tr>
-										<tr>
-											<td class="product-thumbnail">
-												<a href="#">
-													<img src="/assets/images/product/2.jpg" alt="cart-image">
-												</a>
-											</td>
-											<td class="product-name">
-												<a href="#">Carte Postal Clock</a>
-											</td>
-											<td class="product-price">
-												<span class="amount">£50.00</span>
-											</td>
-											<td class="product-quantity">
-												<input type="number" value="1">
-											</td>
-											<td class="product-subtotal">£50.00</td>
-											<td class="product-remove">
-												<a href="#">
-													<i class="fa fa-times" aria-hidden="true"></i>
-												</a>
-											</td>
-										</tr>
+										</tr>										
 									</tbody>
 								</table>
 							</div>
@@ -102,8 +80,9 @@
 								<!-- Cart Button Start -->
 								<div class="col-md-8 col-sm-7 col-xs-12">
 									<div class="buttons-cart">
-										<input type="submit" value="Update Cart">
-										<a href="#">Continue Shopping</a>
+										<!-- <input type="submit" value="Update Cart"> -->
+										<a th:href="@{|/product|}" class="btn btn-primary" style="border-radius: 3px">Continue Shopping</a>
+										<a ng-click="cart.clear()" class="btn text-white bg-danger">Clear All Products</a>
 									</div>
 								</div>
 								<!-- Cart Button Start -->

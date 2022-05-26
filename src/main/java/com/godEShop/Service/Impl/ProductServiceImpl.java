@@ -67,5 +67,11 @@ public class ProductServiceImpl implements ProductService {
 	// TODO Auto-generated method stub
 	return productDAO.getAccessoryDtoById(id);
     }
+
+    @Override
+    public List<ProductShopDto> findAllProduct() {
+	// TODO Auto-generated method stub
+	return productDAO.findAllProduct();
+    }
     
 }

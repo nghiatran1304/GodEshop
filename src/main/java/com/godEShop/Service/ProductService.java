@@ -11,6 +11,9 @@ import com.godEShop.Dto.ProductShopDto;
 import com.godEShop.Dto.WatchDto;
 
 public interface ProductService {
+    
+    List<ProductShopDto> findAllProduct();
+    
     //-------------------------
     Page<ProductShopDto> productShop(String kws, String categoryName, String brandName,Pageable pageable);
 

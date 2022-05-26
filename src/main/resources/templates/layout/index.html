@@ -36,10 +36,9 @@
 	max-height: 150px;
 	overflow-y: auto;
 }
-
 </style>
 </head>
-<body>
+<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
 	<div class="wrapper home-one " th:classappend="${isHomePage} ? '' : 'single-product-page'">
 		<!--================ Start Header Menu Area =================-->
 		<div th:replace="/layout/_header.html"></div>
@@ -54,6 +53,9 @@
 		<!--================ End footer Area  =================-->
 
 	</div>
+	
+	<!-- CALL JS -->
+	<script src="/Shop/cart-js/cart.js"></script>
 
 	<!-- jQuery CDN -->
 	<script src="/assets/js/jquery-1.12.4.min.js"></script>
@@ -70,7 +72,7 @@
 	<script src="/assets/js/plugins.js"></script>
 	<!-- Main js  -->
 	<script src="/assets/js/main.js"></script>
-	
+
 	<!-- ZOOM MAGIC -->
 	<script src="/assets/zoommagic/magiczoomplus.js"></script>
 
@@ -86,4 +88,5 @@
 	</script>
 	<script src="https://www.google-analytics.com/analytics.js" async defer></script>
 </body>
+
 </html>

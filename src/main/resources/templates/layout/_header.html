@@ -141,7 +141,7 @@
 									<a href="#">
 										<span class="cart-icon">
 											<i class="ion-bag"></i>
-											<sup>3</sup>
+											<sup>{{cart.count}}</sup>
 										</span>
 										<span class="cart-text">
 											<span class="cart-text-title">
@@ -152,65 +152,24 @@
 										</span>
 									</a>
 									<ul>
-										<li>
+										<li ng-repeat="item in cart.items">
 											<!-- single-shop-cart-wrapper -->
 											<div class="single-shop-cart-wrapper">
 												<div class="shop-cart-img">
 													<a href="#">
-														<img src="/assets/images/product/1.jpg" alt="Image of Product">
+														<img th:src="@{|/upload/ProductImages/{{item.productFirstImage}}|}" alt="Image of Product">
 													</a>
 												</div>
 												<div class="shop-cart-info">
 													<h5>
-														<a href="cart.html">sport t-shirt men</a>
+														<a th:href="@{|/product/{{item.productId}}|}">{{item.productName}}</a>
 													</h5>
-													<span class="price">£515.00</span>
-													<span class="quantaty">Qty: 1</span>
-													<span class="cart-remove">
-														<a href="#">
-															<i class="fa fa-times"></i>
-														</a>
+													<span class="price">£ {{item.finalPrice * item.qty}}</span>
+													<span class="quantaty">
+														Qty:
+														<span ng-bind="item.qty"></span>
 													</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<!-- single-shop-cart-wrapper -->
-											<div class="single-shop-cart-wrapper">
-												<div class="shop-cart-img">
-													<a href="#">
-														<img src="/assets/images/product/2.jpg" alt="Image of Product">
-													</a>
-												</div>
-												<div class="shop-cart-info">
-													<h5>
-														<a href="cart.html">sport coat amet</a>
-													</h5>
-													<span class="price">£100.00</span>
-													<span class="quantaty">Qty: 1</span>
-													<span class="cart-remove">
-														<a href="#">
-															<i class="fa fa-times"></i>
-														</a>
-													</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<!-- single-shop-cart-wrapper -->
-											<div class="single-shop-cart-wrapper">
-												<div class="shop-cart-img">
-													<a href="#">
-														<img src="/assets/images/product/3.jpg" alt="Image of Product">
-													</a>
-												</div>
-												<div class="shop-cart-info">
-													<h5>
-														<a href="cart.html">Pellentesque men</a>
-													</h5>
-													<span class="price">£265.00</span>
-													<span class="quantaty">Qty: 1</span>
-													<span class="cart-remove">
+													<span class="cart-remove" ng-click="cart.remove(item.productId)">
 														<a href="#">
 															<i class="fa fa-times"></i>
 														</a>
@@ -223,14 +182,14 @@
 											<div class="shop-cart-total">
 												<p>
 													Subtotal:
-													<span class="pull-right">£880.00</span>
+													<span class="pull-right">£ {{cart.amount | number : 2}}</span>
 												</p>
 											</div>
 										</li>
 										<li>
 											<div class="shop-cart-btn">
 												<a href="checkout.html">Checkout</a>
-												<a href="cart.html" class="pull-right">View Cart</a>
+												<a th:href="@{|/order/list|}" class="pull-right">View Cart</a>
 											</div>
 										</li>
 									</ul>
@@ -251,15 +210,8 @@
 							<span class="categorie-title">Categories</span>
 							<nav>
 								<ul class="categori-menu-list menu-hidden">
-									<li>
-										<a th:href="@{|/product|}">
-											All Products
-										</a>
-									</li>
 									<li th:each="lst: ${lstCategory}">
-										<a th:href="@{|/product?search-category=${lst.name}|}">
-											[[${lst.name}]]
-										</a>
+										<a th:href="@{|/product?search-category=${lst.name}|}"> [[${lst.name}]] </a>
 									</li>
 								</ul>
 							</nav>
