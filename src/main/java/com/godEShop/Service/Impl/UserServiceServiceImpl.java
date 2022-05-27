@@ -29,6 +29,12 @@ public User findByUsername(String username) {
 	return udao.findByUsername(username);
 }
 
+@Override
+public User create(User newUser) {
+	// TODO Auto-generated method stub
+	return udao.save(newUser);
+}
+
 
 
 }
