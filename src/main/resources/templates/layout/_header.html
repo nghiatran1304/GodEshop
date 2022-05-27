@@ -30,20 +30,21 @@
 					<div class="col-lg-6 col-sm-6">
 						<div class="topbar-nav">
 							<div class="wpb_wrapper row pr-5">
-								<div class="col-4 pl-0">
+								<div class="col-6">
 									<!-- my account -->
 									<div class="menu-my-account-container">
 										<a href="#">
 											<th:block th:if="${#request.remoteUser}">
-												<span>[[${#request.remoteUser}]]</span>
+												[[${#request.remoteUser}]]
 											</th:block>
 											<th:block th:if="!${#request.remoteUser}">
-												Account &#160;&#160;<i class="ion-ios-arrow-down"></i> 
+												Account &#160;&#160;<i class="ion-ios-arrow-down"></i>
 											</th:block>
+											
 										</a>
 										<ul>
 											<li>
-												<a href="/information">My Account</a>
+												<a href="/information"> My Account</a>
 											</li>
 											<li>
 												<a href="/account/login/form">Login</a>
@@ -60,9 +61,9 @@
 										</ul>
 									</div>
 								</div>
-								<div class="col-2"></div>
-								<div class="col-2">
-									<div class="switcher m-auto">
+								<div class="col-3"></div>
+								<div class="col-3">
+									<div class="switcher">
 										<!-- language-menu -->
 										<div class="language">
 											<a href="#">

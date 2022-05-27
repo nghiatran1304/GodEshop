@@ -1,10 +1,6 @@
 package com.godEShop.Service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-=======
-import org.springframework.context.annotation.Bean;
->>>>>>> 491b016e1deb779588efa57dcf3471d700f029d2
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +15,6 @@ import org.springframework.stereotype.Service;
 import com.godEShop.Dao.AccountDAO;
 import com.godEShop.Entity.Account;
 import com.godEShop.Service.AccountService;
-<<<<<<< HEAD
 
 @Service
 public class UserDetailImpl implements UserDetailsService {
@@ -61,49 +56,4 @@ public class UserDetailImpl implements UserDetailsService {
 	SecurityContextHolder.getContext().setAuthentication(auth); // SecurityContextHolder: nơi chứa tt secutiry
 
     }
-=======
-@Service
-public class UserDetailImpl implements UserDetailsService{
-@Autowired
-AccountDAO accountDAO;
-@Autowired 
-AccountService accountService;
-@Autowired 
-BCryptPasswordEncoder pe;
-@Override
-
-public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	// TODO Auto-generated method stub
-	
-	try {
-		Account account = accountService.findById(username);
-		// Tạo UserDetails từ Account
-		String password = account.getPassword();
-		String role = account.getRole().getId();
-		return User.withUsername(username).password(pe.encode(password)).roles(role).build();
-	} catch (Exception e) {
-		// TODO: handle exception
-		throw new UsernameNotFoundException(username + "not found");
-	}
-}
-
-
-public void loginFromOAuth2(OAuth2AuthenticationToken oauth2) {
-
-//		String username = oauth2.getPrincipal().getAttribute("username");
-		String email = oauth2.getPrincipal().getAttribute("email");
-		//sinh mật khẩu ngẫu nhiên
-		String password = Long.toHexString(System.currentTimeMillis());
-		//Tạo UserDetails từ Account 
-		UserDetails user = User.withUsername(email)
-				.password(pe.encode(password)).roles("Customer").build();
-	
-	Authentication auth = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
-	// thay thế authentication này bằng authentication từ mạng xh
-	SecurityContextHolder.getContext().setAuthentication(auth); // SecurityContextHolder: nơi chứa tt secutiry
-		
-	
-	
-}
->>>>>>> 491b016e1deb779588efa57dcf3471d700f029d2
 }
