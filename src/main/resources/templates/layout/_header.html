@@ -29,49 +29,58 @@
 					</div>
 					<div class="col-lg-6 col-sm-6">
 						<div class="topbar-nav">
-							<div class="wpb_wrapper">
-								<!-- my account -->
-								<div class="menu-my-account-container">
-									<a href="#">Welcome [[${#request.remoteUser}]]						
-										<i class="ion-ios-arrow-down"></i>
-									</a>
-									<ul>
-										<li>
-											<a href="/information"> My Account</a>
-										</li>
-										<li>
-											<a href="/account/login/form">Login</a>
-										</li>
-										<li>
-											<a href="/register">Register</a>
-										</li>
-										<li>
-											<a href="/checkout">Checkout</a>
-										</li>
-										<li>
-											<a th:href="@{/account/logoff}">Logout</a>
-										</li>
-									</ul>
-								</div>
-								<div class="switcher">
-									<!-- language-menu -->
-									<div class="language">
+							<div class="wpb_wrapper row pr-5">
+								<div class="col-4 pl-0">
+									<!-- my account -->
+									<div class="menu-my-account-container">
 										<a href="#">
-											<img src="/assets/images/icons/en.png" alt="language-selector">
-											English
-											<i class="ion-ios-arrow-down"></i>
+											<th:block th:if="${#request.remoteUser}">
+												<span>[[${#request.remoteUser}]]</span>
+											</th:block>
+											<th:block th:if="!${#request.remoteUser}">
+												Account &#160;&#160;<i class="ion-ios-arrow-down"></i> 
+											</th:block>
 										</a>
 										<ul>
 											<li>
-												<a href="#">
-													<img src="/assets/images/icons/fr.png" alt="French">
-													<span>French</span>
-												</a>
+												<a href="/information">My Account</a>
+											</li>
+											<li>
+												<a href="/account/login/form">Login</a>
+											</li>
+											<li>
+												<a href="/register">Register</a>
+											</li>
+											<li>
+												<a href="/checkout">Checkout</a>
+											</li>
+											<li>
+												<a th:href="@{/account/logoff}">Logout</a>
 											</li>
 										</ul>
 									</div>
-									<!-- currency-menu -->
-									<div class="currency">
+								</div>
+								<div class="col-2"></div>
+								<div class="col-2">
+									<div class="switcher m-auto">
+										<!-- language-menu -->
+										<div class="language">
+											<a href="#">
+												<img src="/assets/images/icons/en.png" alt="language-selector">
+												English
+												<i class="ion-ios-arrow-down"></i>
+											</a>
+											<ul>
+												<li>
+													<a href="#">
+														<img src="/assets/images/icons/fr.png" alt="French">
+														<span>French</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+										<!-- currency-menu -->
+										<!-- <div class="currency">
 										<a href="#">
 											$ USD
 											<i class="ion-ios-arrow-down"></i>
@@ -81,6 +90,7 @@
 												<a href="#">€ EUR</a>
 											</li>
 										</ul>
+									</div> -->
 									</div>
 								</div>
 							</div>
@@ -97,7 +107,7 @@
 					<div class="col-xl-2 col-md-12">
 						<!-- site-logo -->
 						<div class="site-logo">
-							<a href="index.html">
+							<a href="/index">
 								<img src="/assets/images/Glogo/whileLogo.png" alt="Nikado">
 							</a>
 						</div>
@@ -189,7 +199,7 @@
 										<li>
 											<div class="shop-cart-btn">
 												<a href="checkout.html">Checkout</a>
-												<a th:href="@{|/order/list|}" class="pull-right">View Cart</a>
+												<a th:href="@{|/cart|}" class="pull-right">View Cart</a>
 											</div>
 										</li>
 									</ul>

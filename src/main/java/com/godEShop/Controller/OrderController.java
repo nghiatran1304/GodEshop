@@ -12,7 +12,7 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @RequestMapping("/order/list")
+    @RequestMapping("/cart")
     public String view() {
 	return "cart/view-cart";
     }

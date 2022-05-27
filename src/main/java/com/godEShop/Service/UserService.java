@@ -12,6 +12,8 @@ public interface UserService {
 	public User findByUsername(String username);
 
 	public List<User> findAll();
+
+	public User create(User newUser);
 	
 
 

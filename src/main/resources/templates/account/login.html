@@ -74,6 +74,18 @@
 												class="form-check-label" for="rememberPasswordCheck">
 												Keep me logged in </label>
 										</div>
+										<div class="text-center">
+											<i th:text="${message}" class="float-left text-danger"></i>
+											<button class="btn btn-primary w-100" type="submit">LOGIN
+											</button>
+											<a href="/oauth2/authorization/google"
+												class="btn  w-25 btn-facebook mt-2"> <i
+												class="fa-brands fa-google"></i></a> <a
+												href="/oauth2/authorization/facebook"
+												class="btn  w-25 btn-google mt-2"> <i
+												class="fa-brands fa-facebook"></i>
+											</a>
+										</div>
 										<p class="lost-password">
 											<a href="forgot-password.html">Forgot password?</a>
 										</p>
