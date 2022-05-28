@@ -1,9 +1,9 @@
-﻿
+﻿/*
 	USE MASTER
 	GO
 	DROP DATABASE GodShop
 	GO
-
+	*/
 
 CREATE DATABASE GodShop
 GO
