@@ -40,11 +40,22 @@ public class SecurityController {
 	return "account/login";
     }
 
+    @RequestMapping("/admin")
+    public String adminPage() {
+	return "../static/admin/index.html";
+    }
+
+//    @RequestMapping("/admin")
+//    public String adminPage() {
+//	return "admin/admin-home/admin-homepage";
+//    }
+
     @RequestMapping("/account/login/success")
     public String loginSuccess(Model model, HttpServletRequest req) {
 	model.addAttribute("message", "Đăng nhập thành công!");
 	if (req.isUserInRole("Admin")) {
-	    return "redirect:/index-admin";
+//	    return "redirect:/index-admin";
+	    return "redirect:/admin";
 	}
 	return "redirect:/index";
     }

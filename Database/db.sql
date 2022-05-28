@@ -1735,6 +1735,8 @@ UPDATE Products set IsDeleted = 1 where id = 70 or id = 26;
 --==================================================== 
 
 		
+select * from Accounts
+go
 
 
 
