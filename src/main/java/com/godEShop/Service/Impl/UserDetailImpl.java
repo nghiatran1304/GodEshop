@@ -35,7 +35,7 @@ public class UserDetailImpl implements UserDetailsService {
 	    // Tạo UserDetails từ Account
 	    String password = account.getPassword();
 	    String role = account.getRole().getId();
-	    return User.withUsername(username).password(pe.encode(password)).roles(role).build();
+	    return User.withUsername(username).password(password).roles(role).build();
 	} catch (Exception e) {
 	    // TODO: handle exception
 	    throw new UsernameNotFoundException(username + "not found");

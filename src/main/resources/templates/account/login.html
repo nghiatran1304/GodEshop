@@ -69,7 +69,7 @@
 												class="form-control">
 										</div>
 										<div class="form-check mb-3">
-											<input class="form-check-input" type="checkbox" value=""
+											<input onclick="getToken()" class="form-check-input" type="checkbox" value=""
 												name="remember-me" id="rememberPasswordCheck"> <label
 												class="form-check-label" for="rememberPasswordCheck">
 												Keep me logged in </label>
@@ -90,6 +90,17 @@
 											<a href="forgot-password.html">Forgot password?</a>
 										</p>
 										<input type="submit" value="Login" class="return-customer-btn">
+										<script>
+											let username = document.getElementById("input-username")
+											let password = document.getElementById("input-password")
+											let URL = 'http://localhost:8080/loginPage'
+											let formData = new FormData()
+											
+											let getToken = () => {
+												formData.append('username', username.value)
+												formData.append('password', password.value)
+											}
+										</script>
 									</form>
 								</div>
 							</div>
