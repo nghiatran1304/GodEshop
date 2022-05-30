@@ -18,7 +18,7 @@ let host = false
 let hostId
 let rtmClient
 let hostID = sessionStorage.getItem("room_id")
-let roomName = sessionStorage.getItem("room_id")
+let roomName = 'Stream title'
 let displayName = sessionStorage.getItem("display_name")
 
 let urlParams = window.location.pathname
@@ -44,7 +44,7 @@ let initiate = async () => {
             document.getElementById('stream__controls').style.display = 'flex'
         }
     } catch (error) {
-        await rtmClient.setChannelAttributes(room, { 'room_name': roomName, 'host': uid, 'host_image': avatar, 'host_id': hostID })
+        await rtmClient.setChannelAttributes(room, { 'room_name': roomName, 'host': uid, 'host_image': avatar, 'host_id': uid })
         host = true
         document.getElementById('stream__controls').style.display = 'flex'
     }
@@ -68,13 +68,42 @@ let initiate = async () => {
         }
     })
 
+    channel.on('MemberLeft', async (memberId) => {
+        removeParticipants(memberId)
+
+        let participants = await channel.getMembers()
+        updateParticipantTotal(participants)
+    })
+
+    channel.on('MemberJoined', async (memberId) => {
+        addParticipantToDom(memberId)
+
+        let participants = await channel.getMembers()
+        updateParticipantTotal(participants)
+    })
+
     channel.on('ChannelMessage', async (messageData, memberId) => {
         let data = JSON.parse(messageData.text)
         let name = data.displayName
         let myAvatar = data.avatar
         addMessageToDom(data.message, memberId, name, myAvatar)
 
+        let participants = await channel.getMembers()
+        updateParticipantTotal(participants)
     })
+
+    let addParticipantToDom = async (memberId) => {
+        let { name } = await rtmClient.getUserAttributesByKeys(memberId, ['name'])
+
+        //let membersWrapper = document.getElementById('member__list')
+        let memberItem = `
+                        <div class="member__wrapper" id="member__${memberId}__wrapper">
+                            <span class="green__icon"></span>
+                            <p class="member__name">${name}</p>
+                        </div>
+                            `
+        //membersWrapper.innerHTML += memberItem
+    }
 
     let getParticipants = async () => {
         let participants = await channel.getMembers()
@@ -85,6 +114,11 @@ let initiate = async () => {
                 rtmClient.sendMessageToPeer({ text: JSON.stringify({ 'room': room, 'type': 'room_added' }) }, lobbyMembers[i])
             }
         }
+
+        updateParticipantTotal(participants)
+        for (let i = 0; i < participants.length; i++) {
+            addParticipantToDom(participants[i])
+        }
     }
 
     let goBackToLobby = () => {
@@ -93,6 +127,11 @@ let initiate = async () => {
 
     getParticipants()
 
+    let removeParticipants = async (memberId) => {
+    }
+
+    let updateParticipantTotal = async (participants) => {
+    }
 
     let leaveChannel = async () => {
         await channel.leave()
