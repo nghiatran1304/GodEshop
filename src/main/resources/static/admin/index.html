@@ -118,6 +118,24 @@
 							<div class="border-none">
 								<p class="text-black">Notification</p>
 							</div>
+							<div class="border-none">
+								<a class="nav__link" id="create__room__btn" href="#">
+					                Create Room
+					            </a>
+							</div>
+							<script>
+								let btnCreateRoom = document.getElementById('create__room__btn')
+								btnCreateRoom.addEventListener('click', () => {
+									let roomId = String(Math.floor(Math.random() * 10000))
+								    sessionStorage.setItem('room_name', "123")
+								    sessionStorage.setItem('avatar', "/assets/images/default.PNG")
+								    sessionStorage.setItem('display_name', "Hải")
+								    sessionStorage.setItem('host', true)
+								    sessionStorage.setItem('room_id', roomId)
+								    window.location = `room/${roomId}`
+								})							 						
+							</script>
+							
 							<ul class="mt-4 pl-0">
 								<li>Sign Out</li>
 							</ul>
