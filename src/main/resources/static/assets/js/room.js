@@ -2,8 +2,16 @@ let messageContainer = document.getElementById('messages')
 
 let APP_ID = '9026d01943724f1c8178e41aa938e367'
 let token = null
-let uid = String(Math.floor(Math.random() * 10000))
 
+
+let currentUser = document.getElementById('current-user').innerText.trim()
+let uid
+
+if (currentUser === "Account") {
+	uid = 'GUEST' + String(Math.floor(Math.random() * 10000))
+}else {
+	uid = currentUser
+}
 
 let goBackToLobbyBtn = document.getElementById('create__room__btn')
 let host = false
@@ -24,26 +32,19 @@ let initiate = async () => {
 
     AgoraRTM.LOG_FILTER_OFF
     
-    let hostID = sessionStorage.getItem("room_id")
-
     rtmClient = await AgoraRTM.createInstance(APP_ID)
-    if (hostID !== null) {
-		await rtmClient.login({ uid, token })
-	}else {
-		await rtmClient.login({ hostID, token })
-	}
-    
+	await rtmClient.login({ uid, token })
 
     try {
         let attributes = await rtmClient.getChannelAttributesByKeys(room, ['room_name', 'host_id'])
         roomName = attributes.room_name.value
         hostId = attributes.host_id.value
-        //if (uid === hostId) {
+        if (uid === hostId) {
             host = true
             document.getElementById('stream__controls').style.display = 'flex'
-        //}
+        }
     } catch (error) {
-        await rtmClient.setChannelAttributes(room, { 'room_name': roomName, 'host': displayName, 'host_image': avatar, 'host_id': hostID })
+        await rtmClient.setChannelAttributes(room, { 'room_name': roomName, 'host': uid, 'host_image': avatar, 'host_id': hostID })
         host = true
         document.getElementById('stream__controls').style.display = 'flex'
     }
@@ -51,7 +52,7 @@ let initiate = async () => {
     const channel = await rtmClient.createChannel(room)
     await channel.join()
 
-    await rtmClient.addOrUpdateLocalUserAttributes({ 'name': displayName })
+    await rtmClient.addOrUpdateLocalUserAttributes({ 'name': uid })
 
     const lobbyChannel = await rtmClient.createChannel('lobby')
     await lobbyChannel.join()
@@ -67,42 +68,13 @@ let initiate = async () => {
         }
     })
 
-    channel.on('MemberLeft', async (memberId) => {
-        removeParticipants(memberId)
-
-        let participants = await channel.getMembers()
-        updateParticipantTotal(participants)
-    })
-
-    channel.on('MemberJoined', async (memberId) => {
-        addParticipantToDom(memberId)
-
-        let participants = await channel.getMembers()
-        updateParticipantTotal(participants)
-    })
-
     channel.on('ChannelMessage', async (messageData, memberId) => {
         let data = JSON.parse(messageData.text)
         let name = data.displayName
         let myAvatar = data.avatar
         addMessageToDom(data.message, memberId, name, myAvatar)
 
-        let participants = await channel.getMembers()
-        updateParticipantTotal(participants)
     })
-
-    let addParticipantToDom = async (memberId) => {
-        let { name } = await rtmClient.getUserAttributesByKeys(memberId, ['name'])
-
-        //let membersWrapper = document.getElementById('member__list')
-        let memberItem = `
-                        <div class="member__wrapper" id="member__${memberId}__wrapper">
-                            <span class="green__icon"></span>
-                            <p class="member__name">${name}</p>
-                        </div>
-                            `
-        //membersWrapper.innerHTML += memberItem
-    }
 
     let getParticipants = async () => {
         let participants = await channel.getMembers()
@@ -113,11 +85,6 @@ let initiate = async () => {
                 rtmClient.sendMessageToPeer({ text: JSON.stringify({ 'room': room, 'type': 'room_added' }) }, lobbyMembers[i])
             }
         }
-
-        updateParticipantTotal(participants)
-        for (let i = 0; i < participants.length; i++) {
-            addParticipantToDom(participants[i])
-        }
     }
 
     let goBackToLobby = () => {
@@ -126,14 +93,6 @@ let initiate = async () => {
 
     getParticipants()
 
-    let removeParticipants = async (memberId) => {
-        document.getElementById(`member__${memberId}__wrapper`).remove()
-    }
-
-    let updateParticipantTotal = async (participants) => {
-        //let total = document.getElementById('members__count')
-        //total.innerText = participants.length
-    }
 
     let leaveChannel = async () => {
         await channel.leave()
@@ -164,8 +123,8 @@ let initiate = async () => {
     let sendMessage = async (e) => {
         e.preventDefault()
         let message = e.target.message.value
-        channel.sendMessage({ text: JSON.stringify({ 'message': message, 'displayName': displayName, 'avatar': avatar }) })
-        addMessageToDom(message, uid, displayName, avatar)
+        channel.sendMessage({ text: JSON.stringify({ 'message': message, 'displayName': uid, 'avatar': avatar }) })
+        addMessageToDom(message, uid, uid, avatar)
         e.target.reset()
     }
 
@@ -185,7 +144,7 @@ let config = {
 	appID: APP_ID,
 	token: null,
 	uid: rtcUid,
-	channel: hostID
+	channel: room
 }
 
 
@@ -197,6 +156,7 @@ let sharingScreen = false
 
 let rtcClient = AgoraRTC.createClient({ mode: 'live', codec: 'vp8' })
 let initiateRtc = async () => {
+	console.log(config.channel)
     await rtcClient.join(config.appID, config.channel, config.token, config.uid)
 
     rtcClient.on('user-published', handleUserPublished)
