@@ -33,7 +33,7 @@
 								<div class="col-6">
 									<!-- my account -->
 									<div class="menu-my-account-container">
-										<a href="#">
+										<a href="#" id="current-user">
 											<th:block th:if="${#request.remoteUser}">
 												[[${#request.remoteUser}]]
 											</th:block>
@@ -247,6 +247,9 @@
 									</li>
 									<li>
 										<a th:href="@{|/contact|}">Contact</a>
+									</li>
+									<li>
+										<a th:href="@{|/livestream|}">LiveStream</a>
 									</li>
 									<li>
 										<a href="#">

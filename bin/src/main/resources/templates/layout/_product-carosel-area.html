@@ -6,20 +6,20 @@
 				<!-- Product column -->
 				<div class="col-md-6 col-xl-3">
 					<div class="section-title">
-						<h3>TELEVISIONS</h3>
+						<h3>Rolex</h3>
 					</div>
 					<div class="mini-product carosel-next-prive  owl-carousel">
 						<div class="mini-product-listview">
 							<!-- single product -->
-							<div class="single-product-area">
+							<div class="single-product-area" th:each="p:${lstRolex}">
 								<div class="product-wrapper listview">
 									<div class="list-col4">
 										<div class="product-image">
 											<a href="">
-												<img src="/assets/images/product/mini/18.jpg" alt="">
+												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" style="width: 370px; height: 150px;" alt="">
 											</a>
 											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
+												<a th:href="@{|/product/${p.productId}|}" data-original-title="Quick View">
 													<i class="ion-eye"></i>
 												</a>
 											</div>
@@ -28,562 +28,76 @@
 									<div class="list-col8">
 										<div class="product-info">
 											<h2>
-												<a href="single-product.html">Itaque earum</a>
+												<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
 											</h2>
-											<span class="price"> $ 866.00 </span>
+											<th:block th:if="${p.productDiscount == null}">
+												<span class="price">$ [[${p.productPrice}]] </span>
+											</th:block>
+											<th:block th:if="${p.productDiscount != null}">
+												<span class="price">
+													<del>$ [[${p.productPrice}]]</del>
+													$ [[${p.productPrice - (p.productPrice * p.productDiscount / 100)}]]
+												</span>
+											</th:block>
 											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/19.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Nostrum exercitationem</a>
-											</h2>
-											<span class="price">
-												<del>$ 590.00</del>
-												$ 550.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/20.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Consequuntur</a>
-											</h2>
-											<span class="price"> $ 366.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/21.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Porro quisquam</a>
-											</h2>
-											<span class="price"> $ 88.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-						</div>
-						<div class="mini-product-listview">
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/22.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/1.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/2.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/3.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-						</div>
-						<div class="mini-product-listview">
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/4.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/5.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/6.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/7.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
+												<th:block th:if="${p.productEvaluation == 5}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 4}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 3}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 2}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 1}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == null}">
+
+												</th:block>
 											</div>
 										</div>
 										<div class="add-to-cart">
@@ -600,17 +114,17 @@
 				<!-- Product column -->
 				<div class="col-md-6 col-xl-3">
 					<div class="section-title">
-						<h3>CAMERAS</h3>
+						<h3>Casio</h3>
 					</div>
 					<div class="mini-product carosel-next-prive owl-carousel">
 						<div class="mini-product-listview">
 							<!-- single product -->
-							<div class="single-product-area">
+							<div class="single-product-area" th:each="p:${lstCasio}">
 								<div class="product-wrapper listview">
 									<div class="list-col4">
 										<div class="product-image">
 											<a href="">
-												<img src="/assets/images/product/mini/6.jpg" alt="">
+												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" style="width: 370px; height: 150px;" alt="">
 											</a>
 											<div class="quickviewbtn">
 												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
@@ -622,547 +136,76 @@
 									<div class="list-col8">
 										<div class="product-info">
 											<h2>
-												<a href="single-product.html">Duis pulvinar</a>
+												<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
 											</h2>
-											<span class="price"> $ 84.00 </span>
+											<th:block th:if="${p.productDiscount == null}">
+												<span class="price">$ [[${p.productPrice}]] </span>
+											</th:block>
+											<th:block th:if="${p.productDiscount != null}">
+												<span class="price">
+													<del>$ [[${p.productPrice}]]</del>
+													$ [[${p.productPrice - (p.productPrice * p.productDiscount / 100)}]]
+												</span>
+											</th:block>
 											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/7.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Porro quisquam</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 68.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/8.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Laudantium</a>
-											</h2>
-											<span class="price"> $ 75.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/9.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Nullam maximus</a>
-											</h2>
-											<span class="price"> $ 95.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-						</div>
-						<div class="mini-product-listview">
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/10.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Nemo enim</a>
-											</h2>
-											<span class="price"> $ 55.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/11.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Natus erro</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/12.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Epicuri per</a>
-											</h2>
-											<span class="price"> $ 88.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/13.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-						</div>
-						<div class="mini-product-listview">
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/14.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Auctor gravida enim</a>
-											</h2>
-											<span class="price"> $ 63.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/15.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Nulla sed libero</a>
-											</h2>
-											<span class="price"> $ 86.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/16.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Pellentesque posuere</a>
-											</h2>
-											<span class="price"> $ 78.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/17.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
+												<th:block th:if="${p.productEvaluation == 5}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 4}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 3}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 2}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 1}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == null}">
+
+												</th:block>
 											</div>
 										</div>
 										<div class="add-to-cart">
@@ -1179,17 +222,17 @@
 				<!-- Product column -->
 				<div class="col-md-6 col-xl-3">
 					<div class="section-title">
-						<h3>DRONE</h3>
+						<h3>G-Shock</h3>
 					</div>
 					<div class="mini-product carosel-next-prive owl-carousel">
 						<div class="mini-product-listview">
 							<!-- single product -->
-							<div class="single-product-area">
+							<div class="single-product-area" th:each="p:${lstGShock}">
 								<div class="product-wrapper listview">
 									<div class="list-col4">
 										<div class="product-image">
 											<a href="">
-												<img src="/assets/images/product/mini/1.jpg" alt="">
+												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" style="width: 370px; height: 150px;" alt="">
 											</a>
 											<div class="quickviewbtn">
 												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
@@ -1201,547 +244,76 @@
 									<div class="list-col8">
 										<div class="product-info">
 											<h2>
-												<a href="single-product.html">Donec tempus</a>
+												<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
 											</h2>
-											<span class="price"> $ 82.00 </span>
+											<th:block th:if="${p.productDiscount == null}">
+												<span class="price">$ [[${p.productPrice}]] </span>
+											</th:block>
+											<th:block th:if="${p.productDiscount != null}">
+												<span class="price">
+													<del>$ [[${p.productPrice}]]</del>
+													$ [[${p.productPrice - (p.productPrice * p.productDiscount / 100)}]]
+												</span>
+											</th:block>
 											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/2.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sed tempor</a>
-											</h2>
-											<span class="price">
-												<del>$ 87.00</del>
-												$ 80.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/3.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Cras neque</a>
-											</h2>
-											<span class="price"> $ 70.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/4.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Pellentesque ultricies</a>
-											</h2>
-											<span class="price"> $ 85.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-						</div>
-						<div class="mini-product-listview">
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/5.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Vestibulum suscipit</a>
-											</h2>
-											<span class="price"> $ 84.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/6.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Nemo enim</a>
-											</h2>
-											<span class="price"> $ 220.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/7.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Epicuri per</a>
-											</h2>
-											<span class="price"> $ 152.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/8.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-						</div>
-						<div class="mini-product-listview">
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/9.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Laudantium</a>
-											</h2>
-											<span class="price"> $ 86.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/10.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Porro quisquam</a>
-											</h2>
-											<span class="price"> $ 68.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/11.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/12.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
+												<th:block th:if="${p.productEvaluation == 5}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 4}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 3}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 2}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 1}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == null}">
+
+												</th:block>
 											</div>
 										</div>
 										<div class="add-to-cart">
@@ -1758,17 +330,17 @@
 				<!-- Product column -->
 				<div class="col-md-6 col-xl-3">
 					<div class="section-title">
-						<h3>CELL PHONES</h3>
+						<h3>Seiko</h3>
 					</div>
 					<div class="mini-product carosel-next-prive owl-carousel">
 						<div class="mini-product-listview">
 							<!-- single product -->
-							<div class="single-product-area">
+							<div class="single-product-area" th:each="p:${lstSeiko}">
 								<div class="product-wrapper listview">
 									<div class="list-col4">
 										<div class="product-image">
 											<a href="">
-												<img src="/assets/images/product/mini/13.jpg" alt="">
+												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" style="width: 370px; height: 150px;" alt="">
 											</a>
 											<div class="quickviewbtn">
 												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
@@ -1780,166 +352,76 @@
 									<div class="list-col8">
 										<div class="product-info">
 											<h2>
-												<a href="single-product.html">Vulputate justo</a>
+												<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
 											</h2>
-											<span class="price"> $ 95.00 </span>
+											<th:block th:if="${p.productDiscount == null}">
+												<span class="price">$ [[${p.productPrice}]] </span>
+											</th:block>
+											<th:block th:if="${p.productDiscount != null}">
+												<span class="price">
+													<del>$ [[${p.productPrice}]]</del>
+													$ [[${p.productPrice - (p.productPrice * p.productDiscount / 100)}]]
+												</span>
+											</th:block>
 											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/14.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Aliquam lobortis est</a>
-											</h2>
-											<span class="price"> $ 97.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/15.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Dignissim</a>
-											</h2>
-											<span class="price"> $ 82.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/16.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
+												<th:block th:if="${p.productEvaluation == 5}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 4}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 3}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 2}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == 1}">
+													<span>
+														<i class="fa fa-star"></i>
+													</span>
+												</th:block>
+												<th:block th:if="${p.productEvaluation == null}">
+
+												</th:block>
 											</div>
 										</div>
 										<div class="add-to-cart">
@@ -1950,387 +432,7 @@
 							</div>
 							<!-- single product end -->
 						</div>
-						<div class="mini-product-listview">
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/17.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Aliquam lobortis</a>
-											</h2>
-											<span class="price"> $ 166.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/18.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Condimentum posuere</a>
-											</h2>
-											<span class="price"> $ 115.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/19.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/20.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Phasellus vel hendrerit</a>
-											</h2>
-											<span class="price"> $ 42.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-						</div>
-						<div class="mini-product-listview">
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/21.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Auctor gravida enim</a>
-											</h2>
-											<span class="price"> $ 75.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/22.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Phasellus vel hendrerit</a>
-											</h2>
-											<span class="price"> $ 55.00 </span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/1.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-							<!-- single product -->
-							<div class="single-product-area">
-								<div class="product-wrapper listview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a href="">
-												<img src="/assets/images/product/mini/2.jpg" alt="">
-											</a>
-											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a href="single-product.html">Sit voluptatem</a>
-											</h2>
-											<span class="price">
-												<del>$ 77.00</del>
-												$ 66.00
-											</span>
-											<div class="product-rattings">
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-half-o"></i>
-												</span>
-												<span>
-													<i class="fa fa-star-o"></i>
-												</span>
-											</div>
-										</div>
-										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- single product end -->
-						</div>
+
 					</div>
 				</div>
 				<!-- Product column end -->

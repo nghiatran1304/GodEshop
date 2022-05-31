@@ -78,6 +78,10 @@ Version: 1.0.0
     z-index: 99;
 }
 
+#titleLivestreamPage {
+	text-align: center;
+}
+
 .home-one .container {
     max-width: 1800px;
 }
@@ -563,7 +567,7 @@ Version: 1.0.0
 }
 
 .categori-menu > span::after {
-    content: "";
+    content: "ïˆŽ";
     font-family: "Ionicons";
     font-size: 27px;
     font-weight: normal;
@@ -1729,7 +1733,7 @@ li.megamenu-img a {
 
 .deal-counter > div::after {
     color: #12a4dd;
-    content: "";
+    content: "ïŽ³";
     display: inline-block;
     font-family: "Ionicons";
     font-size: 24px;
@@ -2234,27 +2238,27 @@ li.megamenu-img a {
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li:first-child a span:before {
-    content: "";
+    content: "ï�º";
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li:nth-child(2) a span:before {
-    content: "";
+    content: "ï‘¥";
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li:nth-child(3) a span:before {
-    content: "";
+    content: "ï‡º";
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li:nth-child(4) a span:before {
-    content: "";
+    content: "ï�µ";
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li:nth-child(5) a span:before {
-    content: "";
+    content: "ï’�";
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li:nth-child(6) a span:before {
-    content: "";
+    content: "ï‘ ";
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li a {
@@ -6127,7 +6131,7 @@ p.checkout-coupon input[type="submit"] {
 
 .payment-accordion h3 a:before,
 .payment-accordion h3.open a:after {
-    content: "ÃƒÂ¯Ã‚ÂÃ¢â‚¬Â¢";
+    content: "ÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â�ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢";
     display: inline-block;
     font-family: fontawesome;
     font-size: 20px;

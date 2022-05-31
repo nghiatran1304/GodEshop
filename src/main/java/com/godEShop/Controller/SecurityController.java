@@ -40,7 +40,7 @@ public class SecurityController {
     @Autowired
     SessionService sessionService;
 
-    @RequestMapping("/account/login/form")
+    @RequestMapping({"/account/login/form", "/loginPage"})
     public String loginForm(Model model) {
 	model.addAttribute("message", "Vui lòng đăng nhập");
 	return "account/login";
@@ -52,16 +52,11 @@ public class SecurityController {
 	return "../static/admin/index.html";
     }
 
-//    @RequestMapping("/admin")
-//    public String adminPage() {
-//	return "admin/admin-home/admin-homepage";
-//    }
 
     @RequestMapping("/account/login/success")
     public String loginSuccess(Model model) {
 	model.addAttribute("message", "Đăng nhập thành công!");
 	if (req.isUserInRole("Admin")) {
-//	    return "redirect:/index-admin";
 	    return "redirect:/admin";
 	}
 	return "redirect:/index";

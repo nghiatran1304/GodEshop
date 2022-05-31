@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.godEShop.Dto.ProductDiscountDto;
 import com.godEShop.Entity.User;
@@ -102,6 +103,16 @@ public class HomeController {
     @GetMapping("/contact")
     public String contact() {
 	return "contact/Contact";
+    }
+    
+    @GetMapping("/livestream")
+    public String livestream() {
+	return "livestream/livestream";
+    }
+    
+    @GetMapping("/room/{room_id}")
+    public String streamingpage(@PathVariable("room_id") String room_id) {
+	return "livestream/room";
     }
 
     @GetMapping("/ErrorPage")

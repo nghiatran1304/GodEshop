@@ -20,13 +20,24 @@
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/assets/css/responsive.css">
 <link rel="stylesheet" href="/assets/css/colors.css">
+
+<!-- MAGIC ZOOM -->
+<link rel="stylesheet" href="/assets/zoommagic/magiczoomplus.css">
 <!--
 <link rel="icon" href="/assets/img/Fevicon.png" type="image/png">
 	-->
 <!-- Bootstrap CSS -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- AXIOS -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<style>
+#scrollable-dropdown-menu .tt-dropdown-menu {
+	max-height: 150px;
+	overflow-y: auto;
+}
 
+</style>
 </head>
 <body>
 	<div class="wrapper home-one " th:classappend="${isHomePage} ? '' : 'single-product-page'">
@@ -59,8 +70,9 @@
 	<script src="/assets/js/plugins.js"></script>
 	<!-- Main js  -->
 	<script src="/assets/js/main.js"></script>
-
-
+	
+	<!-- ZOOM MAGIC -->
+	<script src="/assets/zoommagic/magiczoomplus.js"></script>
 
 	<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
 	<script>

@@ -50,6 +50,34 @@ Version: 1.0.0
 /* ----------------------------------------------
     1. Header Top Area
 ---------------------------------------------- */
+.bz:hover a  p{
+	color: white;
+	font-size: 20px;
+}
+
+.isSale {
+	background: #ffffff none repeat scroll 0 0;
+    border: 2px solid #e23e57;
+    border-radius: 25px;
+    box-shadow: none;
+    color: #e23e57;
+    font-family: Open Sans, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    height: 24px;
+    left: 20px;
+    line-height: 20px;
+    min-height: auto;
+    min-width: auto;
+    padding: 0 15px;
+    position: absolute;
+    right: auto;
+    text-shadow: none;
+    text-transform: uppercase;
+    top: 20px;
+    z-index: 99;
+}
+
 .home-one .container {
     max-width: 1800px;
 }
