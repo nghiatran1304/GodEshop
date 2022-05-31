@@ -33,6 +33,8 @@ public class ProductRestController {
 
     @Autowired
     CategoryService categoryService;
+    
+    public static Product productInserted = new Product();
 
     @GetMapping("/rest/products/{productId}")
     public ProductShopDto getOne(@PathVariable("productId") Long id) {
@@ -46,8 +48,12 @@ public class ProductRestController {
 
     @PostMapping("/rest/products")
     public Product create(@RequestBody ProductWatchInfoDto product) {
-	Brand b = brandService.getById(Integer.parseInt(product.getBrandId().toString()));
+	System.out.println(product == null ? " >>>> NULL PRODUCT" : " >>>>> NOT NULL PRODUCT");
+	System.out.println(product.getCategoryId() == null ? " >>>> NULL CATEGORY ID " : " >>>>> NOT NULL CATEGORY ID : " + product.getCategoryId());
+	System.out.println(product.getBrandId() == null ? " >>>> NULL BRAND ID" : " >>>>> NOT NULL BRAND ID: " + product.getBrandId());
+	
 	Category c = categoryService.getById(product.getCategoryId());
+	Brand b = brandService.getById(product.getBrandId());
 	Product p = new Product();
 	p.setCreateDate(product.getProductCreateDate());
 	p.setDetail(product.getProductDetail());
@@ -59,6 +65,9 @@ public class ProductRestController {
 	p.setWarranty(product.getProductWarranty());
 	p.setBrand(b);
 	p.setCategory(c);
+	
+	productInserted = p;
+	
 	return productService.create(p);
     }
 

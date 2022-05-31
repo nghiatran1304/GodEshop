@@ -38,7 +38,7 @@ public class ProductPhotoRestController {
 	ProductPhoto pp = new ProductPhoto();
 	pp.setId(product.getImageId());
 //	Product p = sessionService.get("productInsert");
-	pp.setProduct(productService.getById(product.getProductId()));
+	pp.setProduct(ProductRestController.productInserted);
 	return productPhotoService.create(pp);
     }
 

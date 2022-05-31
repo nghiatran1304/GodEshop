@@ -60,12 +60,13 @@ public class WatchRestController {
     }
 
     @PostMapping("/rest/watches")
-    public Watch create(@RequestBody ProductWatchInfoDto product) {
-
+    public Watch create(@RequestBody ProductWatchInfoDto product) {	
+	System.out.println(ProductRestController.productInserted == null ? " >>> NULL PRODUCT RESTCONTROLLER" : " >>> NOT NULL PRODUCT RESTCONTROLLER");
+	System.out.println(product == null ? " >>> NULL PRODUCT RESTCONTROLLER" : " >>> NOT NULL PRODUCT RESTCONTROLLER");
+	
 	BraceletMaterial bm = bmService.getById(product.getBraceletMaterialId());
 	GlassMaterial gm = gmService.getById(product.getGlassMaterialId());
 	MachineInside mi = miService.getById(product.getMachineInsideId());
-
 	Watch w = new Watch();
 	w.setAtm(product.getWatchATM());
 	w.setCaseColors(product.getWatchCaseColor());
@@ -75,8 +76,9 @@ public class WatchRestController {
 	w.setBraceletMaterial(bm);
 	w.setGlassMaterial(gm);
 	w.setMachineInside(mi);
-	w.setProduct(pService.getById(product.getProductId()));
 	
+//	w.setProduct(pService.getById(product.getProductId()));	
+	w.setProduct(ProductRestController.productInserted);
 
 	return watchService.create(w);
     }

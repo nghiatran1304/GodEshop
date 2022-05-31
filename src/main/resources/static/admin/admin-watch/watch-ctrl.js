@@ -93,15 +93,18 @@ app.controller("watch-ctrl", function($scope, $http) {
 
 	}
 
-
+	function sleep(time) {
+		return new Promise((resolve) => setTimeout(resolve, time));
+	}
 
 	// thêm sản phẩm
 	$scope.create = function() {
-		// alert("Create");
 		var productItem = angular.copy($scope.formProduct);
+		// var productItem = angular.copy($scope.form);
 		$http.post(`/rest/products`, productItem).then(resp => {
 			// resp.data.createDate = new Date(resp.data.createDate);
 			resp.data.createDate = new Date(resp.data.createDate);
+			$scope.initialize();
 			Swal.fire({
 				position: 'top-end',
 				icon: 'success',
@@ -118,39 +121,43 @@ app.controller("watch-ctrl", function($scope, $http) {
 			console.log("Error insert product : ", error);
 		});
 
+		sleep(100).then(() => {
+			// Do something after the sleep!
 
-		// WATCH
-		$scope.formWatch.product = $scope.formProduct;
-		var watchItem = angular.copy($scope.formWatch);
-		$http.post(`/rest/watches`, watchItem).then(resp => {
-		}).catch(error => {
-			Swal.fire({
-				icon: 'error',
-				title: 'Oops...',
-				text: "Lỗi !!!",
+			// $scope.formWatch.product = $scope.formProduct;
+			var watchItem = angular.copy($scope.formWatch);
+			$http.post(`/rest/watches`, watchItem).then(resp => {
+				console.log("insert WATCH");
+				$scope.initialize();
+			}).catch(error => {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: "Lỗi !!!",
+				});
+				console.log("Error insert watch : ", error);
 			});
-			console.log("Error insert watch : ", error);
+
+			// image
+			$http.post(`/rest/upload/ProductImages`, uploadImage, {
+				transformRequest: angular.identity,
+				headers: { 'Content-Type': undefined }
+			}).then(resp => {
+				$scope.formProductPhoto.imageId = resp.data.name;
+				var itemProductPhoto = angular.copy($scope.formProductPhoto);
+				$http.post(`/rest/photo/`, itemProductPhoto).then(resp => {
+					console.log("insert first image !");
+					$scope.initialize();
+				});
+			}).catch(error => {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: "Lỗi tải ảnh!!!",
+				});
+				console.log("Error", error);
+			});
 		});
-
-		// image
-		$http.post(`/rest/upload/ProductImages`, uploadImage, {
-			transformRequest: angular.identity,
-			headers: { 'Content-Type': undefined }
-		}).then(resp => {
-			$scope.formProductPhoto.imageId = resp.data.name;
-			var itemProductPhoto = angular.copy($scope.formProductPhoto);
-			$http.post(`/rest/photo/`, itemProductPhoto).then(resp => {
-				console.log("insert first image !");
-			});
-		}).catch(error => {
-			Swal.fire({
-				icon: 'error',
-				title: 'Oops...',
-				text: "Lỗi tải ảnh!!!",
-			});
-			console.log("Error", error);
-		});
-
 
 	}
 

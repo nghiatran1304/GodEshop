@@ -567,7 +567,7 @@ Version: 1.0.0
 }
 
 .categori-menu > span::after {
-    content: "ïˆŽ";
+    content: "";
     font-family: "Ionicons";
     font-size: 27px;
     font-weight: normal;
