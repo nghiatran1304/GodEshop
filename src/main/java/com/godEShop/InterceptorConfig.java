@@ -8,16 +8,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.godEShop.Interceptor.GlobalInterceptor;
 
 @Configuration
-public class InterceptorConfig implements WebMvcConfigurer{
+public class InterceptorConfig implements WebMvcConfigurer {
 
-    	@Autowired
-	GlobalInterceptor globalInterceptor;
-	
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		// TODO Auto-generated method stub
-		registry.addInterceptor(globalInterceptor)
-		.addPathPatterns("/**")
-		.excludePathPatterns("/rest/**", "/admin/**", "/assets/**");
-	}
+    @Autowired
+    GlobalInterceptor globalInterceptor;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+	// TODO Auto-generated method stub
+	registry.addInterceptor(globalInterceptor).addPathPatterns("/**").excludePathPatterns("/rest/**", "/admin/**",
+		"/assets/**");
+    }
 }

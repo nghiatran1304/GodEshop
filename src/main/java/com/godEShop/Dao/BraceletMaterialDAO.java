@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.godEShop.Entity.BraceletMaterial;
 
 @Repository
-public interface BraceletMaterialDAO extends JpaRepository<BraceletMaterial, String> {
+public interface BraceletMaterialDAO extends JpaRepository<BraceletMaterial, Integer> {
 
 }

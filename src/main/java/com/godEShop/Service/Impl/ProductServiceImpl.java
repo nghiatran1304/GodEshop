@@ -11,7 +11,9 @@ import com.godEShop.Dao.ProductDAO;
 import com.godEShop.Dto.AccessoryDto;
 import com.godEShop.Dto.ProductDiscountDto;
 import com.godEShop.Dto.ProductShopDto;
+import com.godEShop.Dto.ProductWatchInfoDto;
 import com.godEShop.Dto.WatchDto;
+import com.godEShop.Entity.Product;
 import com.godEShop.Service.ProductService;
 
 @Service
@@ -72,6 +74,38 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductShopDto> findAllProduct() {
 	// TODO Auto-generated method stub
 	return productDAO.findAllProduct();
+    }
+
+    @Override
+    public List<ProductWatchInfoDto> lstFullInfoWatch() {
+	// TODO Auto-generated method stub
+	return productDAO.lstFullInfoWatch();
+    }
+
+    @Override
+    public Product create(Product product) {
+	// TODO Auto-generated method stub
+	return productDAO.save(product);
+    }
+
+    @Override
+    public Product update(Product product) {
+	// TODO Auto-generated method stub
+	return productDAO.save(product);
+    }
+
+    @Override
+    public void delete(Long id) {
+	// TODO Auto-generated method stub
+	Product oldProduct = productDAO.getById(id);
+	oldProduct.setIsDeleted(true);
+	productDAO.save(oldProduct);
+    }
+
+    @Override
+    public Product getById(Long id) {
+	// TODO Auto-generated method stub
+	return productDAO.getById(id);
     }
     
 }

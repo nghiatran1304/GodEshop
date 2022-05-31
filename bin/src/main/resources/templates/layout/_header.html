@@ -96,7 +96,7 @@
 						<!-- site-logo -->
 						<div class="site-logo">
 							<a href="index.html">
-								<img src="/assets/images/logo/logo-white.png" alt="Nikado">
+								<img src="/assets/images/Glogo/whileLogo.png" alt="Nikado">
 							</a>
 						</div>
 					</div>
@@ -104,20 +104,20 @@
 						<!-- header-search -->
 						<div class="header-search clearfix">
 							<div class="category-select pull-right">
-								<select class="nice-select-menu">
+								<select class="nice-select-menu" onchange="location = this.value;">
 									<option data-display="All Categories">All Categories</option>
-									<option value="1">Decor & Furniture</option>
-									<option value="2">Electronics</option>
-									<option value="3">Fashion & clothings</option>
-									<option value="4" disabled>Sport & Outdoors</option>
-									<option value="5">Toy, Kids & Baby</option>
+									<option th:each="lst, state : ${lstCategory}" th:value="@{|/product?categoryId=${lst.id}|}">
+										<a th:href="@{|/product?categoryId=${lst.id}|}">[[${lst.name}]]</a>
+									</option>
 								</select>
 							</div>
 							<div class="header-search-form">
-								<form action="#">
-									<input type="text" name="search" placeholder="Search product...">
+
+								<form action="/product" method="get">
+									<input type="text" name="keywords" placeholder="Search product...">
 									<input type="submit" name="submit" value="Search">
 								</form>
+
 							</div>
 						</div>
 					</div>
@@ -249,27 +249,15 @@
 							<span class="categorie-title">Categories</span>
 							<nav>
 								<ul class="categori-menu-list menu-hidden">
-									<li th:each="lst, state : ${lstCategory}">
-										<a href="shop.html">
-											<span>
-												<img th:src="@{|/assets/images/GIcon/${state.index + 1}.png|}" alt="menu-icon">
-											</span>
-											[[${lst.name}]]
-											<i class="fa fa-angle-right" aria-hidden="true"></i>
+									<li>
+										<a th:href="@{|/product|}">
+											All Products
 										</a>
-										<!-- categori Mega-Menu Start -->
-										<ul class="ht-dropdown megamenu first-megamenu">
-											<!-- Single Column Start -->
-											<li class="single-megamenu row">
-												<ul class="col-6 pr-0" th:each="lstSub : ${lstSubCategory}" th:if="${lstSub.category.id} == ${lst.id}">
-													<li class="menu-tile">
-														<a href="#">[[${lstSub.name}]]</a>
-													</li>
-												</ul>
-											</li>
-											<!-- Single Column End -->
-										</ul>
-										<!-- categori Mega-Menu End -->
+									</li>
+									<li th:each="lst: ${lstCategory}">
+										<a th:href="@{|/product?search-category=${lst.name}|}">
+											[[${lst.name}]]
+										</a>
 									</li>
 								</ul>
 							</nav>
@@ -281,21 +269,19 @@
 							<nav>
 								<ul>
 									<li class="current">
-										<a th:href="@{|/index|}">
-											Home
-										</a>
+										<a th:href="@{|/index|}"> Home </a>
 									</li>
 									<li>
-										<a href="shop.html">Shop</a>
+										<a th:href="@{|/product|}">Shop</a>
 									</li>
 									<li>
-										<a href="blog.html">Blog</a>
+										<a th:href="@{|/blog|}">Blog</a>
 									</li>
 									<li>
-										<a href="about-us.html">About Us</a>
+										<a th:href="@{|/about|}">About Us</a>
 									</li>
 									<li>
-										<a href="contact-us.html">Contact</a>
+										<a th:href="@{|/contact|}">Contact</a>
 									</li>
 									<li>
 										<a href="#">
@@ -498,5 +484,6 @@
 		<!-- Header bottom area end -->
 	</header>
 	<!-- HRADER AREA END -->
+
 
 </div>

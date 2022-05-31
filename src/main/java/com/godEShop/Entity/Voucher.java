@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,7 +56,7 @@ public class Voucher implements Serializable {
 
     // bi-directional many-to-one association to VoucherList
     @JsonIgnore
-    @OneToMany(mappedBy = "voucher")
+    @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL)
     private List<VoucherList> voucherLists;
 
     // bi-directional many-to-one association to Account

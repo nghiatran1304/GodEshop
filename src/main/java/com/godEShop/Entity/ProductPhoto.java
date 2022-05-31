@@ -2,6 +2,7 @@ package com.godEShop.Entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ public class ProductPhoto implements Serializable {
     private String id;
 
     // bi-directional many-to-one association to Product
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ProductId")
     private Product product;
 

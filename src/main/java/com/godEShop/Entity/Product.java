@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -66,37 +67,37 @@ public class Product implements Serializable {
 
     // bi-directional many-to-one association to Accessory
     @JsonIgnore
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Accessory> accessories;
 
     // bi-directional many-to-one association to OrderDetail
     @JsonIgnore
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
 
     // bi-directional many-to-one association to ProductComment
     @JsonIgnore
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductComment> productComments;
 
     // bi-directional many-to-one association to ProductDiscount
     @JsonIgnore
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductDiscount> productDiscounts;
 
     // bi-directional many-to-one association to ProductEvaluation
     @JsonIgnore
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductEvaluation> productEvaluations;
 
     // bi-directional many-to-one association to ProductLike
     @JsonIgnore
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductLike> productLikes;
 
     // bi-directional many-to-one association to ProductPhoto
     @JsonIgnore
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductPhoto> productPhotos;
 
     // bi-directional many-to-one association to Brand
@@ -111,7 +112,7 @@ public class Product implements Serializable {
 
     // bi-directional many-to-one association to Watch
     @JsonIgnore
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Watch> watches;
 
 }

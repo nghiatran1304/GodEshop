@@ -27,4 +27,22 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
 	return productPhotoDAO.getAllProductPhotoByProductId(id);
     }
 
+    @Override
+    public ProductPhoto getById(String id) {
+	// TODO Auto-generated method stub
+	return productPhotoDAO.getById(id);
+    }
+
+    @Override
+    public ProductPhoto update(ProductPhoto pp) {
+	// TODO Auto-generated method stub
+	return productPhotoDAO.save(pp);
+    }
+
+    @Override
+    public ProductPhoto create(ProductPhoto pp) {
+	// TODO Auto-generated method stub
+	return productPhotoDAO.save(pp);
+    }
+
 }

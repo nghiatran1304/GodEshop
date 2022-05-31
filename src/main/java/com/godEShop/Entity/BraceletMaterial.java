@@ -3,6 +3,7 @@ package com.godEShop.Entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,12 +40,12 @@ public class BraceletMaterial implements Serializable {
 
     // bi-directional many-to-one association to Accessory
     @JsonIgnore
-    @OneToMany(mappedBy = "braceletMaterial")
+    @OneToMany(mappedBy = "braceletMaterial", cascade = CascadeType.ALL)
     private List<Accessory> accessories;
 
     // bi-directional many-to-one association to Watch
     @JsonIgnore
-    @OneToMany(mappedBy = "braceletMaterial")
+    @OneToMany(mappedBy = "braceletMaterial", cascade = CascadeType.ALL)
     private List<Watch> watches;
 
 }

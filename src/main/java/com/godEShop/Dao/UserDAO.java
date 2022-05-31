@@ -10,4 +10,7 @@ import com.godEShop.Entity.User;
 public interface UserDAO extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM Users WHERE username LIKE ?1", nativeQuery = true)
     User findByUsername(String username);
+    
+    @Query("SELECT u FROM User u WHERE u.account.username=?1")
+    User findByAccountUsername(String username);
 }

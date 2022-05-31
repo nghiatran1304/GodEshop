@@ -8,7 +8,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<nav class="woocommerce-breadcrumb">
-							<a href="index.html">Home</a>
+							<a th:href="@{|/index|}">Home</a>
 							<span class="separator">/</span>
 							Shop
 						</nav>
@@ -25,69 +25,13 @@
 					<div class="col-xs-12 col-md-3 sidebar-shop">
 						<div class="sidebar-product-categori">
 							<div class="widget-title">
-								<h3>PRODUCT CATEGORIES</h3>
+								<h3>TOP BRANDS</h3>
 							</div>
 							<div class="widget-content">
 								<ul class="product-categories">
-									<li class="cat-item">
-										<a href="#">Accessories</a>
-										<span class="count">(5)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Bedroom</a>
-										<span class="count">(4)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Decor &amp; Furniture</a>
-										<span class="count">(12)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Electronics &amp; Computer</a>
-										<span class="count">(13)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Fashion &amp; clothings</a>
-										<span class="count">(13)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Furniture</a>
-										<span class="count">(4)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Home, Garden &amp; Tools</a>
-										<span class="count">(14)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Laptops &amp; Desktops</a>
-										<span class="count">(7)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Livingroom</a>
-										<span class="count">(4)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Men</a>
-										<span class="count">(4)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Mobiles &amp; Tablets</a>
-										<span class="count">(6)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Sport &amp; Outdoors</a>
-										<span class="count">(7)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Toy, Kids &amp; Baby</a>
-										<span class="count">(7)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Uncategorized</a>
-										<span class="count">(0)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Women</a>
-										<span class="count">(4)</span>
+									<li class="cat-item" th:each="lst, state : ${lstBrands}">
+										<a th:href="@{|/product?search-category=${cateName}&search-brand=${lst.name}|}">[[${lst.name}]]</a>
+										<span class="count"></span>
 									</li>
 								</ul>
 							</div>
@@ -96,14 +40,25 @@
 									<h3>Filter by price</h3>
 								</div>
 								<div class="widget-content">
-									<div id="price-range"></div>
+									<!-- <div id="price-range"></div>
 									<div class="price-values">
 										<div class="price_text_btn">
 											<span>Price:</span>
-											<input type="text" class="price-amount">
+											<input type="text" class="price-amount" name="testPrice">
 										</div>
 										<button class="button" type="submit">Filter</button>
-									</div>
+									</div> -->
+
+									<!-- <form method="get" action="#">
+										<div data-role="rangeslider">
+											<label for="price-min">Price:</label>
+											<input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
+											<label for="price-max">Price:</label>
+											<input type="range" name="price-max" id="price-max" value="800" min="0" max="1000">
+										</div>
+										<input type="submit" data-inline="true" value="Submit">
+									</form> -->
+
 								</div>
 							</div>
 							<div class="widget-title">
@@ -127,105 +82,121 @@
 							</div>
 							<div class="product-filter mb-30">
 								<div class="widget-title">
-									<h3>TOP RATED PRODUCTS</h3>
+									<h3>TOP SELLER PRODUCTS</h3>
 								</div>
 								<div class="widget-content">
 									<ul class="product_list_widget">
-										<li class="widget-mini-product">
+										<li class="widget-mini-product" th:each="p : ${lstTopSeller}">
 											<div class="product-image">
-												<a title="Phasellus vel hendrerit" href="#">
-													<img alt="" src="/assets/images/product/2.jpg">
+												<a title="Phasellus vel hendrerit" th:href="@{|/product/${p.productId}|}">
+													<img alt="" th:src="@{|/upload/ProductImages/${p.productImage}|}" style="width: 150px; height: 50px">
 												</a>
 											</div>
 											<div class="product-info">
-												<a title="Phasellus vel hendrerit" href="#">
-													<span class="product-title">Consequuntur magni</span>
+												<a title="Phasellus vel hendrerit" th:href="@{|/product/${p.productId}|}" style="size: 1px !important">
+													<span class="product-title">[[${p.productName}]]</span>
 												</a>
 												<div class="star-rating">
 													<div class="rating-box">
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
+														<th:block th:if="${p.productEvaluation == 5}">
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+														</th:block>
+														<th:block th:if="${p.productEvaluation == 4}">
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+														</th:block>
+														<th:block th:if="${p.productEvaluation == 3}">
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+														</th:block>
+														<th:block th:if="${p.productEvaluation == 2}">
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+														</th:block>
+														<th:block th:if="${p.productEvaluation == 1}">
+															<span>
+																<i class="fa fa-star"></i>
+															</span>
+														</th:block>
+														<th:block th:if="${p.productEvaluation == null}">
+
+														</th:block>
 													</div>
 												</div>
 												<span class="woocommerce-Price-amount amount">
-													<span class="woocommerce-Price-currencySymbol">$</span>
-													55.00
+													<span class="woocommerce-Price-currencySymbol">
+														<th:block th:if="${p.productDiscount == null}">
+															$ [[${p.productPrice}]]
+														</th:block>
+														<th:block th:if="${p.productDiscount != null}">
+															<del>$ [[${p.productPrice}]]</del>
+															$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
+														</th:block>
+													</span>
 												</span>
 											</div>
 										</li>
-										<li class="widget-mini-product">
-											<div class="product-image">
-												<a title="Phasellus vel hendrerit" href="#">
-													<img alt="" src="/assets/images/product/3.jpg">
-												</a>
-											</div>
-											<div class="product-info">
-												<a title="Phasellus vel hendrerit" href="#">
-													<span class="product-title">Aliquam lobortis</span>
-												</a>
-												<div class="star-rating">
-													<div class="rating-box">
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
-													</div>
-												</div>
-												<span class="woocommerce-Price-amount amount">
-													<span class="woocommerce-Price-currencySymbol">$</span>
-													55.00
-												</span>
-											</div>
-										</li>
+
 									</ul>
 								</div>
 							</div>
 							<div class="sidebar-single-banner">
 								<a href="#">
-									<img src="/assets/images/banner/shop-sidebar.jpg" alt="Banner">
+									<img src="/assets/images/GBanner/sale2.jpg" alt="Banner">
 								</a>
 							</div>
 							<div class="sidebar-tag">
 								<div class="widget-title">
 									<h3>PRODUCT TAGS</h3>
 								</div>
-								<div class="widget-content">
+								<div class="widget-content p-3">
 									<div class="product-tags">
-										<a href="#">New </a>
-										<a href="#">brand</a>
-										<a href="#">black</a>
-										<a href="#">white</a>
-										<a href="#">chire</a>
-										<a href="#">table</a>
-										<a href="#">Lorem</a>
-										<a href="#">ipsum</a>
-										<a href="#">dolor</a>
-										<a href="#">sit</a>
-										<a href="#">amet</a>
+										<a th:href="@{|/product?sort=lowtohigh|}">Low Price</a>
+										<a th:href="@{|/product?sort=hightolow|}">High Price</a>
+										<a th:href="@{|/product|}">All</a>
+										<a th:href="@{|/product?sort=newest|}">New</a>
+										<a th:href="@{|/product?search-brand=Baby-G|}">Baby-G</a>
+										<a th:href="@{|/product?sort=discount|}">Sale</a>
+										<a th:href="@{|/product?search-brand=Rolex|}">Rolex</a>
+										<a th:href="@{|/product?sort=rating|}">Rating</a>
+										<a th:href="@{|/product?search-brand=Calvin%20Klein|}">Calvin Klein</a>
+										<a th:href="@{|/product?sort=G-Shock|}">G-Shock</a>
+										<a th:href="@{|/product?sort=Seiko|}">Seiko</a>
 									</div>
 								</div>
 							</div>
@@ -233,11 +204,14 @@
 					</div>
 					<div class="col-xs-12 col-md-9 shop-content">
 						<div class="shop-banner">
-							<img src="/assets/images/banner/shop-category.jpg" alt="">
+							<img src="/assets/images/GBanner/banner3.jpg" alt="">
 						</div>
 						<div class="product-toolbar">
 							<div class="topbar-title">
-								<h1>Shop</h1>
+								<h1>
+									<a href="/product">All Products </a>
+									<span class="text-primary">[[${nameOfSearch}]]</span>
+								</h1>
 							</div>
 							<div class="product-toolbar-inner">
 								<div class="product-view-mode">
@@ -254,1660 +228,58 @@
 										</li>
 									</ul>
 								</div>
-								<p class="woocommerce-result-count">Showing 1–12 of 42 results</p>
+								<p class="woocommerce-result-count">
+									Showing
+									<span class="text-primary">[[${toProduct}]]</span>
+									–
+									<span class="text-primary">[[${totalPage}]]</span>
+									of
+									<span class="text-primary">[[${totalProducts}]]</span>
+									results
+								</p>
 								<div class="woocommerce-ordering">
 									<form method="get" class="woocommerce-ordering hidden-xs">
 										<div class="orderby-wrapper">
 											<label>Sort By :</label>
-											<select class="nice-select-menu orderby">
-												<option dara-display="Select">Default sorting</option>
-												<option value="popularity">Sort by popularity</option>
-												<option value="rating">Sort by average rating</option>
-												<option value="date">Sort by newness</option>
-												<option value="price">Sort by price: low to high</option>
-												<option value="price-desc">Sort by price: high to low</option>
+											<select class="nice-select-menu orderby" onchange="location = this.value;">
+												<option th:value="@{|/product?search-category=${cateName}&search-brand=${brandName}|}" th:selected="${sortChose == 'a'}" dara-display="Select">Default sorting</option>
+												<option th:value="@{|/product?sort=discount&search-category=${cateName}&search-brand=${brandName}|}" th:selected="${sortChose == 'b'}">Sort by discount</option>
+												<option th:value="@{|/product?sort=rating&search-category=${cateName}&search-brand=${brandName}|}" th:selected="${sortChose == 'c'}">Sort by average rating</option>
+												<option th:value="@{|/product?sort=newest&search-category=${cateName}&search-brand=${brandName}|}" th:selected="${sortChose == 'd'}">Sort by newnest</option>
+												<option th:value="@{|/product?sort=lowtohigh&search-category=${cateName}&search-brand=${brandName}|}" th:selected="${sortChose == 'e'}">Sort by price: low to high</option>
+												<option th:value="@{|/product?sort=hightolow&search-category=${cateName}&search-brand=${brandName}|}" th:selected="${sortChose == 'f'}">Sort by price: high to low</option>
 											</select>
 										</div>
 									</form>
 								</div>
 							</div>
-							<div class="shop-page-product-area tab-content">
-								<div id="grid" class="tab-pane fade in show active">
-									<div class="row">
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/1.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/2.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/3.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/13.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/5.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/6.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/7.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/8.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/9.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/10.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/11.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/12.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/6.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/7.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/8.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-4 col-xl-3">
-											<div class="single-product-area">
-												<div class="product-wrapper gridview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<img src="/assets/images/product/11.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Auctor gravida enim</a>
-															</h2>
-															<span class="price">
-																<del>$ 85.00</del>
-																$ 75.00
-															</span>
-														</div>
-														<div class="product-hidden">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<div class="product-rattings">
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-half-o"></i>
-																	</span>
-																	<span>
-																		<i class="fa fa-star-o"></i>
-																	</span>
-																</div>
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div id="list" class="tab-pane fade">
-									<div class="row">
-										<div class="col-sm-12">
-											<div class="single-product-area">
-												<div class="product-wrapper listview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<span class="onsale">Sale!</span>
-																<img src="/assets/images/product/1.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Sit voluptatem</a>
-															</h2>
-															<span class="price">
-																<del>$ 77.00</del>
-																$ 66.00
-															</span>
-															<div class="product-rattings">
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-half-o"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-o"></i>
-																</span>
-															</div>
-															<div class="product-desc">
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus</p>
-															</div>
-														</div>
-														<div class="actions-wrapper">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																			Add to Wishlist
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																			Compare
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-12">
-											<div class="single-product-area">
-												<div class="product-wrapper listview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<span class="onsale">Sale!</span>
-																<img src="/assets/images/product/2.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Sit voluptatem</a>
-															</h2>
-															<span class="price">
-																<del>$ 77.00</del>
-																$ 66.00
-															</span>
-															<div class="product-rattings">
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-half-o"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-o"></i>
-																</span>
-															</div>
-															<div class="product-desc">
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus</p>
-															</div>
-														</div>
-														<div class="actions-wrapper">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																			Add to Wishlist
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																			Compare
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-12">
-											<div class="single-product-area">
-												<div class="product-wrapper listview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<span class="onsale">Sale!</span>
-																<img src="/assets/images/product/3.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Sit voluptatem</a>
-															</h2>
-															<span class="price">
-																<del>$ 77.00</del>
-																$ 66.00
-															</span>
-															<div class="product-rattings">
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-half-o"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-o"></i>
-																</span>
-															</div>
-															<div class="product-desc">
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus</p>
-															</div>
-														</div>
-														<div class="actions-wrapper">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																			Add to Wishlist
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																			Compare
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-12">
-											<div class="single-product-area">
-												<div class="product-wrapper listview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<span class="onsale">Sale!</span>
-																<img src="/assets/images/product/4.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Sit voluptatem</a>
-															</h2>
-															<span class="price">
-																<del>$ 77.00</del>
-																$ 66.00
-															</span>
-															<div class="product-rattings">
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-half-o"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-o"></i>
-																</span>
-															</div>
-															<div class="product-desc">
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus</p>
-															</div>
-														</div>
-														<div class="actions-wrapper">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																			Add to Wishlist
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																			Compare
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-12">
-											<div class="single-product-area">
-												<div class="product-wrapper listview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<span class="onsale">Sale!</span>
-																<img src="/assets/images/product/5.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Sit voluptatem</a>
-															</h2>
-															<span class="price">
-																<del>$ 77.00</del>
-																$ 66.00
-															</span>
-															<div class="product-rattings">
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-half-o"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-o"></i>
-																</span>
-															</div>
-															<div class="product-desc">
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus</p>
-															</div>
-														</div>
-														<div class="actions-wrapper">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																			Add to Wishlist
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																			Compare
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-12">
-											<div class="single-product-area">
-												<div class="product-wrapper listview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<span class="onsale">Sale!</span>
-																<img src="/assets/images/product/6.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Sit voluptatem</a>
-															</h2>
-															<span class="price">
-																<del>$ 77.00</del>
-																$ 66.00
-															</span>
-															<div class="product-rattings">
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-half-o"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-o"></i>
-																</span>
-															</div>
-															<div class="product-desc">
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus</p>
-															</div>
-														</div>
-														<div class="actions-wrapper">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																			Add to Wishlist
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																			Compare
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-12">
-											<div class="single-product-area">
-												<div class="product-wrapper listview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<span class="onsale">Sale!</span>
-																<img src="/assets/images/product/7.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Sit voluptatem</a>
-															</h2>
-															<span class="price">
-																<del>$ 77.00</del>
-																$ 66.00
-															</span>
-															<div class="product-rattings">
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-half-o"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-o"></i>
-																</span>
-															</div>
-															<div class="product-desc">
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus</p>
-															</div>
-														</div>
-														<div class="actions-wrapper">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																			Add to Wishlist
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																			Compare
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-12">
-											<div class="single-product-area">
-												<div class="product-wrapper listview">
-													<div class="list-col4">
-														<div class="product-image">
-															<a href="">
-																<span class="onsale">Sale!</span>
-																<img src="/assets/images/product/8.jpg" alt="">
-															</a>
-															<div class="quickviewbtn">
-																<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
-																	<i class="ion-eye"></i>
-																</a>
-															</div>
-														</div>
-													</div>
-													<div class="list-col8">
-														<div class="product-info">
-															<h2>
-																<a href="single-product.html">Sit voluptatem</a>
-															</h2>
-															<span class="price">
-																<del>$ 77.00</del>
-																$ 66.00
-															</span>
-															<div class="product-rattings">
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-half-o"></i>
-																</span>
-																<span>
-																	<i class="fa fa-star-o"></i>
-																</span>
-															</div>
-															<div class="product-desc">
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus</p>
-															</div>
-														</div>
-														<div class="actions-wrapper">
-															<div class="add-to-cart">
-																<a href="cart.html">Add to cart</a>
-															</div>
-															<div class="star-actions">
-																<ul class="actions">
-																	<li>
-																		<a href="">
-																			<i class="ion-android-favorite-outline"></i>
-																			Add to Wishlist
-																		</a>
-																	</li>
-																	<li>
-																		<a href="">
-																			<i class="ion-ios-shuffle-strong"></i>
-																			Compare
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							<!-- START PRODUCT LIST -->
+
+							<div th:replace="~{/product/product-list :: productList}"></div>
+
+							<!-- END PRODUCT LIST -->
 						</div>
 						<nav class="woocommerce-pagination">
-							<ul class="page-numbers">
+							<!-- 							<ul class="page-numbers">
 								<li>
-									<span aria-current="page" class="page-numbers current">1</span>
+									<a class="btn btn-primary" th:href="@{|/product?p=0|}">First</a>
 								</li>
 								<li>
-									<a class="page-numbers" href="#">2</a>
+									<a class="page-numbers" th:href="@{|/product?p=${page.number-1}|}">Prev</a>
 								</li>
 								<li>
-									<a class="page-numbers" href="#">3</a>
+									<a class="page-numbers" th:href="@{|/product?p=${page.number+1}|}">Next</a>
 								</li>
 								<li>
-									<a class="page-numbers" href="#">4</a>
+									<a class="next page-numbers" th:href="@{|/product?p=${page.totalPages-1}|}">Last</a>
 								</li>
-								<li>
-									<a class="next page-numbers" href="#">→</a>
-								</li>
-							</ul>
+							</ul> -->
+							<div class="col-12 text-center">
+								<a th:href="@{|/product?p=0&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}|}" class="btn btn-primary font-weight-bold a1">First</a>
+								<a th:href="@{|/product?p=${page.number-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}|}" class="btn btn-primary font-weight-bold a1">Prev</a>
+								<a th:href="@{|/product?p=${page.number+1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}|}" class="btn btn-primary font-weight-bold a1">Next</a>
+								<a th:href="@{|/product?p=${page.totalPages-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}|}" class="btn btn-primary font-weight-bold a1">Last</a>
+							</div>
 						</nav>
 					</div>
 				</div>
