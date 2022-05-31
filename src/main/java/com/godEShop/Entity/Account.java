@@ -3,6 +3,7 @@ package com.godEShop.Entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -51,52 +52,52 @@ public class Account implements Serializable {
 
     // bi-directional many-to-one association to Order
     @JsonIgnore
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Order> orders;
 
     // bi-directional many-to-one association to ProductComment
     @JsonIgnore
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<ProductComment> productComments;
 
     // bi-directional many-to-one association to ProductDiscount
     @JsonIgnore
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<ProductDiscount> productDiscounts;
 
     // bi-directional many-to-one association to ProductEvaluation
     @JsonIgnore
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<ProductEvaluation> productEvaluations;
 
     // bi-directional many-to-one association to ProductLike
     @JsonIgnore
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<ProductLike> productLikes;
 
     // bi-directional many-to-one association to ProductReply
     @JsonIgnore
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<ProductReply> productReplies;
 
     // bi-directional many-to-one association to RefAccount
     @JsonIgnore
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<RefAccount> refAccounts;
 
     // bi-directional many-to-one association to User
     @JsonIgnore
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<User> users;
 
     // bi-directional many-to-one association to VoucherList
     @JsonIgnore
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<VoucherList> voucherLists;
 
     // bi-directional many-to-one association to Voucher
     @JsonIgnore
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Voucher> vouchers;
 
 }

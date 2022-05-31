@@ -18,9 +18,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.2/angular-route.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- BASE HREF -->
+<style>
+input[type="file"] {
+	display: none;
+}
+
+.custom-file-upload {
+	border: 1px solid #ccc;
+	display: inline-block;
+	padding: 6px 12px;
+	cursor: pointer;
+}
+</style>
 </head>
 <body ng-app="admin-app">
-	<div class="container-scroller">
+	<div class="container-scroller" th:object="${session.adminName}">
 		<nav class="sidebar sidebar-offcanvas" id="sidebar">
 			<div class="text-center sidebar-brand-wrapper d-flex align-items-center">
 				<a class="sidebar-brand brand-logo" href="index.html">
@@ -39,8 +51,8 @@
 							<!--change to offline or busy as needed-->
 						</div>
 						<div class="nav-profile-text d-flex flex-column pr-3">
-							<span class="font-weight-medium mb-2">Henry Klein</span>
-							<span class="font-weight-normal">$8,753.00</span>
+							<span class="font-weight-medium mb-2">[[${#request.remoteUser}]]</span>
+							<span class="font-weight-normal">[[*{fullname}]]</span>
 						</div>
 						<span class="badge badge-danger text-white ml-3 rounded">3</span>
 					</a>
@@ -257,7 +269,7 @@
 						<li class="nav-item nav-profile dropdown border-0">
 							<a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
 								<img class="nav-profile-img mr-2" alt="" src="/admin/assets/images/faces/face1.jpg" />
-								<span class="profile-name">Henry Klein</span>
+								<span class="profile-name">[[*{fullname}]]</span>
 							</a>
 							<div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
 								<a class="dropdown-item" href="#">
@@ -278,7 +290,7 @@
 			</nav>
 			<!-- MAIN PANEL -->
 			<div class="main-panel">
-				<div class="content-wrapper pb-0">
+				<div class="content-wrapper">
 					<!-- MAIN -->
 					<div class="ng-view"></div>
 					<!-- END MAIN -->
@@ -304,6 +316,15 @@
 
 	<!-- JS Process -->
 	<script src="/admin/admin-app.js"></script>
+	<script src="/admin/admin-watch/watch-ctrl.js"></script>
+	<script src="/admin/admin-accessory/accessory-ctrl.js"></script>
+	<script src="/admin/admin-account/account-ctrl.js"></script>
+	<script src="/admin/admin-brand/brand-ctrl.js"></script>
+	<script src="/admin/admin-category/category-ctrl.js"></script>
+	<script src="/admin/admin-discount/discount-ctrl.js"></script>
+	<script src="/admin/admin-order/order-ctrl.js"></script>
+	<script src="/admin/admin-statistic/statistic-ctrl.js"></script>
+	<script src="/admin/admin-voucher/voucher-ctrl.js"></script>
 
 	<!-- container-scroller -->
 	<!-- plugins:js -->

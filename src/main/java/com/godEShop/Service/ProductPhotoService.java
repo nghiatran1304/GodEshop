@@ -8,5 +8,11 @@ public interface ProductPhotoService {
     String productFirstPhotoname(Long productId);
     
     List<ProductPhoto> getAllProductPhotoByProductId(Long id);
+
+    ProductPhoto getById(String id);
+
+    ProductPhoto update(ProductPhoto pp);
+
+    ProductPhoto create(ProductPhoto pp);
     
 }

@@ -16,4 +16,6 @@ public interface ProductPhotoDAO extends JpaRepository<ProductPhoto, String> {
     
     @Query("SELECT pp FROM ProductPhoto pp WHERE pp.product.id = ?1")
     List<ProductPhoto> getAllProductPhotoByProductId(Long id);
+    
+    
 }

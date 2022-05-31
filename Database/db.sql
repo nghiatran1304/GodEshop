@@ -1,9 +1,9 @@
-﻿/*
+﻿
 	USE MASTER
 	GO
 	DROP DATABASE GodShop
 	GO
-	*/
+
 
 CREATE DATABASE GodShop
 GO
@@ -1735,9 +1735,17 @@ UPDATE Products set IsDeleted = 1 where id = 70 or id = 26;
 --==================================================== 
 
 		
-select * from Accounts
-go
+select p.name, pp.Id, w.* from products as p
+inner join Watches as w on p.id = w.ProductId
+inner join ProductPhotos as pp on pp.ProductId = p.id
+WHERE p.name = 'OK'
+order by p.Price asc
 
+select * from Watches
 
+select p.name, w.* from Products as p
+inner join Watches as w on p.id = w.ProductId
+WHERE p.name = 'OK'
 
-
+select * from Products as p
+WHERE p.name = 'OK'

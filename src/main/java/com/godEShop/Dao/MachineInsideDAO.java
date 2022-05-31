@@ -3,9 +3,9 @@ package com.godEShop.Dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.godEShop.Entity.BraceletMaterial;
+import com.godEShop.Entity.MachineInside;
 
 @Repository
-public interface BraceletMaterialDAO extends JpaRepository<BraceletMaterial, Integer> {
+public interface MachineInsideDAO extends JpaRepository<MachineInside, Integer>{
 
 }

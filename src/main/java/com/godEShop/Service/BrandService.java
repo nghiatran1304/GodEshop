@@ -11,4 +11,5 @@ public interface BrandService {
     List<Integer> getTop4BrandByEvaluation();
     
     Brand getById(int id);
+
 }

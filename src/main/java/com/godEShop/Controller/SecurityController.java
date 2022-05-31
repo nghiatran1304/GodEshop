@@ -15,24 +15,30 @@ import com.godEShop.Entity.Role;
 import com.godEShop.Entity.User;
 import com.godEShop.Service.AccountService;
 import com.godEShop.Service.RoleService;
+import com.godEShop.Service.SessionService;
 import com.godEShop.Service.UserService;
 import com.godEShop.Service.Impl.UserDetailImpl;
 
 @Controller
 public class SecurityController {
-//	@Autowired 
-//	BCryptPasswordEncoder pe;
-    @Autowired
-    HttpServletRequest request;
 
     @Autowired
+    HttpServletRequest req;
+    
+    @Autowired
     UserDetailImpl userDetail;
+    
     @Autowired
     AccountService accountService;
+    
     @Autowired
     UserService userService;
+    
     @Autowired
     RoleService roleService;
+    
+    @Autowired
+    SessionService sessionService;
 
     @RequestMapping("/account/login/form")
     public String loginForm(Model model) {
@@ -42,6 +48,7 @@ public class SecurityController {
 
     @RequestMapping("/admin")
     public String adminPage() {
+	sessionService.set("adminName", userService.findByAccountUsername(req.getRemoteUser()));
 	return "../static/admin/index.html";
     }
 
@@ -51,7 +58,7 @@ public class SecurityController {
 //    }
 
     @RequestMapping("/account/login/success")
-    public String loginSuccess(Model model, HttpServletRequest req) {
+    public String loginSuccess(Model model) {
 	model.addAttribute("message", "Đăng nhập thành công!");
 	if (req.isUserInRole("Admin")) {
 //	    return "redirect:/index-admin";
@@ -74,6 +81,7 @@ public class SecurityController {
 
     @RequestMapping("/account/logoff/success")
     public String logoffSuccess(Model model) {
+	sessionService.remove("adminName");
 	model.addAttribute("message", "Bạn đã đăng xuất!");
 	return "account/login";
     }

@@ -3,6 +3,7 @@ package com.godEShop.Entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +42,7 @@ public class ProductComment implements Serializable {
 
     // bi-directional many-to-one association to CommentPhoto
     @JsonIgnore
-    @OneToMany(mappedBy = "productComment")
+    @OneToMany(mappedBy = "productComment", cascade = CascadeType.ALL)
     private List<CommentPhoto> commentPhotos;
 
     // bi-directional many-to-one association to Account
@@ -56,7 +57,7 @@ public class ProductComment implements Serializable {
 
     // bi-directional many-to-one association to ProductReply
     @JsonIgnore
-    @OneToMany(mappedBy = "productComment")
+    @OneToMany(mappedBy = "productComment", cascade = CascadeType.ALL)
     private List<ProductReply> productReplies;
 
 }

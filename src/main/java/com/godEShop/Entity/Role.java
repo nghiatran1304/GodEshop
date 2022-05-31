@@ -3,6 +3,7 @@ package com.godEShop.Entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -36,7 +37,7 @@ public class Role implements Serializable {
 
     // bi-directional many-to-one association to Account
     @JsonIgnore
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<Account> accounts;
 
 }

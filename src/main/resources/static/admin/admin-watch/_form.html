@@ -1,0 +1,178 @@
+<div xmlns:th="http://www.thymeleaf.org">
+
+	<div class="col-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<!-- <h4 class="card-title">Basic form elements</h4>
+			<p class="card-description">Basic form elements</p> -->
+				<form class="forms-sample row" name="frm" enctype="multipart/form-data">
+					<!-- image -->
+					<div class="col-4 text-center">
+						<div>
+							<h3>PRODUCT'S IMAGE</h3>
+						</div>
+						<label for="inputGroupFile01" ng-show="formProductPhoto.imageId != null">
+							<img ng-src="{{'/upload/ProductImages/' + formProductPhoto.imageId}}" id="myID" style="width: 300px; height: 300px" alt="No Image" />
+						</label>
+						<label for="inputGroupFile01" ng-show="formProductPhoto.imageId == null">
+							<img src="/upload/noImage.jpg" id="myID1" style="width: 300px; height: 300px" alt="No Image" />
+						</label>
+						<div class="form-group">
+							<!-- <label>File upload</label> -->
+							<input type="file" class="file-upload-default" />
+							<div class="form-group col-xs-12">
+								<!-- <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" /> -->
+								<!-- <span class="input-group-append"> -->
+								<!-- <button>Upload</button>  custom-file-input-->
+								<label class="custom-file-upload" ng-show="formProductPhoto.imageId != null">
+									<input onchange="angular.element(this).scope().imageChanged(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+									Upload More Image
+								</label>
+								<label class="custom-file-upload" ng-show="formProductPhoto.imageId == null">
+									<input onchange="angular.element(this).scope().onFileSelected(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+									Upload Image
+								</label>
+								<!-- </span> -->
+							</div>
+						</div>
+						<!--						
+						<script>
+							$('#myModal').on('shown.bs.modal', function() {
+								$('#myInput').trigger('focus')
+							})
+						</script>
+						<button type="button" class="btn btn-primary mt-1" data-toggle="modal" data-target="#exampleModal">More Image</button>
+						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Product Image</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body"></div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">Save changes</button>
+									</div>
+								</div>
+							</div>
+						</div> -->
+					</div>
+					<!-- input -->
+					<div class="col-8">
+						<div class="row">
+							<!-- 1 -->
+							<div class="col-6">
+								<div class="form-group">
+									<label for="exampleInputName1">Name</label>
+									<input type="text" class="form-control" id="name" ng-model="formProduct.productName" placeholder="Name" />
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail3">Price</label>
+									<input type="text" class="form-control" id="price" ng-model="formProduct.productPrice" placeholder="price" />
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail3">Glass size</label>
+									<input type="text" class="form-control" id="price" ng-model="formWatch.watchGlassSize" placeholder="price" />
+								</div>
+								<div class="form-group">
+									<label>ATM</label>
+									<input type="text" class="form-control" ng-model="formWatch.watchATM" placeholder="ATM" />
+								</div>
+								<div class="form-group">
+									<label>Glass color</label>
+									<input type="text" class="form-control" ng-model="formWatch.watchGlassColor" placeholder="Glass color" />
+								</div>
+								<div class="form-group">
+									<label>Case color</label>
+									<input type="text" class="form-control" ng-model="formWatch.watchCaseColor" placeholder="Case color" />
+								</div>
+								<div class="form-group">
+									<label>Warranty</label>
+									<input type="text" class="form-control" ng-model="formProduct.productWarranty" placeholder="Warranty" />
+								</div>
+								<div class="form-group">
+									<label>Quantity</label>
+									<input type="text" class="form-control" ng-model="formProduct.productQuantity" placeholder="Quantity" />
+								</div>
+								<div class="form-group">
+									<div>Create Date</div>
+									<input ng-model="formProduct.productCreateDate" type="date" class="form-control" />
+								</div>
+							</div>
+							<!-- 2 -->
+							<div class="col-6">
+								<div class="form-group">
+									<label>Category</label>
+									<select ng-model="formProduct.categoryId" class="form-control">
+										<option ng-repeat="c in lstCategory" ng-value="{{c.id}}" ng-selected="formProduct.categoryId == c.id">{{c.name}}</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Brand</label>
+									<select class="form-control" ng-model="formProduct.brandId">
+										<option ng-repeat="b in lstBrands" ng-value="{{b.id}}" ng-selected="formProduct.brandId == b.id">{{b.name}}</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Bracelet Materials</label>
+									<select class="form-control" ng-model="formWatch.braceletMaterialId">
+										<option ng-repeat="bm in lstBraceletMaterial" ng-value="{{bm.id}}" ng-selected="formWatch.braceletMaterialId == bm.id">{{bm.name}}</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Machine Inside</label>
+									<select class="form-control" ng-model="formWatch.machineInsideId">
+										<option ng-repeat="mi in lstMachineInside" ng-value="{{mi.id}}" ng-selected="formWatch.machineInsideId == mi.id">{{mi.name}}</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Glass Material</label>
+									<select class="form-control" ng-model="formWatch.glassMaterialId">
+										<option ng-repeat="g in lstGlassMaterial" ng-value="{{g.id}}" ng-selected="formWatch.glassMaterialId == g.id">{{g.name}}</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Gender</label>
+									<select class="form-control" ng-model="formWatch.watchGender">
+										<option ng-value="0" ng-selected="formWatch.watchGender == 0">Female</option>
+										<option ng-value="1" ng-selected="formWatch.watchGender == 1">Male</option>
+										<option ng-value="2" ng-selected="formWatch.watchGender == 2">Couple</option>
+										<option ng-value="3" ng-selected="formWatch.watchGender == 3">Other</option>
+									</select>
+								</div>
+
+								<div class="form-group">
+									<label>Made In</label>
+									<input type="text" class="form-control" ng-model="formProduct.productMadeIn" placeholder="Made in" />
+								</div>
+								<div class="form-group">
+									<label>Detail</label>
+									<textarea class="form-control" rows="4" ng-model="formProduct.productDetail"></textarea>
+								</div>
+								<div class="form-group">
+									<div class="mb-3">Available</div>
+									<label for="radio-inline">
+										<input ng-model="formProduct.productIsDeteled" type="radio" ng-value="false" name="available" />
+										Yes
+									</label>
+									<label for="radio-inline" class="ml-3">
+										<input ng-model="formProduct.productIsDeteled" type="radio" ng-value="true" name="available" />
+										No
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<button ng-click="create(); " class="btn btn-primary mr-2">Insert</button>
+						<button ng-click="update()" class="btn btn-warning mr-2">Update</button>
+						<button ng-click="delete(formProduct)" class="btn btn-danger mr-2">Remove</button>
+						<button ng-click="reset()" class="btn btn-info">Cancel</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
