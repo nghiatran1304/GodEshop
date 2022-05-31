@@ -35,30 +35,21 @@
 								<!-- </span> -->
 							</div>
 						</div>
-						<!--						
-						<script>
-							$('#myModal').on('shown.bs.modal', function() {
-								$('#myInput').trigger('focus')
-							})
-						</script>
-						<button type="button" class="btn btn-primary mt-1" data-toggle="modal" data-target="#exampleModal">More Image</button>
-						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Product Image</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body"></div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Save changes</button>
-									</div>
-								</div>
+
+						<!-- ---------------------TEST-------------------- -->
+						<div>
+							<div class="container" ng-show="formProductPhoto.imageId != null">
+								<label for="uf">
+									Upload files:
+									<input type="file" class="btn btn primary" id="uf" accept="image/*" multiple onchange="angular.element(this).scope().upload(this.files)">
+								</label>
+								<hr>
+								<label ng-repeat="filename in filenames" title="Double clicj to delete">
+									<img ng-src="{{url(filename)}}" ng-dblclick="delete(filename)" style="width: 50px; height: 50px" alt="">
+								</label>
 							</div>
-						</div> -->
+						</div>
+						<!-- ---------------------TEST-------------------- -->
 					</div>
 					<!-- input -->
 					<div class="col-8">

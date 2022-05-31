@@ -1749,3 +1749,8 @@ WHERE p.name = 'OK'
 
 select * from Products as p
 WHERE p.name = 'OK'
+
+
+select * from Accounts
+
+
