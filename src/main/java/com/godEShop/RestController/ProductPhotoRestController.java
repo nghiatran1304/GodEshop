@@ -32,13 +32,21 @@ public class ProductPhotoRestController {
 	return productPhotoService.update(pp);
     }
 
+    // them moi san pham
     @PostMapping("/rest/photo")
-    public ProductPhoto update(@RequestBody ProductWatchInfoDto product) {
-//	ProductPhoto pp = productPhotoService.getById(id);
+    public ProductPhoto update1(@RequestBody ProductWatchInfoDto product) {
 	ProductPhoto pp = new ProductPhoto();
 	pp.setId(product.getImageId());
-//	Product p = sessionService.get("productInsert");
 	pp.setProduct(ProductRestController.productInserted);
+	return productPhotoService.create(pp);
+    }
+    
+    // up them hinh
+    @PostMapping("/rest1/photo")
+    public ProductPhoto update(@RequestBody ProductWatchInfoDto product) {
+	ProductPhoto pp = new ProductPhoto();
+	pp.setId(product.getImageId());
+	pp.setProduct(productService.getById(product.getProductId()));
 	return productPhotoService.create(pp);
     }
 

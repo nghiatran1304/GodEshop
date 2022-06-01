@@ -41,10 +41,17 @@ public class ProductRestController {
 	return productService.productShopById(id);
     }
 
+
     @GetMapping("/rest/products")
     public List<ProductWatchInfoDto> getAll() {
 	return productService.lstFullInfoWatch();
     }
+    
+    @GetMapping("/rest/products/search/{name}")
+    public List<ProductWatchInfoDto> findBySearch(@PathVariable("name") String name) {
+	return productService.lstSearchFullInfoWatch("%" + name + "%");
+    }
+
 
     @PostMapping("/rest/products")
     public Product create(@RequestBody ProductWatchInfoDto product) {
@@ -91,7 +98,7 @@ public class ProductRestController {
 	return productService.update(p);
     }
 
-    @DeleteMapping("/rest/products/{id}")
+    @DeleteMapping("/rest/delete/products/{id}")
     public void delete(@PathVariable("id") Long id) {
 	productService.delete(id);
     }

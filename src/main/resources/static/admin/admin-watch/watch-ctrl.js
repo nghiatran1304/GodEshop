@@ -14,6 +14,7 @@ app.controller("watch-ctrl", function($scope, $http) {
 
 	var uploadImage = new FormData();
 
+
 	$scope.initialize = function() {
 		// load products
 		$http.get("/rest/products").then(resp => {
@@ -46,6 +47,17 @@ app.controller("watch-ctrl", function($scope, $http) {
 	};
 
 	$scope.initialize();
+
+
+	$scope.findByNameDto = function(a) {
+		a.length == 0 ? ' ' : $http.get(`/rest/products/search/${a}`).then(resp => {
+			$scope.items = resp.data;
+			$scope.items.forEach(item => {
+				item.productCreateDate = new Date(item.productCreateDate);
+			});
+		});
+	};
+
 
 	// xóa form
 	$scope.reset = function() {
@@ -196,11 +208,13 @@ app.controller("watch-ctrl", function($scope, $http) {
 	}
 
 	// xóa sản phẩm
-	$scope.delete = function(item) {
-		// alert("Delete");
-		var item = angular.copy($scope.form);
-		$http.delete(`/rest/products/${item.productId}`).then(resp => {
-			var index = $scope.items.findIndex(p => p.productId == item.productId);
+	$scope.deleteProduct = function(item) {
+		// console.log("Delete");
+		// var item = angular.copy($scope.form);
+		console.log(item);
+		var pid = angular.copy($scope.formProduct.productId);
+		$http.delete(`/rest/delete/products/${pid}`).then(resp => {
+			// var index = $scope.items.findIndex(p => p.productId == item.productId);
 			$scope.initialize();
 			$scope.reset();
 			Swal.fire({
@@ -218,7 +232,7 @@ app.controller("watch-ctrl", function($scope, $http) {
 			});
 			console.log("Error", error);
 		});
-	};
+	}
 
 	// thêm hình đầu tiên vào 
 	// upload thêm hình
@@ -259,7 +273,7 @@ app.controller("watch-ctrl", function($scope, $http) {
 
 			$scope.formProductPhoto.productId = $scope.form.productId;
 			var itemProductPhoto = angular.copy($scope.formProductPhoto);
-			$http.post(`/rest/photo/`, itemProductPhoto).then(resp => {
+			$http.post(`/rest1/photo/`, itemProductPhoto).then(resp => {
 			});
 
 		}).catch(error => {

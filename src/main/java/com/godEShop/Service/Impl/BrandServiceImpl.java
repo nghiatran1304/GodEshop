@@ -34,4 +34,30 @@ public class BrandServiceImpl implements BrandService{
 	return brandDAO.getTop4BrandByEvaluation();
     }
 
+    @Override
+    public void delete(Integer id) {
+	// TODO Auto-generated method stub
+	Brand b = brandDAO.getById(id);
+	b.setAvailable(true);
+	brandDAO.save(b);
+    }
+
+    @Override
+    public Brand update(Brand brand) {
+	// TODO Auto-generated method stub
+	return brandDAO.save(brand);
+    }
+
+    @Override
+    public Brand create(Brand brand) {
+	// TODO Auto-generated method stub
+	return brandDAO.save(brand);
+    }
+
+    @Override
+    public List<Brand> getAllBrandByName(String name) {
+	// TODO Auto-generated method stub
+	return brandDAO.getAllBrandByName(name);
+    }
+
 }

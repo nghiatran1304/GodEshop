@@ -12,4 +12,12 @@ public interface BrandService {
     
     Brand getById(int id);
 
+    void delete(Integer id);
+
+    Brand update(Brand brand);
+    
+    Brand create(Brand brand);
+    
+    List<Brand> getAllBrandByName(String name);
+
 }
