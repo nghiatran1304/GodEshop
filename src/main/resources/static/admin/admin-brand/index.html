@@ -1,1 +1,67 @@
-<h3>brand</h3>
+<div xmlns:th="http://www.thymeleaf.org">
+	<div class="col-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<!-- <h4 class="card-title">Basic form elements</h4>
+			<p class="card-description">Basic form elements</p> -->
+				<form class="forms-sample" name="frm">
+					<div class="form-group">
+						<label for="">Brand's Name</label>
+						<input type="text" ng-model="form.name" class="form-control" />
+					</div>
+					<div class="form-group">
+						<div class="mb-3">Available</div>
+						<label for="radio-inline">
+							<input ng-model="form.isDeleted" type="radio" ng-value="false" name="available" />
+							Yes
+						</label>
+						<label for="radio-inline" class="ml-3">
+							<input ng-model="form.isDeleted" type="radio" ng-value="true" name="available" />
+							No
+						</label>
+					</div>
+					<div class="form-group">
+						<button ng-click="create(); " class="btn btn-primary mr-2">Insert</button>
+						<button ng-click="update()" class="btn btn-warning mr-2">Update</button>
+						<button ng-click="delete(form)" class="btn btn-danger mr-2">Remove</button>
+						<button ng-click="reset()" class="btn btn-info">Cancel</button>
+					
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<form>
+		<input type="text" class="form-control" placeholder="Search" ng-model="searchName">
+	</form>
+	<table class="table table-hover table-bordered mt-2">
+		<thead class="thead-dark">
+			<tr class="text-center">
+				<th scope="col">ID</th>
+				<th scope="col">Brand's name</th>
+				<th scope="col">Is Available</th>
+				<th scope="col">Edit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="text-center" ng-repeat="item in pager.items | orderBy:sortType:sortReverse | filter:searchName" ng-click="edit(item)">
+				<td>{{item.id}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.isDeleted?'No':'Yes'}}</td>
+				<td class="text-center">
+					<button ng-click="edit(item)" class="btn btn-warning">Edit</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+		<div class="text-center">
+			<button ng-click="pager.first()" class="btn btn-secondary">|<</button>
+			<button ng-click="pager.pre()" class="btn btn-secondary"><<</button>
+			<button class="btn btn-success">{{pager.page + 1}} of {{pager.count}}</button>
+			<button ng-click="pager.next()" class="btn btn-secondary">>></button>
+			<button ng-click="pager.last()" class="btn btn-secondary">>|</button>
+		</div>
+	</div>
+</div>
