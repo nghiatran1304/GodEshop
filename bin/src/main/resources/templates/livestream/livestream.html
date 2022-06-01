@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+
+<body>
+	
+	<main>
+	
+		<!-- Breadcrumbs -->
+		<div class="breadcrumbs-container">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<nav class="woocommerce-breadcrumb">
+							<a th:href="@{|/index|}">Home</a>
+							<span class="separator">/</span>
+							LiveStream
+						</nav>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+		
+		<!-- Breadcrumbs End -->
+		<!-- Contact page content -->
+		<div class="container-live">
+			<section id="room__list">
+	            <h1 id="titleLivestreamPage">Danh sách các kênh đang live stream</h1>
+	            <div id="room__container">
+	                
+	            </div>
+	        </section>
+		</div>
+		<!-- Contact page content end -->
+		<script src="/assets/js/agora-rtm-sdk-1.4.4.js"></script>
+		<script type="module" src="/assets/js/lobby.js"></script>
+	</main>
+	
+</body>
+
+</html>
