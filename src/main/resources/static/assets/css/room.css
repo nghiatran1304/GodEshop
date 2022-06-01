@@ -182,4 +182,32 @@
   background-color: #845695;
 }
 
+#goback__btn {
+  display: flex;
+  background-color: #845695;
+  padding: 8px 24px;
+  font-size: 18px;
+  font-weight: 800;
+  border-radius: 5px;
+  color: white;
+  width: 200px;
+  position: absolute;
+  right: 20px;
+}
+
+#goback__btn:hover {
+  background-color: #845695;
+}
+
+@media (max-width: 1920px) {
+  .stream__actions {
+	  bottom: 1rem;
+	  border-radius: 8px;
+	  padding: 1rem;
+	  position: absolute;
+	  left: 25%;
+	  bottom: 130px;
+	}
+}
+
 
