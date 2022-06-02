@@ -18,7 +18,7 @@ AccountDAO adao;
 @Override
 public Account findById(String username) {
 	// TODO Auto-generated method stub
-	return adao.findById(username).get();
+	return adao.findByUsername(username);
 }
 
 @Override
