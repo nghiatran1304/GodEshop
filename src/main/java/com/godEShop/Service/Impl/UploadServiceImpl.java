@@ -30,7 +30,7 @@ public class UploadServiceImpl implements UploadService {
 	String name = Integer.toHexString(s.hashCode()) + s.substring(s.lastIndexOf("."));
 
 	try {
-	    File savedFile = new File(dir.getAbsolutePath(), name);
+	    File savedFile = new File(dir.getAbsolutePath(), "zz" + name);
 	    System.out.println(" >> File just saved: " + savedFile.getAbsolutePath());
 	    file.transferTo(savedFile);
 	    System.out.println(" >> File just saved: " + savedFile.getAbsolutePath());

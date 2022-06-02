@@ -1736,10 +1736,12 @@ UPDATE Products set IsDeleted = 1 where id = 70 or id = 26;
 --==================================================== 
 
 		
-select p.name, pp.Id, w.* from products as p
+select c.name, b.name, p.name, pp.Id, w.* from products as p
 inner join Watches as w on p.id = w.ProductId
 inner join ProductPhotos as pp on pp.ProductId = p.id
-WHERE p.name = 'OK'
+inner join Categories as c on p.CategoryId = c.Id
+inner join Brands as b on p.BrandId = b.Id
+WHERE p.name = 'BA-130-7A1DR' OR p.name = 'OK'
 order by p.Price asc
 
 select * from Watches
@@ -1754,4 +1756,6 @@ WHERE p.name = 'OK'
 
 select * from Accounts
 
-
+select p.name, pp.Id from products as p
+inner join ProductPhotos as pp on pp.ProductId = p.id
+WHERE p.name = 'BA-130-7A1DR'

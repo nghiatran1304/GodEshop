@@ -7,15 +7,18 @@ app.controller("watch-ctrl", function($scope, $http) {
 	$scope.lstGlassMaterial = [];
 	$scope.lstMachineInside = [];
 
+	$scope.filenames = [];
+	var getProductIdEdit;
+
 	$scope.form = {};
 	$scope.formProduct = {};
 	$scope.formWatch = {};
 	$scope.formProductPhoto = {};
-
+	$scope.formProductPhoto.imageId = 'a';
 	var uploadImage = new FormData();
 
-
 	$scope.initialize = function() {
+		$scope.formProductPhoto.imageId = 'a';
 		// load products
 		$http.get("/rest/products").then(resp => {
 			$scope.items = resp.data;
@@ -61,17 +64,17 @@ app.controller("watch-ctrl", function($scope, $http) {
 
 	// xóa form
 	$scope.reset = function() {
-		$scope.formProduct = {
-			createDate: new Date(),
-		};
-		$scope.formProductPhoto.imageId = null;
+		$scope.form = {};
+		$scope.formProduct = {};
 		$scope.formWatch = {};
+		$scope.formProductPhoto = {};
+		$scope.filenames = [];
+		$scope.formProductPhoto.imageId = 'a';
 	}
 
 	// hiển thị lên form
 	$scope.edit = function(item) {
 		$scope.form = angular.copy(item);
-
 		// product
 		$scope.formProduct.productId = $scope.form.productId;
 		$scope.formProduct.productCreateDate = $scope.form.productCreateDate;
@@ -100,9 +103,23 @@ app.controller("watch-ctrl", function($scope, $http) {
 		$scope.formWatch.glassMaterialId = $scope.form.glassMaterialId;
 		$scope.formWatch.machineInsideId = $scope.form.machineInsideId;
 
+		// images
+		getProductIdEdit = angular.copy($scope.formProduct.productId);
+
+		var pid = angular.copy($scope.formProduct.productId);
+		$scope.loadAllImage(pid);
+
 		$scope.slt = 'a';
 		$(".nav-tabs a:eq(0)").tab('show');
 
+	}
+
+	$scope.loadAllImage = function(pid) {
+		$http.get(`/rest/getImages/${pid}`).then(resp => {
+			$scope.filenames = resp.data;
+		}).catch(error => {
+			console.log("Errors : ", error);
+		});
 	}
 
 	function sleep(time) {
@@ -112,9 +129,7 @@ app.controller("watch-ctrl", function($scope, $http) {
 	// thêm sản phẩm
 	$scope.create = function() {
 		var productItem = angular.copy($scope.formProduct);
-		// var productItem = angular.copy($scope.form);
 		$http.post(`/rest/products`, productItem).then(resp => {
-			// resp.data.createDate = new Date(resp.data.createDate);
 			resp.data.createDate = new Date(resp.data.createDate);
 			$scope.initialize();
 			Swal.fire({
@@ -134,9 +149,6 @@ app.controller("watch-ctrl", function($scope, $http) {
 		});
 
 		sleep(100).then(() => {
-			// Do something after the sleep!
-
-			// $scope.formWatch.product = $scope.formProduct;
 			var watchItem = angular.copy($scope.formWatch);
 			$http.post(`/rest/watches`, watchItem).then(resp => {
 				console.log("insert WATCH");
@@ -158,7 +170,7 @@ app.controller("watch-ctrl", function($scope, $http) {
 				$scope.formProductPhoto.imageId = resp.data.name;
 				var itemProductPhoto = angular.copy($scope.formProductPhoto);
 				$http.post(`/rest/photo/`, itemProductPhoto).then(resp => {
-					console.log("insert first image !");
+					$scope.formProductPhoto.imageId = 1;
 					$scope.initialize();
 				});
 			}).catch(error => {
@@ -169,8 +181,9 @@ app.controller("watch-ctrl", function($scope, $http) {
 				});
 				console.log("Error", error);
 			});
+			$scope.formProductPhoto.imageId = 1;
+			$scope.reset();
 		});
-
 	}
 
 	// cập nhật sản phẩm
@@ -178,8 +191,6 @@ app.controller("watch-ctrl", function($scope, $http) {
 		// product
 		var itemProduct = angular.copy($scope.formProduct);
 		$http.put(`/rest/products/${itemProduct.productId}`, itemProduct).then(resp => {
-			// var index = $scope.items.findIndex(p => p.productId == itemProduct.productId);
-			// $scope.items[index] = itemProduct;
 			$scope.initialize();
 			Swal.fire({
 				position: 'top-end',
@@ -203,18 +214,12 @@ app.controller("watch-ctrl", function($scope, $http) {
 		}).catch(error => {
 			console.log("Error watch : ", error);
 		});
-
-
 	}
 
 	// xóa sản phẩm
 	$scope.deleteProduct = function(item) {
-		// console.log("Delete");
-		// var item = angular.copy($scope.form);
-		console.log(item);
 		var pid = angular.copy($scope.formProduct.productId);
 		$http.delete(`/rest/delete/products/${pid}`).then(resp => {
-			// var index = $scope.items.findIndex(p => p.productId == item.productId);
 			$scope.initialize();
 			$scope.reset();
 			Swal.fire({
@@ -236,7 +241,6 @@ app.controller("watch-ctrl", function($scope, $http) {
 
 	// thêm hình đầu tiên vào 
 	// upload thêm hình
-
 	$scope.onFileSelected = function(files, event) {
 		uploadImage.append('file', files[0]);
 		var selectedFile = event.target.files[0];
@@ -254,7 +258,7 @@ app.controller("watch-ctrl", function($scope, $http) {
 
 	// upload thêm hình
 	$scope.imageChanged = function(files, event) {
-		$scope.formProductPhoto.imageId = null;
+		$scope.formProductPhoto.imageId = 'a';
 		var data = new FormData();
 		data.append('file', files[0]);
 		$http.post(`/rest/upload/ProductImages`, data, {
@@ -319,46 +323,40 @@ app.controller("watch-ctrl", function($scope, $http) {
 
 	}
 
-	// -------------------- TEST ---------------------
-	var url = `http://localhost:8080/rest/files/images`;
-	$scope.url = function(filename) {
-		return `${url}/${filename}`;
-	};
-
-	$scope.list = function() {
-		$http.get(url).then(resp => {
-			$scope.filenames = resp.data;
-		}).catch(error => {
-			console.log("Errors : ", error);
-		});
-	};
-
-	$scope.upload = function(files) {
-		var form = new FormData();
+	// -------------------- UPLOAD MULTI IMAGE---------------------
+	$scope.uploadImage = function(files) {
+		var formImages = new FormData();
 		for (var i = 0; i < files.length; i++) {
-			form.append("files", files[i]);
+			formImages.append("files", files[i]);
 		}
-
-		$http.post(url, form, {
+		$http.post(`/rest/uploadImages/${getProductIdEdit}`, formImages, {
 			transformRequest: angular.identity,
-			headers: { 'Content-Type': undefined }
+			headers: { 'Content-Type': undefined },
 		}).then(resp => {
 			$scope.filenames.push(...resp.data);
+			$scope.reset();
+			Swal.fire({
+				position: 'top-end',
+				icon: 'success',
+				title: 'Thêm ảnh thành công',
+				showConfirmButton: false,
+				timer: 1000
+			})
 		}).catch(error => {
 			console.log("Error : " + error);
 		});
+
 	};
 
-
-	$scope.delete = function(filename) {
-		$http.delete(`${url}/${filename}`).then(resp => {
-			let i = $scope.filenames.findIndex(name => name == filename);
+	$scope.deleteImage = function(filename) {
+		$http.delete(`/rest/deleteImage/${filename}`).then(resp => {
+			var i = $scope.filenames.findIndex(name => name == filename);
 			$scope.filenames.splice(i, 1);
 		}).catch(error => {
 			console.log("Errors : ", error);
 		});
+		// $scope.loadAllImage(getProductIdEdit);
+		// $scope.initialize();
 	};
-
-	$scope.list();
 
 });

@@ -3,7 +3,6 @@ package com.godEShop.RestController;
 import java.io.File;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,29 +37,22 @@ public class UploadRestController {
 	return node;
     }
 
-    // ----------------------------- TEST ---------------------------------
+    // ----------------------------- UPLOAD MULTI IMAGE ---------------------------------
     @Autowired
     FileManagerService fileService;
 
-    @GetMapping("/rest/files/{folder}/{file}")
-    public byte[] download(@PathVariable("folder") String folder, @PathVariable("file") String file,
-	    HttpServletResponse response) {
-	response.setHeader("Content-Disposition", "attachment;filename=" + "OK");
-	return fileService.read(folder, file);
+    @PostMapping("/rest/uploadImages/{productId}")
+    public List<String> uploadImages(@PathVariable("productId") Long id, @PathParam("files") MultipartFile[] files) {
+	return fileService.save(Long.parseLong(id.toString()), files);
     }
 
-    @PostMapping("/rest/files/{folder}")
-    public List<String> upload(@PathVariable("folder") String folder, @PathParam("files") MultipartFile[] files) {
-	return fileService.save(folder, files);
+    @DeleteMapping("/rest/deleteImage/{imgName}")
+    public void delete(@PathVariable("imgName") String imgName) {
+	fileService.delete(imgName);
     }
 
-    @DeleteMapping("/rest/files/{folder}/{file}")
-    public void delete(@PathVariable("folder") String folder, @PathVariable("file") String file) {
-	fileService.delete(folder, file);
-    }
-
-    @GetMapping("/rest/files/{folder}")
-    public List<String> list(@PathVariable("folder") String folder) {
-	return fileService.list(folder);
+    @GetMapping("/rest/getImages/{productId}")
+    public List<String> listImages(@PathVariable("productId") Long id) {
+	return fileService.list(id);
     }
 }
