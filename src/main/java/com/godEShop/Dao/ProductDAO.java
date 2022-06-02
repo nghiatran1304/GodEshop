@@ -120,5 +120,20 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 
     // ---------------------------------------------------------------------------
     
+    
+    @Query("SELECT new com.godEShop.Dto.ProductWatchInfoDto"
+	    + "(p.id, p.name, p.isDeleted, p.quantity, p.price, p.createDate, p.warranty, p.madeIn, p.detail, pb.id, c.id, MIN(pp.id), w.id, w.gender, w.glassSizes, w.atm, w.glassColors, w.caseColors, gm.id, bm.id, mi.id, pb.name, c.name, gm.name, bm.name, mi.name) "
+	    + "FROM Product p " 
+	    + "INNER JOIN p.watches w " 
+	    + "INNER JOIN p.productPhotos pp "
+	    + "INNER JOIN p.brand pb " 
+	    + "INNER JOIN w.glassMaterial gm " 
+	    + "INNER JOIN w.braceletMaterial bm "
+	    + "INNER JOIN w.machineInside mi " 
+	    + "INNER JOIN p.category c "
+	    + "WHERE p.name LIKE ?1 OR c.name LIKE ?1 "
+	    + "GROUP BY p.id, p.name, p.isDeleted, p.quantity, p.price, p.createDate, p.warranty, p.madeIn, p.detail, pb.id, c.id, w.id, w.gender, w.glassSizes, w.atm, w.glassColors, w.caseColors, gm.id, bm.id, mi.id, pb.name, c.name, gm.name, bm.name, mi.name")
+    List<ProductWatchInfoDto> lstSearchFullInfoWatch(String name);
+    
     // ---------------------------------------------------------------------------
 }

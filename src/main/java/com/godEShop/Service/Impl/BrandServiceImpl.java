@@ -10,8 +10,8 @@ import com.godEShop.Entity.Brand;
 import com.godEShop.Service.BrandService;
 
 @Service
-public class BrandServiceImpl implements BrandService{
-    
+public class BrandServiceImpl implements BrandService {
+
     @Autowired
     BrandDAO brandDAO;
 
@@ -32,6 +32,33 @@ public class BrandServiceImpl implements BrandService{
     public List<Integer> getTop4BrandByEvaluation() {
 	// TODO Auto-generated method stub
 	return brandDAO.getTop4BrandByEvaluation();
+    }
+
+    @Override
+    public Brand create(Brand brand) {
+	// TODO Auto-generated method stub
+	return brandDAO.save(brand);
+    }
+
+    @Override
+    public void delete(Integer id) {
+	// TODO Auto-generated method stub
+	Brand b = brandDAO.getById(id);
+	b.setAvailable(true);
+	brandDAO.save(b);
+    }
+
+    @Override
+    public Brand update(Brand brand) {
+	// TODO Auto-generated method stub
+	return brandDAO.save(brand);
+    }
+
+
+    @Override
+    public List<Brand> getAllBrandByName(String name) {
+	// TODO Auto-generated method stub
+	return brandDAO.getAllBrandByName(name);
     }
 
 }

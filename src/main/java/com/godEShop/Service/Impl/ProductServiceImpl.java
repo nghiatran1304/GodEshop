@@ -107,5 +107,11 @@ public class ProductServiceImpl implements ProductService {
 	// TODO Auto-generated method stub
 	return productDAO.getById(id);
     }
+
+    @Override
+    public List<ProductWatchInfoDto> lstSearchFullInfoWatch(String name) {
+	// TODO Auto-generated method stub
+	return productDAO.lstSearchFullInfoWatch(name);
+    }
     
 }

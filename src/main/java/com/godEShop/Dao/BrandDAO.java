@@ -14,4 +14,7 @@ public interface BrandDAO extends JpaRepository<Brand, Integer>{
     @Query(value = "{CALL sp_getTop4BrandByEvaluation()}", nativeQuery = true)
     List<Integer> getTop4BrandByEvaluation();
     
+    @Query("SELECT b FROM Brand b WHERE b.name LIKE ?1")
+    List<Brand> getAllBrandByName(String name);
+    
 }

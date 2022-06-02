@@ -7,13 +7,14 @@ let token = null
 let currentUser = document.getElementById('current-user').innerText.trim()
 let uid
 
+
 if (currentUser === "Account") {
 	uid = 'GUEST' + String(Math.floor(Math.random() * 10000))
 }else {
 	uid = currentUser
 }
 
-let goBackToLobbyBtn = document.getElementById('create__room__btn')
+let goBackToLobbyBtn = document.getElementById('goback__btn')
 let host = false
 let hostId
 let rtmClient
@@ -27,6 +28,9 @@ let room = urlParams.substring(6, urlParams.length)
 let avatar = sessionStorage.getItem('avatar')
 
 let initiate = async () => {
+	
+	
+        
     AgoraRTC.disableLogUpload()
     AgoraRTC.setLogLevel(4)
 
@@ -70,9 +74,18 @@ let initiate = async () => {
 
     channel.on('MemberLeft', async (memberId) => {
         removeParticipants(memberId)
-
+	
         let participants = await channel.getMembers()
         updateParticipantTotal(participants)
+        
+        
+        let attributes = await rtmClient.getChannelAttributesByKeys(room, ['room_name', 'host_id'])
+        roomName = attributes.room_name.value
+        hostId = attributes.host_id.value
+        if (memberId === hostId) {
+			channel.sendMessage({ text: JSON.stringify({ 'message': "/end", 'displayName': displayName, 'avatar': avatar}) })
+			addMessageToDom("/end", hostId, displayName, avatar)
+		}
     })
 
     channel.on('MemberJoined', async (memberId) => {
@@ -121,9 +134,15 @@ let initiate = async () => {
         }
     }
 
-    let goBackToLobby = () => {
-        window.location = `join.html`
-    }
+    goBackToLobbyBtn.addEventListener('click', () => {
+        leaveChannel()
+        if (uid === hostId) {
+			window.location = `/admin`
+		}else {
+			window.location = `/livestream`
+		}
+        
+    })
 
     getParticipants()
 
@@ -141,22 +160,41 @@ let initiate = async () => {
     window.addEventListener('beforeunload', leaveChannel)
 
     let addMessageToDom = async (messageData, memberId, displayName, avatar) => {
-        let created = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        if (created.startsWith("0")) {
-            created.substring(1)
-        }
-        let messagesWrapper = document.getElementById('messages')
-        let messageItem = `
-                        <div class="message__wrapper">
-                        <img class="avatar__md" src="/assets/images/default.PNG">
-                        <div class="message__body">
-                            <strong class="message__author">${displayName}</strong>
-                            <small class="message__timestamp">${created}</small>
-                            <p class="message__text">${messageData}</p>
-                        </div>
-                    </div>`
-        messagesWrapper.insertAdjacentHTML('beforeend', messageItem)
-        messageContainer.scrollTop = messageContainer.scrollHeight
+		let attributes = await rtmClient.getChannelAttributesByKeys(room, ['room_name', 'host_id'])
+        roomName = attributes.room_name.value
+        hostId = attributes.host_id.value
+		if (messageData === '/end') {
+			if (memberId === hostId) {
+				setTimeout(function(){
+		         if (uid === hostId) {
+					alert("Livestream has been ended... redirect to admin page");
+					window.location = `/admin`
+				 }else {
+					alert("Livestream has been ended... redirect to lobby");
+					window.location = `/livestream`
+				}
+		         
+		    },3000);
+			}
+        }else {
+			let created = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+	        if (created.startsWith("0")) {
+	            created.substring(1)
+	        }
+	        let messagesWrapper = document.getElementById('messages')
+	        let messageItem = `
+	                        <div class="message__wrapper">
+	                        <img class="avatar__md" src="/assets/images/default.PNG">
+	                        <div class="message__body">
+	                            <strong class="message__author">${displayName}</strong>
+	                            <small class="message__timestamp">${created}</small>
+	                            <p class="message__text">${messageData}</p>
+	                        </div>
+	                    </div>`
+	        messagesWrapper.insertAdjacentHTML('beforeend', messageItem)
+	        messageContainer.scrollTop = messageContainer.scrollHeight
+		}
+        
     }
 
     let sendMessage = async (e) => {
@@ -170,12 +208,6 @@ let initiate = async () => {
     let messageForm = document.getElementById('message__form')
     messageForm.addEventListener('submit', sendMessage)
 
-    /*goBackToLobbyBtn.addEventListener('click', () => {
-        leaveChannel()
-        sessionStorage.clear()
-        window.location = `lobby.html`
-    })
-    */
 }
 
 let rtcUid = 'HOST' + Math.floor(Math.random() * 10000)
@@ -195,7 +227,6 @@ let sharingScreen = false
 
 let rtcClient = AgoraRTC.createClient({ mode: 'live', codec: 'vp8' })
 let initiateRtc = async () => {
-	console.log(config.channel)
     await rtcClient.join(config.appID, config.channel, config.token, config.uid)
 
     rtcClient.on('user-published', handleUserPublished)

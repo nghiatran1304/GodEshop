@@ -35,6 +35,10 @@ public class Brand implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Integer id;
+    
+    @Column(name = "Isdeleted")
+    // private Boolean isDeleted;
+    private Boolean available;
 
     @Column(name = "Name")
     private String name;

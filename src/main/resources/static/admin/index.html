@@ -29,6 +29,24 @@ input[type="file"] {
 	padding: 6px 12px;
 	cursor: pointer;
 }
+
+.btn-5 {
+	width: 130px;
+	height: 40px;
+	line-height: 42px;
+	padding: 0;
+	border: none;
+	background: rgb(18, 164, 221);
+	color: white;
+}
+
+.btn-5:hover {
+	color: black;
+	background: transparent;
+	box-shadow: none;
+	border: 1px solid black;
+}
+
 </style>
 </head>
 <body ng-app="admin-app">
@@ -90,12 +108,6 @@ input[type="file"] {
 					</div>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#!admin/voucher">
-						<i class="mdi mdi-contacts menu-icon"></i>
-						<span class="menu-title">Voucher</span>
-					</a>
-				</li>
-				<li class="nav-item">
 					<a class="nav-link" href="#!admin/discount">
 						<i class="mdi mdi-format-list-bulleted menu-icon"></i>
 						<span class="menu-title">Discount</span>
@@ -131,9 +143,7 @@ input[type="file"] {
 								<p class="text-black">Notification</p>
 							</div>
 							<div class="border-none">
-								<a class="nav__link" id="create__room__btn" href="#">
-					                Create Room
-					            </a>
+								<a class="nav__link" id="create__room__btn" href="#"> Create Room </a>
 							</div>
 							<script>
 								let btnCreateRoom = document.getElementById('create__room__btn')
@@ -146,7 +156,7 @@ input[type="file"] {
 								    window.location = `room/${roomId}`
 								})							 						
 							</script>
-							
+
 							<ul class="mt-4 pl-0">
 								<li>Sign Out</li>
 							</ul>

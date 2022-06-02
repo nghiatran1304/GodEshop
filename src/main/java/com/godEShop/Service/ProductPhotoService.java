@@ -15,4 +15,8 @@ public interface ProductPhotoService {
 
     ProductPhoto create(ProductPhoto pp);
     
+    List<String> getAllNamePhotoByProductId(Long id);
+    
+    void deleteImageWatch(String id);
+    
 }

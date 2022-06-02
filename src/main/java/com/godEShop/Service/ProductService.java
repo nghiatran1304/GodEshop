@@ -52,4 +52,6 @@ public interface ProductService {
     
     Product getById(Long id);
 
+    List<ProductWatchInfoDto> lstSearchFullInfoWatch(String name);
+
 }

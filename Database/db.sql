@@ -40,49 +40,11 @@ CREATE TABLE Users(
 );
 GO
 
-CREATE TABLE RefAccounts(
-	Id INT IDENTITY(1,1) PRIMARY KEY,
-	NewAccount VARCHAR(50),
-	IsReward BIT DEFAULT 0, -- mặc định chưa nhận
-	OldAccount VARCHAR(50),
-	FOREIGN KEY (OldAccount) REFERENCES Accounts(Username)
-);
-GO
-
-CREATE TABLE Vouchers(
-	Id INT IDENTITY(1,1) PRIMARY KEY,
-	Name VARCHAR(20) NOT NULL,
-	Discount INT DEFAULT 0,
-	CreateDate DATETIME NOT NULL,
-	EndDate DATETIME NOT NULL,
-	CreateBy VARCHAR(50),
-	FOREIGN KEY (CreateBy) REFERENCES Accounts(Username)
-);
-GO
-
-CREATE TABLE Gcoins(
-	Id INT IDENTITY(1,1) PRIMARY KEY,
-	Gcoin INT DEFAULT 0, -- số lượng gcoin trong 1 tài khoản
-	Username VARCHAR(50) NOT NULL,
-	FOREIGN KEY (Username) REFERENCES Accounts(Username)
-);
-GO
-
--- Danh sách các voucher trong ví của tài khoản
-CREATE TABLE VoucherLists(
-	Id INT IDENTITY(1,1) PRIMARY KEY,
-	IsUsed BIT DEFAULT 0,
-	VoucherID INT,
-	FOREIGN KEY (VoucherID) REFERENCES Vouchers(Id),
-	Username VARCHAR(50) NOT NULL,
-	FOREIGN KEY (Username) REFERENCES Accounts(Username)
-);
-GO
-
 --===============================
 --======== PRODUCTS
 CREATE TABLE Brands(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
+	IsDeleted BIT DEFAULT 0,
 	Name NVARCHAR(250) NOT NULL
 );
 GO
@@ -360,14 +322,6 @@ INSERT INTO Users(Fullname, Email, Gender, Dob, Phone, Photo, Address, Username)
 (N'Phạm Văn Khang', 'cust33@gmail.com', 1, '1993-04-17', '0983797594', 'cust33.jpg', N'34/2/28 Nguyễn Thiện Thuật, Phường Tân Lập, Thành phố Nha Trang, Khánh Hòa', 'cust33'),
 (N'Dương Văn Vĩ', 'cust34@gmail.com', 1, '1994-03-19', '0965787830', 'cust34.jpg', N' Số Nhà 199, Tổ 1 Phố Vàng,, Thị trấn Thanh Sơn, Huyện Thanh Sơn, Phú Thọ', 'cust34'),
 (N'Trần Thị Diễm My', 'cust35@gmail.com', 0, '1957-03-25', '0965368987', 'cust35.jpg', N'Số nhà 06, Khu Phú Lợi, Phường Phong Châu, Thị xã Phú Thọ, Phú Thọ', 'cust35')
-GO
-
-INSERT INTO RefAccounts(NewAccount, OldAccount, IsReward) VALUES
-('cust03', 'cust02', 0),
-('cust05', 'cust04', 0),
-('cust07', 'cust06', 0),
-('cust10', 'cust09', 0),
-('cust12', 'cust11', 0)
 GO
 
 INSERT INTO Brands(Name) VALUES
@@ -1076,84 +1030,6 @@ INSERT INTO ProductDiscounts(Discount,CreateDate,EndDate,ProductId,CreateBy) VAL
 GO
 
 
-------------G-Coin-------------
-INSERT INTO Gcoins(Gcoin,Username) VALUES
-('1200','cust01'),
-('850','cust02'),
-('50','cust03'),
-('12020','cust04'),
-('699','cust05'),
-('0','cust06'),
-('0','cust07'),
-('0','cust08'),
-('0','cust09'),
-('0','cust10'),
-('0','cust11'),
-('0','cust12'),
-('0','cust13'),
-('0','cust14'),
-('0','cust15'),
-('0','cust16'),
-('0','cust17'),
-('0','cust18'),
-('0','cust19'),
-('0','cust20'),
-('0','cust21'),
-('0','cust22'),
-('0','cust23'),
-('0','cust24'),
-('0','cust25'),
-('0','cust26'),
-('0','cust27'),
-('0','cust28'),
-('0','cust29'),
-('0','cust30'),
-('0','cust31'),
-('0','cust32'),
-('0','cust33'),
-('0','cust34'),
-('0','cust35')
-GO
-
----- Vourcher 
-INSERT INTO Vouchers(Name,Discount,CreateDate,EndDate,CreateBy) VALUES
-('VC0101',2,'2022-05-12','2022-08-12','admin01'),
-('VC0102',4,'2022-05-12','2022-08-12','admin01'),
-('VC0103',3,'2022-05-12','2022-08-12','admin01'),
-('VC0104',7,'2022-05-12','2022-08-12','admin01'),
-('VC0105',6,'2022-05-12','2022-08-12','admin01'),
-('VC0106',5,'2022-05-18','2022-08-18','admin02'),
-('VC0107',8,'2022-05-18','2022-08-18','admin02'),
-('VC0108',3,'2022-05-19','2022-08-19','admin02'),
-('VC0109',6,'2022-05-19','2022-08-19','admin02'),
-('VC0110',9,'2022-04-25','2022-08-25','admin03'),
-('VC0111',2,'2022-04-25','2022-08-25','admin03'),
-('VC0112',5,'2022-04-25','2022-08-25','admin03'),
-('VC0113',9,'2022-04-25','2022-08-25','admin03'),
-('VC0114',3,'2022-04-25','2022-08-25','admin03'),
-('VC0115',6,'2022-04-25','2022-08-25','admin03')
-GO
-
----- VourcherList of user
-INSERT INTO VoucherLists(IsUsed,VoucherID,Username) VALUES
-(1,1,'cust01'),
-(1,3,'cust01'),
-(0,5,'cust01'),
-(1,2,'cust02'),
-(1,4,'cust02'),
-(0,6,'cust02'),
-(1,8,'cust03'),
-(0,10,'cust03'),
-(1,1,'cust03'),
-(1,12,'cust04'),
-(0,11,'cust04'),
-(1,13,'cust04'),
-(1,14,'cust05'),
-(1,15,'cust05'),
-(0,10,'cust05')
-
-GO
-
 ---OrderStatus---
 INSERT INTO OrderStatuses(NAME) VALUES
 (N'Chờ xác nhận'),
@@ -1735,10 +1611,12 @@ UPDATE Products set IsDeleted = 1 where id = 70 or id = 26;
 --==================================================== 
 
 		
-select p.name, pp.Id, w.* from products as p
+select c.name, b.name, p.name, pp.Id, w.* from products as p
 inner join Watches as w on p.id = w.ProductId
 inner join ProductPhotos as pp on pp.ProductId = p.id
-WHERE p.name = 'OK'
+inner join Categories as c on p.CategoryId = c.Id
+inner join Brands as b on p.BrandId = b.Id
+WHERE p.name = 'BA-130-7A1DR' OR p.name = 'OK'
 order by p.Price asc
 
 select * from Watches
@@ -1749,3 +1627,10 @@ WHERE p.name = 'OK'
 
 select * from Products as p
 WHERE p.name = 'OK'
+
+
+select * from Accounts
+
+select p.name, pp.Id from products as p
+inner join ProductPhotos as pp on pp.ProductId = p.id
+WHERE p.name = 'BA-130-7A1DR'

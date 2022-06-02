@@ -14,7 +14,7 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
 
     @Autowired
     ProductPhotoDAO productPhotoDAO;
-    
+
     @Override
     public String productFirstPhotoname(Long productId) {
 	// TODO Auto-generated method stub
@@ -43,6 +43,18 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
     public ProductPhoto create(ProductPhoto pp) {
 	// TODO Auto-generated method stub
 	return productPhotoDAO.save(pp);
+    }
+
+    @Override
+    public List<String> getAllNamePhotoByProductId(Long id) {
+	// TODO Auto-generated method stub
+	return productPhotoDAO.getAllNamePhotoByProductId(id);
+    }
+
+    @Override
+    public void deleteImageWatch(String id) {
+	// TODO Auto-generated method stub
+	productPhotoDAO.deletePhoto(id);
     }
 
 }
