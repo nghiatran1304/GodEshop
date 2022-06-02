@@ -45,10 +45,6 @@ public class Account implements Serializable {
     @JoinColumn(name = "RoleId")
     private Role role;
 
-    // bi-directional many-to-one association to Gcoin
-    @JsonIgnore
-    @OneToMany(mappedBy = "account")
-    private List<Gcoin> gcoins;
 
     // bi-directional many-to-one association to Order
     @JsonIgnore
@@ -80,24 +76,9 @@ public class Account implements Serializable {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<ProductReply> productReplies;
 
-    // bi-directional many-to-one association to RefAccount
-    @JsonIgnore
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-    private List<RefAccount> refAccounts;
-
     // bi-directional many-to-one association to User
     @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<User> users;
-
-    // bi-directional many-to-one association to VoucherList
-    @JsonIgnore
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-    private List<VoucherList> voucherLists;
-
-    // bi-directional many-to-one association to Voucher
-    @JsonIgnore
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-    private List<Voucher> vouchers;
 
 }

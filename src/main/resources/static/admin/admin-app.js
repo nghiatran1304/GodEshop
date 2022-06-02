@@ -25,10 +25,6 @@ app.config(function($routeProvider) {
 			templateUrl: "/admin/admin-category/index.html",
 			controller: "category-ctrl"
 		})
-		.when("/admin/voucher", {
-			templateUrl: "/admin/admin-voucher/index.html",
-			controller: "voucher-ctrl"
-		})
 		.when("/admin/discount", {
 			templateUrl: "/admin/admin-discount/index.html",
 			controller: "discount-ctrl"

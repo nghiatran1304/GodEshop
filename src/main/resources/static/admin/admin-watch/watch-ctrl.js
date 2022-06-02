@@ -359,4 +359,46 @@ app.controller("watch-ctrl", function($scope, $http) {
 		// $scope.initialize();
 	};
 
+	//----------------- SORT -------------------------------
+	$scope.sortType = "";
+
+	var sortCName = true;
+	$scope.sortByCategoryName = function(sortChoose) {
+		if (sortCName) {
+			$scope.sortType = sortChoose;
+			sortCName = false;
+		} else {
+			$scope.sortType = '-' + sortChoose;
+			sortCName = true;
+		}
+	}
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
