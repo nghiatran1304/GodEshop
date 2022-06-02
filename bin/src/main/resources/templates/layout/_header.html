@@ -29,47 +29,59 @@
 					</div>
 					<div class="col-lg-6 col-sm-6">
 						<div class="topbar-nav">
-							<div class="wpb_wrapper">
-								<!-- my account -->
-								<div class="menu-my-account-container">
-									<a href="#">
-										My Account
-										<i class="ion-ios-arrow-down"></i>
-									</a>
-									<ul>
-										<li>
-											<a href="my-account.html">My Account</a>
-										</li>
-										<li>
-											<a href="login.html">Login</a>
-										</li>
-										<li>
-											<a href="register.html">Register</a>
-										</li>
-										<li>
-											<a href="checkout.html">Checkout</a>
-										</li>
-									</ul>
-								</div>
-								<div class="switcher">
-									<!-- language-menu -->
-									<div class="language">
-										<a href="#">
-											<img src="/assets/images/icons/en.png" alt="language-selector">
-											English
-											<i class="ion-ios-arrow-down"></i>
+							<div class="wpb_wrapper row pr-5">
+								<div class="col-6">
+									<!-- my account -->
+									<div class="menu-my-account-container">
+										<a href="#" id="current-user">
+											<th:block th:if="${#request.remoteUser}">
+												[[${#request.remoteUser}]]
+											</th:block>
+											<th:block th:if="!${#request.remoteUser}">
+												Account &#160;&#160;<i class="ion-ios-arrow-down"></i>
+											</th:block>
+											
 										</a>
 										<ul>
 											<li>
-												<a href="#">
-													<img src="/assets/images/icons/fr.png" alt="French">
-													<span>French</span>
-												</a>
+												<a href="/information"> My Account</a>
+											</li>
+											<li>
+												<a href="/account/login/form">Login</a>
+											</li>
+											<li>
+												<a href="/register">Register</a>
+											</li>
+											<li>
+												<a href="/checkout">Checkout</a>
+											</li>
+											<li>
+												<a th:href="@{/account/logoff}">Logout</a>
 											</li>
 										</ul>
 									</div>
-									<!-- currency-menu -->
-									<div class="currency">
+								</div>
+								<div class="col-3"></div>
+								<div class="col-3">
+									<div class="switcher">
+										<!-- language-menu -->
+										<div class="language">
+											<a href="#">
+												<img src="/assets/images/icons/en.png" alt="language-selector">
+												English
+												<i class="ion-ios-arrow-down"></i>
+											</a>
+											<ul>
+												<li>
+													<a href="#">
+														<img src="/assets/images/icons/fr.png" alt="French">
+														<span>French</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+										<!-- currency-menu -->
+										<!-- <div class="currency">
 										<a href="#">
 											$ USD
 											<i class="ion-ios-arrow-down"></i>
@@ -79,6 +91,7 @@
 												<a href="#">€ EUR</a>
 											</li>
 										</ul>
+									</div> -->
 									</div>
 								</div>
 							</div>
@@ -95,7 +108,7 @@
 					<div class="col-xl-2 col-md-12">
 						<!-- site-logo -->
 						<div class="site-logo">
-							<a href="index.html">
+							<a href="/index">
 								<img src="/assets/images/Glogo/whileLogo.png" alt="Nikado">
 							</a>
 						</div>
@@ -139,7 +152,7 @@
 									<a href="#">
 										<span class="cart-icon">
 											<i class="ion-bag"></i>
-											<sup>3</sup>
+											<sup>{{cart.count}}</sup>
 										</span>
 										<span class="cart-text">
 											<span class="cart-text-title">
@@ -150,65 +163,24 @@
 										</span>
 									</a>
 									<ul>
-										<li>
+										<li ng-repeat="item in cart.items">
 											<!-- single-shop-cart-wrapper -->
 											<div class="single-shop-cart-wrapper">
 												<div class="shop-cart-img">
 													<a href="#">
-														<img src="/assets/images/product/1.jpg" alt="Image of Product">
+														<img th:src="@{|/upload/ProductImages/{{item.productFirstImage}}|}" alt="Image of Product">
 													</a>
 												</div>
 												<div class="shop-cart-info">
 													<h5>
-														<a href="cart.html">sport t-shirt men</a>
+														<a th:href="@{|/product/{{item.productId}}|}">{{item.productName}}</a>
 													</h5>
-													<span class="price">£515.00</span>
-													<span class="quantaty">Qty: 1</span>
-													<span class="cart-remove">
-														<a href="#">
-															<i class="fa fa-times"></i>
-														</a>
+													<span class="price">£ {{item.finalPrice * item.qty}}</span>
+													<span class="quantaty">
+														Qty:
+														<span ng-bind="item.qty"></span>
 													</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<!-- single-shop-cart-wrapper -->
-											<div class="single-shop-cart-wrapper">
-												<div class="shop-cart-img">
-													<a href="#">
-														<img src="/assets/images/product/2.jpg" alt="Image of Product">
-													</a>
-												</div>
-												<div class="shop-cart-info">
-													<h5>
-														<a href="cart.html">sport coat amet</a>
-													</h5>
-													<span class="price">£100.00</span>
-													<span class="quantaty">Qty: 1</span>
-													<span class="cart-remove">
-														<a href="#">
-															<i class="fa fa-times"></i>
-														</a>
-													</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<!-- single-shop-cart-wrapper -->
-											<div class="single-shop-cart-wrapper">
-												<div class="shop-cart-img">
-													<a href="#">
-														<img src="/assets/images/product/3.jpg" alt="Image of Product">
-													</a>
-												</div>
-												<div class="shop-cart-info">
-													<h5>
-														<a href="cart.html">Pellentesque men</a>
-													</h5>
-													<span class="price">£265.00</span>
-													<span class="quantaty">Qty: 1</span>
-													<span class="cart-remove">
+													<span class="cart-remove" ng-click="cart.remove(item.productId)">
 														<a href="#">
 															<i class="fa fa-times"></i>
 														</a>
@@ -221,14 +193,14 @@
 											<div class="shop-cart-total">
 												<p>
 													Subtotal:
-													<span class="pull-right">£880.00</span>
+													<span class="pull-right">£ {{cart.amount | number : 2}}</span>
 												</p>
 											</div>
 										</li>
 										<li>
 											<div class="shop-cart-btn">
 												<a href="checkout.html">Checkout</a>
-												<a href="cart.html" class="pull-right">View Cart</a>
+												<a th:href="@{|/cart|}" class="pull-right">View Cart</a>
 											</div>
 										</li>
 									</ul>
@@ -249,15 +221,8 @@
 							<span class="categorie-title">Categories</span>
 							<nav>
 								<ul class="categori-menu-list menu-hidden">
-									<li>
-										<a th:href="@{|/product|}">
-											All Products
-										</a>
-									</li>
 									<li th:each="lst: ${lstCategory}">
-										<a th:href="@{|/product?search-category=${lst.name}|}">
-											[[${lst.name}]]
-										</a>
+										<a th:href="@{|/product?search-category=${lst.name}|}"> [[${lst.name}]] </a>
 									</li>
 								</ul>
 							</nav>
@@ -282,6 +247,9 @@
 									</li>
 									<li>
 										<a th:href="@{|/contact|}">Contact</a>
+									</li>
+									<li>
+										<a th:href="@{|/livestream|}">LiveStream</a>
 									</li>
 									<li>
 										<a href="#">

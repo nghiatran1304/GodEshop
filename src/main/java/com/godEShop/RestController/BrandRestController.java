@@ -26,25 +26,26 @@ public class BrandRestController {
     public List<Brand> getAll() {
 	return brandService.findAll();
     }
-    
+
     @GetMapping("/rest/brands/{name}")
-    public List<Brand> getAllBrandByName(@PathVariable("name") String name){
+    public List<Brand> getAllBrandByName(@PathVariable("name") String name) {
 	return brandService.getAllBrandByName("%" + name + "%");
     }
-    
+
     @DeleteMapping("/rest/delete/{id}")
     public void deleteBrand(@PathVariable("id") Integer id) {
 	brandService.delete(id);
     }
 
-    @PutMapping("/rest/update/{id}")
+    @PutMapping("rest/update/{id}")
     public Brand updateBrand(@PathVariable("id") Integer id, @RequestBody Brand brand) {
 	return brandService.update(brand);
     }
-    
-    @PostMapping("/rest/create")
+
+    @PostMapping("rest/create")
     public Brand createBrand(@RequestBody Brand brand) {
 	return brandService.create(brand);
     }
-    
+
+
 }

@@ -12,7 +12,7 @@
 								<div class="list-col4">
 									<div class="product-image">
 										<a th:href="@{|/product/${p.productId}|}">
-											<th:block th:if="${p.productDiscount > 0}">
+											<th:block th:if="${p.productDiscount != null && (p.productEndDiscount.compareTo(timeNow) == 1 || p.productEndDiscount.compareTo(timeNow) == 0) }">
 												<span class="isSale">Sale!</span>
 											</th:block>
 											<img th:src="@{|/upload/ProductImages/${p.productFirstImage}|}" style="width: 350px; height: 350px" alt="">
@@ -31,18 +31,18 @@
 											<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
 										</h2>
 										<span class="price">
-											<th:block th:if="${p.productDiscount == null}">
+											<th:block th:if="${p.productDiscount == null || p.productDiscount == 0 || p.productEndDiscount.compareTo(timeNow) == -1}">
 												$ [[${p.productPrice}]]
 											</th:block>
-											<th:block th:if="${p.productDiscount != null}">
+											<th:block th:if="${p.productDiscount != null && (p.productEndDiscount.compareTo(timeNow) == 1 || p.productEndDiscount.compareTo(timeNow) == 0) }">
 												<del>$ [[${p.productPrice}]]</del>
-											$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
+												$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
 											</th:block>
 										</span>
 									</div>
 									<div class="product-hidden">
 										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
+											<a class="btn" th:attr="ng-click=@{|cart.add(${p.productId})|}">Add to cart</a>
 										</div>
 										<div class="star-actions">
 											<div class="product-rattings">
@@ -150,11 +150,11 @@
 											<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
 										</h2>
 										<span class="price">
-											<th:block th:if="${p.productDiscount == null}">
+											<th:block th:if="${p.productDiscount == null || p.productEndDiscount >= GETDATE}">
 												$ [[${p.productPrice}]]
 											</th:block>
-											<th:block th:if="${p.productDiscount != null}">
-												<del>[[${p.productPrice}]]</del>
+											<th:block th:if="${p.productDiscount != null && p.productEndDiscount < GETDATE }">
+												<del>$ [[${p.productPrice}]]</del>
 											$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
 											</th:block>
 										</span>
@@ -224,7 +224,7 @@
 									</div>
 									<div class="actions-wrapper">
 										<div class="add-to-cart">
-											<a href="cart.html">Add to cart</a>
+											<a th:attr="ng-click=@{|cart.add(${p.productId})|}">Add to cart</a>
 										</div>
 										<div class="star-actions">
 											<ul class="actions">

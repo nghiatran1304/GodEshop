@@ -1,0 +1,72 @@
+.container-live {
+  margin-top: 90px;
+  margin-left: 50px;
+}
+
+#room__container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+#room__title {
+  font-size: 2rem;
+  border-bottom: 1px solid #262525;
+  padding-bottom: 1rem;
+}
+
+#room__listTitle {
+  color:rgb(83, 83, 83);
+}
+
+
+#create__room__btn {
+  position: absolute;
+  right: 0;
+  background-color: #845695;
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 5px;
+}
+
+.room__item {
+  border-radius: 10px;
+ background-color: rgb(197, 197, 197);
+}
+
+.avatar__md {
+	width: 60px;
+	height: 60px;
+}
+
+.room__item img {
+  border-radius: 10px;
+}
+
+.room__photo {
+  height: 250px;
+  width: 400px;
+}
+
+.message__author {
+  position: relative;
+  margin-left: 10px;
+  font-style: italic;
+}
+
+.room__content {
+  margin-left: 10px;
+}
+
+.join__btn{
+  background-color: #845695;
+  padding: 10px 15px;
+  position: relative;
+  right: -70%;
+  top: -35px;
+  text-decoration: none;
+  color:#fff;
+  border-radius: 8px;
+  cursor: pointer;
+}

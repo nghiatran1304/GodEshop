@@ -21,8 +21,10 @@ public class UploadServiceImpl implements UploadService {
 	// TODO Auto-generated method stub
 
 //	File dir = new File("resources\\static\\upload\\" + folder);
+
 //	File dir = new File("D:\\xxx\\xxx\\DU_AN_TOT_NGHIEP\\Code\\GodEShop\\src\\main\\resources\\static\\upload\\ProductImages");
 	File dir = new File("src\\main\\resources\\static\\upload\\ProductImages");
+	
 	String absolutePath = dir.getAbsolutePath().toString();
 	System.out.println(" >> Path: " + absolutePath);
 

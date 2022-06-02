@@ -17,9 +17,9 @@
 							<div class="single-product-area">
 								<div class="product-wrapper gridview">
 									<div class="list-col4">
-										<div class="product-image">
+										<div class="product-image text-center">
 											<a th:href="@{|/product/${p.productId}|}">
-												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" style="height: 300px" alt="">
+												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" style="width: 250px; height: 250px" alt="">
 											</a>
 											<div class="quickviewbtn">
 												<!-- <a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View"> -->
@@ -37,13 +37,16 @@
 											<th:block th:if="${p.productDiscount == null}">
 												<span class="price">$ [[${p.productPrice}]] </span>
 											</th:block>
-											<th:block th:if="${p.productDiscount != null}">		
-												<span class="price"><del>$ [[${p.productPrice}]]</del> $ [[${p.productPrice - (p.productPrice * p.productDiscount / 100)}]] </span>
+											<th:block th:if="${p.productDiscount != null}">
+												<span class="price">
+													<del>$ [[${p.productPrice}]]</del>
+													$ [[${p.productPrice - (p.productPrice * p.productDiscount / 100)}]]
+												</span>
 											</th:block>
 										</div>
 										<div class="product-hidden">
 											<div class="add-to-cart">
-												<a href="cart.html">Add to cart</a>
+												<a th:attr="ng-click=@{|cart.add(${p.productId})|}" class="btn">Add to cart</a>
 											</div>
 											<div class="star-actions">
 												<div class="product-rattings">
@@ -120,6 +123,7 @@
 												</ul>
 											</div>
 										</div>
+
 									</div>
 								</div>
 							</div>

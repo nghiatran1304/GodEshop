@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/assets/css/responsive.css">
 <link rel="stylesheet" href="/assets/css/colors.css">
+<link rel="stylesheet" href="/assets/css/lobby.css">
+<link rel="stylesheet" href="/assets/css/room.css">
 
 <!-- MAGIC ZOOM -->
 <link rel="stylesheet" href="/assets/zoommagic/magiczoomplus.css">
@@ -31,15 +33,16 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- AXIOS -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- font-awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 <style>
 #scrollable-dropdown-menu .tt-dropdown-menu {
 	max-height: 150px;
 	overflow-y: auto;
 }
-
 </style>
 </head>
-<body>
+<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
 	<div class="wrapper home-one " th:classappend="${isHomePage} ? '' : 'single-product-page'">
 		<!--================ Start Header Menu Area =================-->
 		<div th:replace="/layout/_header.html"></div>
@@ -54,6 +57,9 @@
 		<!--================ End footer Area  =================-->
 
 	</div>
+	
+	<!-- CALL JS -->
+	<script src="/Shop/cart-js/cart.js"></script>
 
 	<!-- jQuery CDN -->
 	<script src="/assets/js/jquery-1.12.4.min.js"></script>
@@ -70,7 +76,7 @@
 	<script src="/assets/js/plugins.js"></script>
 	<!-- Main js  -->
 	<script src="/assets/js/main.js"></script>
-	
+
 	<!-- ZOOM MAGIC -->
 	<script src="/assets/zoommagic/magiczoomplus.js"></script>
 
@@ -83,7 +89,9 @@
 		ga.l = +new Date;
 		ga('create', 'UA-XXXXX-Y', 'auto');
 		ga('send', 'pageview')
+				
 	</script>
 	<script src="https://www.google-analytics.com/analytics.js" async defer></script>
 </body>
+
 </html>
