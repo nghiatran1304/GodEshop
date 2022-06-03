@@ -3,9 +3,7 @@
 
 <body>
 	<main class="container">
-	<a class="nav__link" id="goback__btn">
-                Back to Lobby
-            </a>
+			
         <div id="room__container">
 
 
@@ -36,18 +34,19 @@
                 
 
             </section>
-
-            <section id="messages__container">
-
+			
+            <section id="messages__container">	
+				<div id="btnLeave">
+					<a class="nav__link" id="goback__btn" hidden>
+	                	Back to Lobby
+	            	</a>
+				</div>
                 <div id="messages"></div>
 
                 <form id="message__form">
                     <input type="text" name="message" placeholder="Send a message...." autocomplete="off" required/>
                 </form>
-
             </section>
-
-            
         </div>
 
 		<script src="/assets/js/agora-rtm-sdk-1.4.4.js"></script>
