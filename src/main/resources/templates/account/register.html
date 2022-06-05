@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+
+
+<body>
+	<main>
+		<!-- Breadcrumbs -->
+		<div class="breadcrumbs-container">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<nav class="woocommerce-breadcrumb">
+							<a href="/index">Home</a> <span class="separator">/</span>
+							register
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Breadcrumbs End -->
+		<!-- Page title -->
+		<div class="entry-header">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<h1 class="entry-title">Register</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Page title end -->
+		<!-- cart page content -->
+		<div class="register-page-area m-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<form class="form-register" th:action="@{/register}" method="post">
+							<fieldset>
+								<legend>Your Personal Details</legend>
+								<div class="form-group d-md-flex align-items-md-center">
+									<label class="control-label col-md-2" for="username">
+										Username<span class="require">*</span>
+									</label>
+
+									<div class="col-md-10">
+										<input type="text" class="form-control" id="username"
+											name="username" placeholder="Enter your username">
+									</div>
+								</div>
+
+								<div class="form-group d-md-flex align-items-md-center">
+									<label class="control-label col-md-2" for="pwd">
+										Password<span class="require">*</span>
+									</label>
+
+									<div class="col-md-10 input-group">
+										<input type="password" class="form-control " name="password"
+											id="ipnPassword" placeholder="Minimum 6 characters including numbers">
+										<div class="input-group-append">
+											<button class="btn btn-outline-secondary" type="button"
+												id="btnPassword">
+												<span class="fas fa-eye"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+
+
+
+							</fieldset>
+
+
+							<div class="terms">
+								<div class="float-md-right">
+									<span> I have read and agree to the <a href="#"
+										class="agree"> <b>Privacy Policy</b>
+									</a>
+									</span> <input type="checkbox" name="agree" value="1"> &nbsp;
+									<input type="submit" value="Register"
+										class="return-customer-btn">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- cart page content end -->
+	</main>
+<script>
+//step 1
+console.log('test');
+const ipnElement = document.querySelector('#ipnPassword')
+const btnElement = document.querySelector('#btnPassword')
+
+// step 2
+btnElement.addEventListener('click', function() {
+  // step 3
+  
+  const currentType = ipnElement.getAttribute('type')
+  // step 4
+  ipnElement.setAttribute(
+    'type',
+    currentType === 'password' ? 'text' : 'password'
+  )
+})
+
+</script>
+</body>
+</html>
