@@ -34,6 +34,9 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Integer id;
+    
+    @Column(name = "Isdeleted")
+    private Boolean available;
 
     @Column(name = "Name")
     private String name;

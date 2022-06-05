@@ -36,8 +36,8 @@ public class GlobalInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 	    ModelAndView modelAndView) throws Exception {
 	// TODO Auto-generated method stub
-	request.setAttribute("lstCategory", categoryService.findAll());
-	request.setAttribute("lstBrands", brandService.findAll());
+	request.setAttribute("lstCategory", categoryService.findAllCategory());
+	request.setAttribute("lstBrands", brandService.findAllBrand());
 	request.setAttribute("lstBraceletMaterial", bmService.findAll());
 	request.setAttribute("lstGlassMaterial", gmService.findAll());
 	request.setAttribute("lstMachineInside", miService.findAll());

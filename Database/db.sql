@@ -51,6 +51,7 @@ GO
 
 CREATE TABLE Categories(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
+	IsDeleted BIT DEFAULT 0,
 	Name NVARCHAR(250) NOT NULL
 );
 GO
@@ -159,7 +160,8 @@ GO
 CREATE TABLE Orders(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	CreateDate DATE NOT NULL,
-	Address NTEXT NOT NULL,
+	Notes NVARCHAR(MAX) DEFAULT '',
+	Address NVARCHAR(MAX) NOT NULL,
 	Username VARCHAR(50) NOT NULL,
 	OrderstatusId INT NOT NULL,
 	OrdermethodId INT NOT NULL,
@@ -1040,11 +1042,8 @@ GO
 
 -- payment
 INSERT INTO OrderMethods(NAME) VALUES
-(N'Thanh toán khi nhận hàng - COD'),
-(N'Thanh toán qua Paypal'),
-(N'Thanh toán qua Momo'),
-(N'Thanh toán qua thẻ ghi nợ'),
-(N'Chuyển khoản ngân hàng')
+(N'Pay after receiving'),
+(N'Paypal')
 GO
 
 ---- Order
@@ -1055,45 +1054,45 @@ INSERT INTO Orders(CreateDate,Address,Username,OrderstatusId,OrdermethodId) VALU
 ('2022-05-12',N'38 Trần Não, Phường Bình An, Tp.Thủ Đức, Hồ Chí Minh','cust01',3,1),
 ('2020-01-10',N'33 Lê Anh Xuân, Quận 1, Hồ Chí minh','cust01',4,1),
 --cust02
-('2022-05-18',N'B21/7, Tổ 27, Ấp 2B, Xã Vĩnh Lộc B, Huyện Bình Chánh, TP Hồ Chí Minh','cust02',1,3),
+('2022-05-18',N'B21/7, Tổ 27, Ấp 2B, Xã Vĩnh Lộc B, Huyện Bình Chánh, TP Hồ Chí Minh','cust02',1,2),
 ('2022-05-17',N'25 Bàu Cát 2, Phường 14, Quận Tân Bình, TP Hồ Chí Minh','cust02',2,1),
 ('2022-05-11',N'13/1 Đường 12, Phường Linh Chiểu, Thành phố Thủ Đức, TP Hồ Chí Minh','cust02',3,1),
 ('2021-02-01',N'Tòa Nhà HM Town, 412 Nguyễn Thị Minh Khai, Phường 05, Quận 3, TP Hồ Chí Minh','cust02',4,1),
 --cust03
-('2022-05-17',N'18 Hoa Lan, Phường 02, Quận Phú Nhuận, TP Hồ Chí Minh','cust03',1,4),
+('2022-05-17',N'18 Hoa Lan, Phường 02, Quận Phú Nhuận, TP Hồ Chí Minh','cust03',1,2),
 ('2022-05-11',N'145 Nguyễn Thái Bình, Phường Nguyễn Thái Bình, Quận 1, TP Hồ Chí Minh','cust03',2,1),
 ('2022-05-12',N'14/9 Thái Thị Nhạn, Phường 10, Quận Tân Bình, TP Hồ Chí Minh','cust03',3,1),
-('2019-05-02',N'208 Trần Quang Khải, Phường Tân Định, Quận 1, TP Hồ Chí Minh','cust03',4,5),
+('2019-05-02',N'208 Trần Quang Khải, Phường Tân Định, Quận 1, TP Hồ Chí Minh','cust03',4,2),
 --cust04
-('2022-05-17',N'2279/8 Huỳnh Tấn Phát, Khu phố 7, Thị Trấn Nhà Bè, Huyện Nhà Bè, TP Hồ Chí Minh','cust04',1,5),
-('2022-05-15',N'B208A KP3 Đông Hưng Thuận 13, Phường Tân Hưng Thuận, Quận 12, TP Hồ Chí Minh','cust04',2,3),
+('2022-05-17',N'2279/8 Huỳnh Tấn Phát, Khu phố 7, Thị Trấn Nhà Bè, Huyện Nhà Bè, TP Hồ Chí Minh','cust04',1,2),
+('2022-05-15',N'B208A KP3 Đông Hưng Thuận 13, Phường Tân Hưng Thuận, Quận 12, TP Hồ Chí Minh','cust04',2,1),
 ('2022-05-13',N'269/11 Ngô Chí Quốc, Phường Bình Chiểu, Thành phố Thủ Đức, TP Hồ Chí Minh','cust04',3,1),
 ('2020-05-10',N'61 Lâm Quang Vy, Phường Thạnh Mỹ Lợi, Thành phố Thủ Đức, TP Hồ Chí Minh','cust04',4,1),
 --cust05
-('2022-05-18',N'307 Phan Huy Ích, Phường 14, Quận Gò Vấp, TP Hồ Chí Minh','cust05',1,2),
+('2022-05-18',N'307 Phan Huy Ích, Phường 14, Quận Gò Vấp, TP Hồ Chí Minh','cust05',1,1),
 ('2022-05-16',N'948 Phạm Văn Đồng, Khu Phố 9, Phường Hiệp Bình Chánh, Thành phố Thủ Đức, TP Hồ Chí Minh','cust05',2,1),
 ('2022-05-13',N'101 Hồ Bá Kiện, Phường 15, Quận 10, TP Hồ Chí Minh','cust05',3,1),
-('2021-12-11',N'67 Hàn Thuyên, Phường Bình Thọ, Thành phố Thủ Đức, TP Hồ Chí Minh','cust05',4,2),
+('2021-12-11',N'67 Hàn Thuyên, Phường Bình Thọ, Thành phố Thủ Đức, TP Hồ Chí Minh','cust05',4,1),
 --cust06
 ('2022-04-18',N'Số 3, D1, Khu tập thể Dệt Kim Đông Xuân, Phường Đồng Nhân, Quận Hai Bà Trưng, Hà Nội','cust06',4,2),
 ('2022-03-13',N'Số 3, D1, Khu tập thể Dệt Kim Đông Xuân, Phường Đồng Nhân, Quận Hai Bà Trưng, Hà Nội','cust06',4,1),
-('2021-02-11',N'Số 3, D1, Khu tập thể Dệt Kim Đông Xuân, Phường Đồng Nhân, Quận Hai Bà Trưng, Hà Nội','cust06',4,5),
+('2021-02-11',N'Số 3, D1, Khu tập thể Dệt Kim Đông Xuân, Phường Đồng Nhân, Quận Hai Bà Trưng, Hà Nội','cust06',4,1),
 --cust07
 ('2021-04-18',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust07',4,2),
-('2021-03-13',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust07',4,3),
+('2021-03-13',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust07',4,2),
 ('2022-02-11',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust07',4,1),
 --cust08
 ('2022-01-19',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust08',4,1),
 ('2022-03-22',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust08',4,2),
-('2021-08-11',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust08',4,5),
+('2021-08-11',N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội','cust08',4,1),
 --cust09
 ('2022-05-07',N'Số 70 ngõ 172 đường Phú Diễn, Phường Phú Diễn, Quận Bắc Từ Liêm, Hà Nội','cust09',4,1),
 ('2022-05-13',N'Số 70 ngõ 172 đường Phú Diễn, Phường Phú Diễn, Quận Bắc Từ Liêm, Hà Nội','cust09',4,1),
-('2021-12-11',N'Số 70 ngõ 172 đường Phú Diễn, Phường Phú Diễn, Quận Bắc Từ Liêm, Hà Nội','cust09',4,5),
+('2021-12-11',N'Số 70 ngõ 172 đường Phú Diễn, Phường Phú Diễn, Quận Bắc Từ Liêm, Hà Nội','cust09',4,1),
 --cust10
 ('2022-04-07',N'Số 42 đường Nguyễn Khuyến, Phường Văn Quán, Quận Hà Đông, Hà Nội','cust10',4,1),
 ('2022-01-13',N'Số 42 đường Nguyễn Khuyến, Phường Văn Quán, Quận Hà Đông, Hà Nội','cust10',4,1),
-('2021-12-08',N'Số 42 đường Nguyễn Khuyến, Phường Văn Quán, Quận Hà Đông, Hà Nội','cust10',4,5),
+('2021-12-08',N'Số 42 đường Nguyễn Khuyến, Phường Văn Quán, Quận Hà Đông, Hà Nội','cust10',4,2),
 ('2021-02-08',N'Số 42 đường Nguyễn Khuyến, Phường Văn Quán, Quận Hà Đông, Hà Nội','cust10',4,2),
 --cust11 
 ('2021-04-07',N'Số 5A Hoàng Văn Thụ, Phường Minh Khai, Quận Hồng Bàng, Hải Phòng','cust11',4,1),
@@ -1102,33 +1101,33 @@ INSERT INTO Orders(CreateDate,Address,Username,OrderstatusId,OrdermethodId) VALU
 --cust12  
 ('2019-07-07',N'Số S5.04 Vinhome Marina, đường Võ Nguyên Giáp, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust12',4,1),
 ('2020-08-13',N'Số S5.04 Vinhome Marina, đường Võ Nguyên Giáp, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust12',4,2),
-('2021-10-08',N'Số S5.04 Vinhome Marina, đường Võ Nguyên Giáp, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust12',4,5),
+('2021-10-08',N'Số S5.04 Vinhome Marina, đường Võ Nguyên Giáp, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust12',4,2),
 --cust13 
 ('2020-08-07',N'96 Lý Thường Kiệt,, Phường Hoàng Văn Thụ, Quận Hồng Bàng, Hải Phòng','cust13',4,1),
 ('2021-06-15',N'96 Lý Thường Kiệt,, Phường Hoàng Văn Thụ, Quận Hồng Bàng, Hải Phòng','cust13',4,2),
-('2018-10-19',N'96 Lý Thường Kiệt,, Phường Hoàng Văn Thụ, Quận Hồng Bàng, Hải Phòng','cust13',4,5),
+('2018-10-19',N'96 Lý Thường Kiệt,, Phường Hoàng Văn Thụ, Quận Hồng Bàng, Hải Phòng','cust13',4,1),
 --cust14 
 ('2021-03-09',N'Số 56 đường số 5B, Khu đô thị Waterfront, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust14',4,1),
 ('2022-04-11',N'Số 56 đường số 5B, Khu đô thị Waterfront, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust14',4,2),
-('2019-08-21',N'Số 56 đường số 5B, Khu đô thị Waterfront, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust14',4,5),
+('2019-08-21',N'Số 56 đường số 5B, Khu đô thị Waterfront, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng','cust14',4,1),
 --cust15 
 ('2018-03-09',N' 88 Bàu Gia Thượng 2, Phường Hoà Thọ Đông, Quận Cẩm Lệ, Đà Nẵng','cust15',4,1),
 ('2020-02-11',N' 88 Bàu Gia Thượng 2, Phường Hoà Thọ Đông, Quận Cẩm Lệ, Đà Nẵng','cust15',4,2),
-('2019-01-21',N' 88 Bàu Gia Thượng 2, Phường Hoà Thọ Đông, Quận Cẩm Lệ, Đà Nẵng','cust15',4,5),
+('2019-01-21',N' 88 Bàu Gia Thượng 2, Phường Hoà Thọ Đông, Quận Cẩm Lệ, Đà Nẵng','cust15',4,1),
 
 --cust16 
 ('2021-04-12',N'Lô 11, Khu LK04A, khu đô thị Hòa Quý,Phường Hoà Quý, Quận Ngũ Hành Sơn, Đà Nẵng','cust16',4,1),
 ('2022-03-16',N'Lô 11, Khu LK04A, khu đô thị Hòa Quý, Phường Hoà Quý, Quận Ngũ Hành Sơn, Đà Nẵng','cust16',4,1),
-('2020-05-20',N'Lô 11, Khu LK04A, khu đô thị Hòa Quý, Phường Hoà Quý, Quận Ngũ Hành Sơn, Đà Nẵng','cust16',4,5),
+('2020-05-20',N'Lô 11, Khu LK04A, khu đô thị Hòa Quý, Phường Hoà Quý, Quận Ngũ Hành Sơn, Đà Nẵng','cust16',4,1),
 --cust17 
 ('2021-06-12',N'51 Tống Phước Phổ, Phường Hoà Cường Bắc, Quận Hải Châu, Đà Nẵng','cust17',4,1),
-('2020-09-16',N'51 Tống Phước Phổ, Phường Hoà Cường Bắc, Quận Hải Châu, Đà Nẵng','cust17',4,5),
+('2020-09-16',N'51 Tống Phước Phổ, Phường Hoà Cường Bắc, Quận Hải Châu, Đà Nẵng','cust17',4,2),
 ('2019-07-20',N'51 Tống Phước Phổ, Phường Hoà Cường Bắc, Quận Hải Châu, Đà Nẵng','cust17',4,2),
 
 --cust18
 ('2020-09-21',N'48 Nguyễn Chí Thanh, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng','cust18',4,2),
 ('2021-10-20',N'48 Nguyễn Chí Thanh, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng','cust18',4,1),
-('2019-08-10',N'48 Nguyễn Chí Thanh, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng','cust18',4,5),
+('2019-08-10',N'48 Nguyễn Chí Thanh, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng','cust18',4,1),
 --cust19 
 ('2021-07-31',N'132/78 Hùng Vương,, Phường Thới Bình, Quận Ninh Kiều, Cần Thơ','cust19',4,2),
 ('2020-02-20',N'132/78 Hùng Vương,, Phường Thới Bình, Quận Ninh Kiều, Cần Thơ','cust19',4,2),
@@ -1136,7 +1135,7 @@ INSERT INTO Orders(CreateDate,Address,Username,OrderstatusId,OrdermethodId) VALU
 --cust20 tới đây
 ('2020-09-20',N'14 Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều, Cần Thơ','cust20',4,1),
 ('2021-11-20',N'14 Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều, Cần Thơ','cust20',4,2),
-('2019-02-10',N'14 Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều, Cần Thơ','cust20',4,4),
+('2019-02-10',N'14 Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều, Cần Thơ','cust20',4,1),
 --cust21 
 ('2021-06-28',N'Số 356 Đội Cấn, Phường Cống Vị, Quận Ba Đình, Hà Nội','cust21',4,2),
 ('2020-02-20',N'Số 356 Đội Cấn, Phường Cống Vị, Quận Ba Đình, Hà Nội','cust21',4,1),
@@ -1152,31 +1151,31 @@ INSERT INTO Orders(CreateDate,Address,Username,OrderstatusId,OrdermethodId) VALU
 --cust24
 ('2019-08-11',N'Số 606 Lạc Long Quân, Phường Nhật Tân, Quận Tây Hồ, Hà Nội','cust24',4,1),
 ('2020-09-20',N'Số 606 Lạc Long Quân, Phường Nhật Tân, Quận Tây Hồ, Hà Nội','cust24',4,2),
-('2021-10-07',N'Số 606 Lạc Long Quân, Phường Nhật Tân, Quận Tây Hồ, Hà Nội','cust24',4,4),
+('2021-10-07',N'Số 606 Lạc Long Quân, Phường Nhật Tân, Quận Tây Hồ, Hà Nội','cust24',4,2),
 --cust25 : 
 ('2022-02-14',N'Số nhà 52, ngõ 230, phố Lạc Trung, Phường Thanh Lương, Quận Hai Bà Trưng, Hà Nội','cust25',4,1),
-('2021-12-20',N'Số nhà 52, ngõ 230, phố Lạc Trung, Phường Thanh Lương, Quận Hai Bà Trưng, Hà Nội','cust25',4,3),
-('2020-11-07',N'Số nhà 52, ngõ 230, phố Lạc Trung, Phường Thanh Lương, Quận Hai Bà Trưng, Hà Nội','cust25',4,5),
+('2021-12-20',N'Số nhà 52, ngõ 230, phố Lạc Trung, Phường Thanh Lương, Quận Hai Bà Trưng, Hà Nội','cust25',4,1),
+('2020-11-07',N'Số nhà 52, ngõ 230, phố Lạc Trung, Phường Thanh Lương, Quận Hai Bà Trưng, Hà Nội','cust25',4,1),
 --cust26: 
 ('2021-04-13',N'Số 1529B đường 30/4, Phường 12, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust26',4,2),
 ('2020-09-20',N'Số 1529B đường 30/4, Phường 12, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust26',4,1),
-('2019-10-07',N'Số 1529B đường 30/4, Phường 12, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust26',4,5),
+('2019-10-07',N'Số 1529B đường 30/4, Phường 12, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust26',4,1),
 --cust27 :
 ('2018-11-12',N'Tổ 5, ấp Phước Lập, Xã Mỹ Xuân, Huyện Tân Thành, Bà Rịa - Vũng Tàu','cust27',4,1),
 ('2019-12-20',N'Tổ 5, ấp Phước Lập, Xã Mỹ Xuân, Huyện Tân Thành, Bà Rịa - Vũng Tàu','cust27',4,1),
-('2020-02-05',N' Tổ 5, ấp Phước Lập, Xã Mỹ Xuân, Huyện Tân Thành, Bà Rịa - Vũng Tàu','cust27',4,5),
+('2020-02-05',N' Tổ 5, ấp Phước Lập, Xã Mỹ Xuân, Huyện Tân Thành, Bà Rịa - Vũng Tàu','cust27',4,1),
 --cust28: 
 ('2020-01-10',N'Số 159 Võ Thị Sáu, Khu phố Long Nguyên, Thị trấn Long Điền, Huyện Long Điền, Bà Rịa - Vũng Tàu','cust28',4,1),
 ('2021-02-24',N'Số 159 Võ Thị Sáu, Khu phố Long Nguyên, Thị trấn Long Điền, Huyện Long Điền, Bà Rịa - Vũng Tàu','cust28',4,1),
-('2022-03-02',N'Số 159 Võ Thị Sáu, Khu phố Long Nguyên, Thị trấn Long Điền, Huyện Long Điền, Bà Rịa - Vũng Tàu','cust28',4,5),
+('2022-03-02',N'Số 159 Võ Thị Sáu, Khu phố Long Nguyên, Thị trấn Long Điền, Huyện Long Điền, Bà Rịa - Vũng Tàu','cust28',4,2),
 --cust29 : 
 ('2021-04-12',N'22D2 Tống Duy Tân, Phường 9, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust29',4,1),
 ('2018-05-11',N'22D2 Tống Duy Tân, Phường 9, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust29',4,1),
-('2019-06-14',N'22D2 Tống Duy Tân, Phường 9, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust29',4,5),
+('2019-06-14',N'22D2 Tống Duy Tân, Phường 9, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu','cust29',4,1),
 --cust30 : 
 ('2020-07-14',N'34 Sao Biển, Phường Vĩnh Hải, Thành phố Nha Trang, Khánh Hòa','cust30',4,1),
 ('2021-07-22',N'34 Sao Biển, Phường Vĩnh Hải, Thành phố Nha Trang, Khánh Hòa','cust30',4,1),
-('2019-08-25',N'34 Sao Biển, Phường Vĩnh Hải, Thành phố Nha Trang, Khánh Hòa','cust30',4,5),
+('2019-08-25',N'34 Sao Biển, Phường Vĩnh Hải, Thành phố Nha Trang, Khánh Hòa','cust30',4,2),
 --cust31: 
 ('2020-09-23',N'212 Trần Quý Cáp, Phường Phương Sài, Thành phố Nha Trang, Khánh Hòa','cust31',4,1),
 ('2019-10-20',N'212 Trần Quý Cáp, Phường Phương Sài, Thành phố Nha Trang, Khánh Hòa','cust31',4,2),
@@ -1184,17 +1183,17 @@ INSERT INTO Orders(CreateDate,Address,Username,OrderstatusId,OrdermethodId) VALU
 --cust32 : 
 ('2020-12-10',N'43/1 Phước Long, Phường Phước Long, Thành phố Nha Trang, Khánh Hòa','cust32',4,2),
 ('2022-02-20',N'43/1 Phước Long, Phường Phước Long, Thành phố Nha Trang, Khánh Hòa','cust32',4,1),
-('2019-01-11',N'43/1 Phước Long, Phường Phước Long, Thành phố Nha Trang, Khánh Hòa','cust32',4,5),
+('2019-01-11',N'43/1 Phước Long, Phường Phước Long, Thành phố Nha Trang, Khánh Hòa','cust32',4,2),
 --cust33:
-('2022-01-12',N'34/2/28 Nguyễn Thiện Thuật, Phường Tân Lập, Thành phố Nha Trang, Khánh Hòa','cust33',4,4),
+('2022-01-12',N'34/2/28 Nguyễn Thiện Thuật, Phường Tân Lập, Thành phố Nha Trang, Khánh Hòa','cust33',4,1),
 ('2020-04-22',N'34/2/28 Nguyễn Thiện Thuật, Phường Tân Lập, Thành phố Nha Trang, Khánh Hòa','cust33',4,2),
-('2021-03-07',N'34/2/28 Nguyễn Thiện Thuật, Phường Tân Lập, Thành phố Nha Trang, Khánh Hòa','cust33',4,5),
+('2021-03-07',N'34/2/28 Nguyễn Thiện Thuật, Phường Tân Lập, Thành phố Nha Trang, Khánh Hòa','cust33',4,1),
 --cust34:  
 ('2022-04-13',N'Số Nhà 199, Tổ 1 Phố Vàng,, Thị trấn Thanh Sơn, Huyện Thanh Sơn, Phú Thọ','cust34',4,2),
 ('2020-08-20',N'Số Nhà 199, Tổ 1 Phố Vàng,, Thị trấn Thanh Sơn, Huyện Thanh Sơn, Phú Thọ','cust34',4,1),
 ('2019-01-02',N'Số Nhà 199, Tổ 1 Phố Vàng,, Thị trấn Thanh Sơn, Huyện Thanh Sơn, Phú Thọ','cust34',4,1),
 --cust35: 
-('2022-06-10',N'Số nhà 06, Khu Phú Lợi, Phường Phong Châu, Thị xã Phú Thọ, Phú Thọ','cust35',4,5),
+('2022-06-10',N'Số nhà 06, Khu Phú Lợi, Phường Phong Châu, Thị xã Phú Thọ, Phú Thọ','cust35',4,2),
 ('2019-02-20',N'Số nhà 06, Khu Phú Lợi, Phường Phong Châu, Thị xã Phú Thọ, Phú Thọ','cust35',4,1),
 ('2020-10-07',N'Số nhà 06, Khu Phú Lợi, Phường Phong Châu, Thị xã Phú Thọ, Phú Thọ','cust35',4,1)
 
@@ -1609,6 +1608,215 @@ UPDATE Products set IsDeleted = 1 where id = 70 or id = 26;
 
 
 --==================================================== 
+INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
+(1,75,80000,1),
+(1,1,2,2),
+(1,2,5,2),
+(1,3,10,2),
+-- 
+(3,73,99600,1),
+(3,4,15,3),
+(3,5,2,3),
+(3,6,200,2),
+
+(4,72,35000,1),
+(4,4,15,2),
+(4,5,2,10),
+(4,6,200,1),
+
+(5,71,25000,1),
+(6,70,390,1),
+(7,69,310,1),
+
+(8,68,340,1),
+(8,1,2,5),
+(8,2,5,7),
+(8,3,10,3),
+
+(9,67,340,1),
+(10,66,340,1),
+(11,65,110,1),
+
+(12,9,200,1),
+(12,1,2,10),
+(12,2,5,6),
+(12,3,10,2),
+
+(13,8,200,1),
+(13,4,15,2),
+(13,5,2,7),
+(13,6,200,1),
+
+(14,7,250,1),
+(15,6,200,1),
+
+(16,5,2,1),
+(16,1,2,7),
+(16,2,5,2),
+(16,3,10,4),
+
+(17,4,15,1),
+(18,3,10,1),
+(19,2,5,1),
+(20,1,2,1),
+(21,10,250,1),
+(22,11,100,1),
+(23,12,60,1),
+--cust07
+(24,13,100,1),
+(25,14,100,1),
+(26,15,100,1),
+--cust08
+(27,16,649702,1),
+(28,17,349702,1),
+(29,18,649702,1),
+--cust09
+(30,19,300,1),
+(31,20,500,1),
+(32,21,25,1),
+--cust10
+(33,22,20,1),
+(34,23,35,1),
+(35,24,30,1),
+(35,25,25,1),
+--cust11 
+(36,26,220,1),
+(37,27,170,1),
+(38,28,200,1),
+--cust12
+(39,29,160,1),
+(40,30,135,1),
+(41,31,145,1),
+--cust13
+(42,32,145,1),
+(43,33,150,1),
+(44,34,155,1),
+--cust14
+(45,35,120,1),
+(46,36,6500,1),
+(47,37,1800,1),
+--cust15
+(48,38,750,1),
+(49,39,2350,1),
+(50,40,6500,1),
+--cust16
+(51,41,185,1),
+(52,42,160,1),
+(53,43,185,1),
+(53,1,2,9),
+(53,2,5,6),
+(53,3,10,3),
+--cust17
+(54,44,225,1),
+(55,45,350,1),
+(56,46,165,1),
+--cust18
+(57,47,225,1),
+(58,48,222,1),
+(59,49,165,1),
+--cust19
+(60,50,235,1),
+(61,51,3500,1),
+(61,52,2000,1),
+--cust20
+(63,53,2550,1),
+(64,54,1250,1),
+(65,55,3450,1),
+--cust21
+(66,56,3350,1),
+(67,57,120,1),
+(68,58,150,1),
+--cust22
+(69,59,75,1),
+(69,4,15,3),
+(69,6,200,2),
+
+(70,60,135,1),
+(70,4,15,15),
+(70,5,2,9),
+(70,6,200,1),
+(71,61,125,1),
+--cust23
+(72,62,275,1),
+(72,1,2,3),
+(72,2,5,4),
+(72,3,10,7),
+
+(73,63,550,1),
+(74,64,250,1),
+--cust24
+(75,65,110,1),
+(76,66,340,1),
+(77,67,340,1),
+--cust25
+(78,68,340,1),
+(79,69,310,1),
+(80,70,390,1),
+--cust26
+(81,71,25000,1),
+(81,4,15,1),
+(81,5,2,9),
+(81,6,200,3),
+(82,72,35000,1),
+(83,73,99600,1),
+--cust27
+(84,74,72500,1),
+(84,1,2,2),
+(84,2,5,7),
+(84,3,10,3),
+(85,75,80000,1),
+(86,75,80000,1),
+--cust28
+(87,74,72500,1),
+(88,73,99600,1),
+(89,72,35000,1),
+--cust29
+(90,71,25000,1),
+(91,70,390,1),
+(91,4,15,3),
+(91,6,200,4),
+
+(92,69,310,3),
+(92,1,2,2),
+(92,2,5,6),
+(92,3,10,3),
+--cust30
+(93,68,340,1),
+(94,67,340,1),
+(95,66,340,1),
+(95,5,2,12),
+(95,6,200,1),
+
+--cust31
+(96,65,110,1),
+(97,64,250,1),
+(98,63,550,1),
+(98,4,15,9),
+(98,6,200,2),
+--cust32
+(99,62,275,1),
+(101,61,125,1),
+(102,60,135,1),
+(102,4,15,6),
+(102,5,2,1),
+(102,6,200,1),
+--cust33
+(103,59,75,1),
+(104,8,150,1),
+(105,57,120,1),
+--cust34
+(106,56,3350,1),
+(107,55,3450,1),
+(108,54,1250,1),
+--cust35
+(109,53,2250,1),
+(109,1,2,1),
+(109,2,5,12),
+(109,3,10,3),
+
+(110,52,2000,1),
+(111,51,3500,1)
+GO
 
 		
 select c.name, b.name, p.name, pp.Id, w.* from products as p
@@ -1634,3 +1842,27 @@ select * from Accounts
 select p.name, pp.Id from products as p
 inner join ProductPhotos as pp on pp.ProductId = p.id
 WHERE p.name = 'BA-130-7A1DR'
+GO
+
+
+SELECT o.id, o.CreateDate, od.ProductId, od.Price, SUM(od.Quantity) as 'SUM' FROM Orders as o
+INNER JOIN OrderDetails as od on o.Id = od.OrderId
+where (CreateDate BETWEEN '20200101' and '20221231')
+GROUP BY o.id, o.CreateDate, od.ProductId, od.Price
+ORDER BY 'SUM' DESC
+
+select * from OrderMethods
+
+select * from OrderStatuses
+
+select * from Orders
+
+select * from OrderDetails
+
+
+SELECT o.*, od.* from orders as o
+inner join OrderDetails as od on o.Id = od.OrderId
+where o.CreateDate = '20220605'
+order by o.CreateDate desc
+
+

@@ -80,18 +80,6 @@
 												</li>
 											</ul>
 										</div>
-										<!-- currency-menu -->
-										<!-- <div class="currency">
-										<a href="#">
-											$ USD
-											<i class="ion-ios-arrow-down"></i>
-										</a>
-										<ul>
-											<li>
-												<a href="#">€ EUR</a>
-											</li>
-										</ul>
-									</div> -->
 									</div>
 								</div>
 							</div>
@@ -158,7 +146,7 @@
 											<span class="cart-text-title">
 												My cart
 												<br>
-												<strong>$ 145.00</strong>
+												<strong>$ {{cart.amount | number : 2}}</strong>
 											</span>
 										</span>
 									</a>
@@ -199,7 +187,7 @@
 										</li>
 										<li>
 											<div class="shop-cart-btn">
-												<a href="checkout.html">Checkout</a>
+												<a href="/checkout">Checkout</a>
 												<a th:href="@{|/cart|}" class="pull-right">View Cart</a>
 											</div>
 										</li>

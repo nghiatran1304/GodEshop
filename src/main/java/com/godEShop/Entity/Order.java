@@ -40,6 +40,9 @@ public class Order implements Serializable {
 
     @Column(name = "Address")
     private String address;
+    
+    @Column(name = "Notes")
+    private String note;
 
     @Column(name = "Createdate")
     private Date createDate;

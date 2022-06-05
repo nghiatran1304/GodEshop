@@ -17,7 +17,11 @@ app.controller("watch-ctrl", function($scope, $http) {
 	$scope.formProductPhoto.imageId = 'a';
 	var uploadImage = new FormData();
 
+	$scope.showInsert = false;
+	$scope.showUpdate = false;
+
 	$scope.initialize = function() {
+		$scope.showInsert = true;
 		$scope.formProductPhoto.imageId = 'a';
 		// load products
 		$http.get("/rest/products").then(resp => {
@@ -64,6 +68,8 @@ app.controller("watch-ctrl", function($scope, $http) {
 
 	// xóa form
 	$scope.reset = function() {
+		$scope.showInsert = true;
+		$scope.showUpdate = false;
 		$scope.form = {};
 		$scope.formProduct = {};
 		$scope.formWatch = {};
@@ -72,8 +78,11 @@ app.controller("watch-ctrl", function($scope, $http) {
 		$scope.formProductPhoto.imageId = 'a';
 	}
 
+
 	// hiển thị lên form
 	$scope.edit = function(item) {
+		$scope.showInsert = false;
+		$scope.showUpdate = true;
 		$scope.form = angular.copy(item);
 		// product
 		$scope.formProduct.productId = $scope.form.productId;
@@ -372,6 +381,10 @@ app.controller("watch-ctrl", function($scope, $http) {
 			sortCName = true;
 		}
 	}
+
+
+	// -------------------------------
+	
 
 });
 

@@ -36,36 +36,14 @@
 					<div class="row">
 						<div class="col-md-3">
 							<div class="myaccount-tab-menu nav" role="tablist">
-								<a href="#dashboad" class="active" data-toggle="tab">
-									<i class="fa fa-dashboard"></i>
-									Dashboard
-								</a>
-
-								<a href="#orders" data-toggle="tab">
+								<a href="#orders" class="active" data-toggle="tab">
 									<i class="fa fa-cart-arrow-down"></i>
 									Orders
 								</a>
-
-								<a href="#download" data-toggle="tab">
-									<i class="fa fa-cloud-download"></i>
-									Download
-								</a>
-
-								<a href="#payment-method" data-toggle="tab">
-									<i class="fa fa-credit-card"></i>
-									Payment Method
-								</a>
-
-								<a href="#address-edit" data-toggle="tab">
-									<i class="fa fa-map-marker"></i>
-									address
-								</a>
-
 								<a href="#account-info" data-toggle="tab">
 									<i class="fa fa-user"></i>
 									Account Details
 								</a>
-
 								<a th:href="@{/account/logoff}">
 									<i class="fa fa-sign-out"></i>
 									Logout
@@ -78,68 +56,35 @@
 						<div class="col-md-9 mt-15 mt-lg-0">
 							<div class="tab-content" id="myaccountContent">
 								<!-- Single Tab Content Start -->
-								<div class="tab-pane fade show active" id="dashboad" role="tabpanel">
-									<div class="myaccount-content">
-										<h3>Dashboard</h3>
-
-										<div class="welcome">
-											<p>
-												Hello, <strong>[[${#request.remoteUser}]]	</strong> (If Not <strong>[[${#request.remoteUser}]] !</strong>
-												<a href="/account/logoff" class="logout"> Logout</a>
-												)
-											</p>
-										</div>
-
-										<p class="mb-0">From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
-									</div>
-								</div>
-								<!-- Single Tab Content End -->
-
-								<!-- Single Tab Content Start -->
-								<div class="tab-pane fade" id="orders" role="tabpanel">
+								<div class="tab-pane fade show active" id="orders" role="tabpanel">
 									<div class="myaccount-content">
 										<h3>Orders</h3>
-
+										<h4>[[${message}]]</h4>
 										<div class="myaccount-table table-responsive text-center">
 											<table class="table table-bordered">
 												<thead class="thead-light">
 													<tr>
 														<th>Order</th>
 														<th>Date</th>
+														<th>Address</th>
 														<th>Status</th>
-														<th>Total</th>
 														<th>Action</th>
 													</tr>
 												</thead>
 
 												<tbody>
-													<tr>
-														<td>1</td>
-														<td>Aug 22, 2018</td>
-														<td>Pending</td>
-														<td>$3000</td>
+													<tr th:each="order : ${orders}">
+
+														<td>[[${order.orderId}]]</td>
+														<td>[[${#dates.format(order.createDate, 'dd-MM-yyyy')}]]</td>
+														<td>[[${order.address}]]</td>
+														<td>[[${order.statusName}]]</td>
+
 														<td>
-															<a href="cart.html" class="btn">View</a>
+															<a href="/cart" class="btn">View</a>
 														</td>
 													</tr>
-													<tr>
-														<td>2</td>
-														<td>July 22, 2018</td>
-														<td>Approved</td>
-														<td>$200</td>
-														<td>
-															<a href="cart.html" class="btn">View</a>
-														</td>
-													</tr>
-													<tr>
-														<td>3</td>
-														<td>June 12, 2017</td>
-														<td>On Hold</td>
-														<td>$990</td>
-														<td>
-															<a href="cart.html" class="btn">View</a>
-														</td>
-													</tr>
+
 												</tbody>
 											</table>
 										</div>
@@ -201,87 +146,107 @@
 								<div class="tab-pane fade" id="address-edit" role="tabpanel">
 									<div class="myaccount-content">
 										<h3>Billing Address</h3>
+										<form th:action="@{/update/address}" method="post">
 
-										<address>
-											<p>
-												<strong>Alex Tuntuni</strong>
-											</p>
-											<p>
-												1355 Market St, Suite 900
-												<br>
-												San Francisco, CA 94103
-											</p>
-											<p>Mobile: (123) 456-7890</p>
-										</address>
+											<div class="form-group">
+												<label for="address">Address</label>
+												<input type="text" name="address" placeholder="Enter your addresse" id="input-address" class="form-control" th:value="${user.address}">
+											</div>
+											<div class="form-group">
+												<label>Mobile</label>
+												<input type="text" name="phone" placeholder="phone" id="input-phone" class="form-control" th:value="${user.phone}">
+											</div>
+											<input type="submit" value="Update" class="return-customer-btn">
+										</form>
 
-										<a href="#" class="btn d-inline-block">
-											<i class="fa fa-edit"></i>
-											Edit Address
-										</a>
+
+
+
 									</div>
 								</div>
 								<!-- Single Tab Content End -->
 
 								<!-- Single Tab Content Start -->
-								<div class="tab-pane fade" id="account-info" role="tabpanel" >
+
+								<div class="tab-pane fade" id="account-info" role="tabpanel">
 									<div class="myaccount-content">
 										<h3>Account Details</h3>
-
 										<div class="account-details-form checkout-form-list">
-											<form action="#" th:object="${user}">
+											<form th:action="@{/update/accountDetail}" method="post" th:object="${user}" enctype="multipart/form-data">
+												<div class="col-4">
+
+													<img id="myID" th:if="${isOAuth2} == false" th:src="@{|/upload/UserImages/${user.photo}|}" alt="" style="width: 350px; height: 350px" />
+
+													<img id="myID" th:if="${isOAuth2} == true" th:src="@{'https://' + ${user.photo}}" alt="" style="width: 150px; height: 150px" />
+
+													<img id="myID" th:if="${user.photo == null  }" th:src="@{|/upload/UserImages/guest-user.jpg|}" alt="" style="width: 350px; height: 350px" />
+
+													<div class="form-group mt-3">
+														<div class="input-group mt-3">
+															<div class="input-group-prepend">
+																<!-- 	<span class="input-group-text bg-primary text-light"
+															id="inputGroupFileAddon01">Upload</span> -->
+															</div>
+															<div class="custom-file">
+																<input type="file" name="photo" onchange="onFileSelected(event)" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+																<label class="custom-file-label" id="nameFile" for="inputGroupFile01"></label>
+															</div>
+														</div>
+													</div>
+												</div>
+
+
 												<div class="row">
 													<div class="col-lg-6">
-														<div class="single-input-item" >
+														<div class="single-input-item">
 															<label for="fullname" class="required">Fullname</label>
-															<input type="text" id="fullname" placeholder="fullname" th:value="*{fullname}"/>
+															<input type="text" id="fullname" name="fullname" placeholder="fullname" class=" form-control" th:value="*{fullname}" />
 														</div>
 													</div>
 
 													<div class="col-lg-6">
 														<div class="single-input-item">
 															<label for="email" class="required">Email</label>
-															<input type="email" id="email" placeholder="Email" th:value="*{email}"/>
+															<input type="email" id="email" name="email" placeholder="Email" class=" form-control" th:value="*{email}" />
+														</div>
+													</div>
+													<div class="col-lg-6">
+														<label for="gender" class="required">Gender</label>
+														<select name="gender" id="gender" class="form-control">
+															<option th:selected="*{gender==1}" th:value="1" class=" form-control">Male</option>
+															<option th:selected="*{gender==0}" th:value="0" class=" form-control">Female</option>
+														</select>
+													</div>
+													<div class="col-lg-6">
+														<div class="single-input-item">
+															<label for="dob" class="required">Date Of Birth</label>
+															<input type="date" id="dob" class=" form-control" th:field="*{dob}" placeholder="Date Of Birth" th:value="*{dob}" name="dob" />
 														</div>
 													</div>
 												</div>
 
-												<div class="single-input-item">
-													<label for="gender" class="required">Gender</label>
-													<input type="text" id="gender" placeholder="gender" th:value="*{gender} == 1 ? 'Male' : 'Female'" />
-												</div>
+
+
 
 												<div class="single-input-item">
-													<label for="address" class="required">Email Address</label>
-													<input type="text" id="address" placeholder="Email Address" th:value="*{address}"/>
+													<button class="btn" type="submit">Save Changes</button>
 												</div>
-
-												<fieldset>
-													<legend>Password change</legend>
-													<div class="single-input-item">
-														<label for="current-pwd" class="required">Current Password</label>
-														<input type="password" id="current-pwd" placeholder="Current Password" />
-													</div>
-
-													<div class="row">
-														<div class="col-lg-6">
-															<div class="single-input-item">
-																<label for="new-pwd" class="required">New Password</label>
-																<input type="password" id="new-pwd" placeholder="New Password" />
-															</div>
-														</div>
-
-														<div class="col-lg-6">
-															<div class="single-input-item">
-																<label for="confirm-pwd" class="required">Confirm Password</label>
-																<input type="password" id="confirm-pwd" placeholder="Confirm Password" />
-															</div>
-														</div>
-													</div>
-												</fieldset>
-
-												<div class="single-input-item">
-													<button class="btn">Save Changes</button>
-												</div>
+												<script>
+													function onFileSelected(
+															event) {
+														var selectedFile = event.target.files[0];
+														var reader = new FileReader();
+														var imgtag = document
+																.getElementById("myID");
+														imgtag.title = selectedFile.name;
+														reader.onload = function(
+																event) {
+															imgtag.src = event.target.result;
+														};
+														reader
+																.readAsDataURL(selectedFile);
+													}
+												</script>
 											</form>
 										</div>
 									</div>

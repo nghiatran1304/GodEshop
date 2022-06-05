@@ -20,4 +20,6 @@ public interface BrandService {
 
     Brand create(Brand brand);
 
+    List<Brand> findAllBrand();
+
 }

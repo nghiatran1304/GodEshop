@@ -6,14 +6,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.godEShop.Dto.ProductDiscountDto;
-import com.godEShop.Entity.User;
 import com.godEShop.Service.BrandService;
 import com.godEShop.Service.ProductDiscountService;
 import com.godEShop.Service.ProductPhotoService;
@@ -22,7 +20,6 @@ import com.godEShop.Service.UserService;
 
 @Controller
 public class HomeController {
-
     @Autowired
     ProductService productService;
 
@@ -34,10 +31,10 @@ public class HomeController {
 
     @Autowired
     BrandService brandService;
-    
+
     @Autowired
-	HttpServletRequest request;
-	
+    HttpServletRequest request;
+
     public void GetProductDiscount(Model model) {
 	List<ProductDiscountDto> lstProductDiscountDto1 = productService.productDealOfTheDay();
 //	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -87,6 +84,9 @@ public class HomeController {
 	bestSeller(model); // sản phẩm bán chạy nhất
 	newProducts(model); // sản phẩm mới nhất
 	top4Brand(model); // top 4 thương hiệu được đánh giá cao
+	if (request.isUserInRole("Admin")) {
+	    return "redirect:/admin";
+	}
 	return "layout/homepage";
     }
 
@@ -104,12 +104,12 @@ public class HomeController {
     public String contact() {
 	return "contact/Contact";
     }
-    
+
     @GetMapping("/livestream")
     public String livestream() {
 	return "livestream/livestream";
     }
-    
+
     @GetMapping("/room/{room_id}")
     public String streamingpage(@PathVariable("room_id") String room_id) {
 	return "livestream/room";
@@ -129,17 +129,19 @@ public class HomeController {
     public String registerPage() {
 	return "account/register";
     }
+
     @Autowired
     UserService userService;
-    @GetMapping("/information")
-    public String informationPage(Authentication auth, Model model) {
-    	String username = auth.getName();
-    	
-    	User user = userService.findByUsername(username);
-  
-    	model.addAttribute("user",user);
-	return "account/information";
-    }
+
+//    @GetMapping("/information")
+//    public String informationPage(Authentication auth, Model model) {
+//	String username = auth.getName();
+//
+//	User user = userService.findByUsername(username);
+//
+//	model.addAttribute("user", user);
+//	return "account/information";
+//    }
 
     @GetMapping("/forgotpassword")
     public String forgotpasswordPage() {
