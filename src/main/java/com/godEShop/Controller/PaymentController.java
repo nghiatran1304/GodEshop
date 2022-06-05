@@ -55,7 +55,7 @@ public class PaymentController {
 	try {
 	    Payment payment = paypalService.executePayment(paymentId, payerId);
 	    if (payment.getState().equals("approved")) {
-		return "account/information";
+		return "redirect:/information";
 	    }
 	} catch (PayPalRESTException e) {
 	    log.error(e.getMessage());
