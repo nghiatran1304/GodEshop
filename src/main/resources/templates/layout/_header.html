@@ -43,19 +43,16 @@
 											
 										</a>
 										<ul>
-											<li>
+											<li th:if="${#request.remoteUser}">
 												<a href="/information"> My Account</a>
 											</li>
-											<li>
+											<li th:unless="${#request.remoteUser}">
 												<a href="/account/login/form">Login</a>
-											</li>
-											<li>
-												<a href="/register">Register</a>
-											</li>
+											</li>											
 											<li>
 												<a href="/checkout">Checkout</a>
 											</li>
-											<li>
+											<li th:if="${#request.remoteUser}">
 												<a th:href="@{/account/logoff}">Logout</a>
 											</li>
 										</ul>
@@ -80,6 +77,18 @@
 												</li>
 											</ul>
 										</div>
+										<!-- currency-menu -->
+										<!-- <div class="currency">
+										<a href="#">
+											$ USD
+											<i class="ion-ios-arrow-down"></i>
+										</a>
+										<ul>
+											<li>
+												<a href="#">€ EUR</a>
+											</li>
+										</ul>
+									</div> -->
 									</div>
 								</div>
 							</div>
@@ -146,7 +155,7 @@
 											<span class="cart-text-title">
 												My cart
 												<br>
-												<strong>$ {{cart.amount | number : 2}}</strong>
+												<strong>$ 145.00</strong>
 											</span>
 										</span>
 									</a>
@@ -187,7 +196,7 @@
 										</li>
 										<li>
 											<div class="shop-cart-btn">
-												<a href="/checkout">Checkout</a>
+												<a href="checkout.html">Checkout</a>
 												<a th:href="@{|/cart|}" class="pull-right">View Cart</a>
 											</div>
 										</li>
