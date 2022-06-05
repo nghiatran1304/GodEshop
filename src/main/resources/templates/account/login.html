@@ -18,9 +18,9 @@
 		</div>
 		<!-- Breadcrumbs End -->
 		<!-- Page title -->
-		<div><i th:text="${message}" class="float-left text-danger"></i></div>
-		<h2>Sign in/up Form</h2>		
-		<div class="container" id="container">
+		<div hidden><i th:text="${message}" class="float-left text-danger"></i></div>
+		<!-- <h2>Sign in/up Form</h2>	 -->	
+		<div class="container mt-5" id="container">
 			<div class="form-container sign-up-container">
 				<form th:action="@{/register}" method="post">
 					<h1>Create Account</h1>

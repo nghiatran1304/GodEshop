@@ -16,5 +16,5 @@ public interface CategoryDAO extends JpaRepository<Category, Integer> {
 
     @Query("SELECT c FROM Category c WHERE c.available = 0")
     List<Category> findAllCategory();
-    
+
 }

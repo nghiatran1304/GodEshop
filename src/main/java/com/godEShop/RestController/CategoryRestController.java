@@ -27,6 +27,11 @@ public class CategoryRestController {
 	return categoryService.findAll();
     }
     
+    @GetMapping("/rest/categoriesAvailable")
+    public List<Category> getAllAvailable() {
+	return categoryService.findAllCategory();
+    }
+    
     @GetMapping("/rest/categories/{name}")
     public List<Category> getAllBrandByName(@PathVariable("name") String name) {
 	return categoryService.getAllCateoryByName("%" + name + "%");
