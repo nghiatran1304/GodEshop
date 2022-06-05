@@ -10,6 +10,7 @@ import com.godEShop.Dto.OrderListDto;
 import com.godEShop.Entity.Order;
 
 @Repository
+
 public interface OrderDAO extends JpaRepository<Order, Long> {
 
     @Query("SELECT o FROM Order o WHERE o.account.username = ?1")

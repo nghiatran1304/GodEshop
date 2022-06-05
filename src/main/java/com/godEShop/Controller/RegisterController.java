@@ -18,6 +18,7 @@ import com.godEShop.Service.UserService;
 
 @Controller
 public class RegisterController {
+
     @Autowired
     AccountService accountService;
     @Autowired
@@ -63,4 +64,5 @@ public class RegisterController {
 	}
 
     }
+
 }

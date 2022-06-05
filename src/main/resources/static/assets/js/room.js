@@ -3,10 +3,9 @@ let messageContainer = document.getElementById('messages')
 let APP_ID = '9026d01943724f1c8178e41aa938e367'
 let token = null
 
-
 let currentUser = document.getElementById('current-user').innerText.trim()
 let uid
-
+let btnKick
 
 if (currentUser === "Account") {
 	uid = 'GUEST' + String(Math.floor(Math.random() * 10000))
@@ -27,10 +26,9 @@ let room = urlParams.substring(6, urlParams.length)
 
 let avatar = sessionStorage.getItem('avatar')
 
+
+
 let initiate = async () => {
-	
-	
-        
     AgoraRTC.disableLogUpload()
     AgoraRTC.setLogLevel(4)
 
@@ -99,23 +97,27 @@ let initiate = async () => {
         let data = JSON.parse(messageData.text)
         let name = data.displayName
         let myAvatar = data.avatar
-        addMessageToDom(data.message, memberId, name, myAvatar)
+        console.log(data.message)
+        if (data.message.substring(0,5) === '/kick') {
+			console.log(data.message.substring(0,5))
+			console.log(data.message.substring(7,data.message.length))
+		}else {
+			addMessageToDom(data.message, memberId, name, myAvatar)
 
-        let participants = await channel.getMembers()
-        updateParticipantTotal(participants)
+        	let participants = await channel.getMembers()
+       		updateParticipantTotal(participants)
+		}
     })
 
     let addParticipantToDom = async (memberId) => {
         let { name } = await rtmClient.getUserAttributesByKeys(memberId, ['name'])
 
-        //let membersWrapper = document.getElementById('member__list')
         let memberItem = `
                         <div class="member__wrapper" id="member__${memberId}__wrapper">
                             <span class="green__icon"></span>
                             <p class="member__name">${name}</p>
                         </div>
                             `
-        //membersWrapper.innerHTML += memberItem
     }
 
     let getParticipants = async () => {
@@ -141,7 +143,6 @@ let initiate = async () => {
 		}else {
 			window.location = `/livestream`
 		}
-        
     })
 
     getParticipants()
@@ -163,6 +164,7 @@ let initiate = async () => {
 		let attributes = await rtmClient.getChannelAttributesByKeys(room, ['room_name', 'host_id'])
         roomName = attributes.room_name.value
         hostId = attributes.host_id.value
+        
 		if (messageData === '/end') {
 			if (memberId === hostId) {
 				setTimeout(function(){
@@ -172,17 +174,18 @@ let initiate = async () => {
 				 }else {
 					alert("Livestream has been ended... redirect to lobby");
 					window.location = `/livestream`
-				}
-		         
-		    },3000);
+				 }
+		    	},2000);
 			}
         }else {
 			let created = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 	        if (created.startsWith("0")) {
 	            created.substring(1)
 	        }
+	        let messageItem
 	        let messagesWrapper = document.getElementById('messages')
-	        let messageItem = `
+	        if (uid === hostId) {
+				messageItem = `
 	                        <div class="message__wrapper">
 	                        <img class="avatar__md" src="/assets/images/default.PNG">
 	                        <div class="message__body">
@@ -190,11 +193,29 @@ let initiate = async () => {
 	                            <small class="message__timestamp">${created}</small>
 	                            <p class="message__text">${messageData}</p>
 	                        </div>
+	                        <div class="message__acction">
+	                        	<div class="message__action__remove">
+	                        		<button class="message__action__remove" id="remove__">X</button>
+		                        </div>	
+		                        <div class="message__action__kick">
+	                        		<button value="${memberId}" class="message__action__kick" onclick="myFunction()">O</button>
+		                        </div>
+	                        </div>                        
 	                    </div>`
+			}else {
+				messageItem = `
+	                        <div class="message__wrapper">
+	                        <img class="avatar__md" src="/assets/images/default.PNG">
+	                        <div class="message__body">
+	                            <strong class="message__author">${displayName}</strong>
+	                            <small class="message__timestamp">${created}</small>
+	                            <p class="message__text">${messageData}</p>
+	                        </div>                      
+	                    </div>`
+			}
 	        messagesWrapper.insertAdjacentHTML('beforeend', messageItem)
 	        messageContainer.scrollTop = messageContainer.scrollHeight
 		}
-        
     }
 
     let sendMessage = async (e) => {
@@ -209,6 +230,7 @@ let initiate = async () => {
     messageForm.addEventListener('submit', sendMessage)
 
 }
+
 
 let rtcUid = 'HOST' + Math.floor(Math.random() * 10000)
 let config = {
@@ -269,6 +291,8 @@ let startStream = async () => {
     await rtcClient.publish([localTracks[0], localTracks[1]])
 }
 
+
+
 let endStream = async () => {
     streaming = false
 
@@ -296,26 +320,22 @@ let endStream = async () => {
 
 let handleUserPublished = async (user, mediaType) => {
     await rtcClient.subscribe(user, mediaType)
-
-    let player = document.getElementById('video__stream')
-    if (player != null) {
-        player.innerHTML = ''
-    }
-    if (mediaType === 'video') {
-        player = `
-                <div class="video-container" style="position:absolute; "id="user-container-${user.uid}">
-                        <div class="video-player" id="user-${user.uid}">
-                        </div>
-                </div>
-                    `
-        document.getElementById('video__stream').insertAdjacentHTML('beforeend', player)
-        user.videoTrack.play(`user-${user.uid}`)
-    }
-
-    if (mediaType === 'audio') {
-        user.audioTrack.play()
-    }
-
+	let player = document.getElementById('video__stream')
+        
+	if (mediaType === 'video') {
+		player.innerHTML = ''
+		player = `
+		<div class="video-container" style="position:absolute; "id="user-container-${user.uid}">
+		<div class="video-player" id="user-${user.uid}">
+		</div>
+		</div>
+		`
+		document.getElementById('video__stream').insertAdjacentHTML('beforeend', player)
+		user.videoTrack.play(`user-${user.uid}`)
+	}
+	if (mediaType === 'audio') {
+		user.audioTrack.play()
+	}
 }
 
 let handleUserLeft = async (user) => {
@@ -325,7 +345,6 @@ let handleUserLeft = async (user) => {
 let mute = false
 let toggleMic = async (e) => {
     let button = e.currentTarget
-    
     if (mute) {
         localTracks[0] = await AgoraRTC.createMicrophoneAudioTrack()
         await rtcClient.publish([localTracks[0]])
@@ -394,8 +413,6 @@ let toggleScreen = async (e) => {
         
     }
 }
-
-
 
 document.getElementById('camera-btn').addEventListener('click', toggleCamera)
 document.getElementById('mic-btn').addEventListener('click', toggleMic)

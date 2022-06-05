@@ -22,6 +22,7 @@ public class UploadServiceImpl implements UploadService {
 
 //	File dir = new File("resources\\static\\upload\\" + folder);
 
+
 //	File dir = new File("D:\\xxx\\xxx\\DU_AN_TOT_NGHIEP\\Code\\GodEShop\\src\\main\\resources\\static\\upload\\ProductImages");
 	File dir = new File("src\\main\\resources\\static\\upload\\ProductImages");
 	
@@ -32,6 +33,7 @@ public class UploadServiceImpl implements UploadService {
 	String name = Integer.toHexString(s.hashCode()) + s.substring(s.lastIndexOf("."));
 
 	try {
+
 	    File savedFile = new File(dir.getAbsolutePath(), "zz" + name);
 	    System.out.println(" >> File just saved: " + savedFile.getAbsolutePath());
 	    file.transferTo(savedFile);

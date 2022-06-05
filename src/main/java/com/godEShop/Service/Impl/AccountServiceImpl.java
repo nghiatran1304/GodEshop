@@ -14,11 +14,13 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	AccountDAO adao;
 
-	@Override
-	public Account findById(String username) {
-		// TODO Auto-generated method stub
-		return adao.findById(username).get();
-	}
+
+@Override
+public Account findById(String username) {
+	// TODO Auto-generated method stub
+	return adao.findByUsername(username);
+}
+
 
 	@Override
 	public List<Account> findAll() {

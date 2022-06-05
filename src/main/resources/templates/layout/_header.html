@@ -43,19 +43,16 @@
 											
 										</a>
 										<ul>
-											<li>
+											<li th:if="${#request.remoteUser}">
 												<a href="/information"> My Account</a>
 											</li>
-											<li>
+											<li th:unless="${#request.remoteUser}">
 												<a href="/account/login/form">Login</a>
-											</li>
-											<li>
-												<a href="/register">Register</a>
-											</li>
+											</li>											
 											<li>
 												<a href="/checkout">Checkout</a>
 											</li>
-											<li>
+											<li th:if="${#request.remoteUser}">
 												<a th:href="@{/account/logoff}">Logout</a>
 											</li>
 										</ul>
