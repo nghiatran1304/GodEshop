@@ -3,14 +3,14 @@
 	th:replace="~{/layout/index.html :: dynamic(~{::main})}">
 <body>
 	<main>
-		<link rel="stylesheet" href="/assets/css/Login-Register.css">
 		<!-- Breadcrumbs -->
 		<div class="breadcrumbs-container">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
 						<nav class="woocommerce-breadcrumb">
-							<a href="/index">Home</a> <span class="separator">/</span> sign in
+							<a href="index.html">Home</a> <span class="separator">/</span>
+							sign in
 						</nav>
 					</div>
 				</div>
@@ -18,137 +18,120 @@
 		</div>
 		<!-- Breadcrumbs End -->
 		<!-- Page title -->
-		<div><i th:text="${message}" class="float-left text-danger"></i></div>
-		<h2>Sign in/up Form</h2>		
-		<div class="container" id="container">
-			<div class="form-container sign-up-container">
-				<form th:action="@{/register}" method="post">
-					<h1>Create Account</h1>
-					<div class="social-container">
-						<a href="#" class="social"><i class="fab fa-facebook-f"></i></a> <a
-							href="/oauth2/authorization/google" class="social"><i
-							class="fab fa-google-plus-g"></i></a> <a href="#" class="social"><i
-							class="fab fa-linkedin-in"></i></a>
-					</div>
-					<span>or use your email for registration</span>
-					 <input type="text" placeholder="Username" name="username" class="form-control" required/>
-					 	
-					<div class="input-group form-group">
-						<input type="password" placeholder="Password" name="password"
-							id="ipnPassword-register" class="form-control" required/>
-						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button"
-								id="btnPassword-register">
-								<span class="fas fa-eye"></span>
-							</button>
-						</div>
-					</div>
-					<button >Sign Up</button>
-				</form>
-			</div>
-			<div class="form-container sign-in-container">
-				<form th:action="@{/account/login}" method="post">
-					<h1>Sign in</h1>
-					<div class="social-container">
-						<a href="#" class="social"><i class="fab fa-facebook-f"></i></a> <a
-							href="/oauth2/authorization/google" class="social"><i
-							class="fab fa-google-plus-g"></i></a> <a href="#" class="social"><i
-							class="fab fa-linkedin-in"></i></a>
-					</div>
-					<span>or use your account</span> <input type="text"
-						placeholder="Username" name="username" class="form-control" required/>
-					<div class="input-group form-group">
-						<input type="password" placeholder="Password" name="password" 
-							id="ipnPassword" class="form-control"  required/>
-						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button"
-								id="btnPassword">
-								<span class="fas fa-eye"></span>
-							</button>
-						</div>
-					</div>
-					<button type="submit" onclick="getToken()">Sign In</button>
-					<script>	
-						const ipnElementRegister = document.querySelector('#ipnPassword-register')
-						const btnElementRegister = document.querySelector('#btnPassword-register')
-						const ipnElement = document.querySelector('#ipnPassword')
-						const btnElement = document.querySelector('#btnPassword')
-					
-						btnElement.addEventListener('click',function() {				
-						const currentType = ipnElement.getAttribute('type')				
-						ipnElement.setAttribute('type',currentType === 'password' ? 'text': 'password')})	
-						
-						btnElementRegister.addEventListener('click',function() {				
-						const currentTypeRegister = ipnElementRegister.getAttribute('type')				
-						ipnElementRegister.setAttribute('type',currentTypeRegister === 'password' ? 'text': 'password')})
-						
-						let username = document.getElementById("input-username")
-						let password = document.getElementById("input-password")
-						let URL = 'http://localhost:8080/loginPage'
-						let formData = new FormData()
-											
-						let getToken = async() => {
-					//Cấu hình cho Header
-						let myHeaders = new Headers();
-						myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-					//Set giá trị body (data gửi đi là username và password để lấy Token)
-						let urlencoded = new URLSearchParams();
-						urlencoded.append("username", username.value);
-						urlencoded.append("password", password.value);
-
-					// Set thuộc tính khi fetch API
-						let requestOptions = {
-							method: 'POST',
-							headers: myHeaders,
-							body: urlencoded,
-							redirect: 'follow'
-							};
-
-					// Gọi API
-						let resp = await fetch(URL, requestOptions)
-												
-					// Xử lý giá trị trả về
-						let data = await resp.json()
-						sessionStorage.setItem("access_token", data.access_token)
-						sessionStorage.setItem("refresh_token", data.refresh_token) 
-						}
-						
-					
-					</script>
-				</form>
-			</div>
-			<div class="overlay-container">
-				<div class="overlay">
-					<div class="overlay-panel overlay-left">
-						<h1>Welcome Back!</h1>
-						<p>To keep connected with us please login with your personal
-							info</p>
-						<button class="ghost" id="signIn">Sign In</button>
-					</div>
-					<div class="overlay-panel overlay-right">
-						<h1>Hello, Friend!</h1>
-						<p>Enter your personal details and start journey with us</p>
-						<button class="ghost" id="signUp">Sign Up</button>
+		<div class="entry-header">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<h1 class="entry-title">Sign In</h1>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- Login-Register -->
-		<script>
-        const signUpButton = document.getElementById('signUp');
-        const signInButton = document.getElementById('signIn');
-        const container = document.getElementById('container');
+		<!-- Page title end -->
+		<!-- cart page content -->
+		<div class="login-page-area">
+			<div class="container">
+				<div class="login-area">
+					<!-- New Customer Start -->
+					<div class="row">
+						<div class="col-md-6">
+							<div class="well mb-sm-30">
+								<div class="new-customer">
+									<h3 class="custom-title">new customer</h3>
+									<p class="mtb-10">
+										<strong>Register</strong>
+									</p>
+									<p>By creating an account you will be able to shop faster,
+										be up to date on an order's status, and keep track of the
+										orders you have previously made</p>
+									<a class="customer-btn" href="register.html">continue</a>
+								</div>
+							</div>
+						</div>
+						<!-- New Customer End -->
+						<!-- Returning Customer Start -->
+						<div class="col-md-6">
+							<div class="well">
+								<div class="return-customer">
+									<h3 class="mb-10 custom-title">returnng customer</h3>
+									<p class="mb-10">
+										<strong>I am a returning customer</strong>
+									</p>
+									<form th:action="@{/account/login}" method="post">
+										<div class="form-group">
+											<label>Username</label> <input type="text" name="username"
+												placeholder="Enter your username" id="input-username"
+												class="form-control">
+										</div>
+										<div class="form-group">
+											<label>Password</label> <input type="text" name="password"
+												placeholder="Password" id="input-password"
+												class="form-control">
+										</div>
+										<div class="form-check mb-3">
+											<input class="form-check-input" type="checkbox" value=""
+												name="remember-me" id="rememberPasswordCheck"> <label
+												class="form-check-label" for="rememberPasswordCheck">
+												Keep me logged in </label>
+										</div>
+										<div class="text-center">
+											<i th:text="${message}" class="float-left text-danger"></i>
+											<button class="btn btn-primary w-100" type="submit">LOGIN
+											</button>
+											<a href="/oauth2/authorization/google"
+												class="btn  w-25 btn-facebook mt-2"> <i
+												class="fa-brands fa-google"></i></a> <a
+												href="/oauth2/authorization/facebook"
+												class="btn  w-25 btn-google mt-2"> <i
+												class="fa-brands fa-facebook"></i>
+											</a>
+										</div>
+										<p class="lost-password">
+											<a href="forgot-password.html">Forgot password?</a>
+										</p>
+										<input onclick="getToken()" type="submit" value="Login" class="return-customer-btn">
+										<script>
+											let username = document.getElementById("input-username")
+											let password = document.getElementById("input-password")
+											let URL = 'http://localhost:8080/loginPage'
+											let formData = new FormData()
+											
+											let getToken = async() => {
+												//Cấu hình cho Header
+												let myHeaders = new Headers();
+												myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-        signUpButton.addEventListener('click', () => {
-            container.classList.add('right-panel-active');
-        });
+												//Set giá trị body (data gửi đi là username và password để lấy Token)
+												let urlencoded = new URLSearchParams();
+												urlencoded.append("username", username.value);
+												urlencoded.append("password", password.value);
 
-        signInButton.addEventListener('click', () => {
-            container.classList.remove('right-panel-active');
-        });
-    </script>
+												// Set thuộc tính khi fetch API
+												let requestOptions = {
+												  method: 'POST',
+												  headers: myHeaders,
+												  body: urlencoded,
+												  redirect: 'follow'
+												};
 
+												// Gọi API
+												let resp = await fetch(URL, requestOptions)
+												
+												// Xử lý giá trị trả về
+												let data = await resp.json()
+												sessionStorage.setItem("access_token", data.access_token)
+												sessionStorage.setItem("refresh_token", data.refresh_token) 
+											}
+										</script>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- Returning Customer End -->
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- cart page content end -->
 	</main>
 </body>

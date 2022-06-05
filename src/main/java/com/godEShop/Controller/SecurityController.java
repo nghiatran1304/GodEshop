@@ -63,8 +63,8 @@ public class SecurityController {
     }
 
     @RequestMapping("/account/login/error")
-    public String loginError(Model model) {   
-	model.addAttribute("message", "thông tin đăng nhập không hợp lệ hoặc tài khoản đã bị khóa");
+    public String loginError(Model model) {
+	model.addAttribute("message", "Sai thông tin đăng nhập!");
 	return "account/login";
     }
 
@@ -108,7 +108,7 @@ public class SecurityController {
 	    newUser.setGender(1);
 	    newUser.setDob(new Date());
 	    newUser.setPhone("");
-	    newUser.setPhoto(photo.substring(8));
+	    newUser.setPhoto(photo);
 	    newUser.setAddress("");
 	    userService.create(newUser);
 	}

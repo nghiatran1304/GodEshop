@@ -91,7 +91,7 @@ public class InformationController {
 	String username = request.getRemoteUser();
 	Account acc = accountService.findById(username);
 	User user = userService.findByUsername(username);
-	Date newDate = new SimpleDateFormat("yyyy/MM/dd").parse(dob);
+	Date newDate = new SimpleDateFormat("yyyy-MM-dd").parse(dob);
 
 	try {
 //					if(!photo.isEmpty()) {
@@ -99,7 +99,8 @@ public class InformationController {
 //						File file = new File(app.getRealPath("/")+"static/assets/images/users");
 //						photo.transferTo(file);
 //					}
-	    Path path = Paths.get(app.getRealPath("/") + "assets/images/users");
+
+	    Path path = Paths.get(app.getRealPath("/") + "src/main/resources/static/upload/UserImages");
 	    System.out.println(path);
 	    InputStream ips = photo.getInputStream();
 	    Files.copy(ips, path.resolve(photo.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
@@ -120,7 +121,7 @@ public class InformationController {
 	userService.create(user);
 	model.addAttribute("user", user);
 
-	return "account/information";
+	return "redirect:/information";
     }
 
 }

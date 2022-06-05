@@ -16,7 +16,6 @@ import com.godEShop.Service.BrandService;
 import com.godEShop.Service.ProductDiscountService;
 import com.godEShop.Service.ProductPhotoService;
 import com.godEShop.Service.ProductService;
-import com.godEShop.Service.SessionService;
 import com.godEShop.Service.UserService;
 
 @Controller
@@ -34,10 +33,8 @@ public class HomeController {
     BrandService brandService;
 
     @Autowired
-	HttpServletRequest request;
-    
-    @Autowired
-	SessionService sessionService;
+    HttpServletRequest request;
+
     public void GetProductDiscount(Model model) {
 	List<ProductDiscountDto> lstProductDiscountDto1 = productService.productDealOfTheDay();
 //	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -122,6 +119,11 @@ public class HomeController {
     public String errorPage() {
 	return "errorPage/ErrorPage";
     }
+
+//    @GetMapping("/login")
+//    public String loginPage() {
+//	return "account/login";
+//    }
 
     @GetMapping("/register")
     public String registerPage() {

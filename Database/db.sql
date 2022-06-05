@@ -1818,47 +1818,6 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
 (111,51,3500,1)
 GO
 
-		
-select c.name, b.name, p.name, pp.Id, w.* from products as p
-inner join Watches as w on p.id = w.ProductId
-inner join ProductPhotos as pp on pp.ProductId = p.id
-inner join Categories as c on p.CategoryId = c.Id
-inner join Brands as b on p.BrandId = b.Id
-WHERE p.name = 'BA-130-7A1DR' OR p.name = 'OK'
-order by p.Price asc
-
-select * from Watches
-
-select p.name, w.* from Products as p
-inner join Watches as w on p.id = w.ProductId
-WHERE p.name = 'OK'
-
-select * from Products as p
-WHERE p.name = 'OK'
-
-
-select * from Accounts
-
-select p.name, pp.Id from products as p
-inner join ProductPhotos as pp on pp.ProductId = p.id
-WHERE p.name = 'BA-130-7A1DR'
-GO
-
-
-SELECT o.id, o.CreateDate, od.ProductId, od.Price, SUM(od.Quantity) as 'SUM' FROM Orders as o
-INNER JOIN OrderDetails as od on o.Id = od.OrderId
-where (CreateDate BETWEEN '20200101' and '20221231')
-GROUP BY o.id, o.CreateDate, od.ProductId, od.Price
-ORDER BY 'SUM' DESC
-
-select * from OrderMethods
-
-select * from OrderStatuses
-
-select * from Orders
-
-select * from OrderDetails
-
 
 SELECT o.*, od.* from orders as o
 inner join OrderDetails as od on o.Id = od.OrderId
