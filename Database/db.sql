@@ -96,18 +96,21 @@ GO
 --== Chất liệu mặt kính
 CREATE TABLE GlassMaterials(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
+	IsDeleted BIT DEFAULT 0,
 	Name NVARCHAR(50) NOT NULL
 );
 GO
 --== Chất liệu dây đồng hồ
 CREATE TABLE BraceletMaterials(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
+	IsDeleted BIT DEFAULT 0,
 	Name NVARCHAR(50) NOT NULL
 );
 GO
 --== Hệ thống bên trong
 CREATE TABLE MachineInsides(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
+	IsDeleted BIT DEFAULT 0,
 	Name NVARCHAR(50) NOT NULL
 );
 GO
@@ -1824,6 +1827,7 @@ inner join OrderDetails as od on o.Id = od.OrderId
 where o.CreateDate = '20220605'
 order by o.CreateDate desc
 
+<<<<<<< HEAD
 select * from orders
 
 select * from OrderDetails
@@ -1848,3 +1852,5 @@ where o.id = 1
 group by o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name, o.Address, o.Notes, p.name, od.Price, od.Quantity 
 
 
+=======
+>>>>>>> 1edb89007c26ee8343a663027681dfae494e7a03

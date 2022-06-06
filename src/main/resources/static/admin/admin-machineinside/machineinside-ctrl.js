@@ -1,4 +1,4 @@
-app.controller("brand-ctrl", function($scope, $http) {
+app.controller("machineinside-ctrl", function($scope, $http) {
 
 	$scope.items = [];
 	$scope.form = {};
@@ -7,8 +7,8 @@ app.controller("brand-ctrl", function($scope, $http) {
 
 	$scope.initialize = function() {
 		$scope.showInsert = true;
-		// load brands
-		$http.get(`/rest/brands`).then(resp => {
+		// load machines
+		$http.get(`/rest/machines`).then(resp => {
 			$scope.items = resp.data;
 		});
 	};
@@ -17,7 +17,7 @@ app.controller("brand-ctrl", function($scope, $http) {
 
 	$scope.findByName = function() {
 		var nameSearched = $scope.searchByName;
-		$http.get(`/rest/brands/${nameSearched}`).then(resp => {
+		$http.get(`/rest/machines/${nameSearched}`).then(resp => {
 			$scope.items = resp.data;
 		});
 	}
@@ -39,7 +39,7 @@ app.controller("brand-ctrl", function($scope, $http) {
 	// thêm sản phẩm
 	$scope.create = function() {
 		var item = angular.copy($scope.form);
-		$http.post(`/rest/create`, item).then(resp => {
+		$http.post(`/rest/createmachine`, item).then(resp => {
 			$scope.initialize();
 			$scope.reset();
 			Swal.fire({
@@ -61,9 +61,9 @@ app.controller("brand-ctrl", function($scope, $http) {
 
 	// cập nhật 
 	$scope.update = function() {
-		// product
+		// machines
 		var item = angular.copy($scope.form);
-		$http.put(`/rest/update/${item.id}`, item).then(resp => {
+		$http.put(`/rest/updatemachine/${item.id}`, item).then(resp => {
 			$scope.initialize();
 			$scope.reset();
 			Swal.fire({
@@ -84,11 +84,10 @@ app.controller("brand-ctrl", function($scope, $http) {
 
 	}
 
-	// xóa sản phẩm
+	// xóa máy  
 	$scope.delete = function(item) {
-		var brandId = angular.copy(item);
-		$http.delete(`/rest/delete/${brandId.id}`).then(resp => {
-			// var index = $scope.items.findIndex(p => p.productId == item.productId);
+		var machineInsideId = angular.copy(item);
+		$http.delete(`/rest/deletemachine/${machineInsideId.id}`).then(resp => {
 			$scope.initialize();
 			$scope.reset();
 			Swal.fire({

@@ -3,18 +3,16 @@
 	<div class="col-12 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<!-- <h4 class="card-title">Basic form elements</h4>
-			<p class="card-description">Basic form elements</p> -->
 				<form class="forms-sample row" name="frm" enctype="multipart/form-data">
 					<!-- image -->
 					<div class="col-4 text-center">
 						<div>
 							<h3>PRODUCT'S IMAGE</h3>
 						</div>
-						<label for="inputGroupFile01" ng-show="formProductPhoto.imageId != null">
+						<label for="inputGroupFile01" ng-if="formProductPhoto.imageId != 'a'">
 							<img ng-src="{{'/upload/ProductImages/' + formProductPhoto.imageId}}" id="myID" style="width: 300px; height: 300px" alt="No Image" />
 						</label>
-						<label for="inputGroupFile01" ng-show="formProductPhoto.imageId == null">
+						<label for="inputGroupFile01" ng-model="formProductPhoto.imageId" ng-if="formProductPhoto.imageId == 'a'">
 							<img src="/upload/noImage.jpg" id="myID1" style="width: 300px; height: 300px" alt="No Image" />
 						</label>
 						<div class="form-group">
@@ -24,11 +22,11 @@
 								<!-- <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" /> -->
 								<!-- <span class="input-group-append"> -->
 								<!-- <button>Upload</button>  custom-file-input-->
-								<label class="custom-file-upload" ng-show="formProductPhoto.imageId != null">
+								<!-- <label class="custom-file-upload" ng-show="formProductPhoto.imageId != 1">
 									<input onchange="angular.element(this).scope().imageChanged(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
 									Upload More Image
-								</label>
-								<label class="custom-file-upload" ng-show="formProductPhoto.imageId == null">
+								</label> -->
+								<label class="custom-file-upload" ng-if="formProductPhoto.imageId == 'a'">
 									<input onchange="angular.element(this).scope().onFileSelected(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
 									Upload Image
 								</label>
@@ -38,14 +36,14 @@
 
 						<!-- ---------------------TEST-------------------- -->
 						<div>
-							<div class="container" ng-show="formProductPhoto.imageId != null">
-								<label for="uf">
-									Upload files:
-									<input type="file" class="btn btn primary" id="uf" accept="image/*" multiple onchange="angular.element(this).scope().upload(this.files)">
+							<div class="container" ng-if="formProductPhoto.imageId != 'a'">
+								<label for="uf" class="btn btn-5" id="formatButton">
+									More Images
+									<input type="file" class="btn btn primary" id="uf" accept="image/*" multiple onchange="angular.element(this).scope().uploadImage(this.files)">
 								</label>
 								<hr>
-								<label ng-repeat="filename in filenames" title="Double clicj to delete">
-									<img ng-src="{{url(filename)}}" ng-dblclick="delete(filename)" style="width: 50px; height: 50px" alt="">
+								<label ng-repeat="filename in filenames" title="Double click to delete" class="ml-1">
+									<img ng-src="{{'/upload/ProductImages/' + filename}}" ng-dblclick="deleteImage(filename)" class="mb-3 mr-2" style="width: 80px; height: 80px" alt="">
 								</label>
 							</div>
 						</div>
@@ -157,9 +155,9 @@
 							</div>
 						</div>
 
-						<button ng-click="create(); " class="btn btn-primary mr-2">Insert</button>
-						<button ng-click="update()" class="btn btn-warning mr-2">Update</button>
-						<button ng-click="delete(formProduct)" class="btn btn-danger mr-2">Remove</button>
+						<button ng-click="create(); " ng-show="showInsert == true" class="btn btn-primary mr-2">Insert</button>
+						<button ng-click="update()" ng-show="showUpdate == true" class="btn btn-warning mr-2">Update</button>
+						<button ng-click="deleteProduct(formProduct)" class="btn btn-danger mr-2">Remove</button>
 						<button ng-click="reset()" class="btn btn-info">Cancel</button>
 					</div>
 				</form>

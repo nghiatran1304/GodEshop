@@ -17,7 +17,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.2/angular-route.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- BASE HREF -->
+<!-- CHART -->
+
 <style>
 input[type="file"] {
 	display: none;
@@ -28,6 +29,23 @@ input[type="file"] {
 	display: inline-block;
 	padding: 6px 12px;
 	cursor: pointer;
+}
+
+.btn-5 {
+	width: 130px;
+	height: 40px;
+	line-height: 42px;
+	padding: 0;
+	border: none;
+	background: rgb(18, 164, 221);
+	color: white;
+}
+
+.btn-5:hover {
+	color: black;
+	background: transparent;
+	box-shadow: none;
+	border: 1px solid black;
 }
 </style>
 </head>
@@ -81,19 +99,25 @@ input[type="file"] {
 								<a class="nav-link" href="#!admin/management/account">Account</a>
 							</li>
 							<li class="nav-item">
+								<a class="nav-link" href="#!admin/management/user">User</a>
+							</li>
+							<li class="nav-item">
 								<a class="nav-link" href="#!admin/management/brand">Brand</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#!admin/management/category">Category</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#!admin/management/glassmaterial">Glass Material</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#!admin/management/braceletmaterial">Bracelet Material</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#!admin/management/machineinside">Machine Inside</a>
+							</li>
 						</ul>
 					</div>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#!admin/voucher">
-						<i class="mdi mdi-contacts menu-icon"></i>
-						<span class="menu-title">Voucher</span>
-					</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#!admin/discount">
@@ -146,7 +170,9 @@ input[type="file"] {
 							</script>
 
 							<ul class="mt-4 pl-0">
-								<li>Sign Out</li>
+								<li>
+									<a th:href="@{/account/logoff}">Sign Out</a>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -291,7 +317,7 @@ input[type="file"] {
 									<i class="mdi mdi-cached mr-2 text-success"></i>
 									Activity Log
 								</a>
-								<a class="dropdown-item" href="#">
+								<a class="dropdown-item" th:href="@{/account/logoff}">
 									<i class="mdi mdi-logout mr-2 text-primary"></i>
 									Signout
 								</a>
@@ -339,8 +365,10 @@ input[type="file"] {
 	<script src="/admin/admin-discount/discount-ctrl.js"></script>
 	<script src="/admin/admin-order/order-ctrl.js"></script>
 	<script src="/admin/admin-statistic/statistic-ctrl.js"></script>
-	<script src="/admin/admin-voucher/voucher-ctrl.js"></script>
-
+	<script src="/admin/admin-braceletmaterial/braceletmaterial-ctrl.js"></script>
+	<script src="/admin/admin-glassmaterial/glassmaterial-ctrl.js"></script>
+	<script src="/admin/admin-machineinside/machineinside-ctrl.js"></script>
+	<script src="/admin/admin-user/user-ctrl.js"></script>
 	<!-- container-scroller -->
 	<!-- plugins:js -->
 	<script src="/admin/assets/vendors/js/vendor.bundle.base.js"></script>
@@ -363,5 +391,7 @@ input[type="file"] {
 	<!-- Custom js for this page -->
 	<script src="/admin/assets/js/dashboard.js"></script>
 	<!-- End custom js for this page -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+
 </body>
 </html>

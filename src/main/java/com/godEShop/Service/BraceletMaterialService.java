@@ -9,4 +9,15 @@ public interface BraceletMaterialService {
 
     BraceletMaterial getById(Integer id);
     
+    List<BraceletMaterial> getAllBraceletByName(String name);
+    
+    void delete(Integer id);
+    
+    BraceletMaterial update(BraceletMaterial braceletMaterial);
+    
+    BraceletMaterial create(BraceletMaterial braceletMaterial);
+    
+    List<BraceletMaterial> findAllBraceletMaterial();
+    
+    
 }
