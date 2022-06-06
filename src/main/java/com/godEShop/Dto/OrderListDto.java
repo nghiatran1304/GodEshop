@@ -20,7 +20,7 @@ public class OrderListDto implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	private Integer orderId;
+	private Long orderId;
 	private Date createDate;
 	private String address;
 	private String statusName;

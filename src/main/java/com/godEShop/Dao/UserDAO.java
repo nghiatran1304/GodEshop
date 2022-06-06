@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.godEShop.Entity.User;
 
 @Repository
-public interface UserDAO extends JpaRepository<User, Long> {
+public interface UserDAO extends JpaRepository<User, Integer> {
     @Query(value = "SELECT * FROM Users WHERE username LIKE ?1", nativeQuery = true)
     User findByUsername(String username);
     

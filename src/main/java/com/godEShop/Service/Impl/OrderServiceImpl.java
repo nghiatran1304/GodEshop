@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.godEShop.Dao.OrderDAO;
 import com.godEShop.Dao.OrderDetailDAO;
+import com.godEShop.Dto.OrderInfoDto;
 import com.godEShop.Dto.OrderListDto;
 import com.godEShop.Entity.Order;
 import com.godEShop.Entity.OrderDetail;
@@ -55,5 +56,47 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderListDto> findByUsername1(String username) {
 	// TODO Auto-generated method stub
 	return orderDAO.findByUsername1(username);
+    }
+
+    @Override
+    public List<Order> findAllOrderPending() {
+	// TODO Auto-generated method stub
+	return orderDAO.findAllOrderPending();
+    }
+
+    @Override
+    public List<Order> findAllOrderConfirmed() {
+	// TODO Auto-generated method stub
+	return orderDAO.findAllOrderConfirmed();
+    }
+
+    @Override
+    public List<Order> findAllOrderDelivery() {
+	// TODO Auto-generated method stub
+	return orderDAO.findAllOrderDelivery();
+    }
+
+    @Override
+    public List<Order> findAllOrderSuccess() {
+	// TODO Auto-generated method stub
+	return orderDAO.findAllOrderSuccess();
+    }
+
+    @Override
+    public List<Order> findAllOrderCancel() {
+	// TODO Auto-generated method stub
+	return orderDAO.findAllOrderCancel();
+    }
+
+    @Override
+    public List<Order> findAllOrders() {
+	// TODO Auto-generated method stub
+	return orderDAO.findAllOrders();
+    }
+
+    @Override
+    public List<OrderInfoDto> findAllOrderInfoDto(Long id) {
+	// TODO Auto-generated method stub
+	return orderDAO.findAllOrderInfoDto(id);
     }
 }

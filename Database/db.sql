@@ -1031,13 +1031,13 @@ INSERT INTO ProductDiscounts(Discount,CreateDate,EndDate,ProductId,CreateBy) VAL
 (6,'2022-10-15','2022-10-22',40,'admin01')
 GO
 
-
 ---OrderStatus---
 INSERT INTO OrderStatuses(NAME) VALUES
-(N'Chờ xác nhận'),
-(N'Đã xác nhận'),
-(N'Giao hàng'),
-(N'Hoàn thành')
+(N'Pending'),
+(N'Confirmed'),
+(N'Delivery'),
+(N'Complete'),
+(N'Cancel')
 GO
 
 -- payment
@@ -1823,5 +1823,28 @@ SELECT o.*, od.* from orders as o
 inner join OrderDetails as od on o.Id = od.OrderId
 where o.CreateDate = '20220605'
 order by o.CreateDate desc
+
+select * from orders
+
+select * from OrderDetails
+
+select * from OrderStatuses
+
+select * from Orders
+order by  OrderstatusId asc, CreateDate asc
+
+-- List<OrderId> -> List<ProductID>
+
+
+select o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name as 'Order Method', o.Address, o.Notes, MIN(pp.Id) as 'Image', p.name as 'Product name', od.Price, od.Quantity from Orders as o
+inner join OrderDetails as od on o.Id = od.OrderId
+inner join Products as p on od.ProductId = p.Id
+inner join ProductPhotos as pp on pp.ProductId = p.Id
+inner join Accounts as a on a.Username = o.Username
+inner join Users as u on a.Username = u.Username
+inner join OrderMethods as om on o.OrdermethodId = om.Id
+inner join OrderStatuses as os on o.OrderstatusId = os.Id
+where o.id = 1
+group by o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name, o.Address, o.Notes, p.name, od.Price, od.Quantity 
 
 
