@@ -31,4 +31,10 @@ public interface OrderService {
 
     List<OrderInfoDto> findAllOrderInfoDto(Long id);
 
+    Order updateConfirm(Order o);
+
+    Order updateDelivery(Order o);
+
+    Order updateSuccess(Order o);
+
 }

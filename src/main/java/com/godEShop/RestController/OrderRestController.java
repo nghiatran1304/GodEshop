@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -61,4 +62,85 @@ public class OrderRestController {
     public List<OrderInfoDto> lstOrderDto(@PathVariable("id") Long id){
 	return orderService.findAllOrderInfoDto(id);
     }
+    
+    @PutMapping("/rest/order-update-confirm/{id}")
+    public Order updateConfirm(@PathVariable("id") Long id, @RequestBody OrderInfoDto o) {
+	Order order = orderService.findById(id);
+	return orderService.updateConfirm(order);
+    }
+    
+    @PutMapping("/rest/order-update-delivery/{id}")
+    public Order updateDelivery(@PathVariable("id") Long id,@RequestBody OrderInfoDto o) {
+	Order order = orderService.findById(id);
+	return orderService.updateDelivery(order);
+    }
+    
+    @PutMapping("/rest/order-update-success/{id}")
+    public Order updateSuccess(@PathVariable("id") Long id, @RequestBody OrderInfoDto o) {
+	Order order = orderService.findById(id);
+	return orderService.updateSuccess(order);
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

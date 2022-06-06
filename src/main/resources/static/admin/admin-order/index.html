@@ -43,56 +43,197 @@
 			</div>
 			<div class="col-6">
 				<div ng-show="getOrderStatus == 1">
-					<h3>Confirm Order</h3>
-					<button class="btn btn-info" ng-click="confirm()">Confirmed</button>
+					<div class="card1">
+						<div class="row d-flex justify-content-center">
+							<div class="col-12">
+								<ul id="progressbar" class="text-center">
+									<li class="active step0"></li>
+									<li class="step0"></li>
+									<li class="step0"></li>
+									<li class="step0"></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row justify-content-between top">
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step1.png">
+								<div class="d-flex flex-column"></div>
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step2.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step3.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step4.png">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<i class="fa fa-check-circle-o" style="color: green"></i>
+							Wait To Confirm
+						</div>
+						<div class="col-6 text-center">
+							<button class="btn btn-info text-center" style="width: 150px; height: 150px;" ng-click="confirm()">Confirmed</button>
+						</div>
+					</div>
 				</div>
 				<div ng-show="getOrderStatus == 2">
-					<h3>Start delivery</h3>
-					<button class="btn btn-primary" ng-click="delivery()">Delivery</button>
+					<div class="card1">
+						<div class="row d-flex justify-content-center">
+							<div class="col-12">
+								<ul id="progressbar" class="text-center">
+									<li class="active step0"></li>
+									<li class="active step0"></li>
+									<li class="step0"></li>
+									<li class="step0"></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row justify-content-between top">
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step1.png">
+								<div class="d-flex flex-column"></div>
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step2.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step3.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step4.png">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Wait To Confirm
+							</p>
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Confirmed
+							</p>
+						</div>
+						<div class="col-6 text-center">
+							<button class="btn btn-primary" style="width: 150px; height: 150px;" ng-click="delivery()">Delivery</button>
+						</div>
+					</div>
 				</div>
 				<div ng-show="getOrderStatus == 3">
-					<h3>Customer received</h3>
-					<button class="btn btn-success" ng-click="success()">Success</button>
+					<div class="card1">
+						<div class="row d-flex justify-content-center">
+							<div class="col-12">
+								<ul id="progressbar" class="text-center">
+									<li class="active step0"></li>
+									<li class="active step0"></li>
+									<li class="active step0"></li>
+									<li class="step0"></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row justify-content-between top">
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step1.png">
+								<div class="d-flex flex-column"></div>
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step2.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step3.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step4.png">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Wait To Confirm
+							</p>
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Confirmed
+							</p>
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Delivery
+							</p>
+						</div>
+						<div class="col-6 text-center">
+							<button class="btn btn-success" style="width: 150px; height: 150px;" ng-click="success()">Success</button>
+						</div>
+					</div>
 				</div>
 				<div ng-show="getOrderStatus == 4">
-					<h3>Success</h3>
+					<div class="card1">
+						<div class="row d-flex justify-content-center">
+							<div class="col-12">
+								<ul id="progressbar" class="text-center">
+									<li class="active step0"></li>
+									<li class="active step0"></li>
+									<li class="active step0"></li>
+									<li class="active step0"></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row justify-content-between top">
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step1.png">
+								<div class="d-flex flex-column"></div>
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step2.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step3.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step4.png">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Wait To Confirm
+							</p>
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Confirmed
+							</p>
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Delivery
+							</p>
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Success
+							</p>
+						</div>
+						<div class="col-6 text-center">
+							<i class="fa fa-check" aria-hidden="true" style="font-size: 150px; color: green;"></i>
+						</div>
+					</div>
 				</div>
-				<div ng-show="getOrderStatus == 5">
-					<h3>CANCEL</h3>
-				</div>
-			</div>
-		</div>
-		<div class="row p-0">
-			<div class="card col-12 p-0">
-				<div class="card-body">
-					<h4 class="card-title">Product's List</h4>
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead>
-								<tr class="text-center">
-									<th>Image</th>
-									<th>Product</th>
-									<th>Price</th>
-									<th>Quantity</th>
-									<th>Subtotal</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="item in orderInfoDto" class="text-center">
-									<td>
-										<img ng-src="/upload/ProductImages/{{item.productPhotoImage}}" alt="" style="width: 80px; height: 80px" />
-									</td>
-									<td>{{item.productName}}</td>
-									<td class="text-success font-weight-bold">${{item.orderDetailPrice}}</td>
-									<td>{{item.orderDetailQuantity}}</td>
-									<td>$ {{item.orderDetailPrice * item.orderDetailQuantity}}</td>
-								</tr>
-							</tbody>
-						</table>
+				<div ng-show="getOrderStatus == 5" class="text-center">
+					<img src="/otherImg/canceled.png" alt="" style="width: 300px; height: 300px"/>
+					<div class="text-center">
+						<h3 class="text-danger">ORDER CANCELED</h3>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!--  -->		
+		<!--  -->
 	</div>
 	<div class="col-5 p-0">
 		<ul class="nav nav-tabs text-center" id="myTab" role="tablist">
@@ -337,9 +478,38 @@
 				</div>
 			</div>
 		</div>
-
-
-
-
 	</div>
+	<!-- ----- PRODUCT LIST ----- -->
+	<div class="col-12 p-0">
+		<div class="card col-12 p-0">
+			<div class="card-body">
+				<h4 class="card-title">Product's List</h4>
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr class="text-center">
+								<th>Image</th>
+								<th>Product</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>Subtotal</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in orderInfoDto" class="text-center">
+								<td>
+									<img ng-src="/upload/ProductImages/{{item.productPhotoImage}}" alt="" style="width: 80px; height: 80px" />
+								</td>
+								<td>{{item.productName}}</td>
+								<td class="text-success font-weight-bold">${{item.orderDetailPrice}}</td>
+								<td>{{item.orderDetailQuantity}}</td>
+								<td>$ {{item.orderDetailPrice * item.orderDetailQuantity}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ----- END PRODUCT LIST ----- -->
 </div>

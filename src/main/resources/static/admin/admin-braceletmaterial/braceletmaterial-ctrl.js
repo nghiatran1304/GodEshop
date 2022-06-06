@@ -87,7 +87,7 @@ app.controller("braceletmaterial-ctrl", function($scope, $http) {
 	// xóa sản phẩm
 	$scope.delete = function(item) {
 		var braceletMaterialId = angular.copy(item);
-		$http.delete(`/rest/createBracelet/${braceletMaterialId.id}`).then(resp => {
+		$http.delete(`/rest/deleteBracelet/${braceletMaterialId.id}`).then(resp => {
 			// var index = $scope.items.findIndex(p => p.productId == item.productId);
 			$scope.initialize();
 			$scope.reset();

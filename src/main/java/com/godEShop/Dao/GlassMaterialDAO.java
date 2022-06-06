@@ -11,9 +11,9 @@ import com.godEShop.Entity.GlassMaterial;
 @Repository
 public interface GlassMaterialDAO extends JpaRepository<GlassMaterial, Integer> {
 
-	@Query("Select g FROM GlassMaterial g WHERE g.name LIKE ?1")
-	List<GlassMaterial> getAllGlassMaterialByName(String name);
+    @Query("Select g FROM GlassMaterial g WHERE g.name LIKE ?1")
+    List<GlassMaterial> getAllGlassMaterialByName(String name);
 
-	@Query("Select g FROM GlassMaterial g WHERE g.available = 0 ")
-	List<GlassMaterial> findAllGlassMaterial();
+    @Query("Select g FROM GlassMaterial g WHERE g.available = 0 ")
+    List<GlassMaterial> findAllGlassMaterial();
 }

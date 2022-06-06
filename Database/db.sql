@@ -1052,7 +1052,7 @@ GO
 ---- Order
 INSERT INTO Orders(CreateDate,Address,Username,OrderstatusId,OrdermethodId) VALUES
 --cust01
-('2022-05-16',N'383 Nguyễn Duy Trinh,Tp.Thủ Đức, Hồ Chí Minh','cust01',1,2),
+('2022-05-16',N'383 Nguyễn Duy Trinh,Tp.Thủ Đức, Hồ Chí Minh','cust01',5,2),
 ('2022-05-15',N'10 Điện Biên Phủ, Bình Thạnh, Hồ Chí Minh','cust01',2,1),
 ('2022-05-12',N'38 Trần Não, Phường Bình An, Tp.Thủ Đức, Hồ Chí Minh','cust01',3,1),
 ('2020-01-10',N'33 Lê Anh Xuân, Quận 1, Hồ Chí minh','cust01',4,1),
@@ -1827,7 +1827,6 @@ inner join OrderDetails as od on o.Id = od.OrderId
 where o.CreateDate = '20220605'
 order by o.CreateDate desc
 
-<<<<<<< HEAD
 select * from orders
 
 select * from OrderDetails
@@ -1840,7 +1839,7 @@ order by  OrderstatusId asc, CreateDate asc
 -- List<OrderId> -> List<ProductID>
 
 
-select o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name as 'Order Method', o.Address, o.Notes, MIN(pp.Id) as 'Image', p.name as 'Product name', od.Price, od.Quantity from Orders as o
+select os.Id as 'Order Status', o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name as 'Order Method', o.Address, o.Notes, MIN(pp.Id) as 'Image', p.name as 'Product name', od.Price, od.Quantity from Orders as o
 inner join OrderDetails as od on o.Id = od.OrderId
 inner join Products as p on od.ProductId = p.Id
 inner join ProductPhotos as pp on pp.ProductId = p.Id
@@ -1849,8 +1848,5 @@ inner join Users as u on a.Username = u.Username
 inner join OrderMethods as om on o.OrdermethodId = om.Id
 inner join OrderStatuses as os on o.OrderstatusId = os.Id
 where o.id = 1
-group by o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name, o.Address, o.Notes, p.name, od.Price, od.Quantity 
+group by os.Id, o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name, o.Address, o.Notes, p.name, od.Price, od.Quantity 
 
-
-=======
->>>>>>> 1edb89007c26ee8343a663027681dfae494e7a03

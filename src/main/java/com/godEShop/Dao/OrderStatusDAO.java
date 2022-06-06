@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.godEShop.Entity.OrderStatus;
 
 @Repository
-public interface OrderStatusDAO extends JpaRepository<OrderStatus, Long> {
+public interface OrderStatusDAO extends JpaRepository<OrderStatus, Integer> {
 
 }

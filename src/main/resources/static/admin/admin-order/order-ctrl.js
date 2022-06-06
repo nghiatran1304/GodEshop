@@ -54,9 +54,10 @@ app.controller("order-ctrl", function($scope, $http) {
 	$scope.getNotes;
 	$scope.getOrderStatus;
 
-	$scope.edit = function(item) {
-		var id = angular.copy(item.id);
 
+	$scope.edit = function(item) {
+		$scope.form = angular.copy(item);
+		var id = angular.copy(item.id);
 		$http.get(`/rest/order-infoDto/${id}`).then(resp => {
 			$scope.orderInfoDto = resp.data
 			$scope.getUsername = $scope.orderInfoDto[0].orderUsername;
@@ -70,17 +71,33 @@ app.controller("order-ctrl", function($scope, $http) {
 		});
 
 	}
-	
-	$scope.confirm = function(){
+
+	$scope.confirm = function() {
+		var o = angular.copy($scope.form);
+		alert(o.id);
 		$scope.getOrderStatus = 2;
+		$http.put(`/rest/order-update-confirm/${o.id}`,o).then(resp => {
+			$scope.init();
+			$(".nav-tabs a:eq(2)").tab('show');
+		})
 	}
-	
-	$scope.delivery= function(){
+
+	$scope.delivery = function() {
+		var o = angular.copy($scope.form);
 		$scope.getOrderStatus = 3;
+		$http.put(`/rest/order-update-delivery/${o.id}`, o).then(resp => {
+			$scope.init();
+			$(".nav-tabs a:eq(3)").tab('show');
+		})
 	}
-	
-	$scope.success= function(){
+
+	$scope.success = function() {
+		var o = angular.copy($scope.form);
 		$scope.getOrderStatus = 4;
+		$http.put(`/rest/order-update-success/${o.id}`, o).then(resp => {
+			$scope.init();
+			$(".nav-tabs a:eq(4)").tab('show');
+		})
 	}
 
 

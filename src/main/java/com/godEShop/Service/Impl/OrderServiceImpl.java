@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.godEShop.Dao.OrderDAO;
 import com.godEShop.Dao.OrderDetailDAO;
+import com.godEShop.Dao.OrderStatusDAO;
 import com.godEShop.Dto.OrderInfoDto;
 import com.godEShop.Dto.OrderListDto;
 import com.godEShop.Entity.Order;
@@ -22,6 +23,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderDAO orderDAO;
+    
+    @Autowired
+    OrderStatusDAO osDAO;
 
     @Autowired
     OrderDetailDAO orderDetailDAO;
@@ -98,5 +102,29 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderInfoDto> findAllOrderInfoDto(Long id) {
 	// TODO Auto-generated method stub
 	return orderDAO.findAllOrderInfoDto(id);
+    }
+
+    @Override
+    public Order updateConfirm(Order o) {
+	// TODO Auto-generated method stub
+	Order oldOder = o;
+	oldOder.setOrderStatus(osDAO.getById(2));
+	return orderDAO.save(oldOder);
+    }
+
+    @Override
+    public Order updateDelivery(Order o) {
+	// TODO Auto-generated method stub
+	Order oldOder = o;
+	oldOder.setOrderStatus(osDAO.getById(3));
+	return orderDAO.save(oldOder);
+    }
+
+    @Override
+    public Order updateSuccess(Order o) {
+	// TODO Auto-generated method stub
+	Order oldOder = o;
+	oldOder.setOrderStatus(osDAO.getById(4));
+	return orderDAO.save(oldOder);
     }
 }

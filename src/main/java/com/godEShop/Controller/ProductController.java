@@ -54,7 +54,7 @@ public class ProductController {
 	}
 	model.addAttribute("lstTopSeller", lstTopSeller);
 
-	//---------------
+	// ---------------
 	Pageable pageable = PageRequest.of(p.orElse(0), 12);
 
 	if (!sort.isPresent()) {
@@ -105,14 +105,15 @@ public class ProductController {
 
 	model.addAttribute("nameOfSearch", (s1 + s2 + s3));
 
-	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%", "%" + brandName + "%", pageable);
-	
+	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%",
+		"%" + brandName + "%", pageable);
+
 	model.addAttribute("page", page);
 
 	Date d = new Date();
-		
+
 	model.addAttribute("timeNow", d);
-	
+
 	model.addAttribute("totalProducts", page.getTotalElements());
 	model.addAttribute("toProduct", page.getNumber());
 	model.addAttribute("totalPage", page.getPageable().getPageSize());
@@ -122,34 +123,35 @@ public class ProductController {
 
     @GetMapping("/product/{id}")
     public String singleproductPage(Model model, @PathVariable("id") Long id) {
-	
+
 	Date d = new Date();
-	
+
 	model.addAttribute("timeNow", d);
-	
+
 	List<ProductPhoto> lstPhotoByProductId = productPhotoDAO.getAllProductPhotoByProductId(id);
 	model.addAttribute("lstPhotoByProductId", lstPhotoByProductId);
 
 	ProductShopDto productItem = productService.productShopById(id);
 	model.addAttribute("productItem", productItem);
-	
-	if(productItem.getProductCategoryId() == 13) {
+
+	if (productItem.getProductCategoryId() == 13) {
 	    AccessoryDto accessoryDto = productService.getAccessoryDtoById(id);
 	    model.addAttribute("watchDetail", accessoryDto);
 	    model.addAttribute("isWatch", false);
-	}else {
+	} else {
 	    WatchDto watchDto = productService.getWatchById(id);
 	    model.addAttribute("watchDetail", watchDto);
 	    model.addAttribute("isWatch", true);
 	}
 	List<ProductDiscountDto> lstRd = new ArrayList<>();
-	int maxLength = productService.productByIdBrands(productItem.getProductCategoryId()).size() > 5 ? 5 : productService.productByIdBrands(productItem.getProductCategoryId()).size();
+	int maxLength = productService.productByIdBrands(productItem.getProductCategoryId()).size() > 5 ? 5
+		: productService.productByIdBrands(productItem.getProductCategoryId()).size();
 	for (int i = 0; i < maxLength; i++) {
 	    lstRd.add(productService.productByIdBrands(productItem.getProductCategoryId()).get(i));
 	}
 	model.addAttribute("lstRelateProduct", lstRd);
-	
+
 	return "product/single-product";
     }
-    
+
 }

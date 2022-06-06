@@ -11,12 +11,10 @@ import com.godEShop.Entity.BraceletMaterial;
 @Repository
 public interface BraceletMaterialDAO extends JpaRepository<BraceletMaterial, Integer> {
 
-	 @Query("SELECT br FROM BraceletMaterial br WHERE br.name LIKE ?1")
-	List<BraceletMaterial> getAllBraceletByName(String name);
-	 
-	@Query("SELECT br FROM BraceletMaterial br WHERE br.available =0")
-	List<BraceletMaterial> findAllBraceletMaterial();
+    @Query("SELECT br FROM BraceletMaterial br WHERE br.name LIKE ?1")
+    List<BraceletMaterial> getAllBraceletByName(String name);
 
-	
-	
+    @Query("SELECT br FROM BraceletMaterial br WHERE br.available =0")
+    List<BraceletMaterial> findAllBraceletMaterial();
+
 }

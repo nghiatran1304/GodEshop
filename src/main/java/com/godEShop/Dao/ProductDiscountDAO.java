@@ -8,9 +8,8 @@ import com.godEShop.Entity.ProductDiscount;
 
 @Repository
 public interface ProductDiscountDAO extends JpaRepository<ProductDiscount, Long> {
-    
+
     @Query("SELECT pd FROM ProductDiscount pd WHERE pd.product.id=?1")
     ProductDiscount getProductDiscount(Long productId);
 
-    
 }
