@@ -1,5 +1,5 @@
 #messages__container {
-  height: 555px;
+  height: 600px;
   background-color: #ffffff;
   width: 100%;
   max-width: 30rem;
@@ -13,7 +13,7 @@
 }
 
 .message__wrapper:last-child {
-  margin-bottom: 6.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .message__wrapper {
@@ -151,7 +151,7 @@
   padding: 1rem;
   position: absolute;
   left: 35%;
-  bottom: 410px;
+  bottom: 440px;
 }
 
 .stream__actions a,
@@ -182,4 +182,28 @@
   background-color: #845695;
 }
 
+#goback__btn {
+  background-color: #845695;
+  padding: 8px 24px;
+  font-size: 18px;
+  font-weight: 800;
+  border-radius: 5px;
+  color: white;
+  width: 200px;
+  margin-right: 20px;
+}
 
+#goback__btn:hover {
+  background-color: #845695;
+}
+
+.message__action {
+	background-color: grey;
+	display: flex-box;
+}
+
+.message__action__remove, .message__action__kick  {
+	height: 40px;
+	width: 40px;
+	color: red;
+}

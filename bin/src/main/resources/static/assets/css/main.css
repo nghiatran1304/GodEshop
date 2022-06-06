@@ -1733,7 +1733,7 @@ li.megamenu-img a {
 
 .deal-counter > div::after {
     color: #12a4dd;
-    content: "ïŽ³";
+    content: "";
     display: inline-block;
     font-family: "Ionicons";
     font-size: 24px;
@@ -2238,27 +2238,27 @@ li.megamenu-img a {
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li:first-child a span:before {
-    content: "ï�º";
+    content: "";
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li:nth-child(2) a span:before {
-    content: "ï‘¥";
+    content: "";
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li:nth-child(3) a span:before {
-    content: "ï‡º";
+    content: "";
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li:nth-child(4) a span:before {
-    content: "ï�µ";
+    content: "";
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li:nth-child(5) a span:before {
-    content: "ï’�";
+    content: "";
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li:nth-child(6) a span:before {
-    content: "ï‘ ";
+    content: "";
 }
 
 .brand-zone-tab-area .brand-tab-menu ul li a {

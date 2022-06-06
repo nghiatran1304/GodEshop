@@ -96,18 +96,21 @@ GO
 --== Chất liệu mặt kính
 CREATE TABLE GlassMaterials(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
+	IsDeleted BIT DEFAULT 0,
 	Name NVARCHAR(50) NOT NULL
 );
 GO
 --== Chất liệu dây đồng hồ
 CREATE TABLE BraceletMaterials(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
+	IsDeleted BIT DEFAULT 0,
 	Name NVARCHAR(50) NOT NULL
 );
 GO
 --== Hệ thống bên trong
 CREATE TABLE MachineInsides(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
+	IsDeleted BIT DEFAULT 0,
 	Name NVARCHAR(50) NOT NULL
 );
 GO
@@ -1823,5 +1826,4 @@ SELECT o.*, od.* from orders as o
 inner join OrderDetails as od on o.Id = od.OrderId
 where o.CreateDate = '20220605'
 order by o.CreateDate desc
-
 

@@ -27,4 +27,36 @@ public class BraceletMaterialServiceImpl implements BraceletMaterialService{
 	return bmDAO.getById(id);
     }
 
+	@Override
+	public List<BraceletMaterial> getAllBraceletByName(String name) {
+		// TODO Auto-generated method stub
+		return bmDAO.getAllBraceletByName(name);
+	}
+
+	@Override
+	public void delete(Integer id) {
+		// TODO Auto-generated method stub
+		BraceletMaterial br = bmDAO.getById(id);
+		br.setAvailable(true);
+		bmDAO.save(br);
+	}
+
+	@Override
+	public BraceletMaterial update(BraceletMaterial braceletMaterial) {
+		// TODO Auto-generated method stub
+		return bmDAO.save(braceletMaterial);
+	}
+
+	@Override
+	public BraceletMaterial create(BraceletMaterial braceletMaterial) {
+		// TODO Auto-generated method stub
+		return bmDAO.save(braceletMaterial);
+	}
+
+	@Override
+	public List<BraceletMaterial> findAllBraceletMaterial() {
+		// TODO Auto-generated method stub
+		return bmDAO.findAllBraceletMaterial();
+	}
+
 }

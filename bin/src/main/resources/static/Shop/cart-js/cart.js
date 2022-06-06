@@ -1,5 +1,15 @@
 const app = angular.module("shopping-cart-app", []);
 app.controller("shopping-cart-ctrl", function($scope, $http) {
+
+	$scope.account = {};
+	var us = $("#username").text();
+	$scope.getUser = function() {
+		$http.get(`/rest/getUserInfomation/${us}`).then(resp => {
+			$scope.account = resp.data;
+		});
+	}
+	$scope.getUser();
+
 	$scope.cart = {
 		items: [],
 
@@ -44,10 +54,10 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 		},
 		// tổng tiền
 		get amount() {
-			 // return this.items.map(item => item.qty * (item.productPrice - (item.productPrice * (item.productDiscount == null ? 0 : item.productDiscount) / 100)) ).reduce((total, qty) => total += qty, 0);
-			 return this.items.map(item => item.qty * item.finalPrice).reduce((total, qty) => total += qty, 0);
+			// return this.items.map(item => item.qty * (item.productPrice - (item.productPrice * (item.productDiscount == null ? 0 : item.productDiscount) / 100)) ).reduce((total, qty) => total += qty, 0);
+			return this.items.map(item => item.qty * item.finalPrice).reduce((total, qty) => total += qty, 0);
 		},
-		
+
 		// lưu vào local storage
 		saveToLocalStorage() {
 			var json = JSON.stringify(angular.copy(this.items));
@@ -66,6 +76,97 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 	$scope.cart.loadFromLocalStorage();
 
 	//------------------------- ORDER ---------------------------
+
+
+	$scope.items = [];
+	$scope.payments = 1;
+	$scope.initialize = function() {
+		// load brands
+		$http.get(`/rest/payments`).then(resp => {
+			$scope.items = resp.data;
+		});
+		$scope.payments = 1;
+	};
+
+	$scope.initialize();
+
+	var pay = 0;
+	$scope.choosePayment = function() {
+		pay = angular.copy($scope.payments);
+	}
+
+	$scope.order = {
+		createDate: new Date(),
+		note: "",
+		address: "",
+		account: { username: $("#username").text() },
+		orderStatus: { id: 1 },
+		orderMethod: { id: 1 },
+		get orderDetails() {
+			return $scope.cart.items.map(item => {
+				return {
+					product: { id: item.productId },
+					price: item.finalPrice,
+					quantity: item.qty
+				}
+			});
+		},
+		purchase() {
+			var order = angular.copy(this);
+			$http.post("/rest/orders", order).then(resp => {
+				Swal.fire({
+					icon: 'success',
+					title: 'Thành công',
+					showConfirmButton: false,
+					timer: 1500
+				}).then((result) => {
+					$scope.cart.clear();
+					location.href = "/information";
+				});
+			}).catch(error => {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: "Lỗi !!!",
+				});
+				console.log(" >> Error purchase shopping-cart-app.js : " + error);
+			});
+
+		}
+	}
+
+	$scope.orderPaypal = {
+		createDate: new Date(),
+		note: "",
+		address: $scope.order.address,
+		account: { username: $("#username").text() },
+		orderStatus: { id: 1 },
+		orderMethod: { id: 2 },
+		get orderDetails() {
+			return $scope.cart.items.map(item => {
+				return {
+					product: { id: item.productId },
+					price: item.finalPrice,
+					quantity: item.qty
+				}
+			});
+		},
+		purchase() {
+			var order = angular.copy(this);
+			$http.post("/rest/orders", order).then(resp => {
+				$scope.cart.clear();
+			}).catch(error => {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: "Lỗi !!!",
+				});
+				console.log(" >> Error purchase shopping-cart-app.js : " + error);
+			});
+
+		}
+	}
+
 
 });
 

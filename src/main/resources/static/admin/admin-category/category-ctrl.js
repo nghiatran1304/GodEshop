@@ -7,7 +7,7 @@ app.controller("category-ctrl", function($scope, $http) {
 
 	$scope.initialize = function() {
 		$scope.showInsert = true;
-		// load brands
+		// load Categories
 		$http.get(`/rest/categories`).then(resp => {
 			$scope.items = resp.data;
 		});
@@ -85,9 +85,8 @@ app.controller("category-ctrl", function($scope, $http) {
 
 	// xóa sản phẩm
 	$scope.delete = function(item) {
-		var brandId = angular.copy(item);
-		$http.delete(`/rest/categories/delete/${brandId.id}`).then(resp => {
-			// var index = $scope.items.findIndex(p => p.productId == item.productId);
+		var categoryId = angular.copy(item);
+		$http.delete(`/rest/categories/delete/${categoryId.id}`).then(resp => {
 			$scope.initialize();
 			$scope.reset();
 			Swal.fire({

@@ -8,7 +8,9 @@ import com.godEShop.Entity.Account;
 
 public interface AccountService {
 
+
 	public Account findById(String username);
+	
 
 	public List<Account> findAll();
 
