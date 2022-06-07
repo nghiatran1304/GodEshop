@@ -31,10 +31,10 @@
 											<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
 										</h2>
 										<span class="price">
-											<th:block th:if="${p.productDiscount == null || p.productDiscount == 0 || p.productEndDiscount.compareTo(timeNow) == -1}">
+											<th:block th:if="${p.productDiscount == null || p.productDiscount == 0 || p.productEndDiscount == null ? true : p.productEndDiscount.compareTo(timeNow) == -1}">
 												$ [[${p.productPrice}]]
 											</th:block>
-											<th:block th:if="${p.productDiscount != null && (p.productEndDiscount.compareTo(timeNow) == 1 || p.productEndDiscount.compareTo(timeNow) == 0) }">
+											<th:block th:if="${p.productDiscount != null && (p.productEndDiscount == null ? true : (p.productEndDiscount.compareTo(timeNow) == 1 || p.productEndDiscount.compareTo(timeNow) == 0) ) }">
 												<del>$ [[${p.productPrice}]]</del>
 												$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
 											</th:block>

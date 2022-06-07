@@ -33,6 +33,9 @@ public class ProductShopDto implements Serializable{
     
     public double getFinalPrice() {
 	Date nowTime = new Date();
+	if(this.productEndDiscount == null) {
+	    return this.productPrice;
+	}
 	if(this.productEndDiscount.compareTo(nowTime) == -1 ) {
 	    return this.productPrice;
 	}

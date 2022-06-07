@@ -1847,6 +1847,13 @@ inner join Accounts as a on a.Username = o.Username
 inner join Users as u on a.Username = u.Username
 inner join OrderMethods as om on o.OrdermethodId = om.Id
 inner join OrderStatuses as os on o.OrderstatusId = os.Id
-where o.id = 1
+where o.id = 112
 group by os.Id, o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name, o.Address, o.Notes, p.name, od.Price, od.Quantity 
+
+
+
+select * from products
+where name = 'Rolex Yacht-Master'
+
+
 
