@@ -1031,7 +1031,8 @@ INSERT INTO ProductDiscounts(Discount,CreateDate,EndDate,ProductId,CreateBy) VAL
 (6,'2022-08-16','2022-08-23',37,'admin01'),
 (6,'2022-09-01','2022-09-15',38,'admin01'),
 (6,'2022-09-01','2022-09-08',39,'admin01'),
-(6,'2022-10-15','2022-10-22',40,'admin01')
+(6,'2022-10-15','2022-10-22',40,'admin01'),
+(3,'2022-06-03','2022-06-25',1,'admin01')
 GO
 
 ---OrderStatus---
@@ -1822,23 +1823,6 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
 GO
 
 
-SELECT o.*, od.* from orders as o
-inner join OrderDetails as od on o.Id = od.OrderId
-where o.CreateDate = '20220605'
-order by o.CreateDate desc
-
-select * from orders
-
-select * from OrderDetails
-
-select * from OrderStatuses
-
-select * from Orders
-order by  OrderstatusId asc, CreateDate asc
-
--- List<OrderId> -> List<ProductID>
-
-
 select os.Id as 'Order Status', o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name as 'Order Method', o.Address, o.Notes, MIN(pp.Id) as 'Image', p.name as 'Product name', od.Price, od.Quantity from Orders as o
 inner join OrderDetails as od on o.Id = od.OrderId
 inner join Products as p on od.ProductId = p.Id
@@ -1852,7 +1836,8 @@ group by os.Id, o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om
 
 
 
-select * from products
+select p.*, pd.* from products as p
+inner join ProductDiscounts as pd on p.Id = pd.ProductId
 where name = 'Rolex Yacht-Master'
 
 
