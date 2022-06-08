@@ -19,7 +19,6 @@ import com.godEShop.Service.RoleService;
 import com.godEShop.Service.SessionService;
 import com.godEShop.Service.UserService;
 import com.godEShop.Service.Impl.UserDetailImpl;
-import com.godEShop.Utils.CookieUtils;
 
 @Controller
 public class SecurityController {
