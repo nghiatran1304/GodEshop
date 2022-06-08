@@ -30,6 +30,7 @@ public class ProductShopDto implements Serializable{
     private Integer productDiscount;
     private String productDetail;
     private Date productEndDiscount;
+    private Integer productQuantity;
     
     public double getFinalPrice() {
 	Date nowTime = new Date();

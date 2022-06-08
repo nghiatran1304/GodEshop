@@ -74,7 +74,6 @@ app.controller("order-ctrl", function($scope, $http) {
 
 	$scope.confirm = function() {
 		var o = angular.copy($scope.form);
-		alert(o.id);
 		$scope.getOrderStatus = 2;
 		$http.put(`/rest/order-update-confirm/${o.id}`,o).then(resp => {
 			$scope.init();

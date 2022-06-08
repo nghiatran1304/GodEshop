@@ -19,20 +19,20 @@ import com.godEShop.Entity.Product;
 public interface ProductDAO extends JpaRepository<Product, Long> {
 
     @Query("SELECT new com.godEShop.Dto.ProductShopDto"
-	    + "(p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int), pd.discount, p.detail, pd.endDate) "
+	    + "(p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int), pd.discount, p.detail, MAX(pd.endDate), p.quantity) "
 	    + "FROM Product p " 
 	    + "FULL JOIN p.productPhotos pp " 
 	    + "FULL JOIN p.productEvaluations pe "
 	    + "FULL JOIN p.brand pb " 
 	    + "FULL JOIN p.productDiscounts pd " 
 	    + "FULL JOIN p.category c "
-	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, pd.endDate")
+	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, p.quantity")
     List<ProductShopDto> findAllProduct();
 
     // ------------------------------------------------------------------------
     // Product for shop page
     @Query("SELECT new com.godEShop.Dto.ProductShopDto"
-	    + "(p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int), pd.discount, p.detail, pd.endDate) "
+	    + "(p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int), pd.discount, p.detail, MAX(pd.endDate), p.quantity) "
 	    + "FROM Product p " 
 	    + "FULL JOIN p.productPhotos pp " 
 	    + "FULL JOIN p.productEvaluations pe "
@@ -40,7 +40,7 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 	    + "FULL JOIN p.productDiscounts pd " 
 	    + "FULL JOIN p.category c "
 	    + "WHERE p.isDeleted = 0 AND c.available = 0 AND (p.name LIKE ?1 OR c.name LIKE ?1) AND c.name LIKE ?2 AND pb.name LIKE ?3 "
-	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, pd.endDate")
+	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, p.quantity")
     Page<ProductShopDto> productShop(String kws, String categoryName, String brandName, Pageable pageable);
 
     // -------------------------------------------------------------------------
@@ -51,8 +51,9 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 	    + "FULL JOIN p.productPhotos pp " 
 	    + "FULL JOIN p.productEvaluations pe "
 	    + "FULL JOIN p.productDiscounts pd "
-	    + "WHERE p.isDeleted = 0 AND pd.discount > 0 AND pd.endDate >= GETDATE() "
+	    + "WHERE p.isDeleted = 0 AND pd.discount > 0 "
 	    + "GROUP BY p.id, p.name, p.price, pd.discount, pe.evaluation, pd.endDate, p.detail "
+	    + "HAVING MAX(pd.endDate) >= GETDATE() "
 	    + "ORDER BY pd.endDate ASC")
     List<ProductDiscountDto> productDealOfTheDay();
 
@@ -86,28 +87,28 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 
     // -------------------------------------------------------------------------
     @Query("SELECT new com.godEShop.Dto.ProductDiscountDto"
-	    + "(p.id, p.name, p.price, pd.discount, pe.evaluation, MIN(pp.id), pd.endDate, p.detail) "
+	    + "(p.id, p.name, p.price, pd.discount, pe.evaluation, MIN(pp.id), MAX(pd.endDate), p.detail) "
 	    + "FROM Product p " 
 	    + "FULL JOIN p.productPhotos pp " 
 	    + "FULL JOIN p.productEvaluations pe "
 	    + "FULL JOIN p.productDiscounts pd " 
 	    + "FULL JOIN p.orderDetails pod "
 	    + "WHERE p.isDeleted = 0 AND p.brand.id=?1 "
-	    + "GROUP BY p.id, p.name, p.price, pd.discount, pe.evaluation, pd.endDate, p.detail, p.createDate "
+	    + "GROUP BY p.id, p.name, p.price, pd.discount, pe.evaluation, p.detail, p.createDate "
 	    + "ORDER BY p.price DESC")
     List<ProductDiscountDto> productByIdBrands(Integer id);
 
     // -------------------------------------------------------------------------
     @Query("SELECT new com.godEShop.Dto.ProductShopDto"
-	    + "(p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int), pd.discount, p.detail, pd.endDate) "
+	    + "(p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int), pd.discount, p.detail, MAX(pd.endDate), p.quantity) "
 	    + "FROM Product p " 
 	    + "FULL JOIN p.productPhotos pp " 
 	    + "FULL JOIN p.productEvaluations pe "
 	    + "FULL JOIN p.brand pb " 
 	    + "FULL JOIN p.productDiscounts pd " 
 	    + "FULL JOIN p.category c "
-	    + "WHERE p.id = ?1 AND p.isDeleted = 0"
-	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, pd.endDate")
+	    + "WHERE p.id = ?1 AND p.isDeleted = 0 "
+	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, p.quantity")
     ProductShopDto productShopById(Long id);
 
     // -------------------------------------------------------------------------

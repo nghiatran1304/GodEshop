@@ -14,11 +14,13 @@ import com.godEShop.Dao.OrderDAO;
 import com.godEShop.Dao.OrderDetailDAO;
 import com.godEShop.Dao.ProductDAO;
 import com.godEShop.Dao.OrderStatusDAO;
+import com.godEShop.Dao.ProductDAO;
 import com.godEShop.Dto.OrderInfoDto;
 import com.godEShop.Dto.OrderListDto;
 import com.godEShop.Entity.Order;
 import com.godEShop.Entity.Product;
 import com.godEShop.Entity.OrderDetail;
+import com.godEShop.Entity.Product;
 import com.godEShop.Service.OrderService;
 
 @Service
@@ -32,9 +34,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderDetailDAO orderDetailDAO;
-
+    
     @Autowired
     ProductDAO productDAO;
+
+
     @Override
     public Order create(JsonNode orderData) {
 	// TODO Auto-generated method stub
@@ -58,6 +62,7 @@ public class OrderServiceImpl implements OrderService {
 	    System.out.println(i + " : Quantity : " + details.get(i).getQuantity());
 	    System.out.println("------END UPDATE QUANTITY PRODUCT WHEN ORDER SUCCESS------");
 	}
+
 	return order;
     }
 

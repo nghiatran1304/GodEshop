@@ -50,6 +50,8 @@ app.config(function($routeProvider) {
 			controller: "statistic-ctrl"
 		})
 		.otherwise({
-			templateUrl: "/admin/admin-home/index.html"
+			// templateUrl: "/admin/admin-home/index.html"
+			templateUrl: "/admin/admin-order/index.html",
+			controller: "order-ctrl"
 		});
 });
