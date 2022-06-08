@@ -12,10 +12,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.godEShop.Dao.OrderDAO;
 import com.godEShop.Dao.OrderDetailDAO;
 import com.godEShop.Dao.OrderStatusDAO;
+import com.godEShop.Dao.ProductDAO;
 import com.godEShop.Dto.OrderInfoDto;
 import com.godEShop.Dto.OrderListDto;
 import com.godEShop.Entity.Order;
 import com.godEShop.Entity.OrderDetail;
+import com.godEShop.Entity.Product;
 import com.godEShop.Service.OrderService;
 
 @Service
@@ -29,6 +31,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderDetailDAO orderDetailDAO;
+    
+    @Autowired
+    ProductDAO productDAO;
 
     @Override
     public Order create(JsonNode orderData) {
@@ -41,6 +46,18 @@ public class OrderServiceImpl implements OrderService {
 	List<OrderDetail> details = mapper.convertValue(orderData.get("orderDetails"), type).stream()
 		.peek(d -> d.setOrder(order)).collect(Collectors.toList());
 	orderDetailDAO.saveAll(details);
+	
+	// kiểm tra -> giảm số lượng sản phẩm ở đây
+	for(int i = 0; i < details.size(); i++) {
+	    Product oldProduct = productDAO.getById(details.get(i).getProduct().getId());
+	    oldProduct.setQuantity(oldProduct.getQuantity() - details.get(i).getQuantity());
+	    productDAO.save(oldProduct);
+	    System.out.println("---- UPDATE QUANTITY PRODUCT WHEN ORDER SUCCESS ----");
+	    System.out.println(i + " : Product Id : " + details.get(i).getProduct().getId());
+	    System.out.println(i + " : Quantity : " + details.get(i).getQuantity());
+	    System.out.println("------END UPDATE QUANTITY PRODUCT WHEN ORDER SUCCESS------");
+	}
+	
 	return order;
     }
 

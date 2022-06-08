@@ -36,11 +36,16 @@ public class ProductRestController {
     
     public static Product productInserted = new Product();
 
+    
+    @GetMapping("/rest/get-products/{id}")
+    public Product getProductInfo(@PathVariable("id") Long id) {
+	return productService.getById(id);
+    }
+    
     @GetMapping("/rest/products/{productId}")
     public ProductShopDto getOne(@PathVariable("productId") Long id) {
 	return productService.productShopById(id);
     }
-
 
     @GetMapping("/rest/products")
     public List<ProductWatchInfoDto> getAll() {

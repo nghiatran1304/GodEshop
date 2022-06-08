@@ -144,8 +144,7 @@ public class ProductController {
 	    model.addAttribute("isWatch", true);
 	}
 	List<ProductDiscountDto> lstRd = new ArrayList<>();
-	int maxLength = productService.productByIdBrands(productItem.getProductCategoryId()).size() > 5 ? 5
-		: productService.productByIdBrands(productItem.getProductCategoryId()).size();
+	int maxLength = productService.productByIdBrands(productItem.getProductCategoryId()).size() > 5 ? 5 : productService.productByIdBrands(productItem.getProductCategoryId()).size();
 	for (int i = 0; i < maxLength; i++) {
 	    lstRd.add(productService.productByIdBrands(productItem.getProductCategoryId()).get(i));
 	}

@@ -1788,8 +1788,8 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
 (93,68,340,1),
 (94,67,340,1),
 (95,66,340,1),
-(95,5,2,12),
 (95,6,200,1),
+(95,5,2,12),
 
 --cust31
 (96,65,110,1),
@@ -1823,22 +1823,14 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
 GO
 
 
-select os.Id as 'Order Status', o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name as 'Order Method', o.Address, o.Notes, MIN(pp.Id) as 'Image', p.name as 'Product name', od.Price, od.Quantity from Orders as o
-inner join OrderDetails as od on o.Id = od.OrderId
-inner join Products as p on od.ProductId = p.Id
-inner join ProductPhotos as pp on pp.ProductId = p.Id
-inner join Accounts as a on a.Username = o.Username
-inner join Users as u on a.Username = u.Username
-inner join OrderMethods as om on o.OrdermethodId = om.Id
-inner join OrderStatuses as os on o.OrderstatusId = os.Id
-where o.id = 112
-group by os.Id, o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name, o.Address, o.Notes, p.name, od.Price, od.Quantity 
 
 
 
-select p.*, pd.* from products as p
-inner join ProductDiscounts as pd on p.Id = pd.ProductId
-where name = 'Rolex Yacht-Master'
+
+
+
+
+
 
 
 

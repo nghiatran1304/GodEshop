@@ -15,11 +15,11 @@
 											<th:block th:if="${p.productDiscount != null && (p.productEndDiscount.compareTo(timeNow) == 1 || p.productEndDiscount.compareTo(timeNow) == 0) }">
 												<span class="isSale">Sale!</span>
 											</th:block>
-											<img th:src="@{|/upload/ProductImages/${p.productFirstImage}|}" style="width: 350px; height: 350px" alt="">
+											<img th:src="@{|/upload/ProductImages/${p.productFirstImage}|}" th:classappend="${p.productQuantity <= 0} ? backgroundGrey : ' '" style="width: 350px; height: 350px" alt="">
 										</a>
 										<div class="quickviewbtn">
 											<!-- <a th:href="@{|/product/${p.productId}|}" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View"> -->
-											<a th:href="@{|/product/${p.productId}|}" data-original-title="Quick View">	
+											<a th:href="@{|/product/${p.productId}|}" data-original-title="Quick View">
 												<i class="ion-eye"></i>
 											</a>
 										</div>
@@ -41,8 +41,11 @@
 										</span>
 									</div>
 									<div class="product-hidden">
-										<div class="add-to-cart">
+										<div class="add-to-cart" th:if="${p.productQuantity > 0}">
 											<a class="btn" th:attr="ng-click=@{|cart.add(${p.productId})|}">Add to cart</a>
+										</div>
+										<div class="add-to-cart" th:if="${p.productQuantity <= 0}">
+											<a class="btn btn-secondary" th:attr="ng-click=@{|cart.outOfStock()|}" >Out of stock</a>
 										</div>
 										<div class="star-actions">
 											<div class="product-rattings">
@@ -102,7 +105,7 @@
 													</span>
 												</th:block>
 												<th:block th:if="${p.productEvaluation == null}">
-													
+
 												</th:block>
 											</div>
 											<ul class="actions">
@@ -159,72 +162,75 @@
 											</th:block>
 										</span>
 										<div class="product-rattings">
-												<th:block th:if="${p.productEvaluation == 5}">
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-												</th:block>
-												<th:block th:if="${p.productEvaluation == 4}">
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-												</th:block>
-												<th:block th:if="${p.productEvaluation == 3}">
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-												</th:block>
-												<th:block th:if="${p.productEvaluation == 2}">
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-												</th:block>
-												<th:block th:if="${p.productEvaluation == 1}">
-													<span>
-														<i class="fa fa-star"></i>
-													</span>
-												</th:block>
-												<th:block th:if="${p.productEvaluation == null}">
-													
-												</th:block>
-											</div>
+											<th:block th:if="${p.productEvaluation == 5}">
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+											</th:block>
+											<th:block th:if="${p.productEvaluation == 4}">
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+											</th:block>
+											<th:block th:if="${p.productEvaluation == 3}">
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+											</th:block>
+											<th:block th:if="${p.productEvaluation == 2}">
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+											</th:block>
+											<th:block th:if="${p.productEvaluation == 1}">
+												<span>
+													<i class="fa fa-star"></i>
+												</span>
+											</th:block>
+											<th:block th:if="${p.productEvaluation == null}">
+
+											</th:block>
+										</div>
 										<div class="product-desc">
 											<p>[[${p.productDetail}]]</p>
 										</div>
 									</div>
 									<div class="actions-wrapper">
-										<div class="add-to-cart">
+										<div class="add-to-cart" th:if="${p.productQuantity > 0}">
 											<a th:attr="ng-click=@{|cart.add(${p.productId})|}">Add to cart</a>
+										</div>
+										<div class="add-to-cart" th:if="${p.productQuantity <= 0}">
+											<p>Out of stock</p>
 										</div>
 										<div class="star-actions">
 											<ul class="actions">
