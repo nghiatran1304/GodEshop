@@ -20,7 +20,7 @@ app.controller("order-cart-view-ctrl", function($scope, $http) {
 				$scope.total += item.orderPrice*item.orderQuantity;
 			} )
 			
-			$scope.getPhotos = resp.data.productPhoto;
+			
 		});
 		$scope.cancel = function() {
 			

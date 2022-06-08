@@ -171,4 +171,7 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     List<ProductWatchInfoDto> lstSearchFullInfoWatch(String name);
     
     // ---------------------------------------------------------------------------
+    @Query("SELECT p FROM Product p "   		
+    		+ "WHERE p.name = ?1")
+    List<Product> findByNameOrderDetail(String productName);
 }

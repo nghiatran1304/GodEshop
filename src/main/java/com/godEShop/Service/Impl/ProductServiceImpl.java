@@ -113,5 +113,9 @@ public class ProductServiceImpl implements ProductService {
 	// TODO Auto-generated method stub
 	return productDAO.lstSearchFullInfoWatch(name);
     }
-    
+    @Override
+    public List<Product> findByNameOrderDetail(String productName) {
+	// TODO Auto-generated method stub
+	return productDAO.findByNameOrderDetail(productName);
+    }
 }
