@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	customAuthenticationFilter.setFilterProcessesUrl("/loginPage");
 	http.cors().disable().csrf().disable();
 	http.authorizeHttpRequests().antMatchers("/account/login/form/**").permitAll().antMatchers("/information")
-		.authenticated().antMatchers("/order/**").authenticated().antMatchers("/admin/**").hasAnyRole("Admin")
+		.authenticated().antMatchers("/order/**").authenticated().antMatchers("/checkout/**").authenticated().antMatchers("/admin/**").hasAnyRole("Admin")
 		.anyRequest().permitAll();
 	http.addFilter(customAuthenticationFilter);
 

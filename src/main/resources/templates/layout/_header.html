@@ -48,8 +48,9 @@
 											</li>
 											<li th:unless="${#request.remoteUser}">
 												<a href="/account/login/form">Login</a>
-											</li>											
-											<li>
+											</li>
+																						
+											<li th:if="${#request.remoteUser}">
 												<a href="/checkout">Checkout</a>
 											</li>
 											<li th:if="${#request.remoteUser}">
@@ -197,7 +198,7 @@
 										</li>
 										<li>
 											<div class="shop-cart-btn">
-												<a href="/checkout">Checkout</a>
+												<a th:if="${#request.remoteUser}" href="/checkout">Checkout</a>
 												<a th:href="@{|/cart|}" class="pull-right">View Cart</a>
 											</div>
 										</li>

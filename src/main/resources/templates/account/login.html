@@ -67,7 +67,11 @@
 								<span class="fas fa-eye"></span>
 							</button>
 						</div>
+							
 					</div>
+					<span  th:unless="${#request.remoteUser}">
+								<a href="/account/login/form">Forgot Password?</a>
+							</span>
 					<button type="submit" onclick="getToken()">Sign In</button>
 					<script>	
 						const ipnElementRegister = document.querySelector('#ipnPassword-register')
