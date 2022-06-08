@@ -55,8 +55,9 @@
 							class="fab fa-google-plus-g"></i></a> <a href="#" class="social"><i
 							class="fab fa-linkedin-in"></i></a>
 					</div>
-					<span>or use your account</span> <input type="text"
-						placeholder="Username" name="username" class="form-control" required/>
+					<span>or use your account</span>
+					 <input type="text"
+						placeholder="Username" name="username" class="form-control" id="input-username" required/>
 					<div class="input-group form-group">
 						<input type="password" placeholder="Password" name="password" 
 							id="ipnPassword" class="form-control"  required/>
@@ -83,21 +84,21 @@
 						ipnElementRegister.setAttribute('type',currentTypeRegister === 'password' ? 'text': 'password')})
 						
 						let username = document.getElementById("input-username")
-						let password = document.getElementById("input-password")
+						let password = document.getElementById("ipnPassword")
 						let URL = 'http://localhost:8080/loginPage'
 						let formData = new FormData()
 											
 						let getToken = async() => {
-					//Cấu hình cho Header
+					//Cáº¥u hĂ¬nh cho Header
 						let myHeaders = new Headers();
 						myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-					//Set giá trị body (data gửi đi là username và password để lấy Token)
+					//Set giĂ¡ trá»‹ body (data gá»­i Ä‘i lĂ  username vĂ  password Ä‘á»ƒ láº¥y Token)
 						let urlencoded = new URLSearchParams();
 						urlencoded.append("username", username.value);
 						urlencoded.append("password", password.value);
 
-					// Set thuộc tính khi fetch API
+					// Set thuá»™c tĂ­nh khi fetch API
 						let requestOptions = {
 							method: 'POST',
 							headers: myHeaders,
@@ -105,10 +106,10 @@
 							redirect: 'follow'
 							};
 
-					// Gọi API
+					// Gá»�i API
 						let resp = await fetch(URL, requestOptions)
 												
-					// Xử lý giá trị trả về
+					// Xá»­ lĂ½ giĂ¡ trá»‹ tráº£ vá»�
 						let data = await resp.json()
 						sessionStorage.setItem("access_token", data.access_token)
 						sessionStorage.setItem("refresh_token", data.refresh_token) 

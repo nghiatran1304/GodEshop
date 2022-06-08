@@ -3,6 +3,7 @@ package com.godEShop.Controller;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -18,6 +19,7 @@ import com.godEShop.Service.RoleService;
 import com.godEShop.Service.SessionService;
 import com.godEShop.Service.UserService;
 import com.godEShop.Service.Impl.UserDetailImpl;
+import com.godEShop.Utils.CookieUtils;
 
 @Controller
 public class SecurityController {
@@ -52,10 +54,10 @@ public class SecurityController {
 	return "../static/admin/index.html";
     }
 
-
+   
     @RequestMapping("/account/login/success")
-    public String loginSuccess(Model model) {
-	model.addAttribute("message", "Đăng nhập thành công!");
+    public String loginSuccess(Model model,HttpServletRequest request,HttpServletResponse response) {
+	model.addAttribute("message", "Đăng nhập thành công!");	
 	if (req.isUserInRole("Admin")) {
 	    return "redirect:/admin";
 	}

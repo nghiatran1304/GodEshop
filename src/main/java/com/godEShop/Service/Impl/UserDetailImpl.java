@@ -31,7 +31,7 @@ public class UserDetailImpl implements UserDetailsService {
 	// TODO Auto-generated method stub
 
 	try {
-	    Account account = accountService.findById(username);
+	    Account account = accountService.findByUsername(username);
 	    // Tạo UserDetails từ Account
 	    String password = account.getPassword();
 	    String role = account.getRole().getId();

@@ -97,10 +97,13 @@ let initiate = async () => {
         let data = JSON.parse(messageData.text)
         let name = data.displayName
         let myAvatar = data.avatar
-        console.log(data.message)
-        if (data.message.substring(0,5) === '/kick') {
-			console.log(data.message.substring(0,5))
-			console.log(data.message.substring(7,data.message.length))
+        let command = data.message.substring(0,5)
+        let kickUid = data.message.substring(7,data.message.length)
+        if (command === '/kick') {
+			if (kickUid === uid) {
+				alert("Bạn đã bị khoá mõm!!")
+				window.location = `/livestream`
+			}
 		}else {
 			addMessageToDom(data.message, memberId, name, myAvatar)
 
@@ -161,6 +164,7 @@ let initiate = async () => {
     window.addEventListener('beforeunload', leaveChannel)
 
     let addMessageToDom = async (messageData, memberId, displayName, avatar) => {
+		let messageId = String(Math.floor(Math.random() * 10000))
 		let attributes = await rtmClient.getChannelAttributesByKeys(room, ['room_name', 'host_id'])
         roomName = attributes.room_name.value
         hostId = attributes.host_id.value
@@ -184,6 +188,7 @@ let initiate = async () => {
 	        }
 	        let messageItem
 	        let messagesWrapper = document.getElementById('messages')
+	        let kickBtn
 	        if (uid === hostId) {
 				messageItem = `
 	                        <div class="message__wrapper">
@@ -198,10 +203,12 @@ let initiate = async () => {
 	                        		<button class="message__action__remove" id="remove__">X</button>
 		                        </div>	
 		                        <div class="message__action__kick">
-	                        		<button value="${memberId}" class="message__action__kick" onclick="myFunction()">O</button>
+	                        		<button value="${memberId}" class="message__action__kick" id="kick__${messageId}">O</button>
 		                        </div>
 	                        </div>                        
 	                    </div>`
+	                    
+						
 			}else {
 				messageItem = `
 	                        <div class="message__wrapper">
@@ -215,6 +222,13 @@ let initiate = async () => {
 			}
 	        messagesWrapper.insertAdjacentHTML('beforeend', messageItem)
 	        messageContainer.scrollTop = messageContainer.scrollHeight
+	        kickBtn = document.getElementById(`kick__${messageId}`)
+	        if (uid === hostId) {
+				kickBtn.addEventListener('click', (e) => {
+					let command = `/kick__` + e.target.value
+					channel.sendMessage({ text: JSON.stringify({ 'message': command, 'displayName': uid, 'avatar': avatar }) })
+				})
+			}
 		}
     }
 

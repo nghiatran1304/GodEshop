@@ -1,4 +1,4 @@
-app.controller("brand-ctrl", function($scope, $http) {
+app.controller("braceletmaterial-ctrl", function($scope, $http) {
 
 	$scope.items = [];
 	$scope.form = {};
@@ -7,8 +7,8 @@ app.controller("brand-ctrl", function($scope, $http) {
 
 	$scope.initialize = function() {
 		$scope.showInsert = true;
-		// load brands
-		$http.get(`/rest/brands`).then(resp => {
+		// load bracelets
+		$http.get(`/rest/bracelets`).then(resp => {
 			$scope.items = resp.data;
 		});
 	};
@@ -17,7 +17,7 @@ app.controller("brand-ctrl", function($scope, $http) {
 
 	$scope.findByName = function() {
 		var nameSearched = $scope.searchByName;
-		$http.get(`/rest/brands/${nameSearched}`).then(resp => {
+		$http.get(`/rest/bracelets/${nameSearched}`).then(resp => {
 			$scope.items = resp.data;
 		});
 	}
@@ -39,7 +39,7 @@ app.controller("brand-ctrl", function($scope, $http) {
 	// thêm sản phẩm
 	$scope.create = function() {
 		var item = angular.copy($scope.form);
-		$http.post(`/rest/create`, item).then(resp => {
+		$http.post(`/rest/createBracelet`, item).then(resp => {
 			$scope.initialize();
 			$scope.reset();
 			Swal.fire({
@@ -63,7 +63,7 @@ app.controller("brand-ctrl", function($scope, $http) {
 	$scope.update = function() {
 		// product
 		var item = angular.copy($scope.form);
-		$http.put(`/rest/update/${item.id}`, item).then(resp => {
+		$http.put(`/rest/updateBracelet/${item.id}`, item).then(resp => {
 			$scope.initialize();
 			$scope.reset();
 			Swal.fire({
@@ -86,8 +86,8 @@ app.controller("brand-ctrl", function($scope, $http) {
 
 	// xóa sản phẩm
 	$scope.delete = function(item) {
-		var brandId = angular.copy(item);
-		$http.delete(`/rest/delete/${brandId.id}`).then(resp => {
+		var braceletMaterialId = angular.copy(item);
+		$http.delete(`/rest/deleteBracelet/${braceletMaterialId.id}`).then(resp => {
 			// var index = $scope.items.findIndex(p => p.productId == item.productId);
 			$scope.initialize();
 			$scope.reset();

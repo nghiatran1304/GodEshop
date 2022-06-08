@@ -1,5 +1,6 @@
 package com.godEShop.Service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -36,5 +37,9 @@ public interface OrderService {
     Order updateDelivery(Order o);
 
     Order updateSuccess(Order o);
+    
+    Order updateCancel(Order o);
+
+	
 
 }

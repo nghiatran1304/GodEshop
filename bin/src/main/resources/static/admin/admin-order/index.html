@@ -1,1 +1,515 @@
-<h3>ORDER</h3>
+<div class="row">
+	<div class="col-7">
+		<div class="row">
+			<div class="col-6 row">
+				<div class="col-6">
+					<div class="form-group">
+						<label for="">Username</label>
+						<input type="text" class="form-control" readonly ng-model="getUsername" />
+					</div>
+					<div class="form-group">
+						<label for="">Fullname</label>
+						<input type="text" class="form-control" readonly ng-model="getFullname" />
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="form-group">
+						<label for="">Phone</label>
+						<input type="text" class="form-control" readonly ng-model="getPhone" />
+					</div>
+					<div class="form-group">
+						<label for="">Email</label>
+						<input type="text" class="form-control" readonly ng-model="getEmail" />
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="form-group">
+						<label for="">Payments</label>
+						<input type="text" class="form-control" readonly ng-model="getOrderMethodName" />
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="form-group">
+						<label for="">Address</label>
+						<textarea ng-model="getAddress" class="form-control" readonly style="resize: none;" rows="3"></textarea>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="form-group">
+						<label for="">Notes</label>
+						<textarea ng-model="getNotes" class="form-control" readonly style="resize: none;" rows="3"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="col-6">
+				<div ng-show="getOrderStatus == 1">
+					<div class="card1">
+						<div class="row d-flex justify-content-center">
+							<div class="col-12">
+								<ul id="progressbar" class="text-center">
+									<li class="active step0"></li>
+									<li class="step0"></li>
+									<li class="step0"></li>
+									<li class="step0"></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row justify-content-between top">
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step1.png">
+								<div class="d-flex flex-column"></div>
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step2.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step3.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step4.png">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<i class="fa fa-check-circle-o" style="color: green"></i>
+							Wait To Confirm
+						</div>
+						<div class="col-6 text-center">
+							<button class="btn btn-info text-center" style="width: 150px; height: 150px;" ng-click="confirm()">Confirmed</button>
+						</div>
+					</div>
+				</div>
+				<div ng-show="getOrderStatus == 2">
+					<div class="card1">
+						<div class="row d-flex justify-content-center">
+							<div class="col-12">
+								<ul id="progressbar" class="text-center">
+									<li class="active step0"></li>
+									<li class="active step0"></li>
+									<li class="step0"></li>
+									<li class="step0"></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row justify-content-between top">
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step1.png">
+								<div class="d-flex flex-column"></div>
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step2.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step3.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step4.png">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Wait To Confirm
+							</p>
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Confirmed
+							</p>
+						</div>
+						<div class="col-6 text-center">
+							<button class="btn btn-primary" style="width: 150px; height: 150px;" ng-click="delivery()">Delivery</button>
+						</div>
+					</div>
+				</div>
+				<div ng-show="getOrderStatus == 3">
+					<div class="card1">
+						<div class="row d-flex justify-content-center">
+							<div class="col-12">
+								<ul id="progressbar" class="text-center">
+									<li class="active step0"></li>
+									<li class="active step0"></li>
+									<li class="active step0"></li>
+									<li class="step0"></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row justify-content-between top">
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step1.png">
+								<div class="d-flex flex-column"></div>
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step2.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step3.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step4.png">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Wait To Confirm
+							</p>
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Confirmed
+							</p>
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Delivery
+							</p>
+						</div>
+						<div class="col-6 text-center">
+							<button class="btn btn-success" style="width: 150px; height: 150px;" ng-click="success()">Success</button>
+						</div>
+					</div>
+				</div>
+				<div ng-show="getOrderStatus == 4">
+					<div class="card1">
+						<div class="row d-flex justify-content-center">
+							<div class="col-12">
+								<ul id="progressbar" class="text-center">
+									<li class="active step0"></li>
+									<li class="active step0"></li>
+									<li class="active step0"></li>
+									<li class="active step0"></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row justify-content-between top">
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step1.png">
+								<div class="d-flex flex-column"></div>
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step2.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step3.png">
+							</div>
+							<div class="row d-flex icon-content">
+								<img class="icon" src="/otherImg/step4.png">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Wait To Confirm
+							</p>
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Confirmed
+							</p>
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Delivery
+							</p>
+							<p>
+								<i class="fa fa-check-circle-o" style="color: green"></i>
+								Success
+							</p>
+						</div>
+						<div class="col-6 text-center">
+							<i class="fa fa-check" aria-hidden="true" style="font-size: 150px; color: green;"></i>
+						</div>
+					</div>
+				</div>
+				<div ng-show="getOrderStatus == 5" class="text-center">
+					<img src="/otherImg/canceled.png" alt="" style="width: 300px; height: 300px"/>
+					<div class="text-center">
+						<h3 class="text-danger">ORDER CANCELED</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--  -->		
+		<!--  -->
+	</div>
+	<div class="col-5 p-0">
+		<ul class="nav nav-tabs text-center" id="myTab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" target="_self" role="tab" aria-controls="home" aria-selected="true">All Orders</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link bg-warning text-light" id="profile-tab" data-toggle="tab" href="#profile" target="_self" role="tab" aria-controls="profile" aria-selected="false">Pending</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link bg-info text-light" id="Confirmed-tab" data-toggle="tab" href="#Confirmed" target="_self" role="tab" aria-controls="Confirmed" aria-selected="false">Confirmed</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link bg-primary text-light" id="Delovery-tab" data-toggle="tab" href="#Delovery" target="_self" role="tab" aria-controls="Delovery" aria-selected="false">Delivery</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link bg-success text-light" id="Complete-tab" data-toggle="tab" href="#Complete" target="_self" role="tab" aria-controls="Complete" aria-selected="false">Complete</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link bg-danger text-light" id="Cancel-tab" data-toggle="tab" href="#Cancel" target="_self" role="tab" aria-controls="Cancel" aria-selected="false">Cancel</a>
+			</li>
+		</ul>
+		<div class="tab-content mt-0 p-0" id="myTabContent">
+			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">ALL ORDERS</h4>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Username</th>
+										<th>Create Date</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in pager.items" ng-click="edit(item)">
+										<td>{{item.id}}</td>
+										<td>{{item.account.username}}</td>
+										<td class="text-primary">{{item.createDate | date: 'dd/MM/yyyy'}}</td>
+										<td>
+											<label ng-show="item.orderStatus.id == 1" class="badge badge-warning">Pending</label>
+											<label ng-show="item.orderStatus.id == 2" class="badge badge-info">Confirmed</label>
+											<label ng-show="item.orderStatus.id == 3" class="badge badge-primary">Delivery</label>
+											<label ng-show="item.orderStatus.id == 4" class="badge badge-success">Completed</label>
+											<label ng-show="item.orderStatus.id == 5" class="badge badge-danger">Cancel</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-center mt-2">
+								<button ng-click="pager.first()" class="btn btn-secondary">|<</button>
+								<button ng-click="pager.pre()" class="btn btn-secondary"><<</button>
+								<button class="btn btn-primary">{{pager.page + 1}} of {{pager.count}}</button>
+								<button ng-click="pager.next()" class="btn btn-secondary">>></button>
+								<button ng-click="pager.last()" class="btn btn-secondary">>|</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">PENDING</h4>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Username</th>
+										<th>Create Date</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="itemPending in pagerPending.itemsPending" ng-click="edit(itemPending)">
+										<td>{{itemPending.id}}</td>
+										<td>{{itemPending.account.username}}</td>
+										<td class="text-primary">{{itemPending.createDate | date: 'dd/MM/yyyy'}}</td>
+										<td>
+											<label class="badge badge-warning">Pending</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-center mt-2">
+								<button ng-click="pagerPending.first()" class="btn btn-secondary">|<</button>
+								<button ng-click="pagerPending.pre()" class="btn btn-secondary"><<</button>
+								<button class="btn btn-warning">{{pagerPending.page + 1}} of {{pagerPending.count}}</button>
+								<button ng-click="pagerPending.next()" class="btn btn-secondary">>></button>
+								<button ng-click="pagerPending.last()" class="btn btn-secondary">>|</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="Confirmed" role="tabpanel" aria-labelledby="Confirmed-tab">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">CONFIRMED</h4>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Username</th>
+										<th>Create Date</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="itemConfirmed in pagerConfirmed.itemsConfirmed" ng-click="edit(itemConfirmed)">
+										<td>{{itemConfirmed.id}}</td>
+										<td>{{itemConfirmed.account.username}}</td>
+										<td class="text-primary">{{itemConfirmed.createDate | date: 'dd/MM/yyyy'}}</td>
+										<td>
+											<label class="badge badge-info">Confirmed</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-center mt-2">
+								<button ng-click="pagerConfirmed.first()" class="btn btn-secondary">|<</button>
+								<button ng-click="pagerConfirmed.pre()" class="btn btn-secondary"><<</button>
+								<button class="btn btn-info">{{pagerConfirmed.page + 1}} of {{pagerConfirmed.count}}</button>
+								<button ng-click="pagerConfirmed.next()" class="btn btn-secondary">>></button>
+								<button ng-click="pagerConfirmed.last()" class="btn btn-secondary">>|</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="Delovery" role="tabpanel" aria-labelledby="Delovery-tab">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">DELIVERY</h4>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Username</th>
+										<th>Price</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="itemDelivery in pagerDelivery.itemsDelivery" ng-click="edit(itemDelivery)">
+										<td>{{itemDelivery.id}}</td>
+										<td>{{itemDelivery.account.username}}</td>
+										<td class="text-primary">{{itemDelivery.createDate | date: 'dd/MM/yyyy'}}</td>
+										<td>
+											<label class="badge badge-primary">Delivery</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-center mt-2">
+								<button ng-click="pagerDelivery.first()" class="btn btn-secondary">|<</button>
+								<button ng-click="pagerDelivery.pre()" class="btn btn-secondary"><<</button>
+								<button class="btn btn-primary">{{pagerDelivery.page + 1}} of {{pagerDelivery.count}}</button>
+								<button ng-click="pagerDelivery.next()" class="btn btn-secondary">>></button>
+								<button ng-click="pagerDelivery.last()" class="btn btn-secondary">>|</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="Complete" role="tabpanel" aria-labelledby="Complete-tab">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">COMPLETED</h4>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Username</th>
+										<th>Create Date</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="itemSuccess in pagerComplete.itemsSuccess" ng-click="edit(itemSuccess)">
+										<td>{{itemSuccess.id}}</td>
+										<td>{{itemSuccess.account.username}}</td>
+										<td class="text-primary">{{itemSuccess.createDate | date: 'dd/MM/yyyy'}}</td>
+										<td>
+											<label class="badge badge-success">Completed</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-center mt-2">
+								<button ng-click="pagerComplete.first()" class="btn btn-secondary">|<</button>
+								<button ng-click="pagerComplete.pre()" class="btn btn-secondary"><<</button>
+								<button class="btn btn-success">{{pagerComplete.page + 1}} of {{pagerComplete.count}}</button>
+								<button ng-click="pagerComplete.next()" class="btn btn-secondary">>></button>
+								<button ng-click="pagerComplete.last()" class="btn btn-secondary">>|</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="Cancel" role="tabpanel" aria-labelledby="Cancel-tab">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">CANCEL</h4>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Username</th>
+										<th>Create Date</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="itemCancel in pagerCancel.itemsCancel" ng-click="edit(itemCancel)">
+										<td>{{itemCancel.id}}</td>
+										<td>{{itemCancel.account.username}}</td>
+										<td class="text-primary">{{itemCancel.createDate | date: 'dd/MM/yyyy'}}</td>
+										<td>
+											<label class="badge badge-danger">Cancel</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-center mt-2">
+								<button ng-click="pagerCancel.first()" class="btn btn-secondary">|<</button>
+								<button ng-click="pagerCancel.pre()" class="btn btn-secondary"><<</button>
+								<button class="btn btn-danger">{{pagerCancel.page + 1}} of {{pagerCancel.count}}</button>
+								<button ng-click="pagerCancel.next()" class="btn btn-secondary">>></button>
+								<button ng-click="pagerCancel.last()" class="btn btn-secondary">>|</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ----- PRODUCT LIST ----- -->
+	<div class="col-12 p-0">
+		<div class="card col-12 p-0">
+			<div class="card-body">
+				<h4 class="card-title">Product's List</h4>
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr class="text-center">
+								<th>Image</th>
+								<th>Product</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>Subtotal</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in orderInfoDto" class="text-center">
+								<td>
+									<img ng-src="/upload/ProductImages/{{item.productPhotoImage}}" alt="" style="width: 80px; height: 80px" />
+								</td>
+								<td>{{item.productName}}</td>
+								<td class="text-success font-weight-bold">${{item.orderDetailPrice}}</td>
+								<td>{{item.orderDetailQuantity}}</td>
+								<td>$ {{item.orderDetailPrice * item.orderDetailQuantity}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ----- END PRODUCT LIST ----- -->
+</div>

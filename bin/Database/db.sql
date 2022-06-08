@@ -96,18 +96,21 @@ GO
 --== Chất liệu mặt kính
 CREATE TABLE GlassMaterials(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
+	IsDeleted BIT DEFAULT 0,
 	Name NVARCHAR(50) NOT NULL
 );
 GO
 --== Chất liệu dây đồng hồ
 CREATE TABLE BraceletMaterials(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
+	IsDeleted BIT DEFAULT 0,
 	Name NVARCHAR(50) NOT NULL
 );
 GO
 --== Hệ thống bên trong
 CREATE TABLE MachineInsides(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
+	IsDeleted BIT DEFAULT 0,
 	Name NVARCHAR(50) NOT NULL
 );
 GO
@@ -1031,13 +1034,13 @@ INSERT INTO ProductDiscounts(Discount,CreateDate,EndDate,ProductId,CreateBy) VAL
 (6,'2022-10-15','2022-10-22',40,'admin01')
 GO
 
-
 ---OrderStatus---
 INSERT INTO OrderStatuses(NAME) VALUES
-(N'Chờ xác nhận'),
-(N'Đã xác nhận'),
-(N'Giao hàng'),
-(N'Hoàn thành')
+(N'Pending'),
+(N'Confirmed'),
+(N'Delivery'),
+(N'Complete'),
+(N'Cancel')
 GO
 
 -- payment
@@ -1049,7 +1052,7 @@ GO
 ---- Order
 INSERT INTO Orders(CreateDate,Address,Username,OrderstatusId,OrdermethodId) VALUES
 --cust01
-('2022-05-16',N'383 Nguyễn Duy Trinh,Tp.Thủ Đức, Hồ Chí Minh','cust01',1,2),
+('2022-05-16',N'383 Nguyễn Duy Trinh,Tp.Thủ Đức, Hồ Chí Minh','cust01',5,2),
 ('2022-05-15',N'10 Điện Biên Phủ, Bình Thạnh, Hồ Chí Minh','cust01',2,1),
 ('2022-05-12',N'38 Trần Não, Phường Bình An, Tp.Thủ Đức, Hồ Chí Minh','cust01',3,1),
 ('2020-01-10',N'33 Lê Anh Xuân, Quận 1, Hồ Chí minh','cust01',4,1),
@@ -1824,4 +1827,26 @@ inner join OrderDetails as od on o.Id = od.OrderId
 where o.CreateDate = '20220605'
 order by o.CreateDate desc
 
+select * from orders
+
+select * from OrderDetails
+
+select * from OrderStatuses
+
+select * from Orders
+order by  OrderstatusId asc, CreateDate asc
+
+-- List<OrderId> -> List<ProductID>
+
+
+select os.Id as 'Order Status', o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name as 'Order Method', o.Address, o.Notes, MIN(pp.Id) as 'Image', p.name as 'Product name', od.Price, od.Quantity from Orders as o
+inner join OrderDetails as od on o.Id = od.OrderId
+inner join Products as p on od.ProductId = p.Id
+inner join ProductPhotos as pp on pp.ProductId = p.Id
+inner join Accounts as a on a.Username = o.Username
+inner join Users as u on a.Username = u.Username
+inner join OrderMethods as om on o.OrdermethodId = om.Id
+inner join OrderStatuses as os on o.OrderstatusId = os.Id
+where o.id = 1
+group by os.Id, o.id, o.Username, o.CreateDate, u.Fullname, u.Phone, u.Email, om.Name, o.Address, o.Notes, p.name, od.Price, od.Quantity 
 

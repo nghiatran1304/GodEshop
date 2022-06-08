@@ -1,1 +1,88 @@
-<h3>account</h3>
+<div xmlns:th="http://www.thymeleaf.org">
+	<div class="col-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<!-- <h4 class="card-title">Basic form elements</h4>
+			<p class="card-description">Basic form elements</p> -->
+				<form class="forms-sample " name="frm">
+					<div class="row">
+						<div class="col-6">
+							<div class="form-group">
+								<label for="">User Name</label>
+								<input type="text" ng-model="form.username" class="form-control" placeholder="User name" />
+							</div>
+							<div class="form-group">
+								<label for="">Password</label>
+								<input type="text" ng-model="form.password" class="form-control"  placeholder="Password" />
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<label>Role</label>
+								<select ng-model="formRole.roleId" class="form-control">
+									<option ng-repeat="r in lstRole" ng-value="{{r.Id}}" ng-selected="formRole.roleId == r.id">{{r.name}}</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<div class="mb-3">Available</div>
+								<label for="radio-inline">
+									<input ng-model="form.isDelete" type="radio" ng-value="false" name="available" />
+									Yes
+								</label>
+								<label for="radio-inline" class="ml-3">
+									<input ng-model="form.isDelete" type="radio" ng-value="true" name="available" />
+									No
+								</label>
+							</div>
+						</div>
+
+					</div>
+			</div>
+
+			<div class="form-group text-center">
+				<button ng-click="create(); " class="btn btn-primary mr-2">Insert</button>
+				<button ng-click="update()" class="btn btn-warning mr-2">Update</button>
+				<button ng-click="delete(form)" class="btn btn-danger mr-2">Remove</button>
+				<button ng-click="reset()" class="btn btn-info">Cancel</button>
+
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<hr />
+<form>
+		 <input type="text" class="form-control" placeholder="Search by username" ng-model="searchByUsername" onchange="angular.element(this).scope().findByName()">
+</form>
+<table class="table table-hover table-bordered mt-2">
+	<thead class="thead-dark">
+		<tr class="text-center">
+			<th scope="col">Username</th>
+			<th scope="col">Is Available</th>
+			<th scope="col">Password</th>
+			<th scope="col">Role</th>
+			<th scope="col">Edit</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="text-center" ng-repeat="item in pager.items | orderBy:sortType:sortReverse | filter:searchName" ng-click="edit(item)">
+			<td>{{item.username}}</td>
+			<td>{{item.isDelete?'No':'Yes'}}</td>
+			<td>{{item.password}}</td>
+			<td>{{item.role.id == 'Admin' ? 'Quản trị viên' : 'Khách hàng'}}</td>
+			<td class="text-center">
+				<button ng-click="edit(item)" class="btn btn-warning">Edit</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div>
+	<div class="text-center mt-5">
+		<button ng-click="pager.first()" class="btn btn-secondary">|</button>
+		<button ng-click="pager.pre()" class="btn btn-secondary"><<</button>
+		<button class="btn btn-success">{{pager.page + 1}} of {{pager.count}}</button>
+		<button ng-click="pager.next()" class="btn btn-secondary">>></button>
+		<button ng-click="pager.last()" class="btn btn-secondary">>|</button>
+	</div>
+</div>
+</div>

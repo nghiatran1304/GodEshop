@@ -9,7 +9,8 @@ import com.godEShop.Entity.Account;
 public interface AccountService {
 
 
-	public Account findById(String username);
+	// lấy account với điều kiện isDelete=0
+	public Account findByUsername(String username);
 	
 
 	public List<Account> findAll();
