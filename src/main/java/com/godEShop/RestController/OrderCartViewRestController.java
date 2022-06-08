@@ -49,12 +49,14 @@ public class OrderCartViewRestController {
  	public Order cancelOrder(@PathVariable("id") Long id) {
     	Order order = orderService.findById(id);
     	
-    	Integer newQuantity = 0;
+    	
     	List<OrderCartViewDto> orderDetails = orderDetailService.findByIdOrderCartViewDto(id);
     	for (OrderCartViewDto orderDetail : orderDetails) {
-    		newQuantity+= orderDetail.getOrderQuantity();
+    		
+    		
 			List<Product> products = productService.findByNameOrderDetail(orderDetail.getProductName());
 			for (Product product : products) {
+				Integer newQuantity = product.getQuantity()+orderDetail.getOrderQuantity();
 				product.setQuantity(newQuantity);
 			}
 		}
