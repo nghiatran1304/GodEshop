@@ -1823,14 +1823,30 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
 GO
 
 
+select p.*, pp.Id from products as p
+inner join ProductPhotos as pp on p.Id = pp.ProductId
+inner join Watches as w on p.Id = w.ProductId
+inner join MachineInsides as mi on mi.Id = w.MachineinsideId
+inner join BraceletMaterials as bm on w.BraceletmaterialId = bm.Id
+inner join GlassMaterials as gm on w.GlassmaterialId = gm.Id
+where p.name = 'OK1'
 
 
 
+select p.*, mi.*, bm.*, gm.* from products as p
+inner join Watches as w on p.Id = w.ProductId
+inner join MachineInsides as mi on mi.Id = w.MachineinsideId
+inner join BraceletMaterials as bm on w.BraceletmaterialId = bm.Id
+inner join GlassMaterials as gm on w.GlassmaterialId = gm.Id
+where p.name = 'ok'
 
 
 
+select p.*, pp.* from products as p
+inner join ProductPhotos as pp on p.Id = pp.ProductId
+where name = 'ok'
 
-
-
+select * from products as p
+where name = 'ok'
 
 
