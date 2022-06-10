@@ -220,7 +220,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 					icon: 'success',
 					title: 'Thêm ảnh thành công',
 					showConfirmButton: false,
-					timer: 1000
+					timer: 1
 				})
 			}).catch(error => {
 				console.log("Error : " + error);
@@ -310,6 +310,8 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 		// watch
 		var itemWatch = angular.copy($scope.formWatch);
 		$http.put(`/rest/watches/${itemWatch.watchId}`, itemWatch).then(resp => {
+			$scope.initialize();
+			$scope.reset();
 		}).catch(error => {
 			console.log("Error watch : ", error);
 		});
