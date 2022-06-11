@@ -40,7 +40,7 @@ public class SecurityController {
     
     @Autowired
     SessionService sessionService;
-
+    
     @RequestMapping({"/account/login/form", "/loginPage"})
     public String loginForm(Model model) {
 	model.addAttribute("message", "Vui lòng đăng nhập");
