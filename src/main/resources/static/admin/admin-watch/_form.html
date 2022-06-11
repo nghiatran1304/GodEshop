@@ -19,22 +19,37 @@
 							<!-- <label>File upload</label> -->
 							<input type="file" class="file-upload-default" />
 							<div class="form-group col-xs-12">
-								<!-- <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" /> -->
-								<!-- <span class="input-group-append"> -->
-								<!-- <button>Upload</button>  custom-file-input-->
-								<!-- <label class="custom-file-upload" ng-show="formProductPhoto.imageId != 1">
-									<input onchange="angular.element(this).scope().imageChanged(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-									Upload More Image
-								</label> -->
-								<label class="custom-file-upload" ng-if="formProductPhoto.imageId == 'a'">
+
+								<!-- chạy ok -->
+								<!-- <label class="custom-file-upload" ng-if="formProductPhoto.imageId == 'a'">
 									<input onchange="angular.element(this).scope().onFileSelected(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
 									Upload Image
-								</label>
-								<!-- </span> -->
+								</label> -->
+								<!-- kết thúc chạy ok -->
+								<!-- START TEST MULTI -->
+								<div class="container">
+									<label class="custom-file-upload" ng-show="isEdit == false">
+										<input multiple onchange="angular.element(this).scope().upload1(this.files,event)" accept="image/*" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+										Upload Image
+									</label>
+									<label class="custom-file-upload" ng-show="isEdit == true">
+										More Images
+										<input type="file" class="btn btn-primary" id="uf" accept="image/*" multiple onchange="angular.element(this).scope().uploadImage(this.files)">
+									</label>
+									<hr>
+									<label ng-show="isEdit == false" ng-repeat="filename in filenames" title="Double click to delete">
+										<img ng-src="{{url(filename)}}" ng-dblclick="delete1(filename)" class="mb-3 mr-2" style="width: 80px; height: 80px" alt="">
+									</label>
+									<label ng-show="isEdit == true" ng-repeat="filename in filenames" title="Double click to delete" class="ml-1">
+										<img ng-src="{{'/upload/ProductImages/' + filename}}" ng-dblclick="deleteImage(filename)" class="mb-3 mr-2" style="width: 80px; height: 80px" alt="">
+									</label>
+								</div>
+								<!-- START TEST MULTI -->
 							</div>
 						</div>
 
 						<!-- ---------------------TEST-------------------- -->
+						<!--
 						<div>
 							<div class="container" ng-if="formProductPhoto.imageId != 'a'">
 								<label for="uf" class="btn btn-5" id="formatButton">
@@ -47,6 +62,7 @@
 								</label>
 							</div>
 						</div>
+						  -->
 						<!-- ---------------------TEST-------------------- -->
 					</div>
 					<!-- input -->

@@ -1,4 +1,4 @@
-app.controller("watch-ctrl", function($scope, $http) {
+app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 
 	$scope.items = [];
 	$scope.lstCategory = [];
@@ -19,6 +19,8 @@ app.controller("watch-ctrl", function($scope, $http) {
 
 	$scope.showInsert = false;
 	$scope.showUpdate = false;
+
+	$scope.isEdit = false;
 
 	$scope.initialize = function() {
 		$scope.showInsert = true;
@@ -68,6 +70,7 @@ app.controller("watch-ctrl", function($scope, $http) {
 
 	// xóa form
 	$scope.reset = function() {
+		$scope.isEdit = false;
 		$scope.showInsert = true;
 		$scope.showUpdate = false;
 		$scope.form = {};
@@ -76,70 +79,84 @@ app.controller("watch-ctrl", function($scope, $http) {
 		$scope.formProductPhoto = {};
 		$scope.filenames = [];
 		$scope.formProductPhoto.imageId = 'a';
+		$scope.initialize();
 	}
 
 
 	// hiển thị lên form
 	$scope.edit = function(item) {
-		$scope.showInsert = false;
-		$scope.showUpdate = true;
-		$scope.form = angular.copy(item);
-		// product
-		$scope.formProduct.productId = $scope.form.productId;
-		$scope.formProduct.productCreateDate = $scope.form.productCreateDate;
-		$scope.formProduct.productDetail = $scope.form.productDetail;
-		$scope.formProduct.productMadeIn = $scope.form.productMadeIn;
-		$scope.formProduct.productName = $scope.form.productName;
-		$scope.formProduct.productIsDeteled = $scope.form.productIsDeteled;
-		$scope.formProduct.productPrice = $scope.form.productPrice;
-		$scope.formProduct.productQuantity = $scope.form.productQuantity;
-		$scope.formProduct.productWarranty = $scope.form.productWarranty;
-		$scope.formProduct.brandId = $scope.form.brandId;
-		$scope.formProduct.categoryId = $scope.form.categoryId;
+		try {
+			$scope.isEdit = true;
+			$scope.showInsert = false;
+			$scope.showUpdate = true;
+			$scope.form = angular.copy(item);
+			// product
+			$scope.formProduct.productId = $scope.form.productId;
+			$scope.formProduct.productCreateDate = $scope.form.productCreateDate;
+			$scope.formProduct.productDetail = $scope.form.productDetail;
+			$scope.formProduct.productMadeIn = $scope.form.productMadeIn;
+			$scope.formProduct.productName = $scope.form.productName;
+			$scope.formProduct.productIsDeteled = $scope.form.productIsDeteled;
+			$scope.formProduct.productPrice = $scope.form.productPrice;
+			$scope.formProduct.productQuantity = $scope.form.productQuantity;
+			$scope.formProduct.productWarranty = $scope.form.productWarranty;
+			$scope.formProduct.brandId = $scope.form.brandId;
+			$scope.formProduct.categoryId = $scope.form.categoryId;
 
 
-		// product image
-		$scope.formProductPhoto.imageId = $scope.form.imageId;
+			// product image
+			$scope.formProductPhoto.imageId = $scope.form.imageId;
 
-		// watch
-		$scope.formWatch.watchId = $scope.form.watchId;
-		$scope.formWatch.watchATM = $scope.form.watchATM;
-		$scope.formWatch.watchCaseColor = $scope.form.watchCaseColor;
-		$scope.formWatch.watchGender = $scope.form.watchGender;
-		$scope.formWatch.watchGlassColor = $scope.form.watchGlassColor;
-		$scope.formWatch.watchGlassSize = $scope.form.watchGlassSize;
-		$scope.formWatch.braceletMaterialId = $scope.form.braceletMaterialId;
-		$scope.formWatch.glassMaterialId = $scope.form.glassMaterialId;
-		$scope.formWatch.machineInsideId = $scope.form.machineInsideId;
+			// watch
+			$scope.formWatch.watchId = $scope.form.watchId;
+			$scope.formWatch.watchATM = $scope.form.watchATM;
+			$scope.formWatch.watchCaseColor = $scope.form.watchCaseColor;
+			$scope.formWatch.watchGender = $scope.form.watchGender;
+			$scope.formWatch.watchGlassColor = $scope.form.watchGlassColor;
+			$scope.formWatch.watchGlassSize = $scope.form.watchGlassSize;
+			$scope.formWatch.braceletMaterialId = $scope.form.braceletMaterialId;
+			$scope.formWatch.glassMaterialId = $scope.form.glassMaterialId;
+			$scope.formWatch.machineInsideId = $scope.form.machineInsideId;
 
-		// images
-		getProductIdEdit = angular.copy($scope.formProduct.productId);
+			// images
+			getProductIdEdit = angular.copy($scope.formProduct.productId);
 
-		var pid = angular.copy($scope.formProduct.productId);
-		$scope.loadAllImage(pid);
+			var pid = angular.copy($scope.formProduct.productId);
+			$scope.loadAllImage(pid);
 
-		$scope.slt = 'a';
-		$(".nav-tabs a:eq(0)").tab('show');
+			$scope.slt = 'a';
+			$(".nav-tabs a:eq(0)").tab('show');
+
+		} catch (Err) {
+
+		}
 
 	}
 
+
 	$scope.loadAllImage = function(pid) {
-		$http.get(`/rest/getImages/${pid}`).then(resp => {
-			$scope.filenames = resp.data;
-		}).catch(error => {
-			console.log("Errors : ", error);
-		});
+		try {
+			$http.get(`/rest/getImages/${pid}`).then(resp => {
+				$scope.filenames = resp.data;
+				console.clear();
+			}).catch(error => {
+			});
+		} catch (Err) {
+		}
 	}
 
 	function sleep(time) {
 		return new Promise((resolve) => setTimeout(resolve, time));
 	}
 
+	$rootScope.getProductIdAfterInsert;
+	var formImages = new FormData();
 	// thêm sản phẩm
 	$scope.create = function() {
 		var productItem = angular.copy($scope.formProduct);
 		$http.post(`/rest/products`, productItem).then(resp => {
 			resp.data.createDate = new Date(resp.data.createDate);
+			$rootScope.getProductIdAfterInsert = resp.data.id;
 			$scope.initialize();
 			Swal.fire({
 				position: 'top-end',
@@ -160,7 +177,6 @@ app.controller("watch-ctrl", function($scope, $http) {
 		sleep(100).then(() => {
 			var watchItem = angular.copy($scope.formWatch);
 			$http.post(`/rest/watches`, watchItem).then(resp => {
-				console.log("insert WATCH");
 				$scope.initialize();
 			}).catch(error => {
 				Swal.fire({
@@ -171,7 +187,8 @@ app.controller("watch-ctrl", function($scope, $http) {
 				console.log("Error insert watch : ", error);
 			});
 
-			// image
+			// 
+			/*
 			$http.post(`/rest/upload/ProductImages`, uploadImage, {
 				transformRequest: angular.identity,
 				headers: { 'Content-Type': undefined }
@@ -190,10 +207,83 @@ app.controller("watch-ctrl", function($scope, $http) {
 				});
 				console.log("Error", error);
 			});
+			*/
+			var aId = $rootScope.getProductIdAfterInsert;
+			$http.post(`/rest/uploadImages/${aId}`, formImages, {
+				transformRequest: angular.identity,
+				headers: { 'Content-Type': undefined },
+			}).then(resp => {
+				// $scope.filenames.push(...resp.data);
+				$scope.reset();
+				Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'Thêm ảnh thành công',
+					showConfirmButton: false,
+					timer: 1
+				})
+			}).catch(error => {
+				console.log("Error : " + error);
+			});
+
+			//------
 			$scope.formProductPhoto.imageId = 1;
 			$scope.reset();
 		});
 	}
+
+	$scope.uploadImage = function(files) {
+
+		/*
+		uploadImage.append('file', files[0]);
+		var selectedFile = event.target.files[0];
+		var reader = new FileReader();
+		var imgtag = document.getElementById("myID1");
+		imgtag.title = selectedFile.name;
+		reader.onload = function(event) {
+			imgtag.src = event.target.result;
+		};
+		reader.readAsDataURL(selectedFile);
+		*/
+		formImages = new FormData();
+
+		var form = new FormData();
+		for (var i = 0; i < files.length; i++) {
+			form.append("files", files[i]);
+			formImages.append("files", files[i]);
+		}
+
+		$http.post(url, form, {
+			transformRequest: angular.identity,
+			headers: { 'Content-Type': undefined }
+		}).then(resp => {
+			$scope.filenames.push(...resp.data);
+		}).catch(error => {
+			console.log("Error : " + error);
+		});
+		sleep(30).then(() => {
+			$http.post(`/rest/uploadImages/${getProductIdEdit}`, formImages, {
+				transformRequest: angular.identity,
+				headers: { 'Content-Type': undefined },
+			}).then(resp => {
+				
+				Swal.fire({
+					icon: 'success',
+					confirmButtonColor: '#3085d6',
+					title: 'Thêm ảnh thành công',
+				}).then(result => {
+					if (result.isConfirmed) {
+						$scope.filenames.push(...resp.data);
+						$scope.initialize();
+						$scope.edit($scope.form);
+					}
+				});
+			}).catch(error => {
+				console.log("Error : " + error);
+			});
+		});
+
+	};
 
 	// cập nhật sản phẩm
 	$scope.update = function() {
@@ -220,6 +310,8 @@ app.controller("watch-ctrl", function($scope, $http) {
 		// watch
 		var itemWatch = angular.copy($scope.formWatch);
 		$http.put(`/rest/watches/${itemWatch.watchId}`, itemWatch).then(resp => {
+			$scope.initialize();
+			$scope.reset();
 		}).catch(error => {
 			console.log("Error watch : ", error);
 		});
@@ -333,6 +425,7 @@ app.controller("watch-ctrl", function($scope, $http) {
 	}
 
 	// -------------------- UPLOAD MULTI IMAGE---------------------
+	/*
 	$scope.uploadImage = function(files) {
 		var formImages = new FormData();
 		for (var i = 0; i < files.length; i++) {
@@ -356,6 +449,7 @@ app.controller("watch-ctrl", function($scope, $http) {
 		});
 
 	};
+	*/
 
 	$scope.deleteImage = function(filename) {
 		$http.delete(`/rest/deleteImage/${filename}`).then(resp => {
@@ -383,8 +477,60 @@ app.controller("watch-ctrl", function($scope, $http) {
 	}
 
 
-	// -------------------------------
+	// ---------------- UPLOAD FILE TAM  ---------------
+	var url = `http://localhost:8080/rest/files/images`;
 
+	$scope.url = function(filename) {
+		return `${url}/${filename}`;
+	};
+
+
+	$scope.list1 = function() {
+		$http.get(url).then(resp => {
+			$scope.filenames = resp.data;
+		}).catch(error => {
+		});
+	};
+
+
+	$scope.upload1 = function(files, event) {
+		uploadImage.append('file', files[0]);
+		var selectedFile = event.target.files[0];
+		var reader = new FileReader();
+		var imgtag = document.getElementById("myID1");
+		imgtag.title = selectedFile.name;
+		reader.onload = function(event) {
+			imgtag.src = event.target.result;
+		};
+		reader.readAsDataURL(selectedFile);
+
+		formImages = new FormData();
+
+		var form = new FormData();
+		for (var i = 0; i < files.length; i++) {
+			form.append("files", files[i]);
+			formImages.append("files", files[i]);
+		}
+
+		$http.post(url, form, {
+			transformRequest: angular.identity,
+			headers: { 'Content-Type': undefined }
+		}).then(resp => {
+			$scope.filenames.push(...resp.data);
+		}).catch(error => {
+		});
+	};
+
+
+	$scope.delete1 = function(filename) {
+		$http.delete(`${url}/${filename}`).then(resp => {
+			let i = $scope.filenames.findIndex(name => name == filename);
+			$scope.filenames.splice(i, 1);
+		}).catch(error => {
+		});
+	};
+
+	$scope.list1();
 
 });
 
