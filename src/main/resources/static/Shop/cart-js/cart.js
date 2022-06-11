@@ -2,7 +2,7 @@ const app = angular.module("shopping-cart-app", []);
 app.controller("shopping-cart-ctrl", function($scope, $http) {
 
 	$scope.account = {};
-	var us = $("#username").text();
+
 	$scope.getUser = function() {
 		$http.get(`/rest/getUserInfomation/${us}`).then(resp => {
 			$scope.account = resp.data;
@@ -78,7 +78,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			// return this.items.map(item => item.qty * (item.productPrice - (item.productPrice * (item.productDiscount == null ? 0 : item.productDiscount) / 100)) ).reduce((total, qty) => total += qty, 0);
 			return this.items.map(item => item.qty * item.finalPrice).reduce((total, qty) => total += qty, 0);
 		},
-		
+
 		// lưu vào local storage
 		saveToLocalStorage() {
 			var checkQuantity = true;

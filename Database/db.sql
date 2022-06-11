@@ -1822,31 +1822,35 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
 (111,51,3500,1)
 GO
 
+-- đang giảm giá
+select p.* from ProductDiscounts as pd
+full join products as p on pd.ProductId = p.id
+where pd.EndDate > GETDATE()
+go
 
-select p.*, pp.Id from products as p
-inner join ProductPhotos as pp on p.Id = pp.ProductId
-inner join Watches as w on p.Id = w.ProductId
-inner join MachineInsides as mi on mi.Id = w.MachineinsideId
-inner join BraceletMaterials as bm on w.BraceletmaterialId = bm.Id
-inner join GlassMaterials as gm on w.GlassmaterialId = gm.Id
-where p.name = 'OK1'
+-- hết hạn giảm giá
+select * from ProductDiscounts as pd
+full join products as p on pd.ProductId = p.id
+where pd.EndDate < GETDATE()
+go
 
-
-
-select p.*, mi.*, bm.*, gm.* from products as p
-inner join Watches as w on p.Id = w.ProductId
-inner join MachineInsides as mi on mi.Id = w.MachineinsideId
-inner join BraceletMaterials as bm on w.BraceletmaterialId = bm.Id
-inner join GlassMaterials as gm on w.GlassmaterialId = gm.Id
-where p.name = 'ok'
-
-
-
-select p.*, pp.* from products as p
-inner join ProductPhotos as pp on p.Id = pp.ProductId
-where name = 'ok'
-
-select * from products as p
-where name = 'ok'
+-- không đang giảm giá
+select p.id, p.name, pd.CreateDate, pd.EndDate from ProductDiscounts as pd
+full join products as p on pd.ProductId = p.id
+where pd.EndDate is null
+group by p.id, p.name, pd.CreateDate, pd.EndDate
+having max(pd.EndDate) < GETDATE() or max(pd.EndDate) is null
+go
 
 
+
+select p.* from ProductDiscounts as pd
+full join products as p on pd.ProductId = p.id
+where p.id not in (
+	select p.id from ProductDiscounts as pd
+	full join products as p on pd.ProductId = p.id
+	where pd.EndDate > GETDATE()
+)
+go
+
+select * from ProductDiscounts

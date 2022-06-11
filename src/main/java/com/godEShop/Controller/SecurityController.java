@@ -2,6 +2,7 @@ package com.godEShop.Controller;
 
 import java.util.Date;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,23 +26,26 @@ public class SecurityController {
 
     @Autowired
     HttpServletRequest req;
-    
+
     @Autowired
     UserDetailImpl userDetail;
-    
+
     @Autowired
     AccountService accountService;
-    
+
     @Autowired
     UserService userService;
-    
+
     @Autowired
     RoleService roleService;
-    
+
     @Autowired
     SessionService sessionService;
 
-    @RequestMapping({"/account/login/form", "/loginPage"})
+    @Autowired
+    ServletContext servletContext;
+
+    @RequestMapping({ "/account/login/form", "/loginPage" })
     public String loginForm(Model model) {
 	model.addAttribute("message", "Vui lòng đăng nhập");
 	return "account/login";
@@ -53,10 +57,9 @@ public class SecurityController {
 	return "../static/admin/index.html";
     }
 
-   
     @RequestMapping("/account/login/success")
-    public String loginSuccess(Model model,HttpServletRequest request,HttpServletResponse response) {
-	model.addAttribute("message", "Đăng nhập thành công!");	
+    public String loginSuccess(Model model, HttpServletRequest request, HttpServletResponse response) {
+	model.addAttribute("message", "Đăng nhập thành công!");
 	if (req.isUserInRole("Admin")) {
 	    return "redirect:/admin";
 	}

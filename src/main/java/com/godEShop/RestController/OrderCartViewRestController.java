@@ -1,6 +1,5 @@
 package com.godEShop.RestController;
 
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.godEShop.Dto.OrderCartViewDto;
 import com.godEShop.Dto.OrderListDto;
 import com.godEShop.Entity.Order;
-import com.godEShop.Entity.OrderDetail;
 import com.godEShop.Entity.Product;
 import com.godEShop.Service.OrderDetailService;
 import com.godEShop.Service.OrderService;
@@ -33,101 +31,38 @@ public class OrderCartViewRestController {
     ProductService productService;
 
     @GetMapping("/rest/orderCartViewDto/{id}")
-    public List<OrderCartViewDto> lstOrderCartViewDto(@PathVariable("id") Long id){
+    public List<OrderCartViewDto> lstOrderCartViewDto(@PathVariable("id") Long id) {
 	return orderDetailService.findByIdOrderCartViewDto(id);
     }
-    
+
     @GetMapping("/rest/orderListDto/{username}")
-    public List<OrderListDto> lstOrderDto(HttpServletRequest request){
-    	String username = request.getRemoteUser();
+    public List<OrderListDto> lstOrderDto(HttpServletRequest request) {
+	String username = request.getRemoteUser();
 	return orderService.findByUsername1(username);
-	
-	
-	
+
     }
+
     @PutMapping("/rest/order-update-cancel/{id}")
- 	public Order cancelOrder(@PathVariable("id") Long id) {
-    	Order order = orderService.findById(id);
-    	
-    	
-    	List<OrderCartViewDto> orderDetails = orderDetailService.findByIdOrderCartViewDto(id);
-    	for (OrderCartViewDto orderDetail : orderDetails) {
-    		
-    		
-			List<Product> products = productService.findByNameOrderDetail(orderDetail.getProductName());
-			for (Product product : products) {
-				Integer newQuantity = product.getQuantity()+orderDetail.getOrderQuantity();
-				product.setQuantity(newQuantity);
-			}
-		}
+    public Order cancelOrder(@PathVariable("id") Long id) {
+	Order order = orderService.findById(id);
 
-    	orderService.updateCancel(order);
-    	
-	 return order;
- }
-   
+	List<OrderCartViewDto> orderDetails = orderDetailService.findByIdOrderCartViewDto(id);
+	for (OrderCartViewDto orderDetail : orderDetails) {
 
+	    List<Product> products = productService.findByNameOrderDetail(orderDetail.getProductName());
+	    for (Product product : products) {
+		Integer newQuantity = product.getQuantity() + orderDetail.getOrderQuantity();
+		product.setQuantity(newQuantity);
+	    }
+	}
+
+	orderService.updateCancel(order);
+
+	return order;
+    }
+
+    
+    
+    
+    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
