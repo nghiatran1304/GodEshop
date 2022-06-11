@@ -41,11 +41,16 @@ public class SecurityController {
 
     @Autowired
     SessionService sessionService;
+<<<<<<< HEAD
 
     @Autowired
     ServletContext servletContext;
 
     @RequestMapping({ "/account/login/form", "/loginPage" })
+=======
+    
+    @RequestMapping({"/account/login/form", "/loginPage"})
+>>>>>>> 1621f92177f3ad0bdbdc5982fce765261b3e4f21
     public String loginForm(Model model) {
 	model.addAttribute("message", "Vui lòng đăng nhập");
 	return "account/login";
