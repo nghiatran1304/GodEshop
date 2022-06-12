@@ -2,7 +2,7 @@ const app = angular.module("shopping-cart-app", []);
 app.controller("shopping-cart-ctrl", function($scope, $http) {
 
 	$scope.account = {};
-
+	var us = $("#username").text();
 	$scope.getUser = function() {
 		$http.get(`/rest/getUserInfomation/${us}`).then(resp => {
 			$scope.account = resp.data;

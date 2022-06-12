@@ -40,7 +40,8 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 	    + "FULL JOIN p.productDiscounts pd " 
 	    + "FULL JOIN p.category c "
 	    + "WHERE p.isDeleted = 0 AND c.available = 0 AND (p.name LIKE ?1 OR c.name LIKE ?1) AND c.name LIKE ?2 AND pb.name LIKE ?3 "
-	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, p.quantity")
+	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, p.quantity "
+	    + "HAVING MAX(pd.endDate) >= GETDATE()")
     Page<ProductShopDto> productShop(String kws, String categoryName, String brandName, Pageable pageable);
 
     // -------------------------------------------------------------------------
