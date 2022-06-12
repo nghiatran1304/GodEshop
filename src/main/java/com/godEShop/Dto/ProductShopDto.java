@@ -31,10 +31,12 @@ public class ProductShopDto implements Serializable{
     private String productDetail;
     private Date productEndDiscount;
     private Integer productQuantity;
+    private Date productStartDiscount;
     
     public double getFinalPrice() {
 	Date nowTime = new Date();
-	if(this.productEndDiscount == null) {
+	
+	if(this.productEndDiscount == null || this.productStartDiscount.compareTo(nowTime) == 1) {
 	    return this.productPrice;
 	}
 	if(this.productEndDiscount.compareTo(nowTime) == -1 ) {

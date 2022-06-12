@@ -107,10 +107,10 @@ public class ProductController {
 
 	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%",
 		"%" + brandName + "%", pageable);
-
-	model.addAttribute("page", page);
-
+	
 	Date d = new Date();
+	
+	model.addAttribute("page", page);
 
 	model.addAttribute("timeNow", d);
 
@@ -131,7 +131,9 @@ public class ProductController {
 	List<ProductPhoto> lstPhotoByProductId = productPhotoDAO.getAllProductPhotoByProductId(id);
 	model.addAttribute("lstPhotoByProductId", lstPhotoByProductId);
 
-	ProductShopDto productItem = productService.productShopById(id);
+	List<ProductShopDto> pItems = productService.productShopById(id);
+	ProductShopDto productItem = pItems.get(pItems.size() - 1);
+//	ProductShopDto productItem = productService.productShopById(id);
 	model.addAttribute("productItem", productItem);
 
 	if (productItem.getProductCategoryId() == 13) {

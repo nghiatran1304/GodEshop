@@ -1608,7 +1608,7 @@ INSERT INTO Accessories(Colors,BraceletmaterialId,ProductId) VALUES
 (N'Đen',1,85)
 GO
 --==================================================== 
-UPDATE Products set IsDeleted = 1 where id = 70 or id = 26;
+UPDATE Products set IsDeleted = 1 where id = 70 or id = 26 or id = 4;
 
 
 --==================================================== 
@@ -1854,3 +1854,11 @@ where p.id not in (
 go
 
 select * from ProductDiscounts
+where productId = 44
+
+select * from Products
+where IsDeleted = 0
+-- where name like 'BGA-151EF-1BDR'
+
+select * from Orders
+	

@@ -70,20 +70,28 @@ app.controller("discount-ctrl", function($scope, $http) {
 		$scope.getForm.username = adminUsername;
 		$scope.getForm.productDiscountCreateDate = $scope.productDiscountCreateDate;
 		$scope.getForm.productDiscountEndDate = $scope.productDiscountEndDate;
-
-		$http.post(`/rest/create-discount`, $scope.getForm).then(resp => {
-			$scope.initialize();
-			$scope.reset();
-			$scope.getForm = {};
+		let date1 = new Date($scope.getForm.productDiscountCreateDate);
+		let date2 = new Date($scope.getForm.productDiscountEndDate);
+		if (date1 >= date2 || $scope.getForm.productDiscountPercent <= 0) {
 			Swal.fire({
-				position: 'top-end',
-				icon: 'success',
-				title: 'Thành công',
-				showConfirmButton: false,
-				timer: 500
-			})
-		})
-
+				icon: 'error',
+				title: 'Oops...',
+				text: "Fail !!!",
+			});
+		} else {
+			$http.post(`/rest/create-discount`, $scope.getForm).then(resp => {
+				$scope.initialize();
+				$scope.reset();
+				$scope.getForm = {};
+				Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'Success',
+					showConfirmButton: false,
+					timer: 500
+				})
+			});
+		}
 	}
 
 	$scope.update = function() {
@@ -96,18 +104,28 @@ app.controller("discount-ctrl", function($scope, $http) {
 		$scope.getForm.productDiscountCreateDate = $scope.productDiscountCreateDate;
 		$scope.getForm.productDiscountEndDate = $scope.productDiscountEndDate;
 
-		$http.put(`/rest/update-discount/${pdId}`, $scope.getForm).then(resp => {
-			$scope.initialize();
-			$scope.reset();
-			$scope.getForm = {};
+		let date1 = new Date($scope.getForm.productDiscountCreateDate);
+		let date2 = new Date($scope.getForm.productDiscountEndDate);
+		if (date1 >= date2 || $scope.getForm.productDiscountPercent <= 0) {
 			Swal.fire({
-				position: 'top-end',
-				icon: 'success',
-				title: 'Thành công',
-				showConfirmButton: false,
-				timer: 500
-			})
-		})
+				icon: 'error',
+				title: 'Oops...',
+				text: "Fail !!!",
+			});
+		} else {
+			$http.put(`/rest/update-discount/${pdId}`, $scope.getForm).then(resp => {
+				$scope.initialize();
+				$scope.reset();
+				$scope.getForm = {};
+				Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'Success',
+					showConfirmButton: false,
+					timer: 500
+				})
+			});
+		}
 	}
 
 	$scope.delete = function() {
@@ -119,7 +137,7 @@ app.controller("discount-ctrl", function($scope, $http) {
 			Swal.fire({
 				position: 'top-end',
 				icon: 'success',
-				title: 'Thành công',
+				title: 'Success',
 				showConfirmButton: false,
 				timer: 1000
 			})
@@ -127,7 +145,7 @@ app.controller("discount-ctrl", function($scope, $http) {
 			Swal.fire({
 				icon: 'error',
 				title: 'Oops...',
-				text: "Lỗi xóa !!!",
+				text: "Fail !!!",
 			});
 			console.log("Error", error);
 		});

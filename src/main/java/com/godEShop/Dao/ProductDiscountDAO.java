@@ -18,14 +18,14 @@ public interface ProductDiscountDAO extends JpaRepository<ProductDiscount, Integ
     
     @Query("SELECT p FROM ProductDiscount pd "
     	+ "FULL JOIN pd.product p "
-    	+ "WHERE p.id NOT IN (SELECT p.id FROM ProductDiscount pd FULL JOIN pd.product p WHERE pd.endDate > GETDATE())")
+    	+ "WHERE p.isDeleted = 0 AND p.id NOT IN (SELECT p.id FROM ProductDiscount pd FULL JOIN pd.product p WHERE pd.endDate > GETDATE())")
     List<Product> getProductNonDiscount();
     
     @Query("SELECT new com.godEShop.Dto.ProductOnSaleDto"
     	+ "(pd.id, pd.createDate, pd.discount, pd.endDate, pd.account.username, p.id, p.name, p.price) "
     	+ "FROM ProductDiscount pd "
     	+ "FULL JOIN pd.product p "
-    	+ "WHERE pd.endDate > GETDATE()"
+    	+ "WHERE pd.endDate > GETDATE() AND p.isDeleted = 0"
     	+ "ORDER BY pd.endDate ASC")
     List<ProductOnSaleDto> getProductOnSale();
 

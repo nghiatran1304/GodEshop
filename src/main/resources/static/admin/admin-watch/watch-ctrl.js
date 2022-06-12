@@ -158,13 +158,6 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 			resp.data.createDate = new Date(resp.data.createDate);
 			$rootScope.getProductIdAfterInsert = resp.data.id;
 			$scope.initialize();
-			Swal.fire({
-				position: 'top-end',
-				icon: 'success',
-				title: 'Thành công',
-				showConfirmButton: false,
-				timer: 500
-			})
 		}).catch(error => {
 			Swal.fire({
 				icon: 'error',
@@ -177,6 +170,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 		sleep(100).then(() => {
 			var watchItem = angular.copy($scope.formWatch);
 			$http.post(`/rest/watches`, watchItem).then(resp => {
+				$scope.formProductPhoto.imageId = 'a';
 				$scope.initialize();
 			}).catch(error => {
 				Swal.fire({
@@ -188,46 +182,30 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 			});
 
 			// 
-			/*
-			$http.post(`/rest/upload/ProductImages`, uploadImage, {
-				transformRequest: angular.identity,
-				headers: { 'Content-Type': undefined }
-			}).then(resp => {
-				$scope.formProductPhoto.imageId = resp.data.name;
-				var itemProductPhoto = angular.copy($scope.formProductPhoto);
-				$http.post(`/rest/photo/`, itemProductPhoto).then(resp => {
-					$scope.formProductPhoto.imageId = 1;
-					$scope.initialize();
-				});
-			}).catch(error => {
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					text: "Lỗi tải ảnh!!!",
-				});
-				console.log("Error", error);
-			});
-			*/
+
 			var aId = $rootScope.getProductIdAfterInsert;
 			$http.post(`/rest/uploadImages/${aId}`, formImages, {
 				transformRequest: angular.identity,
 				headers: { 'Content-Type': undefined },
 			}).then(resp => {
 				// $scope.filenames.push(...resp.data);
-				$scope.reset();
 				Swal.fire({
-					position: 'top-end',
 					icon: 'success',
-					title: 'Thêm ảnh thành công',
-					showConfirmButton: false,
-					timer: 1
-				})
+					confirmButtonColor: '#3085d6',
+					title: 'Success',
+				}).then(result => {
+					if (result.isConfirmed) {
+						var reader = new FileReader();
+						var imgtag = document.getElementById("myID1");
+						imgtag.src = "/upload/noImage.jpg";
+					}
+				});
 			}).catch(error => {
 				console.log("Error : " + error);
 			});
 
 			//------
-			$scope.formProductPhoto.imageId = 1;
+			$scope.formProductPhoto.imageId = 'a';
 			$scope.reset();
 		});
 	}
@@ -266,11 +244,10 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 				transformRequest: angular.identity,
 				headers: { 'Content-Type': undefined },
 			}).then(resp => {
-				
 				Swal.fire({
 					icon: 'success',
 					confirmButtonColor: '#3085d6',
-					title: 'Thêm ảnh thành công',
+					title: 'Success',
 				}).then(result => {
 					if (result.isConfirmed) {
 						$scope.filenames.push(...resp.data);
@@ -294,7 +271,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 			Swal.fire({
 				position: 'top-end',
 				icon: 'success',
-				title: 'Thành công',
+				title: 'Success',
 				showConfirmButton: false,
 				timer: 500
 			})
@@ -326,7 +303,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 			Swal.fire({
 				position: 'top-end',
 				icon: 'success',
-				title: 'Thành công',
+				title: 'Success',
 				showConfirmButton: false,
 				timer: 1000
 			})
@@ -334,7 +311,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 			Swal.fire({
 				icon: 'error',
 				title: 'Oops...',
-				text: "Lỗi xóa sản phẩm!!!",
+				text: "Failed!!!",
 			});
 			console.log("Error", error);
 		});
@@ -385,7 +362,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 			Swal.fire({
 				icon: 'error',
 				title: 'Oops...',
-				text: "Lỗi tải ảnh!!!",
+				text: "Failed!!!",
 			});
 			console.log("Error", error);
 		});
