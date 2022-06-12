@@ -69,15 +69,15 @@ public class ProductController {
 	    model.addAttribute("sortChose", "c");
 	    model.addAttribute("sortSelected", sort.get());
 	} else if (sort.get().equalsIgnoreCase("newest")) {
-	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("createDate").descending());
+	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("p.createDate").descending());
 	    model.addAttribute("sortChose", "d");
 	    model.addAttribute("sortSelected", sort.get());
 	} else if (sort.get().equalsIgnoreCase("lowtohigh")) {
-	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("price").ascending());
+	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("p.price").ascending());
 	    model.addAttribute("sortChose", "e");
 	    model.addAttribute("sortSelected", sort.get());
 	} else if (sort.get().equalsIgnoreCase("hightolow")) {
-	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("price").descending());
+	    pageable = PageRequest.of(p.orElse(0), 12, JpaSort.unsafe("p.price").descending());
 	    model.addAttribute("sortChose", "f");
 	    model.addAttribute("sortSelected", sort.get());
 	}

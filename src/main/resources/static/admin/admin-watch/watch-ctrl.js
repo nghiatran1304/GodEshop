@@ -23,6 +23,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 	$scope.isEdit = false;
 
 	$scope.initialize = function() {
+		$scope.formProduct.productCreateDate = new Date();
 		$scope.showInsert = true;
 		$scope.formProductPhoto.imageId = 'a';
 		// load products
@@ -79,6 +80,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 		$scope.formProductPhoto = {};
 		$scope.filenames = [];
 		$scope.formProductPhoto.imageId = 'a';
+		$scope.formProduct.productCreateDate = new Date();
 		$scope.initialize();
 	}
 

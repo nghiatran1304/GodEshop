@@ -102,9 +102,9 @@
 									<label>Quantity</label>
 									<input type="text" class="form-control" ng-model="formProduct.productQuantity" placeholder="Quantity" />
 								</div>
-								<div class="form-group">
+								<div class="form-group" hidden>
 									<div>Create Date</div>
-									<input ng-model="formProduct.productCreateDate" type="date" class="form-control" />
+									<input ng-model="formProduct.productCreateDate" readonly type="date" class="form-control" />
 								</div>
 							</div>
 							<!-- 2 -->
@@ -115,31 +115,31 @@
 										<option ng-repeat="c in lstCategory" ng-value="{{c.id}}" ng-selected="formProduct.categoryId == c.id">{{c.name}}</option>
 									</select>
 								</div>
-								<div class="form-group">
+								<div class="form-group" style="margin-top: 30px">
 									<label>Brand</label>
 									<select class="form-control" ng-model="formProduct.brandId">
 										<option ng-repeat="b in lstBrands" value="{{b.id}}" ng-selected="formProduct.brandId == b.id">{{b.name}}</option>
 									</select>
 								</div>
-								<div class="form-group">
+								<div class="form-group" style="margin-top: 28px">
 									<label>Bracelet Materials</label>
 									<select class="form-control" ng-model="formWatch.braceletMaterialId">
 										<option ng-repeat="bm in lstBraceletMaterial" ng-value="{{bm.id}}" ng-selected="formWatch.braceletMaterialId == bm.id">{{bm.name}}</option>
 									</select>
 								</div>
-								<div class="form-group">
+								<div class="form-group" style="margin-top: 28px">
 									<label>Machine Inside</label>
 									<select class="form-control" ng-model="formWatch.machineInsideId">
 										<option ng-repeat="mi in lstMachineInside" ng-value="{{mi.id}}" ng-selected="formWatch.machineInsideId == mi.id">{{mi.name}}</option>
 									</select>
 								</div>
-								<div class="form-group">
+								<div class="form-group" style="margin-top: 28px">
 									<label>Glass Material</label>
 									<select class="form-control" ng-model="formWatch.glassMaterialId">
 										<option ng-repeat="g in lstGlassMaterial" ng-value="{{g.id}}" ng-selected="formWatch.glassMaterialId == g.id">{{g.name}}</option>
 									</select>
 								</div>
-								<div class="form-group">
+								<div class="form-group" style="margin-top: 28px">
 									<label>Gender</label>
 									<select class="form-control" ng-model="formWatch.watchGender">
 										<option ng-value="0" ng-selected="formWatch.watchGender == 0">Female</option>
@@ -148,16 +148,11 @@
 										<option ng-value="3" ng-selected="formWatch.watchGender == 3">Other</option>
 									</select>
 								</div>
-
 								<div class="form-group">
 									<label>Made In</label>
 									<input type="text" class="form-control" ng-model="formProduct.productMadeIn" placeholder="Made in" />
 								</div>
-								<div class="form-group">
-									<label>Detail</label>
-									<textarea class="form-control" rows="4" ng-model="formProduct.productDetail"></textarea>
-								</div>
-								<div class="form-group">
+								<div class="form-group mt-2">
 									<div class="mb-3">Available</div>
 									<label for="radio-inline">
 										<input ng-model="formProduct.productIsDeteled" type="radio" ng-value="false" name="available" />
@@ -168,6 +163,10 @@
 										No
 									</label>
 								</div>
+							</div>
+							<div class="form-group col-12">
+								<label>Detail</label>
+								<textarea class="form-control" rows="4" ng-model="formProduct.productDetail"></textarea>
 							</div>
 						</div>
 
