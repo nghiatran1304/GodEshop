@@ -32,15 +32,14 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     // ------------------------------------------------------------------------
     // Product for shop page
     @Query("SELECT new com.godEShop.Dto.ProductShopDto"
-	    + "(p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int), pd.discount, p.detail, MAX(pd.endDate), p.quantity, MAX(pd.createDate)) "
+	    + "(p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int), pd.discount, p.detail, MAX(pd.endDate), p.quantity, pd.createDate) "
 	    + "FROM Product p " 
 	    + "FULL JOIN p.productPhotos pp " 
 	    + "FULL JOIN p.productEvaluations pe "
 	    + "FULL JOIN p.brand pb " 
 	    + "FULL JOIN p.productDiscounts pd " 
 	    + "FULL JOIN p.category c "
-	    + "WHERE p.isDeleted = 0 AND c.available = 0 "
-	    + "AND pd.id NOT IN (SELECT pd.id FROM ProductDiscount AS pd FULL JOIN pd.product p WHERE pd.endDate < GETDATE() GROUP BY pd.id) "
+	    + "WHERE ( p.isDeleted = 0 AND c.available = 0 AND ( pd.id NOT IN (SELECT pd1.id FROM ProductDiscount pd1 FULL JOIN pd1.product p1 WHERE pd1.endDate < GETDATE() GROUP BY pd1.id) OR pd.createDate IS NULL) ) "
 	    + "AND (p.name LIKE ?1 OR c.name LIKE ?1) AND c.name LIKE ?2 AND pb.name LIKE ?3 "
 	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, p.quantity, pd.createDate")
 	   //+ "HAVING MAX(pd.endDate) >= GETDATE() OR MAX(pd.endDate) IS NULL ")

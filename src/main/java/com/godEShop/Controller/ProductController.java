@@ -105,8 +105,7 @@ public class ProductController {
 
 	model.addAttribute("nameOfSearch", (s1 + s2 + s3));
 
-	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%",
-		"%" + brandName + "%", pageable);
+	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%", "%" + brandName + "%", pageable);
 	
 	Date d = new Date();
 	

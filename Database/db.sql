@@ -1862,20 +1862,19 @@ where IsDeleted = 0
 
 select * from Orders
 	
-select 
-p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int) AS 'Evalutions', pd.discount, p.detail, MAX(pd.endDate), p.quantity, pd.createDate
+select p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int), pd.discount, p.detail, MAX(pd.endDate), p.quantity, pd.createDate
 FROM Products as p
 FULL JOIN ProductPhotos as pp on p.Id = pp.ProductId	
 FULL JOIN ProductEvaluations as pe on p.id = pe.ProductId
 FULL JOIN Brands as b on p.BrandId = b.Id
 FULL JOIN ProductDiscounts as pd on pd.ProductId = p.Id
 FULL JOIN Categories as c on c.Id = p.CategoryId
-WHERE p.IsDeleted = 0 AND c.IsDeleted = 0 AND pd.id not in ( 
+WHERE p.IsDeleted = 0 AND c.IsDeleted = 0 AND ( pd.id not in ( 
 		select pd.id from ProductDiscounts as pd 
-		FULL JOIN Products as p on pd.ProductId = p.Id
+		INNER JOIN Products as p on pd.ProductId = p.Id
 		WHERE pd.EndDate < GETDATE()
 		GROUP BY pd.id
-	)
+	) OR pd.CreateDate IS NULL)
 GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, p.quantity, pd.createDate
 
 
