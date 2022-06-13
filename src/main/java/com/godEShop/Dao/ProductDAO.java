@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.godEShop.Dto.AccessoryDto;
 import com.godEShop.Dto.ProductDiscountDto;
 import com.godEShop.Dto.ProductShopDto;
+import com.godEShop.Dto.ProductStatisticDto;
 import com.godEShop.Dto.ProductWatchInfoDto;
 import com.godEShop.Dto.WatchDto;
 import com.godEShop.Entity.Product;
@@ -189,4 +190,16 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p "   		
     		+ "WHERE p.name = ?1")
     List<Product> findByNameOrderDetail(String productName);
+    
+    
+    // ---------------------------------------------------------------------------
+    @Query("SELECT new com.godEShop.Dto.ProductStatisticDto"
+    	    + "(p.id, p.name, p.quantity, sum(od.quantity)) "
+    	    + "FROM Product p " 
+    	    + "INNER JOIN p.orderDetails od "
+    	    + "INNER JOIN od.order o "
+    	    + "WHERE od.product != 0 "
+    	    + "GROUP BY p.name, p.id, p.quantity ")
+        List<ProductStatisticDto> getProductStatistic();
+    
 }
