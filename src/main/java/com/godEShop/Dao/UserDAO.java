@@ -1,9 +1,12 @@
 package com.godEShop.Dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.godEShop.Dto.UserInfoDto;
 import com.godEShop.Entity.User;
 
 @Repository
@@ -13,4 +16,11 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     
     @Query("SELECT u FROM User u WHERE u.account.username=?1")
     User findByAccountUsername(String username);
+    
+    @Query("SELECT new com.godEShop.Dto.UserInfoDto"
+    	+ "(a.username, a.isDelete, a.password, r.id, r.name, u.id, u.address, u.dob, u.email, u.fullname, u.gender, u.phone, u.photo)"
+    	+ "FROM Account a "
+    	+ "INNER JOIN a.role r "
+    	+ "INNER JOIN a.users u ")
+    List<UserInfoDto> lstUserInfoDto();
 }
