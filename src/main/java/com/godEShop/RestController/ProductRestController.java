@@ -44,7 +44,7 @@ public class ProductRestController {
     
     @GetMapping("/rest/products/{productId}")
     public ProductShopDto getOne(@PathVariable("productId") Long id) {
-	return productService.productShopById(id);
+	return productService.productShopById1(id);
     }
 
     @GetMapping("/rest/products")

@@ -15,7 +15,7 @@
 								<div class="product-wrapper listview">
 									<div class="list-col4">
 										<div class="product-image">
-											<a href="">
+											<a th:href="@{|/product/${p.productId}|}">
 												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" style="width: 370px; height: 150px;" alt="">
 											</a>
 											<div class="quickviewbtn">
@@ -123,11 +123,11 @@
 								<div class="product-wrapper listview">
 									<div class="list-col4">
 										<div class="product-image">
-											<a href="">
+											<a th:href="@{|/product/${p.productId}|}">
 												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" style="width: 370px; height: 150px;" alt="">
 											</a>
 											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
+												<a th:href="@{|/product/${p.productId}|}" data-original-title="Quick View">
 													<i class="ion-eye"></i>
 												</a>
 											</div>
@@ -231,11 +231,11 @@
 								<div class="product-wrapper listview">
 									<div class="list-col4">
 										<div class="product-image">
-											<a href="">
+											<a th:href="@{|/product/${p.productId}|}">
 												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" style="width: 370px; height: 150px;" alt="">
 											</a>
 											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
+												<a th:href="@{|/product/${p.productId}|}" data-original-title="Quick View">
 													<i class="ion-eye"></i>
 												</a>
 											</div>
@@ -339,11 +339,11 @@
 								<div class="product-wrapper listview">
 									<div class="list-col4">
 										<div class="product-image">
-											<a href="">
+											<a th:href="@{|/product/${p.productId}|}">
 												<img th:src="@{|/upload/ProductImages/${p.productImage}|}" style="width: 370px; height: 150px;" alt="">
 											</a>
 											<div class="quickviewbtn">
-												<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
+												<a  th:href="@{|/product/${p.productId}|}" data-original-title="Quick View">
 													<i class="ion-eye"></i>
 												</a>
 											</div>

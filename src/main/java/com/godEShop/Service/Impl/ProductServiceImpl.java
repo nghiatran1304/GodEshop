@@ -53,9 +53,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductShopDto productShopById(Long id) {
+    public List<ProductShopDto> productShopById(Long id) {
 	// TODO Auto-generated method stub
 	return productDAO.productShopById(id);
+    }
+    
+    @Override
+    public ProductShopDto productShopById1(Long id) {
+	// TODO Auto-generated method stub
+	return productDAO.productShopById1(id);
     }
 
     @Override

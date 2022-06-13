@@ -1,6 +1,7 @@
 package com.godEShop.Controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.godEShop.Dto.ProductDiscountDto;
+import com.godEShop.Entity.ProductDiscount;
 import com.godEShop.Service.BrandService;
 import com.godEShop.Service.ProductDiscountService;
 import com.godEShop.Service.ProductPhotoService;
@@ -84,6 +86,14 @@ public class HomeController {
 	bestSeller(model); // sản phẩm bán chạy nhất
 	newProducts(model); // sản phẩm mới nhất
 	top4Brand(model); // top 4 thương hiệu được đánh giá cao
+	
+	List<ProductDiscount> pd = productDiscountService.findAll();
+	for(int i = 0; i < pd.size(); i++) {
+	    if(pd.get(i).getEndDate().compareTo(new Date()) == -1) {
+		productDiscountService.delete(pd.get(i).getId());
+	    }
+	}
+	
 	if (request.isUserInRole("Admin")) {
 	    return "redirect:/admin";
 	}
