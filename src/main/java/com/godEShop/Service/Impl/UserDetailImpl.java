@@ -22,8 +22,7 @@ public class UserDetailImpl implements UserDetailsService {
     AccountDAO accountDAO;
     @Autowired
     AccountService accountService;
-    @Autowired
-    BCryptPasswordEncoder pe;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -34,7 +33,7 @@ public class UserDetailImpl implements UserDetailsService {
 	    // Tạo UserDetails từ Account
 	    String password = account.getPassword();
 	    String role = account.getRole().getId();
-	    return User.withUsername(username).password(pe.encode(password)).roles(role).build();
+	    return User.withUsername(username).password(password).roles(role).build();
 	} catch (Exception e) {
 	    // TODO: handle exception
 	    throw new UsernameNotFoundException(username + "not found");
@@ -48,7 +47,7 @@ public class UserDetailImpl implements UserDetailsService {
 	// sinh mật khẩu ngẫu nhiên
 	String password = Long.toHexString(System.currentTimeMillis());
 	// Tạo UserDetails từ Account
-	UserDetails user = User.withUsername(email).password(pe.encode(password)).roles("Customer").build();
+	UserDetails user = User.withUsername(email).password(password).roles("Customer").build();
 
 	Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 	// thay thế authentication này bằng authentication từ mạng xh

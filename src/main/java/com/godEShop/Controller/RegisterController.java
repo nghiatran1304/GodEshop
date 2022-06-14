@@ -29,6 +29,10 @@ public class RegisterController {
     @Autowired
     SessionService sessionService; 
   
+    @Autowired
+    BCryptPasswordEncoder pe;
+
+    
     @PostMapping("/register")
     public String Register(Model model, @RequestParam("username") String username,
 	    @RequestParam("password") String password) {
@@ -36,7 +40,7 @@ public class RegisterController {
 	if (userService.findByUsername(username) == null) {
 	    Account acc = new Account();
 	    acc.setUsername(username);
-	    acc.setPassword(password);
+	    acc.setPassword(pe.encode(password));
 	    acc.setIsDelete(false);
 
 	    Role role = roleService.findById("Customer");
