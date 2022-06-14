@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.godEShop.Entity.ProductPhoto;
+import com.godEShop.Entity.User;
 
 @Service
 public class FileManagerService {
@@ -26,6 +27,32 @@ public class FileManagerService {
 
     @Autowired
     ProductService productService;
+    
+    @Autowired
+    UserService userService;
+    
+    public List<String> saveAdmin(Integer id, MultipartFile[] files) {
+	List<String> filenames = new ArrayList<String>();
+	for (MultipartFile file : files) {
+	    String name = System.currentTimeMillis() + file.getOriginalFilename();
+	    String filename = Integer.toHexString(name.hashCode()) + name.substring(name.lastIndexOf("."));
+	    File dir = new File("src\\main\\resources\\static\\upload\\UserImages");
+	    User u = userService.findById(id);
+	    u.setPhoto(filename);
+	    userService.update(u);
+	    try {
+		File savedFile = new File(dir.getAbsolutePath(), filename);
+		System.out.println(" >> File just saved: " + savedFile.getAbsolutePath());
+		file.transferTo(savedFile);
+		filenames.add(filename);
+	    } catch (Exception e) {
+		System.out.println("  >> Save file : " + e.getMessage());
+		e.printStackTrace();
+	    }
+	}
+	return filenames;
+    }
+    
 
     public List<String> save(Long id, MultipartFile[] files) {
 	List<String> filenames = new ArrayList<String>();

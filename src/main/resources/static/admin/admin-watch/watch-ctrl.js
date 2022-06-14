@@ -164,7 +164,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 			Swal.fire({
 				icon: 'error',
 				title: 'Oops...',
-				text: "Lỗi !!!",
+				text: "Failed !!!",
 			});
 			console.log("Error insert product : ", error);
 		});
@@ -178,7 +178,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: "Lỗi !!!",
+					text: "Failed !!!",
 				});
 				console.log("Error insert watch : ", error);
 			});
@@ -281,7 +281,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 			Swal.fire({
 				icon: 'error',
 				title: 'Oops...',
-				text: "Lỗi !!!",
+				text: "Failed !!!",
 			});
 			console.log("Error product : ", error);
 		});
