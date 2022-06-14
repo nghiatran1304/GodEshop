@@ -27,10 +27,17 @@ app.controller("account-ctrl", function($scope, $http) {
 	$scope.initialize();
 
 	$scope.findByName = function() {
-		var nameSearched = $scope.searchByUsername;
-		$http.get(`/rest/accounts/${nameSearched}`).then(resp => {
-			$scope.items = resp.data;
-		});
+		var nameSearched = $scope.searchByName;
+		if (nameSearched.length <= 0) {
+			$scope.initialize();
+		} else {
+			$http.get(`/rest/search-accounts/${nameSearched}`).then(resp => {
+				$scope.items = resp.data;
+				$scope.items.forEach(item => {
+					item.userDob = new Date(item.userDob);
+				});
+			});
+		}
 	}
 
 

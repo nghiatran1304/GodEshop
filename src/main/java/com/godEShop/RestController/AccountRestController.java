@@ -56,6 +56,11 @@ public class AccountRestController {
     public List<UserInfoDto> getInfo() {
 	return userService.lstUserInfoDto();
     }
+    
+    @GetMapping("/rest/search-accounts/{name}")
+    public List<UserInfoDto> getSearchInfo(@PathVariable("name") String kw) {
+	return userService.lstFindUser("%" + kw + "%");
+    }
 
     @DeleteMapping("/rest/delete-account/{accountUsername}")
     public void deleteUsername(@PathVariable("accountUsername") String id) {

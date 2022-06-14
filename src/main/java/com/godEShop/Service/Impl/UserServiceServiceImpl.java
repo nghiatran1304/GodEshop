@@ -57,4 +57,10 @@ public class UserServiceServiceImpl implements UserService {
 	return udao.getById(userId);
     }
 
+    @Override
+    public List<UserInfoDto> lstFindUser(String kw) {
+	// TODO Auto-generated method stub
+	return udao.lstFindUser(kw);
+    }
+
 }
