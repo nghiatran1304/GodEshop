@@ -44,4 +44,18 @@ public class AccountServiceImpl implements AccountService {
 //	adao.deleteById(username);
 //}
 
+	@Override
+	public void delete(String id) {
+	    // TODO Auto-generated method stub
+	    Account a = adao.findByUsername(id);
+	    a.setIsDelete(true);
+	    adao.save(a);
+	}
+
+	@Override
+	public Account update(Account account) {
+	    // TODO Auto-generated method stub
+	    return adao.save(account);
+	}
+
 }

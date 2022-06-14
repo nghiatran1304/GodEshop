@@ -12,14 +12,13 @@ import com.godEShop.Service.RoleService;
 
 @CrossOrigin("*")
 @RestController
-public class RoleRestController  {
-	@Autowired
-	RoleService roleService;
-	
-	@GetMapping("/rest/role")
-	 public List<Role> getAll(){
-		return roleService.findAll();
-	}
+public class RoleRestController {
+    @Autowired
+    RoleService roleService;
 
+    @GetMapping("/rest/roles")
+    public List<Role> getAll() {
+	return roleService.findAll();
+    }
 
 }

@@ -16,6 +16,9 @@ public interface AccountService {
 	public List<Account> findAll();
 
 	public Account create(Account account);
+	public Account update(Account account);
+
+	public void delete(String id);
 	
 //	public void loginFromOAuth2(OAuth2AuthenticationToken oauth2);
 

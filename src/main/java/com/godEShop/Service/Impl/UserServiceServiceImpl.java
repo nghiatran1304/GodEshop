@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.godEShop.Dao.UserDAO;
+import com.godEShop.Dto.UserInfoDto;
 import com.godEShop.Entity.User;
 import com.godEShop.Service.UserService;
 
@@ -36,6 +37,24 @@ public class UserServiceServiceImpl implements UserService {
     public User findByAccountUsername(String username) {
 	// TODO Auto-generated method stub
 	return udao.findByAccountUsername(username);
+    }
+
+    @Override
+    public List<UserInfoDto> lstUserInfoDto() {
+	// TODO Auto-generated method stub
+	return udao.lstUserInfoDto();
+    }
+
+    @Override
+    public User update(User u) {
+	// TODO Auto-generated method stub
+	return udao.save(u);
+    }
+
+    @Override
+    public User findById(Integer userId) {
+	// TODO Auto-generated method stub
+	return udao.getById(userId);
     }
 
 }
