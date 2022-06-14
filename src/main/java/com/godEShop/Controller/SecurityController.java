@@ -109,7 +109,7 @@ public class SecurityController {
 	    newUser.setGender(1);
 	    newUser.setDob(new Date());
 	    newUser.setPhone("");
-	    newUser.setPhoto(photo);
+	    newUser.setPhoto(photo.substring(8));
 	    newUser.setAddress("");
 	    userService.create(newUser);
 	}

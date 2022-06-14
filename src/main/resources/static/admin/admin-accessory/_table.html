@@ -1,0 +1,57 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<form>
+		<!-- <input type="text" class="form-control" placeholder="Search" ng-model="searchName"> -->
+		<!-- <input type="text" class="form-control" placeholder="Search by name" ng-model="kwords" onchange="angular.element(this).scope().findByNameDto(this)"> -->
+		<input type="text" class="form-control" placeholder="Search by name" ng-model="kwords" ng-change="findByNameDto(kwords)">
+	</form>
+	<table class="table table-hover table-bordered mt-2">
+		<thead class="thead-dark">
+			<tr class="text-center">
+				<th scope="col">Image</th>
+				
+				<th scope="col">
+					<a class="text-warning font-weight-bold" href="" >Product's name</a>
+				</th>
+				<th scope="col">
+					<a class="text-warning font-weight-bold" href="" >Brand's name</a>
+				</th>
+				<th scope="col">
+					<a class="text-warning font-weight-bold" href="" >Price</a>
+				</th>
+				<th scope="col">
+					<a class="text-warning font-weight-bold" href="" >Create Date</a>
+				</th>
+				<th scope="col">
+					<a class="text-warning font-weight-bold" href="" >Available</a>
+				</th>
+				<th scope="col">Edit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="text-center" ng-repeat="item in pager.items | orderBy:sortType | filter:searchName" ng-click="edit(item)" >
+				<td>
+					<img ng-src="/upload/ProductImages/{{item.imageId}}" alt="" style="width: 80px; height: 80px"/>
+				</td>
+				
+				<td>{{item.productName}}</td>
+				<td>{{item.brandName}}</td>
+				<td>{{item.productPrice | number : 2}}</td>
+				<td>{{item.productCreateDate | date : 'dd-MM-yyyy'}}</td>
+				<td>{{item.productIsDeteled?'No':'Yes'}}</td>
+				<td class="text-center">
+					<button ng-click="edit(item)"  class="btn btn-warning">Edit</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+ 	<div>
+		<div class="text-center">
+			<button ng-click="pager.first()" class="btn btn-secondary">|<</button>
+			<button ng-click="pager.pre()" class="btn btn-secondary"><<</button>
+			<button class="btn btn-success">{{pager.page + 1}} of {{pager.count}}</button>
+			<button ng-click="pager.next()" class="btn btn-secondary">>></button>
+			<button ng-click="pager.last()" class="btn btn-secondary">>|</button>
+		</div>
+	</div> 
+</div>
