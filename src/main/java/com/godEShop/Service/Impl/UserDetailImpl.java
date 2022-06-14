@@ -26,7 +26,6 @@ public class UserDetailImpl implements UserDetailsService {
     BCryptPasswordEncoder pe;
 
     @Override
-
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 	// TODO Auto-generated method stub
 

@@ -15,5 +15,7 @@ public interface AccessoryService {
 
 	Accessory update(Accessory ac);
 
+	List<ProductAccessoryInfoDto> lstSearchFullInfoAccessory(String string);
+
 	
 }

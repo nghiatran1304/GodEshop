@@ -32,7 +32,8 @@ public interface ProductService {
     List<ProductDiscountDto> productByIdBrands(Integer id);
 
     // -------------------------
-    ProductShopDto productShopById(Long id);
+    ProductShopDto productShopById1(Long id);
+    List<ProductShopDto> productShopById(Long id);
 
     // -------------------------
     WatchDto getWatchById(Long id);

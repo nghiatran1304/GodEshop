@@ -33,7 +33,7 @@ CREATE TABLE Users(
 	Gender INT DEFAULT 0, -- 0 nữ | 1 nam | 2 unisex
 	Dob DATE,
 	Phone VARCHAR(12) NOT NULL,
-	Photo NVARCHAR(250) NULL,
+	Photo NVARCHAR(250) DEFAULT NULL,
 	Address NVARCHAR(250) NOT NULL,
 	Username VARCHAR(50) NOT NULL,
 	FOREIGN KEY (Username) REFERENCES Accounts(Username)
@@ -290,43 +290,44 @@ GO
 
 INSERT INTO Users(Fullname, Email, Gender, Dob, Phone, Photo, Address, Username) VALUES
 (N'Trần Trung Nghĩa', 'nghiattps14820@fpt.edu.vn', 1, '1997-04-13', '0366888470', 'nghia.jpg', N'Tân Bình', 'admin01'),
-(N'Trần Trung Tính', 'tinhttps14444@fpt.edu.vn', 1, '2001-04-06', '0366888471', 'admin02.jpg', N'Bình Trị Đông A', 'admin02'),
+(N'Hồ Trung Tính', 'tinhttps14444@fpt.edu.vn', 1, '2001-04-06', '0366888471', 'admin02.jpg', N'Bình Trị Đông A', 'admin02'),
 (N'Trần Nguyên Hội', 'hointps15555@fpt.edu.vn', 1, '1999-01-13', '0366889911', 'admin03.jpg', N'Bình Trị Đông B', 'admin03'),
 (N'Doãn Hoài Nam', 'namdh123@gmail.com', 1, '1996-01-02', '0989878787', 'nam.jpg', N'Quận 11', 'cust01'),
 (N'Trần Nguyên Hải', 'haitn123@gmail.com', 1, '1992-01-02', '0387465739', 'hai.jpg', N'Quận Bình Thạnh', 'cust02'),
 (N'Lê Quý Vương', 'vuonglq123@gmail.com', 1, '1995-01-02', '0988767512', 'vuong.jpg', N'Quận 2', 'cust03'),
 (N'Hồ Trung Tính', 'tinhht321@gmail.com', 1, '2000-01-02', '0976352435', 'tinh.jpg', N'Quận 11', 'cust04'),
-(N'Trần Thị Hoàn', 'hoantt@gmail.com', 0, '2001-03-31', '0398767652', 'hoan.jpg', N'Quận 12', 'cust05'),
-(N'Trần Thanh Khiêm', 'cust06@gmail.com', 1, '1996-01-03', '0976484999', 'cust06.jpg', N'Số 3, D1, Khu tập thể Dệt Kim Đông Xuân, Phường Đồng Nhân, Quận Hai Bà Trưng, Hà Nội', 'cust06'),
-(N'Trịnh Thị Minh Ngọc', 'cust07@gmail.com', 0, '1992-02-20', '0824414555', 'cust07.jpg', N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội', 'cust07'),
-(N'Nguyễn Khánh Hân', 'cust08@gmail.com', 0, '1994-03-26', '0879462468', 'cust08.jpg', N'Số 119 phố Nguyễn An Ninh, Phường Tương Mai, Quận Hoàng Mai, Hà Nội', 'cust08'),
-(N'Nguyễn Tuấn Dũng', 'cust09@gmail.com', 1, '1984-04-21', '0372958288', 'cust09.jpg', N'Số 70 ngõ 172 đường Phú Diễn, Phường Phú Diễn, Quận Bắc Từ Liêm, Hà Nội', 'cust09'),
-(N'Đỗ Chiếm Dương', 'cust10@gmail.com', 1, '1974-05-18', '0979985490', 'cust10.jpg', N'Số 42 đường Nguyễn Khuyến, Phường Văn Quán, Quận Hà Đông, Hà Nội', 'cust10'),
-(N'Ngô Quốc Vinh', 'cust11@gmail.com', 1, '1976-06-17', '0972267861', 'cust11.jpg', N'Số 5A Hoàng Văn Thụ, Phường Minh Khai, Quận Hồng Bàng, Hải Phòng', 'cust11'),
-(N'Võ Minh Thịnh', 'cust12@gmail.com', 1, '1922-07-15', '0963651231', 'cust12.jpg', N'Số S5.04 Vinhome Marina, đường Võ Nguyên Giáp, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng', 'cust12'),
-(N'Từ Thị Yến Nhi', 'cust13@gmail.com', 0, '1997-08-14', '0964792996', 'cust13.jpg', N'96 Lý Thường Kiệt,, Phường Hoàng Văn Thụ, Quận Hồng Bàng, Hải Phòng', 'cust13'),
-(N'Trần Quốc Bảo', 'cust14@gmail.com', 1, '2003-09-13', '0965725673', 'cust14.jpg', N'Số 56 đường số 5B, Khu đô thị Waterfront,, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng', 'cust14'),
-(N'Dương Đình Thiện Vũ', 'cust15@gmail.com', 1, '1982-11-11', '0977474140', 'cust15.jpg', N'88 Bàu Gia Thượng 2,, Phường Hoà Thọ Đông, Quận Cẩm Lệ, Đà Nẵng', 'cust15'),
-(N'Trần Văn Đức', 'cust16@gmail.com', 1, '1985-12-10', '0964250417', 'cust16.jpg', N'Lô 11, Khu LK04A, khu đô thị Hòa Quý,, Phường Hoà Quý, Quận Ngũ Hành Sơn, Đà Nẵng', 'cust16'),
-(N'Võ Đức Huy', 'cust17@gmail.com', 1, '1988-05-09', '0966465470', 'cust17.jpg', N'51 Tống Phước Phổ, Phường Hoà Cường Bắc, Quận Hải Châu, Đà Nẵng', 'cust17'),
-(N'Nguyễn Thị Anh Thư', 'cust18@gmail.com', 0, '1956-01-08', '0964633324', 'cust18.jpg', N'48 Nguyễn Chí Thanh, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng', 'cust18'),
-(N'Võ Thị Yến Linh', 'cust19@gmail.com', 0, '1992-07-07', '0962788874', 'cust19.jpg', N' 132/78 Hùng Vương,, Phường Thới Bình, Quận Ninh Kiều, Cần Thơ', 'cust19'),
-(N'Trần Trung Sơn', 'cust20@gmail.com', 1, '1970-03-30', '0967343037', 'cust20.jpg', N'14 Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều, Cần Thơ', 'cust20'),
-(N'Đinh Tuấn Anh', 'cust21@gmail.com', 1, '1976-01-11', '0966551354', 'cust21.jpg', N'Số 356 Đội Cấn, Phường Cống Vị, Quận Ba Đình, Hà Nội', 'cust21'),
-(N'Lê Hoàng Phúc', 'cust22@gmail.com', 1, '1972-02-28', '0967870466', 'cust22.jpg', N'Số 6 Đặng Dung, Phường Trúc Bạch, Quận Ba Đình, Hà Nội', 'cust22'),
-(N'Nguyễn Viết Hoàng Thắng', 'cust23@gmail.com', 1, '1985-03-22', '0978604070', 'cust23.jpg', N'Số 28, ngõ 6, đường Võng Thị, Phường Bưởi, Quận Tây Hồ, Hà Nội', 'cust23'),
-(N'Phan Hoàng Phúc', 'cust24@gmail.com', 1, '2001-03-01', '0984496748', 'cust24.jpg', N'Số 606 Lạc Long Quân, Phường Nhật Tân, Quận Tây Hồ, Hà Nội', 'cust24'),
-(N'Nguyễn Hoàng Minh Tú', 'cust25@gmail.com', 1, '1973-03-25', '0987798493', 'cust25.jpg', N'Số nhà 52, ngõ 230, phố Lạc Trung, Phường Thanh Lương, Quận Hai Bà Trưng, Hà Nội', 'cust25'),
-(N'Doãn Hoài Nam', 'cust26@gmail.com', 1, '1976-06-03', '0964858380', 'cust26.jpg', N'Số 1529B đường 30/4, Phường 12, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu', 'cust26'),
-(N'Giang Hạc Minh', 'cust27@gmail.com', 1, '1989-12-05', '0967509510', 'cust27.jpg', N'Tổ 5, ấp Phước Lập, Xã Mỹ Xuân, Huyện Tân Thành, Bà Rịa - Vũng Tàu', 'cust27'),
-(N'Nguyễn Thùy Ngọc Hân', 'cust28@gmail.com', 0, '1991-03-07', '0969038041', 'cust28.jpg', N'Số 159 Võ Thị Sáu, Khu phố Long Nguyên, Thị trấn Long Điền, Huyện Long Điền, Bà Rịa - Vũng Tàu', 'cust28'),
-(N'Huỳnh Thị Đào Ty', 'cust29@gmail.com', 1, '1992-06-09', '0973421342', 'cust29.jpg', N'22D2 Tống Duy Tân, Phường 9, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu', 'cust29'),
-(N'Phan Hoàng Trâm Anh', 'cust30@gmail.com', 0, '1983-05-11', '0972303635', 'cust30.jpg', N'34 Sao Biển, Phường Vĩnh Hải, Thành phố Nha Trang, Khánh Hòa', 'cust30'),
-(N'Trần Ngọc Tố Ny', 'cust31@gmail.com', 0, '1991-07-13', '0965051054', 'cust31.jpg', N'212 Trần Quý Cáp, Phường Phương Sài, Thành phố Nha Trang, Khánh Hòa', 'cust31'),
-(N'Hoàng Văn Chinh', 'cust32@gmail.com', 1, '1992-02-15', '0968304230', 'cust32.jpg', N'43/1 Phước Long, Phường Phước Long, Thành phố Nha Trang, Khánh Hòa', 'cust32'),
-(N'Phạm Văn Khang', 'cust33@gmail.com', 1, '1993-04-17', '0983797594', 'cust33.jpg', N'34/2/28 Nguyễn Thiện Thuật, Phường Tân Lập, Thành phố Nha Trang, Khánh Hòa', 'cust33'),
-(N'Dương Văn Vĩ', 'cust34@gmail.com', 1, '1994-03-19', '0965787830', 'cust34.jpg', N' Số Nhà 199, Tổ 1 Phố Vàng,, Thị trấn Thanh Sơn, Huyện Thanh Sơn, Phú Thọ', 'cust34'),
-(N'Trần Thị Diễm My', 'cust35@gmail.com', 0, '1957-03-25', '0965368987', 'cust35.jpg', N'Số nhà 06, Khu Phú Lợi, Phường Phong Châu, Thị xã Phú Thọ, Phú Thọ', 'cust35')
+(N'Trần Minh Anh', 'anhtm@gmail.com', 0, '2001-03-31', '0398767652', 'noImage.jpg', N'Quận 12', 'cust05'),
+(N'Trần Thanh Khiêm', 'cust06@gmail.com', 1, '1996-01-03', '0976484999', 'noImage.jpg', N'Số 3, D1, Khu tập thể Dệt Kim Đông Xuân, Phường Đồng Nhân, Quận Hai Bà Trưng, Hà Nội', 'cust06'),
+(N'Trịnh Thị Minh Ngọc', 'cust07@gmail.com', 0, '1992-02-20', '0824414555', 'noImage.jpg', N'Số 8 ngõ 83 Yên Duyên, Phường Yên Sở, Quận Hoàng Mai, Hà Nội', 'cust07'),
+(N'Nguyễn Khánh Hân', 'cust08@gmail.com', 0, '1994-03-26', '0879462468', 'noImage.jpg', N'Số 119 phố Nguyễn An Ninh, Phường Tương Mai, Quận Hoàng Mai, Hà Nội', 'cust08'),
+(N'Nguyễn Tuấn Dũng', 'cust09@gmail.com', 1, '1984-04-21', '0372958288', 'noImage.jpg', N'Số 70 ngõ 172 đường Phú Diễn, Phường Phú Diễn, Quận Bắc Từ Liêm, Hà Nội', 'cust09'),
+(N'Đỗ Chiếm Dương', 'cust10@gmail.com', 1, '1974-05-18', '0979985490', 'noImage.jpg', N'Số 42 đường Nguyễn Khuyến, Phường Văn Quán, Quận Hà Đông, Hà Nội', 'cust10'),
+(N'Ngô Quốc Vinh', 'cust11@gmail.com', 1, '1976-06-17', '0972267861', 'noImage.jpg', N'Số 5A Hoàng Văn Thụ, Phường Minh Khai, Quận Hồng Bàng, Hải Phòng', 'cust11'),
+(N'Võ Minh Thịnh', 'cust12@gmail.com', 1, '1922-07-15', '0963651231', 'noImage.jpg', N'Số S5.04 Vinhome Marina, đường Võ Nguyên Giáp, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng', 'cust12'),
+(N'Từ Thị Yến Nhi', 'cust13@gmail.com', 0, '1997-08-14', '0964792996', 'noImage.jpg', N'96 Lý Thường Kiệt,, Phường Hoàng Văn Thụ, Quận Hồng Bàng, Hải Phòng', 'cust13'),
+(N'Trần Quốc Bảo', 'cust14@gmail.com', 1, '2003-09-13', '0965725673', 'noImage.jpg', N'Số 56 đường số 5B, Khu đô thị Waterfront,, Phường Vĩnh Niệm, Quận Lê Chân, Hải Phòng', 'cust14'),
+(N'Dương Đình Thiện Vũ', 'cust15@gmail.com', 1, '1982-11-11', '0977474140', 'noImage.jpg', N'88 Bàu Gia Thượng 2,, Phường Hoà Thọ Đông, Quận Cẩm Lệ, Đà Nẵng', 'cust15'),
+(N'Trần Văn Đức', 'cust16@gmail.com', 1, '1985-12-10', '0964250417', 'noImage.jpg', N'Lô 11, Khu LK04A, khu đô thị Hòa Quý,, Phường Hoà Quý, Quận Ngũ Hành Sơn, Đà Nẵng', 'cust16'),
+(N'Võ Đức Huy', 'cust17@gmail.com', 1, '1988-05-09', '0966465470', 'noImage.jpg', N'51 Tống Phước Phổ, Phường Hoà Cường Bắc, Quận Hải Châu, Đà Nẵng', 'cust17'),
+(N'Nguyễn Thị Anh Thư', 'cust18@gmail.com', 0, '1956-01-08', '0964633324', 'noImage.jpg', N'48 Nguyễn Chí Thanh, Phường Thạch Thang, Quận Hải Châu, Đà Nẵng', 'cust18'),
+(N'Võ Thị Yến Linh', 'cust19@gmail.com', 0, '1992-07-07', '0962788874', 'noImage.jpg', N' 132/78 Hùng Vương,, Phường Thới Bình, Quận Ninh Kiều, Cần Thơ', 'cust19'),
+(N'Trần Trung Sơn', 'cust20@gmail.com', 1, '1970-03-30', '0967343037', 'noImage.jpg', N'14 Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều, Cần Thơ', 'cust20'),
+(N'Đinh Tuấn Anh', 'cust21@gmail.com', 1, '1976-01-11', '0966551354', 'noImage.jpg', N'Số 356 Đội Cấn, Phường Cống Vị, Quận Ba Đình, Hà Nội', 'cust21'),
+(N'Lê Hoàng Phúc', 'cust22@gmail.com', 1, '1972-02-28', '0967870466', 'noImage.jpg', N'Số 6 Đặng Dung, Phường Trúc Bạch, Quận Ba Đình, Hà Nội', 'cust22'),
+(N'Nguyễn Viết Hoàng Thắng', 'cust23@gmail.com', 1, '1985-03-22', '0978604070', 'noImage.jpg', N'Số 28, ngõ 6, đường Võng Thị, Phường Bưởi, Quận Tây Hồ, Hà Nội', 'cust23'),
+(N'Phan Hoàng Phúc', 'cust24@gmail.com', 1, '2001-03-01', '0984496748', 'noImage.jpg', N'Số 606 Lạc Long Quân, Phường Nhật Tân, Quận Tây Hồ, Hà Nội', 'cust24'),
+(N'Nguyễn Hoàng Minh Tú', 'cust25@gmail.com', 1, '1973-03-25', '0987798493', 'noImage.jpg', N'Số nhà 52, ngõ 230, phố Lạc Trung, Phường Thanh Lương, Quận Hai Bà Trưng, Hà Nội', 'cust25'),
+(N'Doãn Hoài Nam', 'cust26@gmail.com', 1, '1976-06-03', '0964858380', 'noImage.jpg', N'Số 1529B đường 30/4, Phường 12, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu', 'cust26'),
+(N'Giang Hạc Minh', 'cust27@gmail.com', 1, '1989-12-05', '0967509510', 'noImage.jpg', N'Tổ 5, ấp Phước Lập, Xã Mỹ Xuân, Huyện Tân Thành, Bà Rịa - Vũng Tàu', 'cust27'),
+(N'Nguyễn Thùy Ngọc Hân', 'cust28@gmail.com', 0, '1991-03-07', '0969038041', 'noImage.jpg', N'Số 159 Võ Thị Sáu, Khu phố Long Nguyên, Thị trấn Long Điền, Huyện Long Điền, Bà Rịa - Vũng Tàu', 'cust28'),
+(N'Huỳnh Thị Đào Ty', 'cust29@gmail.com', 1, '1992-06-09', '0973421342', 'noImage.jpg', N'22D2 Tống Duy Tân, Phường 9, Thành Phố Vũng Tàu, Bà Rịa - Vũng Tàu', 'cust29'),
+(N'Phan Hoàng Trâm Anh', 'cust30@gmail.com', 0, '1983-05-11', '0972303635', 'noImage.jpg', N'34 Sao Biển, Phường Vĩnh Hải, Thành phố Nha Trang, Khánh Hòa', 'cust30'),
+(N'Trần Ngọc Tố Ny', 'cust31@gmail.com', 0, '1991-07-13', '0965051054', 'noImage.jpg', N'212 Trần Quý Cáp, Phường Phương Sài, Thành phố Nha Trang, Khánh Hòa', 'cust31'),
+(N'Hoàng Văn Chinh', 'cust32@gmail.com', 1, '1992-02-15', '0968304230', 'noImage.jpg', N'43/1 Phước Long, Phường Phước Long, Thành phố Nha Trang, Khánh Hòa', 'cust32'),
+(N'Phạm Văn Khang', 'cust33@gmail.com', 1, '1993-04-17', '0983797594', 'noImage.jpg', N'34/2/28 Nguyễn Thiện Thuật, Phường Tân Lập, Thành phố Nha Trang, Khánh Hòa', 'cust33'),
+(N'Dương Văn Vĩ', 'cust34@gmail.com', 1, '1994-03-19', '0965787830', 'noImage.jpg', N' Số Nhà 199, Tổ 1 Phố Vàng,, Thị trấn Thanh Sơn, Huyện Thanh Sơn, Phú Thọ', 'cust34'),
+(N'Trần Thị Diễm My', 'cust35@gmail.com', 0, '1957-03-25', '0965368987', 'noImage.jpg', N'Số nhà 06, Khu Phú Lợi, Phường Phong Châu, Thị xã Phú Thọ, Phú Thọ', 'cust35')
+GO
 GO
 
 INSERT INTO Brands(Name) VALUES
@@ -1608,7 +1609,7 @@ INSERT INTO Accessories(Colors,BraceletmaterialId,ProductId) VALUES
 (N'Đen',1,85)
 GO
 --==================================================== 
-UPDATE Products set IsDeleted = 1 where id = 70 or id = 26;
+UPDATE Products set IsDeleted = 1 where id = 70 or id = 26 or id = 4;
 
 
 --==================================================== 
@@ -1822,31 +1823,83 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
 (111,51,3500,1)
 GO
 
+-- đang giảm giá
+select p.* from ProductDiscounts as pd
+full join products as p on pd.ProductId = p.id
+where pd.EndDate > GETDATE()
+go
 
-select p.*, pp.Id from products as p
-inner join ProductPhotos as pp on p.Id = pp.ProductId
-inner join Watches as w on p.Id = w.ProductId
-inner join MachineInsides as mi on mi.Id = w.MachineinsideId
-inner join BraceletMaterials as bm on w.BraceletmaterialId = bm.Id
-inner join GlassMaterials as gm on w.GlassmaterialId = gm.Id
-where p.name = 'OK1'
+-- hết hạn giảm giá
+select * from ProductDiscounts as pd
+full join products as p on pd.ProductId = p.id
+where pd.EndDate < GETDATE()
+go
 
-
-
-select p.*, mi.*, bm.*, gm.* from products as p
-inner join Watches as w on p.Id = w.ProductId
-inner join MachineInsides as mi on mi.Id = w.MachineinsideId
-inner join BraceletMaterials as bm on w.BraceletmaterialId = bm.Id
-inner join GlassMaterials as gm on w.GlassmaterialId = gm.Id
-where p.name = 'ok'
-
-
-
-select p.*, pp.* from products as p
-inner join ProductPhotos as pp on p.Id = pp.ProductId
-where name = 'ok'
-
-select * from products as p
-where name = 'ok'
+-- không đang giảm giá
+select p.id, p.name, pd.CreateDate, pd.EndDate from ProductDiscounts as pd
+full join products as p on pd.ProductId = p.id
+where pd.EndDate is null
+group by p.id, p.name, pd.CreateDate, pd.EndDate
+having max(pd.EndDate) < GETDATE() or max(pd.EndDate) is null
+go
 
 
+
+select p.* from ProductDiscounts as pd
+full join products as p on pd.ProductId = p.id
+where p.id not in (
+	select p.id from ProductDiscounts as pd
+	full join products as p on pd.ProductId = p.id
+	where pd.EndDate > GETDATE()
+)
+go
+
+select * from ProductDiscounts
+where productId = 44
+
+select * from Products
+where IsDeleted = 1
+-- where name like 'BGA-151EF-1BDR'
+
+select * from Orders
+
+select * from products
+where name like 'Bulova 96L257'
+
+	
+select p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int), pd.discount, p.detail, MAX(pd.endDate), p.quantity, pd.createDate
+FROM Products as p
+FULL JOIN ProductPhotos as pp on p.Id = pp.ProductId	
+FULL JOIN ProductEvaluations as pe on p.id = pe.ProductId
+FULL JOIN Brands as b on p.BrandId = b.Id
+FULL JOIN ProductDiscounts as pd on pd.ProductId = p.Id
+FULL JOIN Categories as c on c.Id = p.CategoryId
+WHERE p.IsDeleted = 0 AND c.IsDeleted = 0 AND ( pd.id not in ( 
+		select pd.id from ProductDiscounts as pd 
+		FULL JOIN Products as p on pd.ProductId = p.Id
+		WHERE pd.EndDate < GETDATE()
+		GROUP BY pd.id
+	) OR (pd.CreateDate IS NULL) )
+GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, p.quantity, pd.createDate
+go
+	
+select p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int), pd.discount, p.detail, MAX(pd.endDate), p.quantity, pd.createDate
+FROM Products as p
+FULL JOIN ProductPhotos as pp on p.Id = pp.ProductId	
+FULL JOIN ProductEvaluations as pe on p.id = pe.ProductId
+FULL JOIN Brands as b on p.BrandId = b.Id
+FULL JOIN ProductDiscounts as pd on pd.ProductId = p.Id
+FULL JOIN Categories as c on c.Id = p.CategoryId
+WHERE p.IsDeleted = 0 AND c.IsDeleted = 0 AND ( pd.id not in ( 
+		select pd.id from ProductDiscounts as pd 
+		FULL JOIN Products as p on pd.ProductId = p.Id
+		WHERE pd.EndDate < GETDATE()
+		GROUP BY pd.id
+	) OR (pd.CreateDate IS NULL) )
+GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, p.quantity, pd.createDate
+HAVING MAX(pd.CreateDate) IS NOT NULL OR MAX(pd.CreateDate) IS NULL
+
+
+
+select * from Accounts
+where Username = 'test01'

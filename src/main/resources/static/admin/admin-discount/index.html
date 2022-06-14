@@ -1,4 +1,146 @@
-<div>
-	
-	
+<div xmlns:th="http://www.thymeleaf.org">
+	<!-- ----- FORM ----- -->
+	<div class="row">
+		<form class="col-12">
+			<div class="card">
+				<div class="card-header text-center bg-info text-light font-weight-bold">
+					<h3>EDIT DISCOUNT FOR PRODUCT</h3>
+				</div>
+				<div class="card-body">
+					<input type="text" ng-model="productDiscountId" hidden />
+					<div class="row">
+						<div class="col-6">
+							<div class="form-group">
+								<div>Product Id</div>
+								<input type="text" ng-model="productId" class="form-control" readonly />
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<div>Product Discout (%)</div>
+								<input type="number" min="0" ng-model="productDiscountPercent" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="form-group">
+								<div>Create Date</div>
+								<input ng-model="productDiscountCreateDate" readonly type="date" class="form-control" />
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<div>End Date</div>
+								<input ng-model="productDiscountEndDate" type="date" class="form-control" />
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="card-footer">
+					<button ng-click="create()" ng-show="isEdit == false" class="btn btn-primary mr-2">Create</button>
+					<button ng-click="update()" ng-show="isEdit == true" class="btn btn-warning mr-2">Update</button>
+					<button ng-click="delete(productDiscountId)" ng-show="isEdit == true" class="btn btn-danger mr-2">Remove</button>
+					<button ng-click="reset()" class="btn btn-info">Cancel</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<!-- ------ TABLE ------ -->
+	<div class="row mt-3">
+		<div class="col-7">
+			<div class="card">
+				<div class="card-header text-center bg-primary text-light font-weight-bold">
+					<h3>PRODUCT ON SALE</h3>
+				</div>
+				<div class="card-body p-0">
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr class="bg-primary text-light">
+								<th scope="col">ID</th>
+								<th scope="col">Product's name</th>
+								<th scope="col">Price</th>
+								<th scope="col">Discount</th>
+								<th scope="col">Create Date</th>
+								<th scope="col">End Date</th>
+								<th scope="col">Create By</th>
+								<th scope="col">Edit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in pagerOnSale.productOnSale" ng-click="editProductOnSale(item)">
+								<td>{{item.productId}}</td>
+								<td>{{item.productName}}</td>
+								<td>{{item.productPrice}}</td>
+								<td>{{item.productDiscountPercent}}</td>
+								<td>{{item.productDiscountCreateDate | date : 'yyyy-MM-dd'}}</td>
+								<td>{{item.productDiscountEndDate | date : 'yyyy-MM-dd'}}</td>
+								<td>{{item.username}}</td>
+								<td>
+									<button class="btn btn-primary" ng-click="editProductOnSale(item)">Edit</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card-footer">
+					<div class="text-center">
+						<button ng-click="pagerOnSale.first()" class="btn btn-secondary">|<</button>
+						<button ng-click="pagerOnSale.pre()" class="btn btn-secondary"><<</button>
+						<button class="btn btn-primary">{{pagerOnSale.page + 1}} of {{pagerOnSale.count}}</button>
+						<button ng-click="pagerOnSale.next()" class="btn btn-secondary">>></button>
+						<button ng-click="pagerOnSale.last()" class="btn btn-secondary">>|</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-5">
+			<div class="card">
+				<div class="card-header text-center text-light bg-dark font-weight-bold">
+					<h3>PRODUCT NON SALE</h3>
+				</div>
+				<div class="card-body p-0">
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr class="bg-dark text-light">
+								<th scope="col">ID</th>
+								<th scope="col">Product's name</th>
+								<th scope="col">Price</th>
+								<th scope="col">Edit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in pager.productNonDiscounts" ng-click="editProductNoneDiscount(item)">
+								<td>{{item.id}}</td>
+								<td>{{item.name}}</td>
+								<td>{{item.price}}</td>
+								<td>
+									<button class="btn btn-dark" ng-click="editProductNoneDiscount(item)">Edit</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card-footer">
+					<div class="text-center">
+						<button ng-click="pager.first()" class="btn btn-secondary">|<</button>
+						<button ng-click="pager.pre()" class="btn btn-secondary"><<</button>
+						<button class="btn btn-secondary">{{pager.page + 1}} of {{pager.count}}</button>
+						<button ng-click="pager.next()" class="btn btn-secondary">>></button>
+						<button ng-click="pager.last()" class="btn btn-secondary">>|</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
 </div>
+
+
+
+
+

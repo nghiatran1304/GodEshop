@@ -135,4 +135,9 @@ public class AccessoryRestController {
 		pp.setProduct(productService.getById(product.getProductId()));
 		return productPhotoService.create(pp);
 	}
+	
+	 @GetMapping("/rest/products-accessory/search/{name}")
+	    public List<ProductAccessoryInfoDto> findBySearch(@PathVariable("name") String name) {
+		return accessoryService.lstSearchFullInfoAccessory("%" + name + "%");
+	    }
 }

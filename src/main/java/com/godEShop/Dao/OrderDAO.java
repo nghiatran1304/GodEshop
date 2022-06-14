@@ -20,22 +20,22 @@ public interface OrderDAO extends JpaRepository<Order, Long> {
 	    + "from Order o inner join o.account a  " + "inner join o.orderStatus s where a.username=?1 order by o.createDate desc")
     List<OrderListDto> findByUsername1(String username);
 
-    @Query("SELECT o FROM Order o WHERE o.orderStatus.id = 1")
+    @Query("SELECT o FROM Order o WHERE o.orderStatus.id = 1 ORDER BY o.createDate DESC")
     List<Order> findAllOrderPending();
 
-    @Query("SELECT o FROM Order o WHERE o.orderStatus.id = 2")
+    @Query("SELECT o FROM Order o WHERE o.orderStatus.id = 2 ORDER BY o.createDate DESC")
     List<Order> findAllOrderConfirmed();
 
-    @Query("SELECT o FROM Order o WHERE o.orderStatus.id = 3")
+    @Query("SELECT o FROM Order o WHERE o.orderStatus.id = 3 ORDER BY o.createDate DESC")
     List<Order> findAllOrderDelivery();
 
-    @Query("SELECT o FROM Order o WHERE o.orderStatus.id = 4")
+    @Query("SELECT o FROM Order o WHERE o.orderStatus.id = 4 ORDER BY o.createDate DESC")
     List<Order> findAllOrderSuccess();
 
-    @Query("SELECT o FROM Order o WHERE o.orderStatus.id = 5")
+    @Query("SELECT o FROM Order o WHERE o.orderStatus.id = 5 ORDER BY o.createDate DESC")
     List<Order> findAllOrderCancel();
 
-    @Query("SELECT o FROM Order o ORDER BY o.orderStatus.id ASC, o.createDate ASC")
+    @Query("SELECT o FROM Order o ORDER BY o.orderStatus.id ASC, o.createDate DESC")
     List<Order> findAllOrders();
     
     @Query("SELECT new com.godEShop.Dto.OrderInfoDto"
