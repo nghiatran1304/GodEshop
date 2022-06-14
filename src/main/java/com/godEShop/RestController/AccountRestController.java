@@ -6,6 +6,7 @@ import java.util.List;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +47,9 @@ public class AccountRestController {
     
     @Autowired
     FileManagerService fileService;
+    
+    @Autowired
+    BCryptPasswordEncoder pe;
 
     @GetMapping("/rest/accounts")
     public List<Account> getAll() {
@@ -74,7 +78,7 @@ public class AccountRestController {
 
 	Account a = new Account();
 	a.setUsername(ui.getAccountUsername());
-	a.setPassword(ui.getAccountPassword());
+	a.setPassword(pe.encode(ui.getAccountPassword()));
 	a.setIsDelete(ui.getAccountIsDeleted());
 	a.setRole(r);
 	accountService.update(a);
