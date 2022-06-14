@@ -11,4 +11,6 @@ public interface UploadService {
     
     File saveUser(MultipartFile file,User user);
     
+    File saveUserAdmin(MultipartFile file, String folder);
+    
 }

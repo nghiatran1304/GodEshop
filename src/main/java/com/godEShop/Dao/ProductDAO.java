@@ -193,6 +193,7 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     
     
     // ---------------------------------------------------------------------------
+   
     @Query("SELECT new com.godEShop.Dto.ProductStatisticDto"
     	    + "(p.id, p.name, p.quantity, sum(od.quantity)) "
     	    + "FROM Product p " 

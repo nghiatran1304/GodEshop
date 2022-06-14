@@ -21,4 +21,6 @@ public interface UserService {
 
     public User findById(Integer userId);
 
+    List<UserInfoDto> lstFindUser(String kw);
+
 }

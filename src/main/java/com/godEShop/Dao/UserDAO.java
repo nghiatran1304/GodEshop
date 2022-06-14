@@ -23,4 +23,12 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     	+ "INNER JOIN a.role r "
     	+ "INNER JOIN a.users u ")
     List<UserInfoDto> lstUserInfoDto();
+    
+    @Query("SELECT new com.godEShop.Dto.UserInfoDto"
+	+ "(a.username, a.isDelete, a.password, r.id, r.name, u.id, u.address, u.dob, u.email, u.fullname, u.gender, u.phone, u.photo)"
+	+ "FROM Account a "
+	+ "INNER JOIN a.role r "
+	+ "INNER JOIN a.users u "
+	+ "WHERE a.username LIKE ?1 OR u.fullname LIKE ?1")
+    List<UserInfoDto> lstFindUser(String kw);
 }

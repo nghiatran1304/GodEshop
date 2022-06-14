@@ -37,6 +37,8 @@ public class UploadRestController {
 	node.put("size", savedFile.length());
 	return node;
     }
+    
+    
 
     // ----------------------------- UPLOAD MULTI IMAGE
     // ---------------------------------
@@ -83,5 +85,6 @@ public class UploadRestController {
     public List<String> list1(@PathVariable("folder") String folder) {
 	return fileService.list1(folder);
     }
+  
     
 }

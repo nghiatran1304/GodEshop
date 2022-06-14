@@ -13,14 +13,17 @@
 								<label for="inputGroupFile01" ng-if="hasImage == 'a'">
 									<img src="/upload/noImage.jpg" id="myID1" style="width: 250px; height: 250px" alt="No Image" />
 								</label>
-								<label class="custom-file-upload">
-									<input onchange="angular.element(this).scope().onFileSelected(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+								<label class="custom-file-upload" ng-show="isEdit == false">
+									<input onchange="angular.element(this).scope().onFileSelected1(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
 									Upload Image
+								</label>
+								<label class="custom-file-upload" ng-show="isEdit == true">
+									<input onchange="angular.element(this).scope().onFileSelected(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+									Change Image
 								</label>
 							</div>
 							<div class="col-8 row">
 								<input type="text" ng-model="form.userId" hidden/>
-								<input type="text" ng-model="form.accountPassword" hidden/>
 								<div class="col-6">
 									<div class="form-group">
 										<label for="">Username</label>
@@ -32,7 +35,7 @@
 									</div>
 									<div class="form-group">
 										<label>Birth day</label>
-										<input ng-model="form.userDob" readonly type="date" class="form-control" />
+										<input ng-model="form.userDob" type="date" class="form-control" />
 									</div>
 								</div>
 								<div class="col-6">
