@@ -5,6 +5,7 @@
 	<table class="table table-hover table-bordered mt-2">
 		<thead class="thead-dark">
 			<tr class="text-center">
+				<th scope="col">Image</th>
 				<th scope="col">
 					<a class="text-warning font-weight-bold" href="" ng-click="sortByCategoryName('productName')">Product's name</a>
 				</th>
@@ -18,6 +19,9 @@
 		</thead>
 		<tbody>
 			<tr style="height: 50px; " class="text-center" ng-repeat="item in pager.items | orderBy:sortType | filter:searchName" ng-click="edit(item)">
+				<td style="width: 400px;border: 2px solid lightblue;">
+					<img ng-src="/upload/ProductImages/{{item.imageId}}" alt="" style="width: 80px; height: 80px"/>
+				</td>
 				<td style="width: 900px;font-size: 30px;border: 2px solid lightblue;" ng-click="detail(item.productId)">{{item.productName}}</td>
 				<td style="width: 300px;font-size: 30px;border: 2px solid lightblue;">{{item.quantityleft}}</td>
 				<td style="width: 400px;font-size: 30px;border: 2px solid lightblue;">{{item.quantity}}</td>
@@ -35,8 +39,71 @@
 		</div>
 	</div>
 	
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <table class="table table-hover table-bordered mt-2">
+		<thead class="thead-dark">
+			<tr class="text-center">
+				<th scope="col">Image</th>
+				<th scope="col">
+					<a class="text-warning font-weight-bold" href="" ng-click="sortByCategoryName('productName')">Product's name</a>
+				</th>
+				<th scope="col">
+					<a class="text-warning font-weight-bold" href="" ng-click="sortByCategoryName('quantityleft')">Order Create Date</a>
+				</th>
+				<th scope="col">
+					<a class="text-warning font-weight-bold" href="" ng-click="sortByCategoryName('quantity')">Quantity</a>
+				</th>
+				<th scope="col">
+					<a class="text-warning font-weight-bold" href="" ng-click="sortByCategoryName('price')">Price</a>
+				</th>
+				<th scope="col">
+					<a class="text-warning font-weight-bold" href="" ng-click="sortByCategoryName('total')">Total</a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="text-center" ng-repeat="item in pagerProduct.items">
+				<td style="height: 50px;width: 100px;border: 2px solid lightblue;">
+					<img ng-src="/upload/ProductImages/{{item.imageId}}" alt="" style="width: 60px; height: 60px"/>
+				</td>
+				<td style="height: 50px;width: 200px;font-size: 15px;border: 2px solid lightblue;" ng-click="detail(item.productId)">{{item.productName}}</td>
+				<td style="height: 50px;width: 100px;font-size: 15px;border: 2px solid lightblue;">{{item.createDate  | date : 'dd-MM-yyyy'}}</td>
+				<td style="height: 50px;width: 100px;font-size: 15px;border: 2px solid lightblue;">{{item.quantity}}</td>
+				<td style="height: 50px;width: 100px;font-size: 15px;border: 2px solid lightblue;">${{item.price}}</td>
+				<td style="height: 50px;width: 100px;font-size: 15px;border: 2px solid lightblue;">${{item.quantity*item.price}}</td>
+			</tr>
+		</tbody>
+		
+	</table>
+		
+	<div style="display: flex;">
+		<div><input type="date" id="start" name="trip-start"
+       value="2018-07-22"
+       min="2018-01-01" max="2018-12-31"></div>
+		<div class="text-center" style="margin:auto;">
+			<button ng-click="pagerProduct.first()" class="btn btn-secondary">|<</button>
+			<button ng-click="pagerProduct.pre()" class="btn btn-secondary"><<</button>
+			<button class="btn btn-success">{{pagerProduct.page + 1}} of {{pagerProduct.count}}</button>
+			<button ng-click="pagerProduct.next()" class="btn btn-secondary">>></button>
+			<button ng-click="pagerProduct.last()" class="btn btn-secondary">>|</button>
+		</div>
+		
+	</div>
 	<div>
 	  <canvas id="myChart"></canvas>
 	</div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
 </div>
 

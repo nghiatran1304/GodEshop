@@ -1,7 +1,6 @@
 package com.godEShop.Dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Id;
 
@@ -14,14 +13,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProductStatisticDto implements Serializable{
+public class ProductsStatisticDto implements Serializable{
     
     private static final long serialVersionUID = 1L;
 
     @Id
-    private int orderId;
+    private Long productId;
     private String productName;
-    private Date createDate;
-    private int quantity;
-    private double price;
+    private int quantityleft;
+    private Long quantity;
 }

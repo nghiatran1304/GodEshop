@@ -10,9 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import com.godEShop.Dto.AccessoryDto;
 import com.godEShop.Dto.ProductDiscountDto;
+import com.godEShop.Dto.ProductImageDto;
 import com.godEShop.Dto.ProductShopDto;
 import com.godEShop.Dto.ProductStatisticDto;
 import com.godEShop.Dto.ProductWatchInfoDto;
+import com.godEShop.Dto.ProductsStatisticDto;
 import com.godEShop.Dto.WatchDto;
 import com.godEShop.Entity.Product;
 
@@ -194,13 +196,54 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     
     // ---------------------------------------------------------------------------
    
-    @Query("SELECT new com.godEShop.Dto.ProductStatisticDto"
+    @Query("SELECT new com.godEShop.Dto.ProductsStatisticDto"
     	    + "(p.id, p.name, p.quantity, sum(od.quantity)) "
     	    + "FROM Product p " 
     	    + "INNER JOIN p.orderDetails od "
     	    + "INNER JOIN od.order o "
     	    + "WHERE od.product != 0 "
     	    + "GROUP BY p.name, p.id, p.quantity ")
-        List<ProductStatisticDto> getProductStatistic();
+        List<ProductsStatisticDto> getProductStatistic();
+    
+    @Query("SELECT new com.godEShop.Dto.ProductImageDto"
+    		+ "(p.id, MIN(pp.id)) "
+    		+ "FROM Product p " 
+    		+ "INNER JOIN p.productPhotos pp " 
+    		+ "GROUP BY p.id")
+    List<ProductImageDto> getProductImage();
+    
+    @Query("SELECT new com.godEShop.Dto.ProductsStatisticDto"
+    	    + "(p.id, p.name, p.quantity, sum(od.quantity)) "
+    	    + "FROM Product p " 
+    	    + "INNER JOIN p.orderDetails od "
+    	    + "INNER JOIN od.order o "
+    	    + "WHERE od.product != 0 AND p.name like ?1 "
+    	    + "GROUP BY p.name, p.id, p.quantity ")
+        List<ProductsStatisticDto> get1ProductStatistic(String name);
+    
+    @Query("SELECT new com.godEShop.Dto.ProductImageDto"
+    		+ "(p.id, MIN(pp.id)) "
+    		+ "FROM Product p " 
+    		+ "INNER JOIN p.productPhotos pp " 
+    		+ "WHERE p.name like ?1 "
+    		+ "GROUP BY p.id, p.name")
+    List<ProductImageDto> get1ProductImage(String name);
+    
+    @Query("SELECT new com.godEShop.Dto.ProductStatisticDto"
+    		+ "(od.id, p.name, o.createDate, od.quantity, od.price) "
+    		+ "FROM Product p "
+    		+ "INNER JOIN p.orderDetails od "
+    		+ "INNER JOIN od.order o "
+    		+ "WHERE p.id = ?1")
+    List<ProductStatisticDto> get1ProductStatistic(Long id);
+    
+    @Query("SELECT new com.godEShop.Dto.ProductImageDto"
+    		+ "(p.id, MIN(pp.id)) "
+    		+ "FROM Product p " 
+    		+ "INNER JOIN p.productPhotos pp " 
+    		+ "WHERE p.id like ?1 "
+    		+ "GROUP BY p.id, p.name")
+    List<ProductImageDto> getSingleProductImage(Long id);
+    
     
 }
