@@ -1,9 +1,13 @@
 package com.godEShop.Controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,17 +18,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.godEShop.Dao.ProductPhotoDAO;
 import com.godEShop.Dto.AccessoryDto;
 import com.godEShop.Dto.ProductDiscountDto;
 import com.godEShop.Dto.ProductShopDto;
 import com.godEShop.Dto.WatchDto;
+import com.godEShop.Entity.MailInfo;
 import com.godEShop.Entity.ProductPhoto;
+import com.godEShop.Entity.User;
 import com.godEShop.Service.BrandService;
 import com.godEShop.Service.CategoryService;
+import com.godEShop.Service.MailerService;
 import com.godEShop.Service.ProductService;
+import com.godEShop.Service.UserService;
 
 @Controller
 public class ProductController {
@@ -105,10 +115,11 @@ public class ProductController {
 
 	model.addAttribute("nameOfSearch", (s1 + s2 + s3));
 
-	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%", "%" + brandName + "%", pageable);
-	
+	Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%",
+		"%" + brandName + "%", pageable);
+
 	Date d = new Date();
-	
+
 	model.addAttribute("page", page);
 
 	model.addAttribute("timeNow", d);
@@ -145,13 +156,74 @@ public class ProductController {
 	    model.addAttribute("isWatch", true);
 	}
 	List<ProductDiscountDto> lstRd = new ArrayList<>();
-	int maxLength = productService.productByIdBrands(productItem.getProductCategoryId()).size() > 5 ? 5 : productService.productByIdBrands(productItem.getProductCategoryId()).size();
+	int maxLength = productService.productByIdBrands(productItem.getProductCategoryId()).size() > 5 ? 5
+		: productService.productByIdBrands(productItem.getProductCategoryId()).size();
 	for (int i = 0; i < maxLength; i++) {
 	    lstRd.add(productService.productByIdBrands(productItem.getProductCategoryId()).get(i));
 	}
 	model.addAttribute("lstRelateProduct", lstRd);
 
 	return "product/single-product";
+    }
+
+    @Autowired
+    MailerService mailerServie;
+
+    @Autowired
+    ServletContext application;
+
+    @Autowired
+    HttpServletRequest req;
+
+    @Autowired
+    UserService userService;
+
+    @PostMapping("/sendmail/send")
+    public String sendMail(Model model, @RequestParam("body") Optional<String> body,
+	    @RequestParam("attachments") MultipartFile[] attachments) {
+	User u = userService.findByAccountUsername(req.getRemoteUser());
+	MailInfo m = new MailInfo();
+	m.setFrom(u.getEmail());
+	m.setSubject("Feedback Product");
+	m.setTo("testemailnghiatran@gmail.com");
+
+	m.setBody(body.get());
+
+	String listAttachments = "";
+	// int st = 0;
+	for (MultipartFile file : attachments) {
+	    try {
+		File dir = new File("src\\main\\resources\\static\\upload\\EmailFiles");
+		String absolutePath = dir.getAbsolutePath().toString();
+		System.out.println(" >> Path: " + absolutePath);
+		String s = System.currentTimeMillis() + file.getOriginalFilename();
+		String name = Integer.toHexString(s.hashCode()) + s.substring(s.lastIndexOf("."));
+		File savedFile = new File(dir.getAbsolutePath(), name);
+		System.out.println(" >> File just saved: " + savedFile.getAbsolutePath());
+		file.transferTo(savedFile);
+		listAttachments += savedFile.getAbsolutePath() + " ";	
+		/*
+		Path path = Paths.get(application.getRealPath("\\") + "\\uploads\\");
+		InputStream ips = file.getInputStream();
+		Files.copy(ips, path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+		String realPathFileUpload = application.getRealPath("\\") + "\\uploads\\" + file.getOriginalFilename();
+		System.out.println(realPathFileUpload);
+		listAttachments += realPathFileUpload.toString() + " ";
+		st++;
+		*/
+	    } catch (Exception e) {
+		System.out.println("save() : " + e.getMessage());
+	    }
+	}
+
+	m.setAttachments(listAttachments.split(" "));
+
+	try {
+	    mailerServie.send(m);
+	} catch (Exception e) {
+	    System.out.println("Error : " + e.getMessage());
+	}
+	return "redirect:/product";
     }
 
 }

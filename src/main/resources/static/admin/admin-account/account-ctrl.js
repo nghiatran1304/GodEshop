@@ -5,6 +5,7 @@ app.controller("account-ctrl", function($scope, $http) {
 	$scope.form = {};
 	$scope.isEdit = false;
 	var uploadImage = new FormData();
+	$scope.isSocial = false;
 
 	$scope.hasImage = 'a';
 
@@ -54,6 +55,11 @@ app.controller("account-ctrl", function($scope, $http) {
 		$scope.isEdit = true;
 		$scope.hasImage = 'b';
 		$scope.form = angular.copy(item);
+		if($scope.form.accountUsername == $scope.form.userEmail){
+			$scope.isSocial = true;
+		}else{
+			$scope.isSocial = false;
+		}
 	}
 
 	$scope.change = function(a) {

@@ -51,11 +51,12 @@ public class Account implements Serializable {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Order> orders;
 
+    /*
     // bi-directional many-to-one association to ProductComment
     @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<ProductComment> productComments;
-
+     */
     // bi-directional many-to-one association to ProductDiscount
     @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
@@ -70,12 +71,13 @@ public class Account implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<ProductLike> productLikes;
-
+    
+    /*
     // bi-directional many-to-one association to ProductReply
     @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<ProductReply> productReplies;
-
+     */
     // bi-directional many-to-one association to User
     @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)

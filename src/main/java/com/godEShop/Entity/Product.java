@@ -75,11 +75,13 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
 
+    /*
     // bi-directional many-to-one association to ProductComment
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductComment> productComments;
-
+     */
+    
     // bi-directional many-to-one association to ProductDiscount
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)

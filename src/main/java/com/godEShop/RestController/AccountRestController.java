@@ -115,7 +115,7 @@ public class AccountRestController {
 	r = roleService.findById(ui.getRoleId());
 	Account a = new Account();
 	a.setUsername(ui.getAccountUsername());
-	a.setPassword(ui.getAccountPassword());
+	a.setPassword(pe.encode(ui.getAccountPassword()));
 	a.setIsDelete(ui.getAccountIsDeleted());
 	a.setRole(r);
 	accountService.create(a);
