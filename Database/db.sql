@@ -208,6 +208,7 @@ CREATE TABLE ProductEvaluations(
 );
 GO
 
+/*
 CREATE TABLE ProductComments(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	TopicUsername VARCHAR(50),
@@ -235,7 +236,7 @@ CREATE TABLE ProductReplies(
 	FOREIGN KEY (Username) REFERENCES Accounts(Username)
 );
 GO
-
+*/
 
 --==============================================================
 
@@ -289,10 +290,10 @@ INSERT INTO Accounts(Username, Password, IsDelete, RoleId) VALUES
 GO
 
 INSERT INTO Users(Fullname, Email, Gender, Dob, Phone, Photo, Address, Username) VALUES
-(N'Trần Trung Nghĩa', 'nghiattps14820@fpt.edu.vn', 1, '1997-04-13', '0366888470', 'nghia.jpg', N'Tân Bình', 'admin01'),
+(N'Trần Trung Nghĩa', 'microlab00147@gmail.com', 1, '1997-04-13', '0366888470', 'nghia.jpg', N'Tân Bình', 'admin01'),
 (N'Hồ Trung Tính', 'tinhttps14444@fpt.edu.vn', 1, '2001-04-06', '0366888471', 'admin02.jpg', N'Bình Trị Đông A', 'admin02'),
 (N'Trần Nguyên Hội', 'hointps15555@fpt.edu.vn', 1, '1999-01-13', '0366889911', 'admin03.jpg', N'Bình Trị Đông B', 'admin03'),
-(N'Doãn Hoài Nam', 'namdh123@gmail.com', 1, '1996-01-02', '0989878787', 'nam.jpg', N'Quận 11', 'cust01'),
+(N'Doãn Hoài Nam', 'nghiattps14820@fpt.edu.vn', 1, '1996-01-02', '0989878787', 'nam.jpg', N'Quận 11', 'cust01'),
 (N'Trần Nguyên Hải', 'haitn123@gmail.com', 1, '1992-01-02', '0387465739', 'hai.jpg', N'Quận Bình Thạnh', 'cust02'),
 (N'Lê Quý Vương', 'vuonglq123@gmail.com', 1, '1995-01-02', '0988767512', 'vuong.jpg', N'Quận 2', 'cust03'),
 (N'Hồ Trung Tính', 'tinhht321@gmail.com', 1, '2000-01-02', '0976352435', 'tinh.jpg', N'Quận 11', 'cust04'),
@@ -1546,6 +1547,7 @@ INSERT INTO ProductEvaluations(Evaluation,ProductId,Username) VALUES
 (5,44,'cust35')
 GO
 
+/*
 --PRODUCT COMMENTS
 INSERT INTO ProductComments(TopicUsername,CommentContent,ProductId) VALUES
 (N'cust01',N'Sản phẩm quá đẹp, tuyệt vời',1),
@@ -1593,7 +1595,7 @@ INSERT INTO ProductReplies(CommentId,ReplyContent,Username) VALUES
 (14,N'Bạn vui để lòng giữ điện thoại, sẽ có nhân viên liên hệ với bạn để hướng dẫn','admin03'),
 (15,N'Phiên bản V2 sẽ được ra mắt trong tháng 11 năm nay, GodShop sẽ gửi 1 email tới bạn khi có sản phẩm V2, cảm ơn bạn đã quan tâm','admin03')
 GO
-
+*/
 
 --=====================phụ kiện===============================
 INSERT INTO Accessories(Colors,BraceletmaterialId,ProductId) VALUES
@@ -1901,6 +1903,8 @@ HAVING MAX(pd.CreateDate) IS NOT NULL OR MAX(pd.CreateDate) IS NULL
 
 
 
+select * from Accounts
+where Username = 'test01'
+
 select * from Users
-where Username = 'cust01'
 
