@@ -82,7 +82,20 @@ app.controller("statistic-ctrl", function($scope, $http) {
 
 	// --------- Chart ----------------
 	
-	const labels = [
+	var labels = [];
+
+	  var data = {};
+	
+	  var config = {};
+	  
+	var myChart = null;
+	$scope.itemProduct = [];
+	$scope.itemProduct.orderCreateDate = new Date();
+	$scope.detail = function (id) {
+		if(myChart!=null){
+        myChart.destroy();
+   		 }
+   		 labels = [
     'January',
     'February',
     'March',
@@ -90,8 +103,8 @@ app.controller("statistic-ctrl", function($scope, $http) {
     'May',
     'June',
   ];
-
-	  const data = {
+  
+  data = {
 	    labels: labels,
 	    datasets: [{
 	      label: 'Statistic in month',
@@ -100,21 +113,18 @@ app.controller("statistic-ctrl", function($scope, $http) {
 	      data: [0, 100, 521, 24, 202, 304, 405],
 	    }]
 	  };
-	
-	  const config = {
+	  
+	  config = {
 	    type: 'line',
 	    data: data,
 	    options: {
 			legend: {
 	          display: false
 	        },
-	        responsive:false
 		}
 	  };
-	  
-	$scope.itemProduct = [];
-	$scope.itemProduct.orderCreateDate = new Date();
-	$scope.detail = function (id) {
+  
+		
 			$('#exampleModal').modal('toggle');
 			$http.get(`/rest/statistic/product/${id}`).then(resp => {
 			$scope.itemProduct = resp.data;
@@ -126,7 +136,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				for (var i = 0; i < resp.data.length; i++) {
 					$scope.itemProduct[i].imageId = resp2.data[0].imageId;
 				}	
-				console.log($scope.itemProduct);
 			})
 			
 		});
@@ -159,12 +168,10 @@ app.controller("statistic-ctrl", function($scope, $http) {
 			this.page = this.count - 1;
 		}
 	}
-		const myChart = new Chart(
+		myChart = new Chart(
 		    document.getElementById('myChart'),
 		    config
 		  );
-		/*
-		  */
 		  
 	}
 });
