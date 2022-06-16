@@ -1,7 +1,7 @@
 <div xmlns:th="http://www.thymeleaf.org">
 	<!-- ----- FORM ----- -->
 	<div class="row">
-		<form class="col-12">
+		<form class="col-12" name="frm">
 			<div class="card">
 				<div class="card-header text-center bg-info text-light font-weight-bold">
 					<h3>EDIT DISCOUNT FOR PRODUCT</h3>
@@ -17,8 +17,8 @@
 						</div>
 						<div class="col-6">
 							<div class="form-group">
-								<div>Product Discout (%)</div>
-								<input type="number" min="0" ng-model="productDiscountPercent" class="form-control" />
+								<div>Product Discout (%) <small ng-show="frm.frmDiscount.$invalid" class="text-danger"><i>*Input discount</i></small></div>
+								<input type="number" min="0" required name="frmDiscount" ng-model="productDiscountPercent" class="form-control" />
 							</div>
 						</div>
 					</div>
@@ -31,8 +31,8 @@
 						</div>
 						<div class="col-6">
 							<div class="form-group">
-								<div>End Date</div>
-								<input ng-model="productDiscountEndDate" type="date" class="form-control" />
+								<div>End Date <small ng-show="frm.frmEndDate.$invalid" class="text-danger"><i>*Chose end date</i></small></div>
+								<input ng-model="productDiscountEndDate" name="frmEndDate" required type="date" class="form-control" />
 							</div>
 						</div>
 					</div>

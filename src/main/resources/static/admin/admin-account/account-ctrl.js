@@ -8,8 +8,15 @@ app.controller("account-ctrl", function($scope, $http) {
 	$scope.isSocial = false;
 
 	$scope.hasImage = 'a';
+	
+	$scope.inputDefault = function(){
+		$scope.form.userGender = 1;
+		$scope.form.roleId = "Customer";
+		$scope.form.accountIsDeleted = false;
+	}
 
 	$scope.initialize = function() {
+		$scope.inputDefault();
 		// load account
 		$http.get("/rest/info-accounts").then(resp => {
 			$scope.items = resp.data;
@@ -47,6 +54,7 @@ app.controller("account-ctrl", function($scope, $http) {
 		$scope.hasImage = 'a';
 		$scope.isEdit = false;
 		$scope.form = {};
+		$scope.initialize();
 	}
 
 
@@ -208,7 +216,7 @@ app.controller("account-ctrl", function($scope, $http) {
 	// phân trang
 	$scope.pager = {
 		page: 0,
-		size: 10,
+		size: 13,
 		get items() {
 			var start = this.page * this.size;
 			return $scope.items.slice(start, start + this.size);

@@ -22,21 +22,26 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 
 	$scope.isEdit = false;
 
+	$scope.imageChose = function(filename) {
+		var imgtag = document.getElementById("myID");
+		imgtag.src = "/upload/ProductImages/" + filename;
+	}
+
 	$scope.setNormal = function() {
 		//$scope.formProduct.productMadeIn = "Vietnam";
 		//$scope.formProduct.productName = "product's name";
 		$scope.formProduct.productIsDeteled = false;
-		$scope.formProduct.productPrice = 1;
-		$scope.formProduct.productQuantity = 1;
-		$scope.formProduct.productWarranty = 12;
+		// $scope.formProduct.productPrice = 1;
+		// $scope.formProduct.productQuantity = 1;
+		// $scope.formProduct.productWarranty = 12;
 		$scope.formProduct.brandId = "1";
-		$scope.formProduct.categoryId = 1; 
-		
-		$scope.formWatch.watchATM = 20;
-		$scope.formWatch.watchCaseColor = "Black";
+		$scope.formProduct.categoryId = 1;
+
+		// $scope.formWatch.watchATM = 20;
+		// $scope.formWatch.watchCaseColor = "Black";
 		$scope.formWatch.watchGender = 1;
-		$scope.formWatch.watchGlassColor = "Black";
-		$scope.formWatch.watchGlassSize = 15;
+		// $scope.formWatch.watchGlassColor = "Black";
+		// $scope.formWatch.watchGlassSize = 15;
 		$scope.formWatch.braceletMaterialId = 1;
 		$scope.formWatch.glassMaterialId = 1;
 		$scope.formWatch.machineInsideId = 1;
@@ -456,6 +461,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 		$http.delete(`/rest/deleteImage/${filename}`).then(resp => {
 			var i = $scope.filenames.findIndex(name => name == filename);
 			$scope.filenames.splice(i, 1);
+			$scope.imageChose($scope.filenames[0]);
 		}).catch(error => {
 			console.log("Errors : ", error);
 		});
@@ -527,6 +533,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 		$http.delete(`${url}/${filename}`).then(resp => {
 			let i = $scope.filenames.findIndex(name => name == filename);
 			$scope.filenames.splice(i, 1);
+			$scope.imageChose($scope.filenames[0]);
 		}).catch(error => {
 		});
 	};

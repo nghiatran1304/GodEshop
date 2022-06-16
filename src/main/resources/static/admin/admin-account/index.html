@@ -1,10 +1,12 @@
 <div xmlns:th="http://www.thymeleaf.org">
 	<div class="row">
 		<div class="col-7">
-			<form>
+			<form name="frm">
 				<div class="card">
-					<div class="card-header"></div>
-					<div class="card-body">
+					<div class="card-header text-center font-weight-bold bg-info text-light">
+						<h3>INFORMATION</h3>
+					</div>
+					<div class="card-body pt-5">
 						<div class="row">
 							<div class="col-4 text-center">
 								<label for="inputGroupFile01" ng-if="hasImage != 'a'">
@@ -15,7 +17,7 @@
 									<img src="/upload/noImage.jpg" id="myID1" style="width: 250px; height: 250px" alt="No Image" />
 								</label>
 								<label class="custom-file-upload" ng-show="isEdit == false">
-									<input onchange="angular.element(this).scope().onFileSelected1(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+									<input required onchange="angular.element(this).scope().onFileSelected1(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
 									Upload Image
 								</label>
 								<label class="custom-file-upload" ng-show="isEdit == true && isSocial == false">
@@ -27,26 +29,36 @@
 								<input type="text" ng-model="form.userId" hidden />
 								<div class="col-6">
 									<div class="form-group">
-										<label for="">Username</label>
-										<input type="text" class="form-control" ng-model="form.accountUsername" placeholder="Username"/>
+										<label for="">
+											Username <small ng-show="frm.frmUsername.$invalid" class="text-danger"><i>*Input username</i></small>
+										</label>
+										<input type="text" class="form-control" name="frmUsername" ng-model="form.accountUsername" required placeholder="Username" />
 									</div>
 									<div class="form-group">
-										<label for="">Fullname</label>
-										<input type="text" class="form-control" ng-model="form.userFullname" placeholder="Fullname" />
+										<label for="">
+											Fullname <small ng-show="frm.frmFullname.$invalid" class="text-danger"><i>*Input fullname</i></small>
+										</label>
+										<input type="text" class="form-control" name="frmFullname" ng-model="form.userFullname" required placeholder="Fullname" />
 									</div>
 									<div class="form-group">
-										<label>Birth day</label>
-										<input ng-model="form.userDob" type="date" class="form-control" />
+										<label>
+											Birth day <small ng-show="frm.frmDate.$invalid" class="text-danger"><i>*Choose date</i></small>
+										</label>
+										<input ng-model="form.userDob" name="frmDate" type="date" required class="form-control" />
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
-										<label for="">Password</label>
-										<input type="password" class="form-control" ng-model="form.accountPassword" placeholder="Password" />
+										<label for="">
+											Password <small ng-show="frm.frmPassword.$invalid" class="text-danger"><i>*Input password</i></small>
+										</label>
+										<input type="password" class="form-control" name="frmPassword" required ng-model="form.accountPassword" placeholder="Password" />
 									</div>
 									<div class="form-group">
-										<label for="">Phone</label>
-										<input type="text" class="form-control" ng-model="form.userPhone" placeholder="Phone number" />
+										<label for="">
+											Phone <small ng-show="frm.frmPhone.$invalid" class="text-danger"><i>*Input phone number</i></small>
+										</label>
+										<input type="text" ng-pattern="/^\d{10,15}$/" required class="form-control" name="frmPhone" ng-model="form.userPhone" placeholder="Phone number" />
 									</div>
 									<div class="form-group" style="margin-top: 28px">
 										<label>Gender</label>
@@ -58,12 +70,16 @@
 									</div>
 								</div>
 								<div class="form-group col-12">
-									<label for="">Email</label>
-									<input type="text" class="form-control" ng-model="form.userEmail" placeholder="Email" />
+									<label for="">
+										Email <small ng-show="frm.frmEmail.$invalid" class="text-danger"><i>*Input email</i></small>
+									</label>
+									<input type="email" class="form-control" name="frmEmail" required ng-model="form.userEmail" placeholder="Email" />
 								</div>
 								<div class="form-group col-12">
-									<label>Address</label>
-									<textarea class="form-control" rows="4" ng-model="form.userAddress"></textarea>
+									<label>
+										Address <small ng-show="frm.frmAddress.$invalid" class="text-danger"><i>*Input address</i></small>
+									</label>
+									<textarea class="form-control" name="frmAddress" required rows="4" ng-model="form.userAddress"></textarea>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
@@ -89,23 +105,23 @@
 							</div>
 						</div>
 					</div>
-					<div class="card-footer">
-						<div class="form-group">
-							<button ng-click="create()" ng-show="isEdit == false" class="btn btn-primary mr-2">Insert</button>
-							<button ng-click="update()" ng-show="isEdit == true && isSocial == false" class="btn btn-warning mr-2">Update</button>
-							<button ng-click="delete(form)" class="btn btn-danger mr-2">Remove</button>
-							<button ng-click="reset()" class="btn btn-info">Cancel</button>
-						</div>
+					<div class="card-footer pb-4 text-center">
+						<button ng-click="create()" ng-show="isEdit == false" class="btn btn-primary mr-2">Insert</button>
+						<button ng-click="update()" ng-show="isEdit == true && isSocial == false" class="btn btn-warning mr-2">Update</button>
+						<button ng-click="delete(form)" class="btn btn-danger mr-2">Remove</button>
+						<button ng-click="reset()" class="btn btn-info">Cancel</button>
 					</div>
 				</div>
 			</form>
 		</div>
 		<div class="col-5">
 			<div class="card">
-				<form>
-					<input type="text" class="form-control" placeholder="Search by name" ng-model="searchByName" onchange="angular.element(this).scope().findByName()">
-				</form>
-				<div class="card-body p-0 mt-2">
+				<div class="card-header bg-info">
+					<form>
+						<input type="text" class="form-control bg-light" placeholder="Search by name" ng-model="searchByName" onchange="angular.element(this).scope().findByName()">
+					</form>
+				</div>
+				<div class="card-body p-0">
 					<table class="table table-bordered table-hover">
 						<thead>
 							<tr class="bg-info text-light">
