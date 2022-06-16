@@ -14,27 +14,27 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 @Configuration
 public class I18NConfig implements WebMvcConfigurer {
-	@Bean("messageSource")
-	public MessageSource getMessageSource() {
-		ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
-		ms.setDefaultEncoding("utf-8");
-		ms.setBasenames("classpath:i18N/message", "classpath:i18N/global");
-		return ms;
-	}
+    @Bean("messageSource")
+    public MessageSource getMessageSource() {
+	ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
+	ms.setDefaultEncoding("utf-8");
+	ms.setBasenames("classpath:i18N/message", "classpath:i18N/global");
+	return ms;
+    }
 
-	@Bean("localeResolver")
-	public LocaleResolver getLocaleResolver() {
-		CookieLocaleResolver resolver = new CookieLocaleResolver();
-		resolver.setCookiePath("/");
-		resolver.setCookieMaxAge(10 * 24 * 60 * 60);
-		resolver.setDefaultLocale(new Locale("vi"));
-		return resolver;
-	}
+    @Bean("localeResolver")
+    public LocaleResolver getLocaleResolver() {
+	CookieLocaleResolver resolver = new CookieLocaleResolver();
+	resolver.setCookiePath("/");
+	resolver.setCookieMaxAge(10 * 24 * 60 * 60);
+	resolver.setDefaultLocale(new Locale("vi"));
+	return resolver;
+    }
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		LocaleChangeInterceptor locale = new LocaleChangeInterceptor();
-		locale.setParamName("lang");
-		registry.addInterceptor(locale).addPathPatterns("/**").excludePathPatterns("/images/**", "/upload/**");
-	}
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+	LocaleChangeInterceptor locale = new LocaleChangeInterceptor();
+	locale.setParamName("lang");
+	registry.addInterceptor(locale).addPathPatterns("/**").excludePathPatterns("/images/**", "/upload/**");
+    }
 }

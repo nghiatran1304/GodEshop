@@ -23,7 +23,7 @@
 						<div class="top-bar-left">
 							<!-- welcome -->
 							<div class="welcome">
-								<p>England's Fastest Online Shopping Destination</p>
+								<p>GodEdoc's Fastest Online Shopping Destination</p>
 							</div>
 						</div>
 					</div>
@@ -40,7 +40,7 @@
 											<th:block th:if="!${#request.remoteUser}">
 												Account &#160;&#160;<i class="ion-ios-arrow-down"></i>
 											</th:block>
-											
+
 										</a>
 										<ul>
 											<li th:if="${#request.remoteUser}">
@@ -49,7 +49,7 @@
 											<li th:unless="${#request.remoteUser}">
 												<a href="/account/login/form">Login</a>
 											</li>
-																						
+
 											<li th:if="${#request.remoteUser}">
 												<a href="/checkout">Checkout</a>
 											</li>
@@ -59,37 +59,44 @@
 										</ul>
 									</div>
 								</div>
-								<div class="col-3"></div>
-								<div class="col-3">
-									<div class="switcher">
+								<div class="col-2"></div>
+								<div class="col-4">
+									<div class="switcher p-0">
+										<div class="nav-item submenu dropdown p-0">
+											<a href="#" class="nav-link dropdown-toggle d-inline-flex" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+												<i class="fa fa-globe text-light"></i>
+											</a>
+											<ul class="dropdown-menu">
+												<li class="nav-item">
+													<a href="?lang=en" class="nav-link text-primary">
+														<img src="/assets/images/icons/en.png" alt="language-selector">
+														&nbsp; English
+													</a>
+												</li>
+												<li class="nav-item">
+													<a href="?lang=vi" class="nav-link text-primary">
+														<img src="/assets/images/icons/vi.png" alt="language-selector">
+														&nbsp; Vietnamese
+													</a>
+												</li>
+											</ul>
+										</div>
 										<!-- language-menu -->
-										<div class="language">
-											<a href="#">
+										<!-- <div class="language">
+											<a href="?lang=en" >
 												<img src="/assets/images/icons/en.png" alt="language-selector">
 												English
 												<i class="ion-ios-arrow-down"></i>
 											</a>
 											<ul>
 												<li>
-													<a href="#">
-														<img src="/assets/images/icons/fr.png" alt="French">
-														<span>French</span>
+													<a href="?lang=vi">
+														<img src="/assets/images/icons/vi.png" style="width: 18px; height: 12px;" alt="language-selector">
+														<span>Vietnamese</span>
 													</a>
 												</li>
 											</ul>
-										</div>
-										<!-- currency-menu -->
-										<!-- <div class="currency">
-										<a href="#">
-											$ USD
-											<i class="ion-ios-arrow-down"></i>
-										</a>
-										<ul>
-											<li>
-												<a href="#">€ EUR</a>
-											</li>
-										</ul>
-									</div> -->
+										</div> -->
 									</div>
 								</div>
 							</div>
@@ -116,19 +123,17 @@
 						<div class="header-search clearfix">
 							<div class="category-select pull-right">
 								<select class="nice-select-menu" onchange="location = this.value;">
-									<option data-display="All Categories">All Categories</option>
+									<option data-display="All Categories" th:text="#{nav.category}">Categories</option>
 									<option th:each="lst, state : ${lstCategory}" th:value="@{|/product?categoryId=${lst.id}|}">
-										<a th:href="@{|/product?categoryId=${lst.id}|}">[[${lst.name}]]</a>
+										<a th:href="@{|/product?search-category=${lst.name}|}">[[${lst.name}]]</a>
 									</option>
 								</select>
 							</div>
 							<div class="header-search-form">
-
 								<form action="/product" method="get">
 									<input type="text" name="keywords" placeholder="Search product...">
 									<input type="submit" name="submit" value="Search">
 								</form>
-
 							</div>
 						</div>
 					</div>
@@ -153,9 +158,9 @@
 											<sup>{{cart.count}}</sup>
 										</span>
 										<span class="cart-text">
-										
+
 											<span class="cart-text-title">
-												My cart
+												<span th:text="#{nav.myCart}">My cart</span>
 												<br>
 												<strong>$ {{cart.amount | number : 2}}</strong>
 											</span>
@@ -191,15 +196,15 @@
 											<!-- shop-cart-total -->
 											<div class="shop-cart-total">
 												<p>
-													Subtotal:
+													<span th:text="#{nav.subtotal}">Subtotal:</span>
 													<span class="pull-right">£ {{cart.amount | number : 2}}</span>
 												</p>
 											</div>
 										</li>
 										<li>
 											<div class="shop-cart-btn">
-												<a th:if="${#request.remoteUser}" href="/checkout">Checkout</a>
-												<a th:href="@{|/cart|}" class="pull-right">View Cart</a>
+												<a th:if="${#request.remoteUser}" href="/checkout" th:text="#{nav.checkout}">Checkout</a>
+												<a th:href="@{|/cart|}" class="pull-right" th:text="#{nav.myCart}">View Cart</a>
 											</div>
 										</li>
 									</ul>
@@ -217,7 +222,7 @@
 				<div class="row">
 					<div class="col-xl-3 col-lg-3 hidden-md hidden-sm pull-left category-wrapper">
 						<div class="categori-menu">
-							<span class="categorie-title">Categories</span>
+							<span class="categorie-title" th:text="#{nav.category}">Categories</span>
 							<nav>
 								<ul class="categori-menu-list menu-hidden">
 									<li th:each="lst: ${lstCategory}">
@@ -233,103 +238,24 @@
 							<nav>
 								<ul>
 									<li class="current">
-										<a th:href="@{|/index|}"> Home </a>
+										<a th:href="@{|/index|}" th:text="#{nav.home}">Home</a>
 									</li>
 									<li>
-										<a th:href="@{|/product|}">Shop</a>
+										<a th:href="@{|/product|}" th:text="#{nav.shop}">Shop</a>
 									</li>
 									<li>
-										<a th:href="@{|/blog|}">Blog</a>
+										<a th:href="@{|/blog|}" th:text="#{nav.blog}">Blog</a>
 									</li>
 									<li>
-										<a th:href="@{|/about|}">About Us</a>
+										<a th:href="@{|/about|}" th:text="#{nav.aboutUs}">About Us</a>
 									</li>
 									<li>
-										<a th:href="@{|/contact|}">Contact</a>
+										<a th:href="@{|/contact|}" th:text="#{nav.contact}">Contact</a>
 									</li>
 									<li>
-										<a th:href="@{|/livestream|}">LiveStream</a>
+										<a th:href="@{|/livestream|}" th:text="#{nav.livestream}">Live Stream</a>
 									</li>
-									<li>
-										<a href="#">
-											Features
-											<i class="fa fa-angle-down"></i>
-										</a>
-										<ul class="megamenu-3-column">
-											<li>
-												<a href="#">Pages</a>
-												<ul>
-													<li>
-														<a href="about-us.html">About Us</a>
-													</li>
-													<li>
-														<a href="contact-us.html">Contact Us</a>
-													</li>
-													<li>
-														<a href="service.html">Services</a>
-													</li>
-													<li>
-														<a href="portfolio.html">Portfolio</a>
-													</li>
-													<li>
-														<a href="faq.html">Frequently Questins</a>
-													</li>
-													<li>
-														<a href="404.html">Error 404</a>
-													</li>
-												</ul>
-											</li>
-											<li>
-												<a href="#">Blog</a>
-												<ul>
-													<li>
-														<a href="blog-no-sidebar.html">None Sidebar</a>
-													</li>
-													<li>
-														<a href="blog.html">Sidebar right</a>
-													</li>
-													<li>
-														<a href="single-blog.html">Image Format</a>
-													</li>
-													<li>
-														<a href="single-blog-gallery.html">Gallery Format</a>
-													</li>
-													<li>
-														<a href="single-blog-audio.html">Audio Format</a>
-													</li>
-													<li>
-														<a href="single-blog-video.html">Video Format</a>
-													</li>
-												</ul>
-											</li>
-											<li>
-												<a href="#">Shop</a>
-												<ul>
-													<li>
-														<a href="shop.html">Shop</a>
-													</li>
-													<li>
-														<a href="shop-list.html">Shop List View</a>
-													</li>
-													<li>
-														<a href="shop-right.html">Shop Right</a>
-													</li>
-													<li>
-														<a href="single-product.html">Shop Single</a>
-													</li>
-													<li>
-														<a href="cart.html">Shoping Cart</a>
-													</li>
-													<li>
-														<a href="checkout.html">Checkout</a>
-													</li>
-													<li>
-														<a href="my-account.html">My Account</a>
-													</li>
-												</ul>
-											</li>
-										</ul>
-									</li>
+
 								</ul>
 							</nav>
 						</div>

@@ -59,7 +59,7 @@ public class ProductRestController {
 
 
     @PostMapping("/rest/products")
-    public Product create(@RequestBody ProductWatchInfoDto product) {
+    public Product create(@RequestBody ProductWatchInfoDto product) throws Exception{
 	System.out.println(product == null ? " >>>> NULL PRODUCT" : " >>>>> NOT NULL PRODUCT");
 	System.out.println(product.getCategoryId() == null ? " >>>> NULL CATEGORY ID " : " >>>>> NOT NULL CATEGORY ID : " + product.getCategoryId());
 	System.out.println(product.getBrandId() == null ? " >>>> NULL BRAND ID" : " >>>>> NOT NULL BRAND ID: " + product.getBrandId());

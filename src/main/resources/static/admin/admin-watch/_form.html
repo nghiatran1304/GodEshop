@@ -71,36 +71,36 @@
 							<!-- 1 -->
 							<div class="col-6">
 								<div class="form-group">
-									<label for="exampleInputName1">Name</label>
-									<input type="text" class="form-control" id="name" ng-model="formProduct.productName" placeholder="Name" />
+									<label for="exampleInputName1">Name <small ng-show="frm.frmName.$invalid" class="text-danger"><i>*Input name</i></small></label>
+									<input type="text" class="form-control" name="frmName" id="name" ng-model="formProduct.productName" required placeholder="Name" />									
 								</div>
 								<div class="form-group">
-									<label for="exampleInputEmail3">Price</label>
-									<input type="text" class="form-control" id="price" ng-model="formProduct.productPrice" placeholder="price" />
+									<label for="exampleInputEmail3">Price <small ng-show="frm.frmPrice.$invalid" class="text-danger"><i>*Input price</i></small></label>
+									<input type="number" class="form-control" min="1" name="frmPrice" id="price" ng-model="formProduct.productPrice" required placeholder="price" />									 
 								</div>
 								<div class="form-group">
-									<label for="exampleInputEmail3">Glass size</label>
-									<input type="text" class="form-control" id="price" ng-model="formWatch.watchGlassSize" placeholder="Glass size" />
+									<label for="exampleInputEmail3">Glass size <small ng-show="frm.frmGlassSize.$invalid" class="text-danger"><i>*Input glass size</i></small></label>
+									<input type="number" class="form-control" min="1" name="frmGlassSize" required id="price" ng-model="formWatch.watchGlassSize" placeholder="Glass size" />
 								</div>
 								<div class="form-group">
-									<label>ATM</label>
-									<input type="text" class="form-control" ng-model="formWatch.watchATM" placeholder="ATM" />
+									<label>ATM <small ng-show="frm.frmAtm.$invalid" class="text-danger"><i>*Input ATM</i></small></label>
+									<input type="number" class="form-control" min="1" name="frmAtm" required ng-model="formWatch.watchATM" placeholder="ATM" />
 								</div>
 								<div class="form-group">
-									<label>Glass color</label>
-									<input type="text" class="form-control" ng-model="formWatch.watchGlassColor" placeholder="Glass color" />
+									<label>Glass color <small ng-show="frm.frmGlassColor.$invalid" class="text-danger"><i>*Input glass color</i></small></label>
+									<input type="text" class="form-control" name="frmGlassColor" required ng-model="formWatch.watchGlassColor" placeholder="Glass color" />
 								</div>
 								<div class="form-group">
-									<label>Case color</label>
-									<input type="text" class="form-control" ng-model="formWatch.watchCaseColor" placeholder="Case color" />
+									<label>Case color <small ng-show="frm.frmCaseColor.$invalid" class="text-danger"><i>Input case color</i></small></label>
+									<input type="text" class="form-control" name="frmCaseColor" required ng-model="formWatch.watchCaseColor" placeholder="Case color" />
 								</div>
 								<div class="form-group">
-									<label>Warranty</label>
-									<input type="text" class="form-control" ng-model="formProduct.productWarranty" placeholder="Warranty" />
+									<label>Warranty <small ng-show="frm.frmWarranty.$invalid" class="text-danger"><i>*Input warranty</i></small></label>
+									<input type="text" class="form-control" name="frmWarranty" required ng-model="formProduct.productWarranty" placeholder="Warranty" />
 								</div>
 								<div class="form-group">
-									<label>Quantity</label>
-									<input type="text" class="form-control" ng-model="formProduct.productQuantity" placeholder="Quantity" />
+									<label>Quantity <small ng-show="frm.frmQuantity.$invalid" class="text-danger"><i>*Input warranty</i></small></label>
+									<input type="text" class="form-control" name="frmQuantity" required ng-model="formProduct.productQuantity" placeholder="Quantity" />
 								</div>
 								<div class="form-group" hidden>
 									<div>Create Date</div>
@@ -169,7 +169,6 @@
 								<textarea class="form-control" rows="4" ng-model="formProduct.productDetail"></textarea>
 							</div>
 						</div>
-
 						<button ng-click="create(); " ng-show="showInsert == true" class="btn btn-primary mr-2">Insert</button>
 						<button ng-click="update()" ng-show="showUpdate == true" class="btn btn-warning mr-2">Update</button>
 						<button ng-click="deleteProduct(formProduct)" class="btn btn-danger mr-2">Remove</button>

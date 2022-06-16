@@ -22,7 +22,29 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 
 	$scope.isEdit = false;
 
+	$scope.setNormal = function() {
+		//$scope.formProduct.productMadeIn = "Vietnam";
+		//$scope.formProduct.productName = "product's name";
+		$scope.formProduct.productIsDeteled = false;
+		$scope.formProduct.productPrice = 1;
+		$scope.formProduct.productQuantity = 1;
+		$scope.formProduct.productWarranty = 12;
+		$scope.formProduct.brandId = "1";
+		$scope.formProduct.categoryId = 1; 
+		
+		$scope.formWatch.watchATM = 20;
+		$scope.formWatch.watchCaseColor = "Black";
+		$scope.formWatch.watchGender = 1;
+		$scope.formWatch.watchGlassColor = "Black";
+		$scope.formWatch.watchGlassSize = 15;
+		$scope.formWatch.braceletMaterialId = 1;
+		$scope.formWatch.glassMaterialId = 1;
+		$scope.formWatch.machineInsideId = 1;
+
+	}
+
 	$scope.initialize = function() {
+		$scope.setNormal();
 		$scope.formProduct.productCreateDate = new Date();
 		$scope.showInsert = true;
 		$scope.formProductPhoto.imageId = 'a';

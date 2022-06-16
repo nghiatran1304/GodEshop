@@ -1908,3 +1908,4 @@ where Username = 'test01'
 
 select * from Users
 
+select * from Products
