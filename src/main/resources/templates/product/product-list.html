@@ -36,7 +36,8 @@
 											</th:block>
 											<th:block th:if="${p.productDiscount != null && (p.productEndDiscount == null ? true : (p.productEndDiscount.compareTo(timeNow) == 1 || p.productEndDiscount.compareTo(timeNow) == 0) ) }">
 												<del>$ [[${p.productPrice}]]</del>
-												$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
+												$ <!-- <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"> </span>-->
+												<span> [[${#numbers.formatDecimal(p.productPrice - (p.productPrice * p.productDiscount / 100), 0, 'COMMA', 2, 'POINT')}]] </span>
 											</th:block>
 										</span>
 									</div>
@@ -45,7 +46,7 @@
 											<a class="btn" th:attr="ng-click=@{|cart.add(${p.productId})|}">Add to cart</a>
 										</div>
 										<div class="add-to-cart" th:if="${p.productQuantity <= 0}">
-											<a class="btn btn-secondary" th:attr="ng-click=@{|cart.outOfStock()|}" >Out of stock</a>
+											<a class="btn btn-secondary" th:attr="ng-click=@{|cart.outOfStock()|}">Out of stock</a>
 										</div>
 										<div class="star-actions">
 											<div class="product-rattings">

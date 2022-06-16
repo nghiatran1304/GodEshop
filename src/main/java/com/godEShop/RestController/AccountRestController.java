@@ -41,13 +41,13 @@ public class AccountRestController {
 
     @Autowired
     RoleService roleService;
-    
+
     @Autowired
     UploadService uploadService;
-    
+
     @Autowired
     FileManagerService fileService;
-    
+
     @Autowired
     BCryptPasswordEncoder pe;
 
@@ -60,7 +60,7 @@ public class AccountRestController {
     public List<UserInfoDto> getInfo() {
 	return userService.lstUserInfoDto();
     }
-    
+
     @GetMapping("/rest/search-accounts/{name}")
     public List<UserInfoDto> getSearchInfo(@PathVariable("name") String kw) {
 	return userService.lstFindUser("%" + kw + "%");
@@ -76,9 +76,17 @@ public class AccountRestController {
 	Role r = new Role();
 	r = roleService.findById(ui.getRoleId());
 
+	Account oldAccount = accountService.findByUsername(ui.getAccountUsername());
 	Account a = new Account();
+	a = oldAccount;
 	a.setUsername(ui.getAccountUsername());
-	a.setPassword(pe.encode(ui.getAccountPassword()));
+
+	if (ui.getAccountPassword().equals(a.getPassword())) {
+	    a.setPassword(ui.getAccountPassword());
+	} else {
+	    a.setPassword(pe.encode(ui.getAccountPassword()));
+	}
+
 	a.setIsDelete(ui.getAccountIsDeleted());
 	a.setRole(r);
 	accountService.update(a);
@@ -108,7 +116,7 @@ public class AccountRestController {
 	userService.update(u);
 	return ui;
     }
-    
+
     @PostMapping("/rest/create-account")
     public UserInfoDto createUser(@RequestBody UserInfoDto ui) {
 	Role r = new Role();
@@ -119,7 +127,7 @@ public class AccountRestController {
 	a.setIsDelete(ui.getAccountIsDeleted());
 	a.setRole(r);
 	accountService.create(a);
-	
+
 	User u = new User();
 	u.setAddress(ui.getUserAddress());
 	u.setDob(ui.getUserDob());
@@ -130,13 +138,12 @@ public class AccountRestController {
 	u.setPhoto(ui.getUserPhoto());
 	u.setAccount(a);
 	userService.create(u);
-	
+
 	return ui;
     }
-    
-    
+
     // ----- IMAGE
-    
+
     @PostMapping("/rest/upload-user/{folder}")
     public JsonNode uploadAdmin(@PathParam("file") MultipartFile file, @PathVariable("folder") String folder) {
 	File savedFile = uploadService.saveUserAdmin(file, folder);
@@ -146,11 +153,12 @@ public class AccountRestController {
 	node.put("size", savedFile.length());
 	return node;
     }
-    
+
     // --------------------------- UPLOAD USER PHOTO
     @PutMapping("/rest/photo-user/{userId}")
-    public List<String> uploadImagesUser(@PathVariable("userId") Integer id, @PathParam("files") MultipartFile[] files) {
+    public List<String> uploadImagesUser(@PathVariable("userId") Integer id,
+	    @PathParam("files") MultipartFile[] files) {
 	return fileService.saveAdmin(id, files);
-    } 
+    }
 
 }

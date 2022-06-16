@@ -227,6 +227,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 						var reader = new FileReader();
 						var imgtag = document.getElementById("myID1");
 						imgtag.src = "/upload/noImage.jpg";
+						$scope.reset();
 					}
 				});
 			}).catch(error => {
