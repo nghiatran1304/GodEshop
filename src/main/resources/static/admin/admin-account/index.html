@@ -106,8 +106,8 @@
 						</div>
 					</div>
 					<div class="card-footer pb-4 text-center">
-						<button ng-click="create()" ng-show="isEdit == false" class="btn btn-primary mr-2">Insert</button>
-						<button ng-click="update()" ng-show="isEdit == true && isSocial == false" class="btn btn-warning mr-2">Update</button>
+						<button ng-click="frm.$valid && create()" ng-show="isEdit == false" class="btn btn-primary mr-2">Insert</button>
+						<button ng-click="frm.$valid && update()" ng-show="isEdit == true && isSocial == false" class="btn btn-warning mr-2">Update</button>
 						<button ng-click="delete(form)" class="btn btn-danger mr-2">Remove</button>
 						<button ng-click="reset()" class="btn btn-info">Cancel</button>
 					</div>

@@ -39,8 +39,8 @@
 
 				</div>
 				<div class="card-footer">
-					<button ng-click="create()" ng-show="isEdit == false" class="btn btn-primary mr-2">Create</button>
-					<button ng-click="update()" ng-show="isEdit == true" class="btn btn-warning mr-2">Update</button>
+					<button ng-click="frm.$valid && create()" ng-show="isEdit == false" class="btn btn-primary mr-2">Create</button>
+					<button ng-click="frm.$valid && update()" ng-show="isEdit == true" class="btn btn-warning mr-2">Update</button>
 					<button ng-click="delete(productDiscountId)" ng-show="isEdit == true" class="btn btn-danger mr-2">Remove</button>
 					<button ng-click="reset()" class="btn btn-info">Cancel</button>
 				</div>
