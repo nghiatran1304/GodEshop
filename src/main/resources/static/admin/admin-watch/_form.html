@@ -37,11 +37,11 @@
 										<input type="file" class="btn btn-primary" id="uf" accept="image/*" multiple onchange="angular.element(this).scope().uploadImage(this.files)">
 									</label>
 									<hr>
-									<label ng-show="isEdit == false" ng-repeat="filename in filenames" title="Double click to delete" class="ml-1 MagicZoom">
-										<img ng-src="{{url(filename)}}" ng-click="imageChose(filename)" ng-dblclick="delete1(filename)" class="mb-3 mr-2" style="width: 80px; height: 80px; border: 0.5px solid black;" alt="">
+									<label ng-show="isEdit == false" ng-repeat="filename in filenames" title="Double click to delete" class="ml-1">
+										<img ng-src="{{url(filename)}}" ng-click="imageChose(filename)" ng-dblclick="delete1(filename)" class="mb-3 mr-2" style="width: 80px; height: 80px; border: 1px solid black;" alt="">
 									</label>
-									<label ng-show="isEdit == true" ng-repeat="filename in filenames" title="Double click to delete" class="ml-1 MagicZoom">
-										<img ng-src="{{'/upload/ProductImages/' + filename}}" ng-click="imageChose(filename)" ng-dblclick="deleteImage(filename)" class="mb-3 mr-2" style="width: 80px; height: 80px; border: 0.5px solid black;" alt="">
+									<label ng-show="isEdit == true" ng-repeat="filename in filenames" title="Double click to delete" class="ml-1">
+										<img ng-src="{{'/upload/ProductImages/' + filename}}" ng-click="imageChose(filename)" ng-dblclick="deleteImage(filename)" class="mb-3 mr-2" style="width: 80px; height: 80px; border: 1px solid black;" alt="">
 									</label>
 								</div>
 								<!-- START TEST MULTI -->

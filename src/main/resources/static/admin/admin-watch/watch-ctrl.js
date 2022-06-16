@@ -16,7 +16,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 	$scope.formProductPhoto = {};
 	$scope.formProductPhoto.imageId = 'a';
 	var uploadImage = new FormData();
-
+	$rootScope.getProductIdAfterInsert;
 	$scope.showInsert = false;
 	$scope.showUpdate = false;
 
@@ -98,6 +98,9 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 
 	// xóa form
 	$scope.reset = function() {
+		getProductIdEdit = null;
+		$rootScope.getProductIdAfterInsert = null; 
+		$scope.formProduct.productId = null;
 		$scope.isEdit = false;
 		$scope.showInsert = true;
 		$scope.showUpdate = false;
@@ -178,7 +181,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 		return new Promise((resolve) => setTimeout(resolve, time));
 	}
 
-	$rootScope.getProductIdAfterInsert;
+
 	var formImages = new FormData();
 	// thêm sản phẩm
 	$scope.create = function() {
@@ -218,6 +221,10 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 				headers: { 'Content-Type': undefined },
 			}).then(resp => {
 				// $scope.filenames.push(...resp.data);
+				var reader = new FileReader();
+				var imgtag = document.getElementById("myID1");
+				imgtag.src = "/upload/noImage.jpg";
+				$scope.reset();
 				Swal.fire({
 					icon: 'success',
 					confirmButtonColor: '#3085d6',
