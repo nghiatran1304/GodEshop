@@ -8,8 +8,8 @@ app.controller("account-ctrl", function($scope, $http) {
 	$scope.isSocial = false;
 
 	$scope.hasImage = 'a';
-	
-	$scope.inputDefault = function(){
+
+	$scope.inputDefault = function() {
 		$scope.form.userGender = 1;
 		$scope.form.roleId = "Customer";
 		$scope.form.accountIsDeleted = false;
@@ -63,9 +63,9 @@ app.controller("account-ctrl", function($scope, $http) {
 		$scope.isEdit = true;
 		$scope.hasImage = 'b';
 		$scope.form = angular.copy(item);
-		if($scope.form.accountUsername == $scope.form.userEmail){
+		if ($scope.form.accountUsername == $scope.form.userEmail) {
 			$scope.isSocial = true;
-		}else{
+		} else {
 			$scope.isSocial = false;
 		}
 	}
@@ -77,17 +77,32 @@ app.controller("account-ctrl", function($scope, $http) {
 	$scope.create = function() {
 		var item = angular.copy($scope.form);
 		$http.post(`/rest/create-account`, item).then(resp => {
+			var check = resp.data;
+			if (check.accountUsername == null) {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: "Account already exists !!!",
+				});
+			} else {
+				Swal.fire({
+					icon: 'success',
+					confirmButtonColor: '#3085d6',
+					title: 'Success !',
+				}).then(result => {
+					if (result.isConfirmed) {
+						var imgtag = document.getElementById("myID1");
+						imgtag.src = "/upload/noImage.jpg";
+						$scope.reset();
+						$scope.initialize();
+					}
+				});
+			}
+		}).catch(result => {
 			Swal.fire({
-				icon: 'success',
-				confirmButtonColor: '#3085d6',
-				title: 'Success !',
-			}).then(result => {
-				if (result.isConfirmed) {
-					var imgtag = document.getElementById("myID1");
-					imgtag.src = "/upload/noImage.jpg";
-					$scope.reset();
-					$scope.initialize();
-				}
+				icon: 'error',
+				title: 'Oops...',
+				text: "Check you form again !!!",
 			});
 		})
 	}

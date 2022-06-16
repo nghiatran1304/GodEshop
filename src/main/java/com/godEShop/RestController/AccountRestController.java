@@ -121,6 +121,9 @@ public class AccountRestController {
     public UserInfoDto createUser(@RequestBody UserInfoDto ui) {
 	Role r = new Role();
 	r = roleService.findById(ui.getRoleId());
+	if(accountService.findByUsername(ui.getAccountUsername()) != null) {
+	    return new UserInfoDto();
+	}
 	Account a = new Account();
 	a.setUsername(ui.getAccountUsername());
 	a.setPassword(pe.encode(ui.getAccountPassword()));
