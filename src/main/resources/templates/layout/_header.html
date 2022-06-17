@@ -124,8 +124,9 @@
 							<div class="category-select pull-right">
 								<select class="nice-select-menu" onchange="location = this.value;">
 									<option data-display="All Categories" th:text="#{nav.category}">Categories</option>
-									<option th:each="lst, state : ${lstCategory}" th:value="@{|/product?categoryId=${lst.id}|}">
-										<a th:href="@{|/product?search-category=${lst.name}|}">[[${lst.name}]]</a>
+									<!-- <option th:each="lst, state : ${lstCategory}" th:value="@{|/product?categoryId=${lst.id}|}"> -->
+									<option th:each="lst, state : ${lstCategory}" th:value="@{|/product?search-category=${lst.name}|}">
+										[[${lst.name}]]
 									</option>
 								</select>
 							</div>

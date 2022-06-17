@@ -87,33 +87,30 @@ app.controller("statistic-ctrl", function($scope, $http) {
 	  var data = {};
 	
 	  var config = {};
+	  var orderDateTime = [];
+	  var startDate;
+	  var endDate;
 	  
 	var myChart = null;
 	$scope.itemProduct = [];
-	$scope.itemProduct.orderCreateDate = new Date();
 	$scope.detail = function (id) {
 		if(myChart!=null){
-        myChart.destroy();
-   		 }
-   		 labels = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-  ];
+        	myChart.destroy();
+        	orderDateTime = [];
+        	labels = [];
+   		}
   
-  data = {
-	    labels: labels,
-	    datasets: [{
-	      label: 'Statistic in month',
-	      backgroundColor: 'rgb(255, 99, 132)',
-	      borderColor: 'rgb(255, 99, 132)',
-	      data: [0, 100, 521, 24, 202, 304, 405],
-	    }]
-	  };
 	  
+		  data = {
+		    labels: labels,
+		    datasets: [{
+		      label: 'Statistic in month',
+		      backgroundColor: 'rgb(255, 99, 132)',
+		      borderColor: 'rgb(255, 99, 132)',
+		      data: [],
+		    }]
+		  };
+		  
 	  config = {
 	    type: 'line',
 	    data: data,
@@ -126,17 +123,62 @@ app.controller("statistic-ctrl", function($scope, $http) {
   
 		
 			$('#exampleModal').modal('toggle');
+			
 			$http.get(`/rest/statistic/product/${id}`).then(resp => {
 			$scope.itemProduct = resp.data;
-			$scope.itemProduct.forEach(item => {
-				item.orderCreateDate = new Date(item.orderCreateDate);
-			});
+			
+			for (var i = 0; i < $scope.itemProduct.length; i++) {
+				orderDateTime.push({'time' : $scope.itemProduct[i].createDate, 'revenue': $scope.itemProduct[i].quantity});
+			}
+			orderDateTime.sort((a,b) => Date.parse(b.time) - Date.parse(a.time));
+			startDate = orderDateTime[orderDateTime.length-1].time;
+			endDate = orderDateTime[0].time;
+        	
+			var months = monthsBetween(startDate, endDate);
+	        months.forEach(item => {
+				labels.push(item);
+			})
+			
+			var tempDateTime = [];
+			
+
+			orderDateTime.forEach(item => {
+				const tempDate = new Date(item.time);
+				tempDateTime.push({key: getFormattedDate(tempDate), value: item.revenue});
+			})
+			
+			
+			// mang rong
+			var dataForChart = [];
+			
+			var filterdData = filterData(tempDateTime);
+			
+			for(var i = 0; i < months.length; i++){
+				var tempValue = 0;
+				for(var j = 0; j < filterdData.length; j++){
+					if(months[i] === filterdData[j].key){
+						tempValue = filterdData[j].value;
+					}
+				}
+				dataForChart.push({time: months[i], revenue: tempValue});
+			}
+			
+			//---------------------------------
+			data.datasets.forEach(item => {
+				dataForChart.forEach(item2 => {
+					item.data.push(item2.revenue);
+				})
+			})
 			
 			$http.get(`/rest/products/singleimage/${id}`).then(resp2 => {
 				for (var i = 0; i < resp.data.length; i++) {
 					$scope.itemProduct[i].imageId = resp2.data[0].imageId;
+					
 				}	
-			})
+			});
+			
+			
+			
 			
 		});
 		$scope.pagerProduct = {
@@ -171,14 +213,46 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		myChart = new Chart(
 		    document.getElementById('myChart'),
 		    config
-		  );
-		  
+		 );
 	}
+	
+	function monthsBetween(...args) {
+            let [a, b] = args.map(arg => arg.split("-").slice(0, 2)
+                                            .reduce((y, m) => m - 1 + y * 12));
+            return Array.from({length: b - a + 1}, _ => a++)
+                .map(m => ("0" + (m % 12 + 1)).slice(-2) + "/" + ~~(m / 12));
+        	}
+        	
+        	function getFormattedDate(date) {
+			  var year = date.getFullYear();
+			
+			  var month = (1 + date.getMonth()).toString();
+			  month = month.length > 1 ? month : '0' + month;
+			
+			  var day = date.getDate().toString();
+			  day = day.length > 1 ? day : '0' + day;
+			  
+			  return month + '/' + year;
+			}
+			
+			function filterData(dataToHandling) {
+			var tempData = [];
+           
+            dataToHandling.forEach((item) => {
+                var noMatch = true; // temp created match conditioner
+                if (tempData.length > 0) {
+                    tempData.forEach((tempItem, i) => {
+                        if (item.key === tempItem.key) {
+                            tempData[i].value += item.value;
+                            noMatch = false; // make noMatch = false
+                        }
+                    });
+                }
+                return (noMatch) ? tempData.push(item) : null;
+            });
+            return tempData;
+        }
 });
-
-
-
-
 
 
 
