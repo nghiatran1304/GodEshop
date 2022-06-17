@@ -11,26 +11,26 @@ import com.godEShop.Service.AccountService;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-	@Autowired
-	AccountDAO adao;
+    @Autowired
+    AccountDAO adao;
 
-	@Override
-	public Account findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return adao.findByUsername(username);
-	}
+    @Override
+    public Account findByUsername(String username) {
+	// TODO Auto-generated method stub
+	return adao.findByUsername(username);
+    }
 
-	@Override
-	public List<Account> findAll() {
-		// TODO Auto-generated method stub
-		return adao.findAll();
-	}
+    @Override
+    public List<Account> findAll() {
+	// TODO Auto-generated method stub
+	return adao.findAll();
+    }
 
-	@Override
-	public Account create(Account account) {
-		// TODO Auto-generated method stub
-		return adao.save(account);
-	}
+    @Override
+    public Account create(Account account) {
+	// TODO Auto-generated method stub
+	return adao.save(account);
+    }
 //
 //@Override
 //public Account update(Account account) {
@@ -44,18 +44,24 @@ public class AccountServiceImpl implements AccountService {
 //	adao.deleteById(username);
 //}
 
-	@Override
-	public void delete(String id) {
-	    // TODO Auto-generated method stub
-	    Account a = adao.findByUsername(id);
-	    a.setIsDelete(true);
-	    adao.save(a);
-	}
+    @Override
+    public void delete(String id) {
+	// TODO Auto-generated method stub
+	Account a = adao.findByUsername(id);
+	a.setIsDelete(true);
+	adao.save(a);
+    }
 
-	@Override
-	public Account update(Account account) {
-	    // TODO Auto-generated method stub
-	    return adao.save(account);
-	}
+    @Override
+    public Account update(Account account) {
+	// TODO Auto-generated method stub
+	return adao.save(account);
+    }
+
+    @Override
+    public Account getById(String username) {
+	// TODO Auto-generated method stub
+	return adao.getById(username);
+    }
 
 }
