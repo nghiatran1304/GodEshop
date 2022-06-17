@@ -92,7 +92,7 @@ public class AccessoryRestController {
     @PutMapping("/rest/put-product/{id}")
     public Product update(@PathVariable("id") Long id, @RequestBody ProductAccessoryInfoDto product) {
 	Brand b = brandService.getById(product.getBrandId());
-	Category c = categoryService.getById(3);
+	Category c = categoryService.getById(13);
 	Product p = new Product();
 	p.setId(product.getProductId());
 	p.setCreateDate(product.getProductCreateDate());

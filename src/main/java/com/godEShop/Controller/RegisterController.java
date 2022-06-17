@@ -58,7 +58,7 @@ public class RegisterController {
 	    userService.create(newUser);
 	} else {
 	    sessionService.set("messageRegister", "ACCOUNT IS EXISTED");
-	    return "redirect:/account/register";
+	    return "redirect:/account/login/form";
 	}
 	try {
 	    return "redirect:/account/login/form";
