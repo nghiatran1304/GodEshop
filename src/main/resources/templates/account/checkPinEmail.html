@@ -6,7 +6,8 @@
 		<div class="container">
 		<form th:action="@{/checkPinEmail}" method="post" class="mt-5">
 		<i class="text-danger">[[${mCheckPinEmail}]]</i>
-			<input type="text" name="number" placeholder="Nhập mã xác minh gồm 6 chữ số!"/>
+			<h3 class="text-center text-warning">Please check <a th:href="@{/information}">your email</a> and enter the verification code</h3>
+			<input required type="text" name="number" placeholder="Nhập mã xác minh gồm 6 chữ số!"/>
 			<button class="btn btn-info w-100" type="submit">SEND</button>
 			</form>
 		</div>

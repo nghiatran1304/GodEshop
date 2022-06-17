@@ -51,7 +51,7 @@ public class InformationController {
 	  @Autowired
 	    BCryptPasswordEncoder pe;
 	static Boolean isVerificationEmail = false;
-    @GetMapping("/information")
+    @RequestMapping("/information")
     public String informationPage(HttpServletRequest request, Model model) {
 	String username = request.getRemoteUser();
 	User user = userService.findByUsername(username);
@@ -132,28 +132,31 @@ public class InformationController {
 		User u = userService.findByAccountUsername(username);
 		try {
 			if(email.equalsIgnoreCase(u.getEmail()) ) {
-				String randomPIN ="";
+				int newNumber=0;
 				Random rdn = new Random();
-				int number = rdn.nextInt(999999);
-				randomPIN="" + number;
+				int number = rdn.nextInt(99999);
+				
 				if(number < 999999) {
-					randomPIN = "0" + number;
+					newNumber=number*10;
 				}
-				checkPinNumber= Integer.parseInt(randomPIN);
+				checkPinNumber=newNumber;
 				MailInfo m = new MailInfo();
 				m.setFrom("testemailnghiatran@gmail.com");
 				m.setSubject("Verification your email");
 				m.setTo(email);
 				m.setBody("OTP: "+checkPinNumber);
+				
 				try {
 				    mailerServie.send(m);
 				} catch (Exception e) {
 				    System.out.println("Error : " + e.getMessage());
 				}
+				isVerificationEmail = true;
+			
 				return "/account/checkPinEmail";
 			}else {
-				model.addAttribute("mSendMail","Email không tồn tại, hãy update email!");
-				return "redirect:/information";
+				model.addAttribute("mSendMail","Email does not exist!");
+				return "forward:/information";
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

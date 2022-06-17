@@ -40,7 +40,7 @@
 									class="fa fa-cart-arrow-down"></i> Orders
 								</a> <a href="#account-info" data-toggle="tab"> <i
 									class="fa fa-user"></i> Account Details
-								</a> <a href="#account-changepassword" data-toggle="tab"> <i
+								</a> <a href="#account-changepassword" data-toggle="tab" > <i
 									class="fa fa-user"></i> Change Password
 								</a> <a th:href="@{/account/logoff}"> <i class="fa fa-sign-out"></i>
 									Logout
@@ -281,20 +281,6 @@
 																	class="text-success">([[${isVerificationEmail}]])</i>
 																</label>
 
-																<!-- 				<div class="modal" id="EmailModal" tabindex="-1"
-																	role="dialog">
-																	<div class="modal-dialog modal-dialog-centered"
-																		role="document">
-																		<div class="modal-content">
-																			<div class="modal-body">
-																				<input type="email" class="form-control"
-																					placeholder="Please add a email to your account to verification.." />
-																				<button class="btn btn-primary w-100" type="submit">UPDATE</button>
-
-																			</div>
-																		</div>
-																	</div>
-																</div> -->
 
 																<div class="form-group">
 																	<input type="email" id="email" name="email"
@@ -338,7 +324,7 @@
 
 
 												<div class="single-input-item">
-													<button class="btn" type="submit">UPDATE</button>
+													<button class="btn w-100" type="submit">UPDATE</button>
 												</div>
 												<script>
 													function onFileSelected(
@@ -362,13 +348,14 @@
 								</div>
 								<!-- Single Tab Content End -->
 
-								<div class="tab-pane fade" id="account-changepassword"
+								<div class="tab-pane fade " id="account-changepassword" 
+								th:classappend="${isVerificationEmail}==true ? 'active': ''"
 									role="tabpanel">
 									<!-- form xac thuc email -->
 									<div th:if="${isVerificationEmail}=='false'">
 										<form th:action="@{/verificationEmail}" method="post"
 											class="mt-5">
-											<i class="text-danger">[[${mSendMail}]]</i> <input type="email"
+											<i class="text-danger">[[${mSendMail}]]</i> <input required type="email"
 												name="email" placeholder="Enter Your Email!" />
 											<button class="btn btn-info w-100" type="submit">Confirm</button>
 										</form>

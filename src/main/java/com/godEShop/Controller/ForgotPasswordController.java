@@ -38,7 +38,7 @@ public class ForgotPasswordController {
 	
 	@Autowired
 	BCryptPasswordEncoder pe;
-	
+	static Boolean isVerificationEmail = false;
 	@GetMapping("/forgotPassword")
 	public String layout() {
 		return "account/forgot-password";
@@ -71,13 +71,12 @@ public class ForgotPasswordController {
 				}
 				return "/account/verification";
 			}else {
-				model.addAttribute("message","Email hoặc tài khoản không hợp lệ");
+				model.addAttribute("message","Email không hợp lệ");
 				return "account/forgot-password";
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			model.addAttribute("message","Không có kết quả tìm kiếm\r\n"
-					+ "Tìm kiếm không trả về kết quả nào. Vui lòng thử lại với thông tin khác.");
+			model.addAttribute("message","Tài khoản không hợp lệ.");
 			return "account/forgot-password";
 		}
 	
@@ -92,25 +91,9 @@ public class ForgotPasswordController {
 		try {
 			int pin = Integer.parseInt(number);
 			if(pin==checkPinNumber) {
-				acceptAccount = getAccount;
-				if(acceptAccount!=null) {
-					Account oldAccount = acceptAccount;
-					User user = userService.findByAccountUsername(oldAccount.getUsername());
-					String newPassword= String.valueOf(checkPinNumber);
-					oldAccount.setPassword(pe.encode(newPassword));
-					accountService.update(oldAccount);
-					MailInfo m = new MailInfo();
-					m.setFrom("testemailnghiatran@gmail.com");
-					m.setSubject("Reset Password: ");
-					m.setTo(user.getEmail());
-					m.setBody("password: "+newPassword);
-					try {
-					    mailerServie.send(m);
-					} catch (Exception e) {
-					    System.out.println("Error : " + e.getMessage());
-					}
-				}
-				 return "redirect:/account/login/form";
+				model.addAttribute("isVerificationEmail", "true");
+				isVerificationEmail = true;
+				 return  "/account/changePasswordForm";
 			}else {
 				model.addAttribute("message","invalid verification code");
 				return "/account/verification";
@@ -121,5 +104,21 @@ public class ForgotPasswordController {
 		}
 	
 	}
+	  @PostMapping("/changePasswordForgot")
+	  public String changePassword(HttpServletRequest request,Model model,@RequestParam("newPassword") String newPassword
+			  ,@RequestParam("confirmPassword") String confirmPassword) {
+		  try {
+			  Account acc = accountService.findByUsername(getAccount.getUsername()); 
+			if(isVerificationEmail == true && newPassword.equals(confirmPassword) ) {		
+				acc.setPassword(pe.encode(newPassword)); 
+				accountService.update(acc);		
+				return "/account/login";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception	
+			  return "redirect:/changePasswordForm";
+		}
+			return "/account/login";
+	  }
 	
 }
