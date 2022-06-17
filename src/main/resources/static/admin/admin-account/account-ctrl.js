@@ -178,20 +178,24 @@ app.controller("account-ctrl", function($scope, $http) {
 			};
 			reader.readAsDataURL(selectedFile);
 
-
 			var itemPhoto = angular.copy($scope.form);
 			$http.put(`/rest/photo-user/`, itemPhoto).then(resp => {
 				Swal.fire({
 					icon: 'success',
 					confirmButtonColor: '#3085d6',
-					title: 'Success! Avatar was changed',
+					title: 'Success! Avatar was changed'
 				}).then(result => {
 					if (result.isConfirmed) {
 						$scope.initialize();
+						$scope.isSocial = false;
+						$scope.hasImage = 'b';
+						var imgtag1 = document.getElementById("myID");
+						imgtag1.src = "/upload/UserImages/" + resp.data.userPhoto;
+						//alert(imgtag1.src);						
 					}
 				});
-			});
 
+			});
 
 		}).catch(error => {
 			Swal.fire({
@@ -201,7 +205,6 @@ app.controller("account-ctrl", function($scope, $http) {
 			});
 			console.log("Error", error);
 		});
-
 
 	}
 
