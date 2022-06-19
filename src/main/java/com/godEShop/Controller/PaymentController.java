@@ -36,17 +36,20 @@ public class PaymentController {
 		    PaypalPaymentIntent.sale, "payment description", cancelUrl, successUrl);
 	    for (Links links : payment.getLinks()) {
 		if (links.getRel().equals("approval_url")) {
+		    System.out.println(" >> pay() -> 1");
 		    return "redirect:" + links.getHref();
 		}
 	    }
 	} catch (PayPalRESTException e) {
 	    log.error(e.getMessage());
 	}
+	System.out.println(" >> pay() -> 2");
 	return "account/information";
     }
 
     @GetMapping(URL_PAYPAL_CANCEL)
     public String cancelPay() {
+	System.out.println(" >>> cancelPay()");
 	return "order/checkout";
     }
 
@@ -55,11 +58,13 @@ public class PaymentController {
 	try {
 	    Payment payment = paypalService.executePayment(paymentId, payerId);
 	    if (payment.getState().equals("approved")) {
+		System.out.println(" >> successPay() -> 1");
 		return "redirect:/information";
 	    }
 	} catch (PayPalRESTException e) {
 	    log.error(e.getMessage());
 	}
+	System.out.println(" >> successPay() -> 2");
 	return "order/checkout";
     }
 }

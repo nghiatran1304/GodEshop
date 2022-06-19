@@ -10,7 +10,6 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 	}
 	$scope.getUser();
 
-
 	$scope.getProductQuantity = {};
 
 	$scope.cart = {
@@ -155,7 +154,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			$http.post("/rest/orders", order).then(resp => {
 				Swal.fire({
 					icon: 'success',
-					title: 'Thành công',
+					title: 'Sucsess',
 					showConfirmButton: false,
 					timer: 1500
 				}).then((result) => {
@@ -166,7 +165,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: "Lỗi !!!",
+					text: "Failed !!!",
 				});
 				console.log(" >> Error purchase shopping-cart-app.js : " + error);
 			});
@@ -198,7 +197,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: "Lỗi !!!",
+					text: "Failed !!!",
 				});
 				console.log(" >> Error purchase shopping-cart-app.js : " + error);
 			});

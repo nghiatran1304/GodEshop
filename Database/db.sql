@@ -373,14 +373,14 @@ INSERT INTO GlassMaterials(Name) VALUES
 GO
 
 INSERT INTO BraceletMaterials(Name) VALUES
-(N'Dây da'),
-(N'Dây kim loại'),
-(N'Dây lưới'),
-(N'Dây vải'),
-(N'Dây da cá sấu'),
-(N'Dây nhựa/ cao su'),
-(N'Dây cacbon'),
-(N'Dây titanium')
+(N'Da'),
+(N'Kim loại'),
+(N'Lưới'),
+(N'Vải'),
+(N'Da cá sấu'),
+(N'Nhựa/ cao su'),
+(N'Cacbon'),
+(N'Titanium')
 GO
 
 INSERT INTO MachineInsides(Name) VALUES
