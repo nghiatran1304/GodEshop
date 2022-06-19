@@ -398,7 +398,7 @@ Thiết kế vỏ nam tính kết hợp với các màu sắc kim loại nữ t�
 (N'BA-120TG-4ADR',3,5,'2022-05-15',60,N'Mỹ',N'Thuộc dòng BA-120LP-7A2DR – dòng baby-g kim số được mệnh danh là G-shock GA-120 phiên bản nữ; BA-120LP-7A2 với ,ặt số ở vị trí 6 giờ và 9 giờ của mẫu đồng hồ kim-số này được bố trí dễ đọc.
 Điều này hơn nữa tạo một thiết kế dày dặn rất phù hợp với trang phục xuống phố cũng như thời trang thường ngày.',1,2),
 
-(N'BGD-560CF-7DR',5,10,'2022-05-15',60,N'Mỹ',N'Lấy cảm hứng từ phong cách bãi biển phía Tây Hoa Kỳ.',1,3),
+(N'BGD-560CF-7DR',1,10,'2022-05-15',60,N'Mỹ',N'Lấy cảm hứng từ phong cách bãi biển phía Tây Hoa Kỳ.',1,3),
 
 (N'BGA-151EF-1BDR',7,15,'2022-05-15',60,N'Mỹ',N'Ba mặt số cung cấp thông tin về ngày tháng, Giờ thế giới, đồng hồ bấm giờ và nhiều hơn nữa.Từ dòng BGA-150 mặt to phổ biến đã xuất hiện các mẫu mới với số Ả Rập tuyệt vời cho bốn vạch giờ. Mẫu màu hồng nhạt và trắng kết hợp vạch giờ số Ả Rập màu vàng hồng mang đến họa tiết màu sắc nữ tính và thanh lịch. Ba mặt số cung cấp thông tin về ngày tháng, Giờ thế giới, đồng hồ bấm giờ và nhiều hơn nữa.
 Thiết kế nữ tính cực kỳ phù hợp với thời trang nữ với các tính năng và chức năng tiện dụng và dễ đọc.',1,12),
