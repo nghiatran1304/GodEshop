@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index.html :: dynamic(~{::main})}">
 <body>
 	<main>
 		<!-- Breadcrumbs -->
@@ -8,8 +9,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<nav class="woocommerce-breadcrumb">
-							<a th:href="@{|/index|}">Home</a>
-							<span class="separator">/</span>
+							<a th:href="@{|/index|}">Home</a> <span class="separator">/</span>
 							Shop
 						</nav>
 					</div>
@@ -30,7 +30,8 @@
 							<div class="widget-content">
 								<ul class="product-categories">
 									<li class="cat-item" th:each="lst, state : ${lstBrands}">
-										<a th:href="@{|/product?search-category=${cateName}&search-brand=${lst.name}|}">[[${lst.name}]]</a>
+										<a
+										th:href="@{|/product?search-category=${cateName}&search-brand=${lst.name}|}">[[${lst.name}]]</a>
 										<span class="count"></span>
 									</li>
 								</ul>
@@ -40,44 +41,53 @@
 									<h3>Filter by price</h3>
 								</div>
 								<div class="widget-content">
-									<!-- <div id="price-range"></div>
-									<div class="price-values">
-										<div class="price_text_btn">
-											<span>Price:</span>
-											<input type="text" class="price-amount" name="testPrice">
-										</div>
-										<button class="button" type="submit">Filter</button>
-									</div> -->
-
-									<!-- <form method="get" action="#">
-										<div data-role="rangeslider">
-											<label for="price-min">Price:</label>
-											<input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
-											<label for="price-max">Price:</label>
-											<input type="range" name="price-max" id="price-max" value="800" min="0" max="1000">
-										</div>
-										<input type="submit" data-inline="true" value="Submit">
-									</form> -->
-
+									<form
+										th:action="@{|product?minPrice=${minPrice}&maxPrice=${maxPrice}|}"
+										method="get">
+										<input type="text" name="minPrice" style="width: 30%" /> <i
+											class="fa-solid fa-arrow-right-long"></i> <input type="text"
+											name="maxPrice" style="width: 30%" /> <br />
+										<button class="btn w-100" type="submit">APPLY</button>
+									</form>
 								</div>
+
 							</div>
+				<!-- 			<div class="product-filter mb-30">
+								<div class="widget-title">
+									<h3>SEARCH FILTER</h3>
+								</div>
+								<div class="widget-content">
+									<form
+										th:action="@{|product?menFilter=${menFilter}&womenFilter=${womenFilter}|}"
+										method="get">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value=""
+												id="flexCheckDefault"> <label
+												class="form-check-label" for="flexCheckDefault">
+												Male </label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value=""
+												id="flexCheckChecked" checked> <label
+												class="form-check-label" for="flexCheckChecked">
+												Female </label>
+										</div>
+										<button class="btn w-100" type="submit">APPLY</button>
+									</form>
+								</div>
+
+							</div> -->
 							<div class="widget-title">
 								<h3>SELECT BY COLOR</h3>
 							</div>
 							<div class="widget-content">
 								<ul class="product-categories">
-									<li class="cat-item">
-										<a href="#">Gold</a>
-										<span class="count">(1)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">Green</a>
-										<span class="count">(1)</span>
-									</li>
-									<li class="cat-item">
-										<a href="#">White</a>
-										<span class="count">(1)</span>
-									</li>
+									<li class="cat-item"><a href="#">Gold</a> <span
+										class="count">(1)</span></li>
+									<li class="cat-item"><a href="#">Green</a> <span
+										class="count">(1)</span></li>
+									<li class="cat-item"><a href="#">White</a> <span
+										class="count">(1)</span></li>
 								</ul>
 							</div>
 							<div class="product-filter mb-30">
@@ -88,69 +98,58 @@
 									<ul class="product_list_widget">
 										<li class="widget-mini-product" th:each="p : ${lstTopSeller}">
 											<div class="product-image">
-												<a title="Phasellus vel hendrerit" th:href="@{|/product/${p.productId}|}">
-													<img alt="" th:src="@{|/upload/ProductImages/${p.productImage}|}" style="width: 150px; height: 50px">
+												<a title="Phasellus vel hendrerit"
+													th:href="@{|/product/${p.productId}|}"> <img alt=""
+													th:src="@{|/upload/ProductImages/${p.productImage}|}"
+													style="width: 150px; height: 50px">
 												</a>
 											</div>
 											<div class="product-info">
-												<a title="Phasellus vel hendrerit" th:href="@{|/product/${p.productId}|}" style="size: 1px !important">
-													<span class="product-title">[[${p.productName}]]</span>
+												<a title="Phasellus vel hendrerit"
+													th:href="@{|/product/${p.productId}|}"
+													style="size: 1px !important"> <span
+													class="product-title">[[${p.productName}]]</span>
 												</a>
 												<div class="star-rating">
 													<div class="rating-box">
 														<th:block th:if="${p.productEvaluation == 5}">
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
 														</th:block>
 														<th:block th:if="${p.productEvaluation == 4}">
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
 														</th:block>
 														<th:block th:if="${p.productEvaluation == 3}">
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
 														</th:block>
 														<th:block th:if="${p.productEvaluation == 2}">
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
 														</th:block>
 														<th:block th:if="${p.productEvaluation == 1}">
-															<span>
-																<i class="fa fa-star"></i>
+															<span> <i class="fa fa-star"></i>
 															</span>
 														</th:block>
 														<th:block th:if="${p.productEvaluation == null}">
@@ -158,16 +157,16 @@
 														</th:block>
 													</div>
 												</div>
-												<span class="woocommerce-Price-amount amount">
-													<span class="woocommerce-Price-currencySymbol">
-														<th:block th:if="${p.productDiscount == null}">
+												<span class="woocommerce-Price-amount amount"> <span
+													class="woocommerce-Price-currencySymbol"> <th:block
+															th:if="${p.productDiscount == null}">
 															$ [[${p.productPrice}]]
-														</th:block>
-														<th:block th:if="${p.productDiscount != null}">
+														</th:block> <th:block th:if="${p.productDiscount != null}">
 															<del>$ [[${p.productPrice}]]</del>
-															$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
+															$ <span
+																th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
 														</th:block>
-													</span>
+												</span>
 												</span>
 											</div>
 										</li>
@@ -176,8 +175,8 @@
 								</div>
 							</div>
 							<div class="sidebar-single-banner">
-								<a href="#">
-									<img src="/assets/images/GBanner/sale2.jpg" alt="Banner">
+								<a href="#"> <img src="/assets/images/GBanner/sale2.jpg"
+									alt="Banner">
 								</a>
 							</div>
 							<div class="sidebar-tag">
@@ -186,17 +185,17 @@
 								</div>
 								<div class="widget-content p-3">
 									<div class="product-tags">
-										<a th:href="@{|/product?sort=lowtohigh|}">Low Price</a>
-										<a th:href="@{|/product?sort=hightolow|}">High Price</a>
-										<a th:href="@{|/product|}">All</a>
-										<a th:href="@{|/product?sort=newest|}">New</a>
-										<a th:href="@{|/product?search-brand=Baby-G|}">Baby-G</a>
-										<a th:href="@{|/product?sort=discount|}">Sale</a>
-										<a th:href="@{|/product?search-brand=Rolex|}">Rolex</a>
-										<a th:href="@{|/product?sort=rating|}">Rating</a>
-										<a th:href="@{|/product?search-brand=Calvin%20Klein|}">Calvin Klein</a>
-										<a th:href="@{|/product?sort=G-Shock|}">G-Shock</a>
-										<a th:href="@{|/product?sort=Seiko|}">Seiko</a>
+										<a th:href="@{|/product?sort=lowtohigh|}">Low Price</a> <a
+											th:href="@{|/product?sort=hightolow|}">High Price</a> <a
+											th:href="@{|/product|}">All</a> <a
+											th:href="@{|/product?sort=newest|}">New</a> <a
+											th:href="@{|/product?search-brand=Baby-G|}">Baby-G</a> <a
+											th:href="@{|/product?sort=discount|}">Sale</a> <a
+											th:href="@{|/product?search-brand=Rolex|}">Rolex</a> <a
+											th:href="@{|/product?sort=rating|}">Rating</a> <a
+											th:href="@{|/product?search-brand=Calvin%20Klein|}">Calvin
+											Klein</a> <a th:href="@{|/product?sort=G-Shock|}">G-Shock</a> <a
+											th:href="@{|/product?sort=Seiko|}">Seiko</a>
 									</div>
 								</div>
 							</div>
@@ -209,45 +208,53 @@
 						<div class="product-toolbar">
 							<div class="topbar-title">
 								<h1>
-									<a href="/product">All Products </a>
-									<span class="text-primary">[[${nameOfSearch}]]</span>
+									<a href="/product">All Products </a> <span class="text-primary">[[${nameOfSearch}]]</span>
 								</h1>
 							</div>
 							<div class="product-toolbar-inner">
 								<div class="product-view-mode">
 									<ul class="nav nav-tabs">
-										<li class="active">
-											<a data-toggle="tab" href="#grid">
+										<li class="active"><a data-toggle="tab" href="#grid">
 												<i class="ion-grid"></i>
-											</a>
-										</li>
-										<li>
-											<a data-toggle="tab" href="#list">
-												<i class="ion-navicon"></i>
-											</a>
-										</li>
+										</a></li>
+										<li><a data-toggle="tab" href="#list"> <i
+												class="ion-navicon"></i>
+										</a></li>
 									</ul>
 								</div>
 								<p class="woocommerce-result-count">
-									Showing
-									<span class="text-primary">[[${toProduct}]]</span>
-									–
-									<span class="text-primary">[[${totalPage}]]</span>
-									of
-									<span class="text-primary">[[${totalProducts}]]</span>
-									results
+									Showing <span class="text-primary">[[${toProduct}]]</span> – <span
+										class="text-primary">[[${totalPage}]]</span> of <span
+										class="text-primary">[[${totalProducts}]]</span> results
 								</p>
 								<div class="woocommerce-ordering">
 									<form method="get" class="woocommerce-ordering hidden-xs">
 										<div class="orderby-wrapper">
-											<label>Sort By :</label>
-											<select class="nice-select-menu orderby" onchange="location = this.value;">
-												<option th:value="@{|/product?search-category=${cateName}&search-brand=${brandName}|}" th:selected="${sortChose == 'a'}" dara-display="Select">Default sorting</option>
-												<option th:value="@{|/product?sort=discount&search-category=${cateName}&search-brand=${brandName}|}" th:selected="${sortChose == 'b'}">Sort by discount</option>
-												<option th:value="@{|/product?sort=rating&search-category=${cateName}&search-brand=${brandName}|}" th:selected="${sortChose == 'c'}">Sort by average rating</option>
-												<option th:value="@{|/product?sort=newest&search-category=${cateName}&search-brand=${brandName}|}" th:selected="${sortChose == 'd'}">Sort by newnest</option>
-												<option th:value="@{|/product?sort=lowtohigh&search-category=${cateName}&search-brand=${brandName}|}" th:selected="${sortChose == 'e'}">Sort by price: low to high</option>
-												<option th:value="@{|/product?sort=hightolow&search-category=${cateName}&search-brand=${brandName}|}" th:selected="${sortChose == 'f'}">Sort by price: high to low</option>
+											<label>Sort By :</label> <select
+												class="nice-select-menu orderby"
+												onchange="location = this.value;">
+												<option
+													th:value="@{|/product?search-category=${cateName}&search-brand=${brandName}|}"
+													th:selected="${sortChose == 'a'}" dara-display="Select">Default
+													sorting</option>
+												<option
+													th:value="@{|/product?sort=discount&search-category=${cateName}&search-brand=${brandName}|}"
+													th:selected="${sortChose == 'b'}">Sort by discount</option>
+												<option
+													th:value="@{|/product?sort=rating&search-category=${cateName}&search-brand=${brandName}|}"
+													th:selected="${sortChose == 'c'}">Sort by average
+													rating</option>
+												<option
+													th:value="@{|/product?sort=newest&search-category=${cateName}&search-brand=${brandName}|}"
+													th:selected="${sortChose == 'd'}">Sort by newnest</option>
+												<option
+													th:value="@{|/product?sort=lowtohigh&search-category=${cateName}&search-brand=${brandName}|}"
+													th:selected="${sortChose == 'e'}">Sort by price:
+													low to high</option>
+												<option
+													th:value="@{|/product?sort=hightolow&search-category=${cateName}&search-brand=${brandName}|}"
+													th:selected="${sortChose == 'f'}">Sort by price:
+													high to low</option>
 											</select>
 										</div>
 									</form>
@@ -275,10 +282,15 @@
 								</li>
 							</ul> -->
 							<div class="col-12 text-center">
-								<a th:href="@{|/product?p=0&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}|}" class="btn btn-primary font-weight-bold a1">First</a>
-								<a th:href="@{|/product?p=${page.number-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}|}" class="btn btn-primary font-weight-bold a1">Prev</a>
-								<a th:href="@{|/product?p=${page.number+1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}|}" class="btn btn-primary font-weight-bold a1">Next</a>
-								<a th:href="@{|/product?p=${page.totalPages-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}|}" class="btn btn-primary font-weight-bold a1">Last</a>
+								<a
+									th:href="@{|/product?p=0&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}|}"
+									class="btn btn-primary font-weight-bold a1">First</a> <a
+									th:href="@{|/product?p=${page.number-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}|}"
+									class="btn btn-primary font-weight-bold a1">Prev</a> <a
+									th:href="@{|/product?p=${page.number+1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}|}"
+									class="btn btn-primary font-weight-bold a1">Next</a> <a
+									th:href="@{|/product?p=${page.totalPages-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}|}"
+									class="btn btn-primary font-weight-bold a1">Last</a>
 							</div>
 						</nav>
 					</div>

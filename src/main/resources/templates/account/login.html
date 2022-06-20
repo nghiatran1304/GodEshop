@@ -22,7 +22,7 @@
 		<!-- <h2>Sign in/up Form</h2>	 -->	
 		<div class="container mt-5" id="container">
 			<div class="form-container sign-up-container">
-				<form th:action="@{/register}" method="post">
+				<form th:action="@{/register}" method="post" autocomplete="off">
 					<h1>Create Account</h1>
 					<div class="social-container">
 						<a href="#" class="social"><i class="fab fa-facebook-f"></i></a> <a
@@ -47,7 +47,7 @@
 				</form>
 			</div>
 			<div class="form-container sign-in-container">
-				<form th:action="@{/account/login}" method="post">
+				<form th:action="@{/account/login}" method="post" autocomplete="off">
 					<h1>Sign in</h1>
 					<div class="social-container">
 						<a href="#" class="social"><i class="fab fa-facebook-f"></i></a> <a

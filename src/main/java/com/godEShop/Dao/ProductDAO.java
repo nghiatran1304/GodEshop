@@ -42,12 +42,12 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 	    + "FULL JOIN p.brand pb " 
 	    + "FULL JOIN p.productDiscounts pd " 
 	    + "FULL JOIN p.category c "
-	    + "WHERE p.isDeleted = 0 AND c.available = 0 AND "
+	    + "WHERE p.isDeleted = 0 AND c.available = 0 AND p.price BETWEEN ?4 and ?5 AND "
 	    + "(pd.id NOT IN (SELECT pd.id FROM ProductDiscount pd INNER JOIN pd.product p WHERE pd.endDate < GETDATE() GROUP BY pd.id) OR pd.createDate IS NULL) "
 	    + "AND (p.name LIKE ?1 OR c.name LIKE ?1) AND c.name LIKE ?2 AND pb.name LIKE ?3 "
-	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, p.quantity, pd.createDate")
-	   //+ "HAVING MAX(pd.endDate) >= GETDATE() OR MAX(pd.endDate) IS NULL ")
-    Page<ProductShopDto> productShop(String kws, String categoryName, String brandName, Pageable pageable);
+	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, p.quantity, pd.createDate "
+	    + "")
+    	Page<ProductShopDto> productShop(String kws, String categoryName, String brandName,Double minPrice,Double maxPrice, Pageable pageable);
 
     // -------------------------------------------------------------------------
     // Product for deal of the day
@@ -244,6 +244,5 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     		+ "WHERE p.id like ?1 "
     		+ "GROUP BY p.id, p.name")
     List<ProductImageDto> getSingleProductImage(Long id);
-    
-    
+   
 }

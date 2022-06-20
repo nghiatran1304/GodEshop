@@ -4,7 +4,7 @@
 		<div class="card">
 			<div class="card-body">
 				<form class="forms-sample row" name="frm"
-					enctype="multipart/form-data">
+					enctype="multipart/form-data" autocomplete="off">
 					<!-- image -->
 					<div class="col-4 text-center">
 						<div>
@@ -101,7 +101,7 @@
 									</select>
 								</div>
 								<div class="form-group">
-									<label>Bracelet Materials</label> <select class="form-control"
+									<label>Materials</label> <select class="form-control"
 										ng-model="formAccessory.braceletMaterialId">
 										<option ng-repeat="bm in lstBraceletMaterial"
 											ng-value="{{bm.id}}"

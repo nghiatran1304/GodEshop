@@ -17,7 +17,7 @@ public interface ProductService {
     List<ProductShopDto> findAllProduct();
 
     // -------------------------
-    Page<ProductShopDto> productShop(String kws, String categoryName, String brandName, Pageable pageable);
+    Page<ProductShopDto> productShop(String kws, String categoryName, String brandName, Double minPrice, Double maxPrice, Pageable pageable);
 
     // -------------------------
     List<ProductDiscountDto> productDealOfTheDay();
