@@ -18,8 +18,27 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 	$scope.showUpdate = false;
 
 	$scope.isEdit = false;
-	$scope.initialize = function() {
+	$scope.imageChose = function(filename) {
+		var imgtag = document.getElementById("myID");
+		imgtag.src = "/upload/ProductImages/" + filename;
+	}
+		$scope.setNormal = function() {
+	
+		$scope.formProduct.productIsDeteled = false;
 
+		$scope.formProduct.brandId = "1";
+		
+
+	
+
+		
+		$scope.formAccessory.braceletMaterialId = 1;
+	
+
+	}
+	$scope.initialize = function() {
+	$scope.setNormal();
+	$scope.formProduct.productCreateDate = new Date();
 		$scope.showInsert = true;
 		$scope.formProductPhoto.imageId = 'a';
 		// load products
@@ -390,6 +409,7 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 		$http.delete(`/rest/deleteImage/${filename}`).then(resp => {
 			var i = $scope.filenames.findIndex(name => name == filename);
 			$scope.filenames.splice(i, 1);
+			$scope.imageChose($scope.filenames[0]);
 		}).catch(error => {
 			console.log("Errors : ", error);
 		});
@@ -460,6 +480,7 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 		$http.delete(`${url}/${filename}`).then(resp => {
 			let i = $scope.filenames.findIndex(name => name == filename);
 			$scope.filenames.splice(i, 1);
+			$scope.imageChose($scope.filenames[0]);
 		}).catch(error => {
 		});
 	};
