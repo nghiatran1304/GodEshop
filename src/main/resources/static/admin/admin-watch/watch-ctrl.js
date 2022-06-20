@@ -34,7 +34,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 		// $scope.formProduct.productPrice = 1;
 		// $scope.formProduct.productQuantity = 1;
 		// $scope.formProduct.productWarranty = 12;
-		$scope.formProduct.brandId = "1";
+		$scope.formProduct.brandId = 1;
 		$scope.formProduct.categoryId = 1;
 
 		// $scope.formWatch.watchATM = 20;
