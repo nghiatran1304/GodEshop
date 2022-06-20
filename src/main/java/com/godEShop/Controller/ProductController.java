@@ -56,7 +56,7 @@ public class ProductController {
 			@RequestParam("keywords") Optional<String> kw, @RequestParam("sort") Optional<String> sort,
 			@RequestParam("search-category") Optional<String> cName,
 			@RequestParam("search-brand") Optional<String> bName, @RequestParam("minPrice") Optional<Double> minPrice,
-			@RequestParam("maxPrice") Optional<Double> maxPrice) {
+			@RequestParam("maxPrice") Optional<Double> maxPrice, @RequestParam("isGender") Optional<Integer> isGender) {
 
 		// top 2 seller
 		List<ProductDiscountDto> lstTopSeller = new ArrayList<>();
@@ -109,14 +109,42 @@ public class ProductController {
 			brandName = bName.get();
 		}
 		model.addAttribute("brandName", brandName);
-		
-		
+
 		Double sminPrice = minPrice.isPresent() ? minPrice.get() : 1.0;
 		Double smaxPrice = maxPrice.isPresent() ? maxPrice.get() : 1000000.0;
-		
-		model.addAttribute("sminPrice", sminPrice);		
+
+		model.addAttribute("sminPrice", sminPrice);
 		model.addAttribute("smaxPrice", smaxPrice);
-		
+
+		int i6 = !isGender.isPresent() ? 4 : isGender.get();
+
+		if (model.getAttribute("gender") == null) {
+			model.addAttribute("gender", i6);
+		}
+
+		System.out.println("Gender : " + i6);
+
+		int i7 = 4, i8 = 4, i9 = 4;
+
+		if (i6 == 0) {
+			i7 = 1;
+			i8 = 2;
+			i9 = i8;
+		} else if (i6 == 1) {
+			i7 = 0;
+			i8 = 2;
+			i9 = i8;
+		} else if (i6 == 2) {
+			i7 = 0;
+			i8 = 1;
+			i9 = i8;
+		}
+
+		model.addAttribute("gender", i6);
+
+//		model.addAttribute("isCMale",isCMale);
+//		model.addAttribute("isCFemale", isCFemale );
+
 		String s1 = kwords.length() == 0 ? "" : " > " + kwords;
 		String s2 = categoryName.length() == 0 ? "" : " > " + categoryName;
 		String s3 = brandName.length() == 0 ? "" : " > " + brandName;
@@ -124,7 +152,7 @@ public class ProductController {
 		model.addAttribute("nameOfSearch", (s1 + s2 + s3));
 
 		Page<ProductShopDto> page = productService.productShop("%" + kwords + "%", "%" + categoryName + "%",
-				"%" + brandName + "%", sminPrice, smaxPrice, pageable);
+				"%" + brandName + "%", sminPrice, smaxPrice, i6, i7, i8, i9, pageable);
 
 		Date d = new Date();
 

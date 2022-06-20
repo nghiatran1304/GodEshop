@@ -9,8 +9,6 @@ import com.godEShop.Dao.AccessoryDAO;
 import com.godEShop.Dao.ProductDAO;
 import com.godEShop.Dto.ProductAccessoryInfoDto;
 import com.godEShop.Entity.Accessory;
-import com.godEShop.Entity.Product;
-import com.godEShop.Entity.Watch;
 import com.godEShop.Service.AccessoryService;
 @Service
 public class AccessoryServiceImpl implements AccessoryService{

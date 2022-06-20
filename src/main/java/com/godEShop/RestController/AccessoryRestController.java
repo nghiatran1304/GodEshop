@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.godEShop.Dto.ProductAccessoryInfoDto;
-import com.godEShop.Dto.ProductWatchInfoDto;
 import com.godEShop.Entity.Accessory;
 import com.godEShop.Entity.BraceletMaterial;
 import com.godEShop.Entity.Brand;

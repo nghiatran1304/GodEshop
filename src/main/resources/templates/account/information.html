@@ -40,7 +40,7 @@
 									class="fa fa-cart-arrow-down"></i> Orders
 								</a> <a href="#account-info" data-toggle="tab"> <i
 									class="fa fa-user"></i> Account Details
-								</a> <a href="#account-changepassword" data-toggle="tab" > <i
+								</a> <a href="#account-changepassword" data-toggle="tab"> <i
 									class="fa fa-user"></i> Change Password
 								</a> <a th:href="@{/account/logoff}"> <i class="fa fa-sign-out"></i>
 									Logout
@@ -231,10 +231,11 @@
 									<div class="myaccount-content">
 										<h3>Account Details</h3>
 										<div class="account-details-form checkout-form-list">
-											<form th:action="@{/update/accountDetail}" method="post" autocomplete="off"
-												th:object="${user}" enctype="multipart/form-data">
-												<div class="row">
-													<div class="col-6">
+											<form th:action="@{/update/accountDetail}" method="post"
+												autocomplete="off" th:object="${user}"
+												enctype="multipart/form-data">
+												<div class="form-row">
+													<div class="col-md-6">
 														<img id="myID" th:if="${isOAuth2} == false"
 															th:src="@{|/upload/UserImages/${user.photo}|}" alt=""
 															style="width: 350px; height: 350px" /> <img id="myID"
@@ -254,7 +255,8 @@
 																<div class="custom-file">
 																	<input type="file" name="photo"
 																		onchange="onFileSelected(event)"
-																		class="custom-file-input" id="inputGroupFile01"
+																		class="custom-file-input form-control"
+																		id="inputGroupFile01"
 																		aria-describedby="inputGroupFileAddon01"> <label
 																		class="custom-file-label" id="nameFile"
 																		for="inputGroupFile01"></label>
@@ -263,61 +265,56 @@
 														</div>
 
 													</div>
-													<div class="col-6">
-														<div class="row">
-															<div class="col-lg-6">
-																<div class="single-input-item">
+													<div class="col-md-6">
+														<div class="form-row">
+															<div class="col-md-6">
+																<div class="form-group">
 																	<label for="fullname" class="required">Fullname</label>
 																	<input type="text" id="fullname" name="fullname"
 																		placeholder="fullname" class=" form-control"
 																		th:value="*{fullname}" />
 																</div>
+
 															</div>
-															<div class="col-lg-6">
-																<label for="email" class="required">Email <a
-																	th:if="${isVerificationEmail}=='Chưa xác thực'"
-																	th:href="@{/verificationEmailForm}" class="text-danger">([[${isVerificationEmail}]])</a>
-																	<i th:if="${isVerificationEmail}=='Đã xác thực'"
-																	class="text-success">([[${isVerificationEmail}]])</i>
-																</label>
-
-
+															<div class="col-md-6">
 																<div class="form-group">
-																	<input type="email" id="email" name="email"
-																		placeholder="Email" class="form-control"
-																		th:value="*{email}" />
+																	<label>Mobile</label> <input type="text" name="phone"
+																		placeholder="phone" id="input-phone"
+																		class="form-control" th:value="${user.phone}">
 																</div>
-
-															</div>
-															<div class="col-lg-6">
-																<label for="gender" class="required">Gender</label> <select
-																	name="gender" id="gender" class="form-control">
-																	<option th:selected="*{gender==1}" th:value="1"
-																		class=" form-control">Male</option>
-																	<option th:selected="*{gender==0}" th:value="0"
-																		class=" form-control">Female</option>
-																</select>
-															</div>
-															<div class="col-lg-6">
-																<div class="single-input-item">
-																	<label for="dob" class="required">Date Of Birth</label>
-																	<input type="date" id="dob" class=" form-control"
-																		th:field="*{dob}" placeholder="Date Of Birth"
-																		th:value="*{dob}" name="dob" />
-																</div>
-															</div>
-															<div class="col-lg-6">
-																<label for="address">Address</label> <input type="text"
-																	name="address" placeholder="Enter your address"
-																	id="input-address" class="form-control"
-																	th:value="${user.address}">
-															</div>
-															<div class="col-lg-6">
-																<label>Mobile</label> <input type="text" name="phone"
-																	placeholder="phone" id="input-phone"
-																	class="form-control" th:value="${user.phone}">
 															</div>
 														</div>
+														<div class="form-group">
+															<label for="email" class="required">Email </label> <input
+																type="email" id="email" name="email" placeholder="Email"
+																class="form-control" th:value="*{email}" />
+														</div>
+														<div class="form-group">
+															<label for="gender" class="required">Gender</label> <select
+																name="gender" id="gender" class="form-control">
+																<option th:selected="*{gender==1}" th:value="1"
+																	class=" form-control">Male</option>
+																<option th:selected="*{gender==0}" th:value="0"
+																	class=" form-control">Female</option>
+															</select>
+														</div>
+														<div class="form-group">
+															<div class="single-input-item">
+																<label for="dob" class="required">Date Of Birth</label>
+																<input type="date" id="dob" class=" form-control"
+																	th:field="*{dob}" placeholder="Date Of Birth"
+																	th:value="*{dob}" name="dob" />
+															</div>
+														</div>
+														<div class="form-group ">
+															<label for="address">Address</label> <input type="text"
+																name="address" placeholder="Enter your address"
+																id="input-address" class="form-control"
+																th:value="${user.address}">
+														</div>
+
+
+
 													</div>
 												</div>
 
@@ -348,23 +345,25 @@
 								</div>
 								<!-- Single Tab Content End -->
 
-								<div class="tab-pane fade " id="account-changepassword" 
-								th:classappend="${isVerificationEmail}==true ? 'active': ''"
+								<div class="tab-pane fade " id="account-changepassword"
+									th:classappend="${isVerificationEmail}==true ? 'active': ''"
 									role="tabpanel">
 									<!-- form xac thuc email -->
 									<div th:if="${isVerificationEmail}=='false'">
-										<form th:action="@{/verificationEmail}" method="post" autocomplete="off"
-											class="mt-5">
-											<i class="text-danger">[[${mSendMail}]]</i> <input required type="email"
-												name="email" placeholder="Enter Your Email!" />
+										<form th:action="@{/verificationEmail}" method="post"
+											autocomplete="off" class="mt-5">
+											<i class="text-danger">[[${mSendMail}]]</i> <input required
+												type="email" name="email" placeholder="Enter Your Email!" />
 											<button class="btn btn-info w-100" type="submit">Confirm</button>
 										</form>
 									</div>
-									<div class="myaccount-content" th:if="${isVerificationEmail}=='true'">
+									<div class="myaccount-content"
+										th:if="${isVerificationEmail}=='true'">
 										<h3>Set Password</h3>
 										<i class="text-danger">[[${mchangePassword}]]</i>
 										<div>
-											<form th:action="@{/changePassword}" method="post" autocomplete="off" class="form-group"> 
+											<form th:action="@{/changePassword}" method="post"
+												autocomplete="off" class="form-group">
 												<div class="input-group form-group">
 													<input type="password" placeholder="currentPassword"
 														name="currentPassword" id="ipnPassword-register"

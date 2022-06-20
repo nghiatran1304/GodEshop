@@ -44,39 +44,55 @@
 									<form
 										th:action="@{|product?minPrice=${minPrice}&maxPrice=${maxPrice}|}"
 										method="get">
-										<input type="text" name="minPrice" style="width: 30%" /> <i
-											class="fa-solid fa-arrow-right-long"></i> <input type="text"
-											name="maxPrice" style="width: 30%" /> <br />
-										<button class="btn w-100" type="submit">APPLY</button>
+										<div class="form-group">
+											<input type="text" name="minPrice" style="width: 45%" /> <i
+												class="fa-solid fa-arrow-right-long"></i> <input type="text"
+												name="maxPrice" style="width: 45%" /> <br />
+										</div>
+
+										<button class="btn btn-info w-100" type="submit">APPLY</button>
 									</form>
 								</div>
 
 							</div>
-				<!-- 			<div class="product-filter mb-30">
+							<div class="product-filter mb-30">
 								<div class="widget-title">
 									<h3>SEARCH FILTER</h3>
 								</div>
 								<div class="widget-content">
-									<form
-										th:action="@{|product?menFilter=${menFilter}&womenFilter=${womenFilter}|}"
-										method="get">
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value=""
-												id="flexCheckDefault"> <label
-												class="form-check-label" for="flexCheckDefault">
-												Male </label>
+									<form th:action="@{|product?isGender=${gender}|}" method="get">
+										<div class="row">
+											<div class="col-5">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="1"
+														name="isGender" id="isGenderSelected1"> <label
+														for="isGenderSelected1" class="form-check-label">
+														Male </label>
+												</div>
+
+
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="0"
+														name="isGender" id="isGenderSelected0"> <label
+														class="form-check-label" for="isGenderSelected0">
+														Female </label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="2"
+														name="isGender" id="isGenderSelected2"> <label
+														class="form-check-label" for="isGenderSelected2">
+														Unisex </label>
+												</div>
+											</div>
+
+											<div class="col-7">
+												<button class="btn btn-info w-100 h-100" type="submit">APPLY</button>
+											</div>
 										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value=""
-												id="flexCheckChecked" checked> <label
-												class="form-check-label" for="flexCheckChecked">
-												Female </label>
-										</div>
-										<button class="btn w-100" type="submit">APPLY</button>
 									</form>
 								</div>
 
-							</div> -->
+							</div>
 							<div class="widget-title">
 								<h3>SELECT BY COLOR</h3>
 							</div>
@@ -283,10 +299,22 @@
 							</ul> -->
 							<div class="col-12 text-center">
 
-								<a th:href="@{|/product?p=0&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}|}" class="btn btn-info font-weight-bold a1 mr-2"> |<< </a>
-								<a th:href="@{|/product?p=${page.number-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}|}" class="btn btn-info font-weight-bold a1 mr-2"> << </a>
-								<a th:href="@{|/product?p=${page.number+1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}|}" class="btn btn-info font-weight-bold a1 mr-2"> >> </a>
-								<a th:href="@{|/product?p=${page.totalPages-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}|}" class="btn btn-info font-weight-bold a1 mr-2"> >>| </a>
+								<a
+									th:href="@{|/product?p=0&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&isGender=${gender}|}"
+									class="btn btn-info font-weight-bold a1 mr-2"> <i
+									class="fa-solid fa-backward-step"></i>
+								</a> <a
+									th:href="@{|/product?p=${page.number-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&isGender=${gender}|}"
+									class="btn btn-info font-weight-bold a1 mr-2"> <i
+									class="fa-solid fa-angles-left"></i>
+								</a> <a
+									th:href="@{|/product?p=${page.number+1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&isGender=${gender}|}"
+									class="btn btn-info font-weight-bold a1 mr-2"> <i
+									class="fa-solid fa-angles-right"></i>
+								</a> <a
+									th:href="@{|/product?p=${page.totalPages-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&isGender=${gender}|}"
+									class="btn btn-info font-weight-bold a1 mr-2"><i
+									class="fa-solid fa-forward-step"></i> </a>
 
 							</div>
 						</nav>
