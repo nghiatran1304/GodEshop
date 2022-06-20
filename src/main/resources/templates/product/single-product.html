@@ -135,7 +135,13 @@
 										<form action="#" hidden>
 											<input class="quantity mr-40" min="1" value="1" type="number">
 										</form>
-										<a class="add-cart btn" th:attr="ng-click=@{|cart.add(*{productId})|}">add to cart</a>
+										<!-- <a class="add-cart btn" th:attr="ng-click=@{|cart.add(*{productId})|}">add to cart</a> -->
+										<div th:if="${productItem.productQuantity > 0}">
+											<a class="add-cart btn" th:attr="ng-click=@{|cart.add(*{productId})|}">Add to cart</a>
+										</div>
+										<div th:if="${productItem.productQuantity <= 0}">
+											<a class="add-cart btn btn-secondary" th:attr="ng-click=@{|cart.outOfStock()|}">Out of stock</a>
+										</div>
 										<!-- <div class="add-to-cart" th:if="${productItem.productQuantity > 0}">
 											<a class="btn" th:attr="ng-click=@{|cart.add(${productItem.productId})|}">Add to cart</a>
 										</div>
@@ -307,7 +313,7 @@
 															<td>[[${pw.productWarranty}]]</td>
 														</tr>
 														<tr>
-															<th scope="row">Bracelet Material</th>
+															<th scope="row">Material</th>
 															<td>[[${pw.braceletMaterial}]]</td>
 														</tr>
 														<tr>
