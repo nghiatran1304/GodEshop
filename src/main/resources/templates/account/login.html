@@ -5,7 +5,7 @@
 	<main>
 		<link rel="stylesheet" href="/assets/css/Login-Register.css">
 		<!-- Breadcrumbs -->
-		<div class="breadcrumbs-container">
+		<div class="breadcrumbs-container mb-2">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
@@ -18,7 +18,10 @@
 		</div>
 		<!-- Breadcrumbs End -->
 		<!-- Page title -->
-		<div hidden><i th:text="${message}" class="float-left text-danger"></i></div>
+		<div th:unless="${messageRegister}=='REGISTER SUCCESS'"><h1  class="text-danger text-center">[[${messageRegister}]]</h1></div>
+		<div th:if="${messageRegister}=='REGISTER SUCCESS'"><h1  class="text-success text-center">[[${messageRegister}]]</h1></div>
+		<div th:unless="${messageLogin}=='LOGIN SUCCESS'"><h1  class="text-danger text-center">[[${messageLogin}]]</h1></div>
+		<div th:if="${messageLogoff}=='YOU ARE LOGGED OUT'"><h1  class="text-danger text-center">[[${messageLogoff}]]</h1></div>
 		<!-- <h2>Sign in/up Form</h2>	 -->	
 		<div class="container mt-5" id="container">
 			<div class="form-container sign-up-container">

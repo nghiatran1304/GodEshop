@@ -109,13 +109,20 @@ public class ProductController {
 			brandName = bName.get();
 		}
 		model.addAttribute("brandName", brandName);
-
-		Double sminPrice = minPrice.isPresent() ? minPrice.get() : 1.0;
-		Double smaxPrice = maxPrice.isPresent() ? maxPrice.get() : 1000000.0;
-
+		
+		/* search By Price */
+		Double sminPrice = minPrice.isPresent()  ? minPrice.get() : 1.0 ;
+		Double smaxPrice = maxPrice.isPresent()  ? maxPrice.get() : 1000000.0;
+		
+		if(sminPrice > smaxPrice) {
+			model.addAttribute("mPrice","Please input valid price range");
+			sminPrice = 1.0;
+			smaxPrice =  1000000.0;
+			
+		}
 		model.addAttribute("sminPrice", sminPrice);
 		model.addAttribute("smaxPrice", smaxPrice);
-
+		
 		int i6 = !isGender.isPresent() ? 4 : isGender.get();
 
 		if (model.getAttribute("gender") == null) {
@@ -142,8 +149,7 @@ public class ProductController {
 
 		model.addAttribute("gender", i6);
 
-//		model.addAttribute("isCMale",isCMale);
-//		model.addAttribute("isCFemale", isCFemale );
+
 
 		String s1 = kwords.length() == 0 ? "" : " > " + kwords;
 		String s2 = categoryName.length() == 0 ? "" : " > " + categoryName;
@@ -164,7 +170,7 @@ public class ProductController {
 		model.addAttribute("toProduct", page.getNumber());
 		model.addAttribute("totalPage", page.getPageable().getPageSize());
 
-		/* search By Price */
+		
 
 		return "product/product";
 	}

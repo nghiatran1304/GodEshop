@@ -55,16 +55,18 @@ public class RegisterController {
 	    newUser.setPhoto("");
 	    newUser.setAddress("");
 	    userService.create(newUser);
+	    model.addAttribute("messageRegister", "REGISTER SUCCESS");
 	} else {
-	    sessionService.set("messageRegister", "ACCOUNT IS EXISTED");
-	    return "redirect:/account/login/form";
+	    model.addAttribute("messageRegister", "ACCOUNT IS EXISTED");
+	    return "forward:/account/login/form";
 	}
 	try {
-	    return "redirect:/account/login/form";
+		
+	    return "forward:/account/login/form";
 	} catch (Exception e) {
 	    // TODO: handle exception
-	    sessionService.set("messageRegister", "FAILED");
-	    return "redirect:/account/register";
+		 model.addAttribute("messageRegister", "FAILED");
+		 return "forward:/account/login/form";
 	}
 
     }

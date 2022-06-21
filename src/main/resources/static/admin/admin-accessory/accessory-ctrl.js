@@ -13,7 +13,7 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 	$scope.formProductPhoto = {};
 	$scope.formProductPhoto.imageId = 'a';
 	var uploadImage = new FormData();
-
+	$rootScope.getProductIdAfterInsert;
 	$scope.showInsert = false;
 	$scope.showUpdate = false;
 
@@ -25,13 +25,7 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 		$scope.setNormal = function() {
 	
 		$scope.formProduct.productIsDeteled = false;
-
-		$scope.formProduct.brandId = "1";
-		
-
-	
-
-		
+		$scope.formProduct.brandId = 1;
 		$scope.formAccessory.braceletMaterialId = 1;
 	
 

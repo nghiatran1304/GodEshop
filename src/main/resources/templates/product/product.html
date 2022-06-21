@@ -31,7 +31,7 @@
 								<ul class="product-categories">
 									<li class="cat-item" th:each="lst, state : ${lstBrands}">
 										<a
-										th:href="@{|/product?search-category=${cateName}&search-brand=${lst.name}|}">[[${lst.name}]]</a>
+										th:href="@{|/product?search-category=${cateName}&search-brand=${lst.name}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&isGender=${gender}|}">[[${lst.name}]]</a>
 										<span class="count"></span>
 									</li>
 								</ul>
@@ -41,16 +41,27 @@
 									<h3>Filter by price</h3>
 								</div>
 								<div class="widget-content">
-									<form
-										th:action="@{|product?minPrice=${minPrice}&maxPrice=${maxPrice}|}"
+									<form  name="frm"
+										th:action="@{|/product?minPrice=${minPrice}&maxPrice=${maxPrice}&isGender=${gender}&search-category=&search-brand=|}"
 										method="get">
 										<div class="form-group">
-											<input type="text" name="minPrice" style="width: 45%" /> <i
-												class="fa-solid fa-arrow-right-long"></i> <input type="text"
-												name="maxPrice" style="width: 45%" /> <br />
-										</div>
+											<div class="row">
+												<div class="col-4">
+													<input type="text" required min="0" name="minPrice" />
+												</div>
+												<div class="col-2 text-center">
+												<i class="fa-solid fa-arrow-right-long"></i>
+												</div>
+												
+												<div class="col-4">
+													<input type="text" required min="0" name="maxPrice" /> <br />
+												</div>
 
-										<button class="btn btn-info w-100" type="submit">APPLY</button>
+											</div>
+
+										</div>
+											 <small  class="text-danger"><i>[[${mPrice}]]</i></small>
+										<button  class="btn btn-info w-100" type="submit">APPLY</button>
 									</form>
 								</div>
 
@@ -60,7 +71,7 @@
 									<h3>SEARCH FILTER</h3>
 								</div>
 								<div class="widget-content">
-									<form th:action="@{|product?isGender=${gender}|}" method="get">
+									<form th:action="@{|/product?isGender=${gender}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&search-category=&search-brand=|}" method="get">
 										<div class="row">
 											<div class="col-5">
 												<div class="form-check">
@@ -300,19 +311,19 @@
 							<div class="col-12 text-center">
 
 								<a
-									th:href="@{|/product?p=0&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&isGender=${gender}|}"
+									th:href="@{|/product?p=0&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&isGender=${gender}|}"
 									class="btn btn-info font-weight-bold a1 mr-2"> <i
 									class="fa-solid fa-backward-step"></i>
 								</a> <a
-									th:href="@{|/product?p=${page.number-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&isGender=${gender}|}"
+									th:href="@{|/product?p=${page.number-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&isGender=${gender}|}"
 									class="btn btn-info font-weight-bold a1 mr-2"> <i
 									class="fa-solid fa-angles-left"></i>
 								</a> <a
-									th:href="@{|/product?p=${page.number+1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&isGender=${gender}|}"
+									th:href="@{|/product?p=${page.number+1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&isGender=${gender}|}"
 									class="btn btn-info font-weight-bold a1 mr-2"> <i
 									class="fa-solid fa-angles-right"></i>
 								</a> <a
-									th:href="@{|/product?p=${page.totalPages-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&isGender=${gender}|}"
+									th:href="@{|/product?p=${page.totalPages-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&isGender=${gender}|}"
 									class="btn btn-info font-weight-bold a1 mr-2"><i
 									class="fa-solid fa-forward-step"></i> </a>
 

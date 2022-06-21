@@ -47,7 +47,7 @@ public class SecurityController {
 
     @RequestMapping({ "/account/login/form", "/loginPage" })
     public String loginForm(Model model) {
-	model.addAttribute("message", "Vui lòng đăng nhập");
+	model.addAttribute("message", "PLEASE LOG IN");
 	return "account/login";
     }
 
@@ -59,7 +59,7 @@ public class SecurityController {
 
     @RequestMapping("/account/login/success")
     public String loginSuccess(Model model, HttpServletRequest request, HttpServletResponse response) {
-	model.addAttribute("message", "Đăng nhập thành công!");
+	model.addAttribute("messageLogin", "LOGIN SUCCESS");
 	if (req.isUserInRole("Admin")) {
 	    return "redirect:/admin";
 	}
@@ -68,20 +68,20 @@ public class SecurityController {
 
     @RequestMapping("/account/login/error")
     public String loginError(Model model) {
-	model.addAttribute("message", "Sai thông tin đăng nhập!");
+	model.addAttribute("messageLogin", "WRONG LOGIN INFORMATION!");
 	return "account/login";
     }
 
     @RequestMapping("/account/unauthoried")
     public String unauthoried(Model model) {
-	model.addAttribute("message", "Không có quyền truy xuất!");
+	model.addAttribute("message", "No access permission!");
 	return "account/login";
     }
 
     @RequestMapping("/account/logoff/success")
     public String logoffSuccess(Model model) {
 	sessionService.remove("adminName");
-	model.addAttribute("message", "Bạn đã đăng xuất!");
+	model.addAttribute("messageLogoff", "YOU ARE LOGGED OUT");
 	return "account/login";
     }
 

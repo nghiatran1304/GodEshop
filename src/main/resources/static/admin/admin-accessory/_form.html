@@ -38,7 +38,8 @@
 										accept="image/*" type="file" name="photo"
 										class="custom-file-input1" id="inputGroupFile01"
 										aria-describedby="inputGroupFileAddon01"> Upload Image
-									</label> <label class="custom-file-upload" ng-show="isEdit == true">
+									</label> 
+									<label class="custom-file-upload" ng-show="isEdit == true">
 										More Images <input type="file" class="btn btn-primary" id="uf"
 										accept="image/*" multiple
 										onchange="angular.element(this).scope().uploadImage(this.files)">
@@ -47,12 +48,14 @@
 									<label ng-show="isEdit == false"
 										ng-repeat="filename in filenames"
 										title="Double click to delete"> <img
-										ng-src="{{url(filename)}}" ng-dblclick="delete1(filename)"
+										ng-src="{{url(filename)}}" ng-click="imageChose(filename)" ng-dblclick="delete1(filename)"
 										class="mb-3 mr-2" style="width: 80px; height: 80px" alt="">
-									</label> <label ng-show="isEdit == true"
+									</label>
+									 <label ng-show="isEdit == true"
 										ng-repeat="filename in filenames"
-										title="Double click to delete" class="ml-1"> <img
-										ng-src="{{'/upload/ProductImages/' + filename}}"
+										title="Double click to delete" class="ml-1"> 
+										<img
+										ng-src="{{'/upload/ProductImages/' + filename}}" ng-click="imageChose(filename)"
 										ng-dblclick="deleteImage(filename)" class="mb-3 mr-2"
 										style="width: 80px; height: 80px" alt="">
 									</label>
@@ -93,7 +96,7 @@
 								</div>
 								<div class="form-group">
 									<div>Create Date</div>
-									<input ng-model="formProduct.productCreateDate" type="date"
+									<input ng-model="formProduct.productCreateDate" type="date" readonly
 										class="form-control" />
 								</div>
 							</div>
@@ -102,7 +105,7 @@
 								<div class="form-group">
 									<label>Brand</label> <select class="form-control"
 										ng-model="formProduct.brandId">
-										<option ng-repeat="b in lstBrands" value="{{b.id}}"
+										<option ng-repeat="b in lstBrands" ng-value="{{b.id}}"
 											ng-selected="formProduct.brandId == b.id">{{b.name}}</option>
 									</select>
 								</div>
