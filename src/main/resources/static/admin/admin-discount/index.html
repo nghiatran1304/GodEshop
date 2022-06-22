@@ -18,7 +18,7 @@
 						<div class="col-6">
 							<div class="form-group">
 								<div>Product Discout (%) <small ng-show="frm.frmDiscount.$invalid" class="text-danger"><i>*Input discount</i></small></div>
-								<input type="number" min="0" required name="frmDiscount" ng-model="productDiscountPercent" class="form-control" />
+								<input type="number" min="0" max="100" required name="frmDiscount" ng-model="productDiscountPercent" class="form-control" />
 							</div>
 						</div>
 					</div>

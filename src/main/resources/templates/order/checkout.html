@@ -60,7 +60,7 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="checkout-form-list">
-												<label> Account </label>
+												<label class="font-weight-bold"> Account </label>
 												<span id="username" hidden>[[${#request.remoteUser}]]</span>
 												<input type="text" placeholder="" th:value="${#request.remoteUser}" readonly="true">
 											</div>
@@ -68,10 +68,10 @@
 										<div class="col-md-6">
 											<div class="checkout-form-list">
 												<label> Fullname </label>
-												<input type="text" placeholder="{{account.fullname}}" readonly="true">
+												<input type="text" required placeholder="{{account.fullname}}" readonly="true">
 											</div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-12">
 											<label for="" class="font-weight-bold">Choose your payment</label>
 											<!-- <select class="form-control" ng-model="payments" ng-change="choosePayment()" id="mySelected">
 												<option ng-repeat="item in items" value="{{item.id}}" ng-selected="payments == item.id">{{item.name}}</option>
@@ -80,30 +80,24 @@
 								
 											</select>
 										</div>
-										<div class="col-md-6">
-											<div class="checkout-form-list">
-												<label> Phone </label>
-												<input type="text" placeholder="{{account.phone}}" readonly="true">
-											</div>
-										</div>
 									</div>
-									<div class="order-notes" ng-show="payments == 1 || payments != 2">
+									<div class="order-notes mt-4" ng-show="payments == 1 || payments != 2">
 										<div class="checkout-form-list">
-											<label>Address</label>
-											<textarea id="checkout-mess" ng-model="order.address" cols="30" rows="10" placeholder="Address" style="resize: none"></textarea>
+											<label class="font-weight-bold">Address</label>
+											<textarea id="checkout-mess" required ng-model="order.address" cols="30" rows="10" placeholder="Address" style="resize: none"></textarea>
 										</div>
 										<div class="checkout-form-list">
-											<label>Note</label>
+											<label class="font-weight-bold">Note</label>
 											<textarea id="checkout-mess" ng-model="order.note" cols="30" rows="10" style="resize: none" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
 										</div>
 									</div>
-									<div class="order-notes" ng-show="payments == 2">
+									<div class="order-notes mt-4" ng-show="payments == 2">
 										<div class="checkout-form-list">
-											<label>Address</label>
-											<textarea id="checkout-mess" ng-model="orderPaypal.address" cols="30" rows="10" placeholder="Address"></textarea>
+											<label class="font-weight-bold">Address</label>
+											<textarea id="checkout-mess" required ng-model="orderPaypal.address" cols="30" rows="10" placeholder="Address" style="resize: none"></textarea>
 										</div>
 										<div class="checkout-form-list">
-											<label>Note</label>
+											<label class="font-weight-bold">Note</label>
 											<textarea id="checkout-mess" ng-model="orderPaypal.note" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
 										</div>
 									</div>

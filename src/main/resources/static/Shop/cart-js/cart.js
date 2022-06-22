@@ -6,6 +6,8 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 	$scope.getUser = function() {
 		$http.get(`/rest/getUserInfomation/${us}`).then(resp => {
 			$scope.account = resp.data;
+			$scope.order.address = resp.data.address;
+			$scope.orderPaypal.address = resp.data.address;
 		});
 	}
 	$scope.getUser();
