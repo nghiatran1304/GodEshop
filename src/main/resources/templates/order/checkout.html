@@ -84,7 +84,7 @@
 									<div class="order-notes mt-4" ng-show="payments == 1 || payments != 2">
 										<div class="checkout-form-list">
 											<label class="font-weight-bold">Address</label>
-											<textarea id="checkout-mess" required ng-model="order.address" cols="30" rows="10" placeholder="Address" style="resize: none"></textarea>
+											<textarea id="checkout-mess" ng-required="required" ng-model="order.address" cols="30" rows="10" placeholder="Address" style="resize: none"></textarea>
 										</div>
 										<div class="checkout-form-list">
 											<label class="font-weight-bold">Note</label>
@@ -94,7 +94,7 @@
 									<div class="order-notes mt-4" ng-show="payments == 2">
 										<div class="checkout-form-list">
 											<label class="font-weight-bold">Address</label>
-											<textarea id="checkout-mess" required ng-model="orderPaypal.address" cols="30" rows="10" placeholder="Address" style="resize: none"></textarea>
+											<textarea id="checkout-mess" ng-required="required" ng-model="orderPaypal.address" cols="30" rows="10" placeholder="Address" style="resize: none"></textarea>
 										</div>
 										<div class="checkout-form-list">
 											<label class="font-weight-bold">Note</label>

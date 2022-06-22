@@ -152,25 +152,34 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			});
 		},
 		purchase() {
-			var order = angular.copy(this);
-			$http.post("/rest/orders", order).then(resp => {
-				Swal.fire({
-					icon: 'success',
-					title: 'Sucsess',
-					showConfirmButton: false,
-					timer: 1500
-				}).then((result) => {
-					$scope.cart.clear();
-					location.href = "/information";
-				});
-			}).catch(error => {
+			if (this.address == null || this.address == undefined || this.address.length <= 0) {
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
 					text: "Failed !!!",
 				});
-				console.log(" >> Error purchase shopping-cart-app.js : " + error);
-			});
+			} else {
+				var order = angular.copy(this);
+				$http.post("/rest/orders", order).then(resp => {
+					Swal.fire({
+						icon: 'success',
+						title: 'Sucsess',
+						showConfirmButton: false,
+						timer: 1500
+					}).then((result) => {
+						$scope.cart.clear();
+						location.href = "/information";
+					});
+				}).catch(error => {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: "Failed !!!",
+					});
+					console.log(" >> Error purchase shopping-cart-app.js : " + error);
+				});
+			}
+
 
 		}
 	}
@@ -192,17 +201,25 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			});
 		},
 		purchase() {
-			var order = angular.copy(this);
-			$http.post("/rest/orders", order).then(resp => {
-				$scope.cart.clear();
-			}).catch(error => {
+			if (this.address == null || this.address == undefined || this.address.length <= 0) {
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
 					text: "Failed !!!",
 				});
-				console.log(" >> Error purchase shopping-cart-app.js : " + error);
-			});
+			} else {
+				var order = angular.copy(this);
+				$http.post("/rest/orders", order).then(resp => {
+					$scope.cart.clear();
+				}).catch(error => {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: "Failed !!!",
+					});
+					console.log(" >> Error purchase shopping-cart-app.js : " + error);
+				});
+			}
 
 		}
 	}

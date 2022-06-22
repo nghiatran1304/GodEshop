@@ -26,48 +26,45 @@ public class RegisterController {
     @Autowired
     RoleService roleService;
     @Autowired
-    SessionService sessionService; 
-  
+    SessionService sessionService;
+
     @Autowired
     BCryptPasswordEncoder pe;
 
-    
     @PostMapping("/register")
     public String Register(Model model, @RequestParam("username") String username,
-	    @RequestParam("password") String password) {
-
-	if (userService.findByUsername(username) == null) {
-	    Account acc = new Account();
-	    acc.setUsername(username);
-	    acc.setPassword(pe.encode(password));
-	    acc.setIsDelete(false);
-
-	    Role role = roleService.findById("Customer");
-	    acc.setRole(role);
-	    accountService.create(acc);
-	    User newUser = new User();
-	    newUser.setAccount(acc);
-	    newUser.setFullname("");
-	    newUser.setEmail("");
-	    newUser.setGender(1);
-	    newUser.setDob(new Date());
-	    newUser.setPhone("");
-	    newUser.setPhoto("");
-	    newUser.setAddress("");
-	    userService.create(newUser);
-	    model.addAttribute("messageRegister", "REGISTER SUCCESS");
-	} else {
-	    model.addAttribute("messageRegister", "ACCOUNT IS EXISTED");
-	    return "forward:/account/login/form";
-	}
+	    @RequestParam("password") String password, @RequestParam("txtPhone") String phoneNumber) {
 	try {
-		
-	    return "forward:/account/login/form";
+	    if (userService.findByUsername(username) == null && username.trim().length() > 0
+		    && password.trim().length() > 0 && phoneNumber.trim().length() > 0) {
+		Account acc = new Account();
+		acc.setUsername(username);
+		acc.setPassword(pe.encode(password));
+		acc.setIsDelete(false);
+
+		Role role = roleService.findById("Customer");
+		acc.setRole(role);
+		accountService.create(acc);
+		User newUser = new User();
+		newUser.setAccount(acc);
+		newUser.setFullname(acc.getUsername());
+		newUser.setEmail("");
+		newUser.setGender(1);
+		newUser.setDob(new Date());
+		newUser.setPhone(phoneNumber);
+		newUser.setPhoto("");
+		newUser.setAddress("");
+		userService.create(newUser);
+		model.addAttribute("messageRegister", "REGISTER SUCCESS");
+	    } else {
+		model.addAttribute("messageRegister", "ACCOUNT IS EXISTED");
+		return "forward:/account/login/form";
+	    }
 	} catch (Exception e) {
 	    // TODO: handle exception
-		 model.addAttribute("messageRegister", "FAILED");
-		 return "forward:/account/login/form";
+	    model.addAttribute("messageRegister", "FAILED");
+	    return "forward:/account/login/form";
 	}
-
+	return "forward:/account/login/form";
     }
 }
