@@ -79,19 +79,19 @@
 										ng-model="formProduct.productName" placeholder="Name" />
 								</div>
 								<div class="form-group">
-									<label for="exampleInputEmail3">Price<small ng-show="frm.frmPrice.$invalid" class="text-danger"><i>*Input price</i></small></label> 
+									<label for="exampleInputEmail3">Price ($)<small ng-show="frm.frmPrice.$invalid" class="text-danger"><i>*Input price</i></small></label> 
 									<input
-										type="number" class="form-control" id="price" name="frmPrice" required
+										type="number" min="1" class="form-control" id="price" name="frmPrice" required
 										ng-model="formProduct.productPrice" placeholder="price" />
 								</div>
 								<div class="form-group">
-									<label>Warranty<small ng-show="frm.frmWarranty.$invalid" class="text-danger"><i>*Input Warranty</i></small></label> 
-									<input type="text" class="form-control" name="frmWarranty" required
+									<label>Warranty (by month)<small ng-show="frm.frmWarranty.$invalid" class="text-danger"><i>*Input Warranty</i></small></label> 
+									<input type="number" min="1" class="form-control" name="frmWarranty" required
 										ng-model="formProduct.productWarranty" placeholder="Warranty" />
 								</div>
 								<div class="form-group">
 									<label>Quantity<small ng-show="frm.frmQuantity.$invalid" class="text-danger"><i>*Input Quantity</i></small></label> 
-									 <input type="text" class="form-control"  name="frmQuantity" required
+									 <input type="number" min="1" class="form-control"  name="frmQuantity" required
 										ng-model="formProduct.productQuantity" placeholder="Quantity" />
 								</div>
 								<div class="form-group">
@@ -134,7 +134,7 @@
 								</div>
 								<div class="form-group">
 									<div class="mb-3">Available</div>
-									<label for="radio-inline"> <input
+									<label for="radio-inline"> <input 
 										ng-model="formProduct.productIsDeteled" type="radio"
 										ng-value="false" name="available" /> Yes
 									</label> <label for="radio-inline" class="ml-3"> <input
@@ -145,9 +145,9 @@
 							</div>
 						</div>
 
-						<button ng-click="create(); " ng-show="showInsert == true"
+						<button ng-click="frm.$valid && create();" ng-show="showInsert == true"
 							class="btn btn-primary mr-2">Insert</button>
-						<button ng-click="update()" ng-show="showUpdate == true"
+						<button ng-click="frm.$valid && update()" ng-show="showUpdate == true"
 							class="btn btn-warning mr-2">Update</button>
 						<button ng-click="deleteProduct(formProduct)"
 							class="btn btn-danger mr-2">Remove</button>

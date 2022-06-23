@@ -8,6 +8,7 @@ import java.util.Random;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.godEShop.Dto.OrderCartViewDto;
@@ -73,18 +75,15 @@ public class InformationController {
 	} else {
 	    model.addAttribute("message", "is not have any orders before here");
 	}
-//	
-//	List<OrderCartViewDto> orderDetails = orderDetailService.findById(id);
-//	  model.addAttribute("orderDetails", orderDetails);
 	return "account/information";
     }
     @PostMapping("/update/accountDetail")
-    public String updateAccountDetail(Model model, HttpServletRequest request,
+    public String updateAccountDetail(Model model, HttpServletRequest request,HttpServletResponse resp,
 	    @RequestParam("fullname") String fullname, @RequestParam("email") String email,
 	    @RequestParam("gender") Integer gender, @RequestParam("dob") String dob,
 	    @RequestParam("address") String address,@RequestParam("phone") String phone,
-	    @RequestParam("photo") MultipartFile photo) throws ParseException {
-    	
+	    @RequestPart("photo") MultipartFile photo) throws ParseException {
+    	try {
     		String username = request.getRemoteUser();
     		Account acc = accountService.findByUsername(username);
     		User user = userService.findByUsername(username);
@@ -100,17 +99,17 @@ public class InformationController {
     		user.setAddress(address);
     		
     		userService.create(user);
-    		try {
-    			uploadService.saveUser(photo,user);
-    		} catch (Exception e) {
-    			// TODO: handle exception
-    		}
+    		uploadService.saveUser(photo,user);
     		model.addAttribute("user", user);
     	
-	
-
-	return "redirect:/information";
-	
+    		return "redirect:/information";
+    		
+    		} catch (Exception e) {
+    			// TODO: handle exception
+    			model.addAttribute("mUpdateInfo", "Update failed");
+    			return "redirect:/information";
+    		}
+			
     }
     
     @RequestMapping("/order/detail/{id}")
@@ -147,23 +146,25 @@ public class InformationController {
 				
 				try {
 				    mailerServie.send(m);
+				    isVerificationEmail = false;
 				} catch (Exception e) {
+					isVerificationEmail = false;
 				    System.out.println("Error : " + e.getMessage());
 				}
-				isVerificationEmail = true;
+				
 			
 				return "/account/checkPinEmail";
 			}else {
+				isVerificationEmail = false;
 				model.addAttribute("mSendMail","Email does not exist!");
 				return "forward:/information";
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			isVerificationEmail = false;
 			model.addAttribute("mSendMail","Lỗi");
 			return "redirect:/information";
-		}
-    	
-    
+		} 	   
     }
 
 	@RequestMapping("/checkPinEmail")
@@ -172,12 +173,14 @@ public class InformationController {
 		try {
 			int pin = Integer.parseInt(number);
 			if(pin==checkPinNumber) {
-				isVerificationEmail = true;				
+				isVerificationEmail = true;					
 			}else {
+				isVerificationEmail = false;
 				model.addAttribute("mCheckPinEmail","invalid verification code");				
 			}
 			return "redirect:/information";
 		} catch (Exception e) {
+			isVerificationEmail = false;
 			model.addAttribute("mCheckPinEmail","invalid verification code");
 			return "redirect:/information";
 		}
@@ -186,17 +189,21 @@ public class InformationController {
     
   @PostMapping("/changePassword")
   public String changePassword(HttpServletRequest request,Model model,@RequestParam("currentPassword") String currentPassword,@RequestParam("newPassword") String newPassword
-		  ,@RequestParam("confirmPassword") String confirmPassword) {
-	  String username = request.getRemoteUser();
+		  ,@RequestParam("confirmPassword") String confirmPassword) {	
 	  try {
+		  String username = request.getRemoteUser();
 		  Account acc = accountService.findByUsername(username); 
-		  System.out.println(acc == null ? "Null" : "Not null"); 
+		 
 		if(isVerificationEmail == true && newPassword.equals(confirmPassword) && pe.matches(currentPassword, acc.getPassword())) {		
 			acc.setPassword(pe.encode(newPassword)); 
 			accountService.update(acc);		
+			model.addAttribute("mChangPass","CHANGE PASSWORD SUCCESS");
+			isVerificationEmail = false;
 		}
+		
 	} catch (Exception e) {
-		// TODO: handle exception		
+		// TODO: handle exception	
+		model.addAttribute("mChangPass","CHANGE PASSWORD FAIL");
 	}
 	  return "redirect:/information";
   }

@@ -149,19 +149,12 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 		$http.post(`/rest/post-product`, productItem).then(resp => {
 			resp.data.createDate = new Date(resp.data.createDate);
 			$rootScope.getProductIdAfterInsert = resp.data.id;
-			$scope.initialize();
-			Swal.fire({
-				position: 'top-end',
-				icon: 'success',
-				title: 'Thành công',
-				showConfirmButton: false,
-				timer: 500
-			})
+			$scope.initialize();		
 		}).catch(error => {
 			Swal.fire({
 				icon: 'error',
 				title: 'Oops...',
-				text: "Lỗi UPLOAD PRODUCT!!!",
+				text: " UPLOAD PRODUCT FAILED!!!",
 			});
 			console.log("Error insert product : ", error);
 		});
@@ -175,7 +168,7 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: "Lỗi UPLOAD ACCSESSORY!!!",
+					text: "UPLOAD ACCSESSORY ERROR!!!",
 				});
 				console.log("Error insert accessory : ", error);
 			});
@@ -191,7 +184,6 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 				imgtag.src = "/upload/noImage.jpg";
 				$scope.reset();
 				Swal.fire({
-
 					icon: 'success',
 					confirmButtonColor: '#3085d6',
 					title: 'Success',
@@ -298,7 +290,7 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 			Swal.fire({
 				position: 'top-end',
 				icon: 'success',
-				title: 'Thành công',
+				title: 'SUCCESS',
 				showConfirmButton: false,
 				timer: 1000
 			})
@@ -306,7 +298,7 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 			Swal.fire({
 				icon: 'error',
 				title: 'Oops...',
-				text: "Lỗi xóa sản phẩm!!!",
+				text: "ERROR DELETE PRODUCT!!!",
 			});
 			console.log("Error", error);
 		});
