@@ -149,10 +149,11 @@
   bottom: 1rem;
   border-radius: 8px;
   padding: 1rem;
-  position: absolute;
-  left: 35%;
-  bottom: 440px;
+  justify-content: center;
 }
+/* 
+
+*/
 
 .stream__actions a,
 .stream__actions button {

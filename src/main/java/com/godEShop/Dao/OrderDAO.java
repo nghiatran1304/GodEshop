@@ -51,8 +51,19 @@ public interface OrderDAO extends JpaRepository<Order, Long> {
     	+ "WHERE o.id = ?1 "
     	+ "GROUP BY o.id, os.id, a.username, o.createDate, u.fullname, u.phone, u.email, om.name, o.address, o.note, p.name, od.price, od.quantity")
     List<OrderInfoDto> findAllOrderInfoDto(Long id);
-
     
-
+    @Query(value = "select count(*) from Orders", nativeQuery=true)
+    int getTotalOrder();
     
+    @Query(value = "select count(*) from Orders where orderStatusId = 1", nativeQuery=true)
+    int getTotalPendingOrder();
+    
+    @Query(value = "select count(*) from Orders where orderStatusId = 2", nativeQuery=true)
+    int getTotalConfirmOrder();
+    
+    @Query(value = "select count(*) from Orders where orderStatusId = 3", nativeQuery=true)
+    int getTotalDeliveryOrder();
+    
+    @Query(value = "select count(*) from Orders where orderStatusId = 4", nativeQuery=true)
+    int getTotalCompleteOrder();
 }

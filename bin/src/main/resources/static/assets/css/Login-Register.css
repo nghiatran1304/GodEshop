@@ -1,12 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
-
-* {
-    box-sizing: border-box;
-}
+/* @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800'); */
 
 
 
-h1 {
+
+
+ h1 {
     font-weight: bold;
     margin: 0;
 }
@@ -27,12 +25,11 @@ span {
     font-size: 12px;
 }
 
-a {
+ a {
     color: #333;
     font-size: 14px;
     text-decoration: none;
-    margin: 15px 0;
-}
+}  
 
 button {
     border-radius: 20px;

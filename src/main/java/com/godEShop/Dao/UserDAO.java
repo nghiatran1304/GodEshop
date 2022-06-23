@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.godEShop.Dto.UserInfoDto;
+import com.godEShop.Dto.UserStatisticDto;
+import com.godEShop.Dto.UsersStatisticDto;
 import com.godEShop.Entity.User;
 
 @Repository
@@ -31,4 +33,45 @@ public interface UserDAO extends JpaRepository<User, Integer> {
 	+ "INNER JOIN a.users u "
 	+ "WHERE a.username LIKE ?1 OR u.fullname LIKE ?1")
     List<UserInfoDto> lstFindUser(String kw);
+    
+    @Query("SELECT new com.godEShop.Dto.UsersStatisticDto"
+    		+ "(u.id, a.username, u.fullname, u.photo, count(o.id), sum(od.quantity*od.price)) "
+    		+ "FROM Order o "
+    		+ "INNER JOIN o.account a "
+    		+ "INNER JOIN a.users u "
+    		+ "INNER JOIN o.orderDetails od "
+    		+ "WHERE a.role != 'Admin' and o.orderStatus between 2 and 4 "
+    		+ "GROUP BY u.id, a.username, u.fullname, u.photo")
+    List<UsersStatisticDto> getAllUserStat();
+    
+    @Query("SELECT new com.godEShop.Dto.UsersStatisticDto"
+    		+ "(u.id, a.username, u.fullname, u.photo, count(o.id), sum(od.quantity*od.price)) "
+    		+ "FROM Order o "
+    		+ "INNER JOIN o.account a "
+    		+ "INNER JOIN a.users u "
+    		+ "INNER JOIN o.orderDetails od "
+    		+ "WHERE a.role != 'Admin' and o.orderStatus between 2 and 4 and a.username like ?1 "
+    		+ "GROUP BY u.id, a.username, u.fullname, u.photo")
+    List<UsersStatisticDto> find1UserStat(String username);
+
+    @Query("SELECT new com.godEShop.Dto.UserStatisticDto"
+    		+ "(u.id, a.username, u.fullname, u.photo, o.createDate, od.price, od.quantity, o.orderStatus) "
+    		+ "FROM Order o "
+    		+ "INNER JOIN o.account a "
+    		+ "INNER JOIN a.users u "
+    		+ "INNER JOIN o.orderDetails od "
+    		+ "WHERE u.id = ?1 "
+    		+ "ORDER BY o.createDate")
+    List<UserStatisticDto> get1UserStat(int id);
+    
+    @Query(value = "SELECT COUNT(*) FROM Users u inner join Accounts a on a.username = u.username where roleid != 'Admin'", nativeQuery = true)
+    int getTotalAccount();
+    
+    @Query(value = "SELECT COUNT(*) FROM Users u inner join Accounts a on a.username = u.username where roleid != 'Admin' and gender = 1", nativeQuery = true)
+    int getTotalAccountByMale();
+    
+    @Query(value = "SELECT COUNT(*) FROM Users u inner join Accounts a on a.username = u.username where roleid != 'Admin' and u.username in "
+    		+ "(select username from Orders)", nativeQuery = true)
+    int getTotalAccountOrdered();
+    
 }

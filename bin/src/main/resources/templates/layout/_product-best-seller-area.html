@@ -46,7 +46,8 @@
 										</div>
 										<div class="product-hidden">
 											<div class="add-to-cart">
-												<a th:attr="ng-click=@{|cart.add(${p.productId})|}" class="btn">Add to cart</a>
+												<a class="btn" th:attr="ng-click=@{|cart.add(${p.productId})|}">Add to cart</a>
+												<!-- <a class="btn" th:href="@{|product/${p.productId}|}">View detail</a> -->
 											</div>
 											<div class="star-actions">
 												<div class="product-rattings">

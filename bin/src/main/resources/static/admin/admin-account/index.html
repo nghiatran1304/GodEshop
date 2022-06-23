@@ -1,88 +1,171 @@
 <div xmlns:th="http://www.thymeleaf.org">
-	<div class="col-12 grid-margin stretch-card">
-		<div class="card">
-			<div class="card-body">
-				<!-- <h4 class="card-title">Basic form elements</h4>
-			<p class="card-description">Basic form elements</p> -->
-				<form class="forms-sample " name="frm">
-					<div class="row">
-						<div class="col-6">
-							<div class="form-group">
-								<label for="">User Name</label>
-								<input type="text" ng-model="form.username" class="form-control" placeholder="User name" />
-							</div>
-							<div class="form-group">
-								<label for="">Password</label>
-								<input type="text" ng-model="form.password" class="form-control"  placeholder="Password" />
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="form-group">
-								<label>Role</label>
-								<select ng-model="formRole.roleId" class="form-control">
-									<option ng-repeat="r in lstRole" ng-value="{{r.Id}}" ng-selected="formRole.roleId == r.id">{{r.name}}</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<div class="mb-3">Available</div>
-								<label for="radio-inline">
-									<input ng-model="form.isDelete" type="radio" ng-value="false" name="available" />
-									Yes
-								</label>
-								<label for="radio-inline" class="ml-3">
-									<input ng-model="form.isDelete" type="radio" ng-value="true" name="available" />
-									No
-								</label>
-							</div>
-						</div>
-
+	<div class="row">
+		<div class="col-7">
+			<form name="frm" autocomplete="off">
+				<div class="card">
+					<div class="card-header text-center font-weight-bold bg-info text-light">
+						<h3>INFORMATION</h3>
 					</div>
-			</div>
-
-			<div class="form-group text-center">
-				<button ng-click="create(); " class="btn btn-primary mr-2">Insert</button>
-				<button ng-click="update()" class="btn btn-warning mr-2">Update</button>
-				<button ng-click="delete(form)" class="btn btn-danger mr-2">Remove</button>
-				<button ng-click="reset()" class="btn btn-info">Cancel</button>
-
-			</div>
+					<div class="card-body pt-5">
+						<div class="row">
+							<div class="col-4 text-center">
+								<label for="inputGroupFile01" ng-if="hasImage != 'a'">
+									<div ng-show="isSocial == true">
+										<img id="myID2" ng-src="{{'https://' + form.userPhoto}}" alt="" style="width: 250px; height: 250px" />
+									</div>
+									<div ng-show="isSocial == false">
+										<img ng-src="{{'/upload/UserImages/' + form.userPhoto}}" id="myID" style="width: 250px; height: 250px" alt="No Image" />
+									</div>
+								</label>
+								<label for="inputGroupFile01" ng-if="hasImage == 'a'">
+									<img src="/upload/noImage.jpg" id="myID1" style="width: 250px; height: 250px" alt="No Image" />
+								</label>
+								<label class="custom-file-upload" ng-show="isEdit == false">
+									<input required onchange="angular.element(this).scope().onFileSelected1(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+									Upload Image
+								</label>
+								<label class="custom-file-upload" ng-show="isEdit == true && isSocial == false">
+									<input onchange="angular.element(this).scope().onFileSelected(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+									Change Image
+								</label>
+							</div>
+							<div class="col-8 row">
+								<input type="text" ng-model="form.userId" hidden />
+								<div class="col-6">
+									<div class="form-group">
+										<label for="">
+											Username <small ng-show="frm.frmUsername.$invalid" class="text-danger"><i>*Input username</i></small>
+										</label>
+										<input type="text" class="form-control" name="frmUsername" ng-model="form.accountUsername" required placeholder="Username" />
+									</div>
+									<div class="form-group">
+										<label for="">
+											Fullname <small ng-show="frm.frmFullname.$invalid" class="text-danger"><i>*Input fullname</i></small>
+										</label>
+										<input type="text" class="form-control" name="frmFullname" ng-model="form.userFullname" required placeholder="Fullname" />
+									</div>
+									<div class="form-group">
+										<label>
+											Birth day <small ng-show="frm.frmDate.$invalid" class="text-danger"><i>*Choose date</i></small>
+										</label>
+										<input ng-model="form.userDob" name="frmDate" type="date" required class="form-control" />
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group">
+										<label for="">
+											Password <small ng-show="frm.frmPassword.$invalid" class="text-danger"><i>*Input password</i></small>
+										</label>
+										<input type="password" class="form-control" name="frmPassword" required ng-model="form.accountPassword" placeholder="Password" />
+									</div>
+									<div class="form-group">
+										<label for="">
+											Phone <small ng-show="frm.frmPhone.$invalid" class="text-danger"><i>*Input phone number</i></small>
+										</label>
+										<input type="text" ng-pattern="/^\d{10,15}$/" required class="form-control" name="frmPhone" ng-model="form.userPhone" placeholder="Phone number" />
+									</div>
+									<div class="form-group" style="margin-top: 28px">
+										<label>Gender</label>
+										<select class="form-control" ng-model="form.userGender">
+											<option ng-value="0" ng-selected="form.userGender == 0">Female</option>
+											<option ng-value="1" ng-selected="form.userGender == 1">Male</option>
+											<option ng-value="2" ng-selected="form.userGender == 2">Other</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group col-12">
+									<label for="">
+										Email <small ng-show="frm.frmEmail.$invalid" class="text-danger"><i>*Input email</i></small>
+									</label>
+									<input type="email" class="form-control" name="frmEmail" required ng-model="form.userEmail" placeholder="Email" />
+								</div>
+								<div class="form-group col-12">
+									<label>
+										Address <small ng-show="frm.frmAddress.$invalid" class="text-danger"><i>*Input address</i></small>
+									</label>
+									<textarea class="form-control" name="frmAddress" required rows="4" ng-model="form.userAddress"></textarea>
+								</div>
+								<div class="col-6">
+									<div class="form-group">
+										<label>Role</label>
+										<select class="form-control" ng-model="form.roleId">
+											<option ng-repeat="r in lstRole" value="{{r.id}}" ng-selected="form.roleId == r.id">{{r.name}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group col-12">
+										<div class="mb-3">Available</div>
+										<label for="radio-inline">
+											<input ng-model="form.accountIsDeleted" type="radio" ng-value="false" name="isDeleted" ng-click="change(false)" />
+											Yes
+										</label>
+										<label for="radio-inline" class="ml-3">
+											<input ng-model="form.accountIsDeleted" type="radio" ng-value="true" name="isDeleted" ng-click="change(true)" />
+											No
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer pb-4 text-center">
+						<button ng-click="frm.$valid && create()" ng-show="isEdit == false" class="btn btn-primary mr-2">Insert</button>
+						<button ng-click="frm.$valid && update()" ng-show="isEdit == true && isSocial == false" class="btn btn-warning mr-2">Update</button>
+						<button ng-click="delete(form)" class="btn btn-danger mr-2">Remove</button>
+						<button ng-click="reset()" class="btn btn-info">Cancel</button>
+					</div>
+				</div>
 			</form>
 		</div>
+		<div class="col-5">
+			<div class="card">
+				<div class="card-header bg-info">
+					<form>
+						<input type="text" class="form-control bg-light" placeholder="Search by name" ng-model="searchByName" onchange="angular.element(this).scope().findByName()">
+					</form>
+				</div>
+				<div class="card-body p-0">
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr class="bg-info text-light">
+								<th scope="col">#</th>
+								<th scope="col">Username</th>
+								<th scope="col">Fullname</th>
+								<th scope="col">Role</th>
+								<th scope="col">Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in pager.items" ng-click="edit(item)">
+								<th scope="row">{{$index + 1}}</th>
+								<td class="text-center">
+									<span ng-show="{{item.roleName == 'Khách hàng'}}">{{item.accountUsername}}</span>
+									<span ng-show="{{item.roleName != 'Khách hàng'}}" class="text-danger">{{item.accountUsername}}</span>
+								</td>
+								<td>
+									<span ng-show="{{item.roleName == 'Khách hàng'}}">{{item.userFullname}}</span>
+									<span ng-show="{{item.roleName != 'Khách hàng'}}" class="text-danger">{{item.userFullname}}</span>
+								</td>
+								<td class="text-center">
+									<span ng-show="{{item.roleName == 'Khách hàng'}}">{{item.roleName}}</span>
+									<span ng-show="{{item.roleName != 'Khách hàng'}}" class="text-danger">{{item.roleName}}</span>
+								</td>
+								<td class="text-center">{{item.accountIsDeleted ? 'NO' : 'YES'}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card-footer">
+					<div class="text-center">
+						<button ng-click="pager.first()" class="btn btn-secondary">|<</button>
+						<button ng-click="pager.pre()" class="btn btn-secondary"><<</button>
+						<button class="btn btn-info">{{pager.page + 1}} of {{pager.count}}</button>
+						<button ng-click="pager.next()" class="btn btn-secondary">>></button>
+						<button ng-click="pager.last()" class="btn btn-secondary">>|</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-<hr />
-<form>
-		 <input type="text" class="form-control" placeholder="Search by username" ng-model="searchByUsername" onchange="angular.element(this).scope().findByName()">
-</form>
-<table class="table table-hover table-bordered mt-2">
-	<thead class="thead-dark">
-		<tr class="text-center">
-			<th scope="col">Username</th>
-			<th scope="col">Is Available</th>
-			<th scope="col">Password</th>
-			<th scope="col">Role</th>
-			<th scope="col">Edit</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="text-center" ng-repeat="item in pager.items | orderBy:sortType:sortReverse | filter:searchName" ng-click="edit(item)">
-			<td>{{item.username}}</td>
-			<td>{{item.isDelete?'No':'Yes'}}</td>
-			<td>{{item.password}}</td>
-			<td>{{item.role.id == 'Admin' ? 'Quản trị viên' : 'Khách hàng'}}</td>
-			<td class="text-center">
-				<button ng-click="edit(item)" class="btn btn-warning">Edit</button>
-			</td>
-		</tr>
-	</tbody>
-</table>
-<div>
-	<div class="text-center mt-5">
-		<button ng-click="pager.first()" class="btn btn-secondary">|</button>
-		<button ng-click="pager.pre()" class="btn btn-secondary"><<</button>
-		<button class="btn btn-success">{{pager.page + 1}} of {{pager.count}}</button>
-		<button ng-click="pager.next()" class="btn btn-secondary">>></button>
-		<button ng-click="pager.last()" class="btn btn-secondary">>|</button>
-	</div>
-</div>
 </div>

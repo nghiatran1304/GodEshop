@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index.html :: dynamic(~{::main})}">
-<body>
+<body ng-app="cartView-app">
 	<main>
 		<!-- Breadcrumbs -->
-		<div class="breadcrumbs-container">
+		<div class="breadcrumbs-container mb-5">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
@@ -18,7 +18,7 @@
 		</div>
 		<!-- Breadcrumbs End -->
 		<!-- Page title -->
-		<div class="entry-header">
+		<!-- <div class="entry-header">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
@@ -26,11 +26,11 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- Page title end -->
 
 		<!-- My Account page content Start -->
-		<div id="myaccount-page-content">
+		<div id="myaccount-page-content mt-5">
 			<div class="container">
 				<div class="account-text-wrapper">
 					<div class="row">
@@ -44,6 +44,10 @@
 									<i class="fa fa-user"></i>
 									Account Details
 								</a>
+								<a href="#account-changepassword" data-toggle="tab">
+									<i class="fa fa-user"></i>
+									Change Password
+								</a>
 								<a th:href="@{/account/logoff}">
 									<i class="fa fa-sign-out"></i>
 									Logout
@@ -53,18 +57,16 @@
 						<!-- My Account Tab Menu End -->
 
 						<!-- My Account Tab Content Start -->
-						<div class="col-md-9 mt-15 mt-lg-0">
+						<div class="col-md-9 mt-15 mt-lg-0" ng-controller="order-cart-view-ctrl">
 							<div class="tab-content" id="myaccountContent">
 								<!-- Single Tab Content Start -->
 								<div class="tab-pane fade show active" id="orders" role="tabpanel">
 									<div class="myaccount-content">
-										<h3>Orders</h3>
-										<h4>[[${message}]]</h4>
 										<div class="myaccount-table table-responsive text-center">
-											<table class="table table-bordered">
+											<table class="table table-bordered table-hover">
 												<thead class="thead-light">
 													<tr>
-														<th>Order</th>
+														<!-- <th>Order</th> -->
 														<th>Date</th>
 														<th>Address</th>
 														<th>Status</th>
@@ -73,163 +75,163 @@
 												</thead>
 
 												<tbody>
-													<tr th:each="order : ${orders}">
-
-														<td>[[${order.orderId}]]</td>
-														<td>[[${#dates.format(order.createDate, 'dd-MM-yyyy')}]]</td>
-														<td>[[${order.address}]]</td>
-														<td>[[${order.statusName}]]</td>
+													<tr ng-repeat="order in pager.orders" ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal">
+														<td hidden>{{order.orderId}}</td>
+														<td>{{order.createDate| date : "dd-MM-yyyy"}}</td>
+														<td>{{order.address}}</td>
+														<td ng-show="order.statusName == 'Cancel'" class="text-danger font-weight-bold">{{order.statusName}}</td>
+														<td ng-show="order.statusName == 'Pending'" class="text-warning font-weight-bold">{{order.statusName}}</td>
+														<td ng-show="order.statusName == 'Delivery'" class="text-primary font-weight-bold">{{order.statusName}}</td>
+														<td ng-show="order.statusName == 'Confirmed'" class="text-info font-weight-bold">{{order.statusName}}</td>
+														<td ng-show="order.statusName == 'Complete'" class="text-success font-weight-bold">{{order.statusName}}</td>
 
 														<td>
-															<a href="/cart" class="btn">View</a>
+															<button class="btn btn-info btn-lg" ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal">View</button>
+															<div class="modal fade" id="myModal" role="dialog">
+																<div class="modal-dialog modal-xl modal-dialog-centered">
+
+																	<!-- Modal content-->
+																	<div class="modal-content">
+																		<button type="button" class="btn btn-default float-right" data-dismiss="modal">#{{order.orderId}}</button>
+																		<div class="modal-header"></div>
+																		<div class="modal-body p-0">
+																			<div class="table-content table-responsive mb-50">
+																				<table>
+																					<thead>
+																						<tr>
+																							<th class="product-thumbnail" style="font-size: 20px; font-weight: bold">Image</th>
+																							<th class="product-name" style="font-size: 20px; font-weight: bold">Product</th>
+																							<th class="product-price" style="font-size: 20px; font-weight: bold">Price</th>
+																							<th class="product-quantity" style="font-size: 20px; font-weight: bold">Quantity</th>
+																							<th class="product-subtotal" style="font-size: 20px; font-weight: bold">Total Price</th>
+
+																						</tr>
+																					</thead>
+																					<tbody>
+																						<tr ng-repeat="product in products">
+																							<td class="product-thumbnail">
+																								<a href="#">
+																									<img src="/upload/ProductImages/{{product.productPhoto}}" alt="cart-image">
+																								</a>
+																							</td>
+																							<td class="product-name">
+																								<a style="font-size: 20px" class="font-weight-bold">{{product.productName}}</a>
+																							</td>
+																							<td class="product-price">
+																								<span class="amount" style="font-size: 20px">{{product.orderPrice|currency}}</span>
+																							</td>
+
+																							<td class="product-quantity">
+																								<span style="font-size: 20px" class="font-weight-bold">{{product.orderQuantity}}</span>
+																								<!-- <input disabled type="number" min="1" style="color: black;" class="text-center font-weight-bold" ng-value="{{product.orderQuantity}}"> -->
+																							</td>
+																							<td class="product-subtotal" style="font-size: 20px">{{product.orderPrice*product.orderQuantity|currency}}</td>
+
+																						</tr>
+																					</tbody>
+																				</table>
+																				<h3 class="float-right mr-5">Total: {{total|currency}}</h3>
+																			</div>
+																			<div class="row pb-5 pt-0 m-0">
+																				<div class="col-12">
+																					<div ng-if=" status == 'Pending'">
+																						<button class="btn " ng-click="cancel()">Cancel Order</button>
+																					</div>
+																					<div ng-if=" status != 'Pending'">
+																						<button class="btn " ng-click="cancel()" disabled>Cancel Order</button>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
 														</td>
 													</tr>
-
 												</tbody>
 											</table>
+											<div class="text-center mt-2">
+												<button ng-click="pager.first()" class="btn btn-secondary">|<</button>
+												<button ng-click="pager.pre()" class="btn btn-secondary"><<</button>
+												<button class="btn btn-primary">{{pager.page + 1}} of {{pager.count}}</button>
+												<button ng-click="pager.next()" class="btn btn-secondary">>></button>
+												<button ng-click="pager.last()" class="btn btn-secondary">>|</button>
+											</div>
 										</div>
 									</div>
 								</div>
 								<!-- Single Tab Content End -->
 
-								<!-- Single Tab Content Start -->
-								<div class="tab-pane fade" id="download" role="tabpanel">
-									<div class="myaccount-content">
-										<h3>Downloads</h3>
-
-										<div class="myaccount-table table-responsive text-center">
-											<table class="table table-bordered">
-												<thead class="thead-light">
-													<tr>
-														<th>Product</th>
-														<th>Date</th>
-														<th>Expire</th>
-														<th>Download</th>
-													</tr>
-												</thead>
-
-												<tbody>
-													<tr>
-														<td>Haven - Free Real Estate PSD Template</td>
-														<td>Aug 22, 2018</td>
-														<td>Yes</td>
-														<td>
-															<a href="#" class="btn">Download File</a>
-														</td>
-													</tr>
-													<tr>
-														<td>HasTech - Profolio Business Template</td>
-														<td>Sep 12, 2018</td>
-														<td>Never</td>
-														<td>
-															<a href="#" class="btn">Download File</a>
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-								<!-- Single Tab Content End -->
-
-								<!-- Single Tab Content Start -->
-								<div class="tab-pane fade" id="payment-method" role="tabpanel">
-									<div class="myaccount-content">
-										<h3>Payment Method</h3>
-
-										<p class="saved-message">You Can't Saved Your Payment Method yet.</p>
-									</div>
-								</div>
-								<!-- Single Tab Content End -->
-
-								<!-- Single Tab Content Start -->
-								<div class="tab-pane fade" id="address-edit" role="tabpanel">
-									<div class="myaccount-content">
-										<h3>Billing Address</h3>
-										<form th:action="@{/update/address}" method="post">
-
-											<div class="form-group">
-												<label for="address">Address</label>
-												<input type="text" name="address" placeholder="Enter your addresse" id="input-address" class="form-control" th:value="${user.address}">
-											</div>
-											<div class="form-group">
-												<label>Mobile</label>
-												<input type="text" name="phone" placeholder="phone" id="input-phone" class="form-control" th:value="${user.phone}">
-											</div>
-											<input type="submit" value="Update" class="return-customer-btn">
-										</form>
-
-
-
-
-									</div>
-								</div>
-								<!-- Single Tab Content End -->
-
-								<!-- Single Tab Content Start -->
 
 								<div class="tab-pane fade" id="account-info" role="tabpanel">
 									<div class="myaccount-content">
 										<h3>Account Details</h3>
 										<div class="account-details-form checkout-form-list">
-											<form th:action="@{/update/accountDetail}" method="post" th:object="${user}" enctype="multipart/form-data">
-												<div class="col-4">
-
-													<img id="myID" th:if="${isOAuth2} == false" th:src="@{|/upload/UserImages/${user.photo}|}" alt="" style="width: 350px; height: 350px" />
-
-													<img id="myID" th:if="${isOAuth2} == true" th:src="@{'https://' + ${user.photo}}" alt="" style="width: 150px; height: 150px" />
-
-													<img id="myID" th:if="${user.photo == null  }" th:src="@{|/upload/UserImages/guest-user.jpg|}" alt="" style="width: 350px; height: 350px" />
-
-													<div class="form-group mt-3">
-														<div class="input-group mt-3">
-															<div class="input-group-prepend">
-																<!-- 	<span class="input-group-text bg-primary text-light"
-															id="inputGroupFileAddon01">Upload</span> -->
-															</div>
-															<div class="custom-file">
-																<input type="file" name="photo" onchange="onFileSelected(event)" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-																<label class="custom-file-label" id="nameFile" for="inputGroupFile01"></label>
-															</div>
-														</div>
-													</div>
-												</div>
-
-
+											<form th:action="@{/update/accountDetail}" method="post" autocomplete="off" th:object="${user}" enctype="multipart/form-data">
 												<div class="row">
-													<div class="col-lg-6">
-														<div class="single-input-item">
-															<label for="fullname" class="required">Fullname</label>
-															<input type="text" id="fullname" name="fullname" placeholder="fullname" class=" form-control" th:value="*{fullname}" />
-														</div>
-													</div>
+													<div class="col-md-6 text-center">
+														<img id="myID" th:if="${isOAuth2} == false" th:src="@{|/upload/UserImages/${user.photo}|}" alt="" style="width: 350px; height: 350px" />
+														<img id="myID" th:if="${isOAuth2} == true" th:src="@{'https://' + ${user.photo}}" alt="" style="width: 350px; height: 350px" />
+														<img id="myID" th:if="${user.photo == null  }" th:src="@{|/upload/UserImages/guest-user.jpg|}" alt="" style="width: 350px; height: 350px" />
 
-													<div class="col-lg-6">
-														<div class="single-input-item">
-															<label for="email" class="required">Email</label>
-															<input type="email" id="email" name="email" placeholder="Email" class=" form-control" th:value="*{email}" />
+														<div class="form-group mt-3">
+															<div class="input-group mt-3">
+																<div class="input-group-prepend">
+																	<!-- 	<span class="input-group-text bg-primary text-light"
+															id="inputGroupFileAddon01">Upload</span> -->
+																</div>
+																<div class="custom-file">
+																	<input type="file" name="photo" onchange="onFileSelected(event)" class="custom-file-input form-control" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+																	<label class="custom-file-label" id="nameFile" for="inputGroupFile01"></label>
+																</div>
+															</div>
 														</div>
+
 													</div>
-													<div class="col-lg-6">
-														<label for="gender" class="required">Gender</label>
-														<select name="gender" id="gender" class="form-control">
-															<option th:selected="*{gender==1}" th:value="1" class=" form-control">Male</option>
-															<option th:selected="*{gender==0}" th:value="0" class=" form-control">Female</option>
-														</select>
-													</div>
-													<div class="col-lg-6">
-														<div class="single-input-item">
-															<label for="dob" class="required">Date Of Birth</label>
-															<input type="date" id="dob" class=" form-control" th:field="*{dob}" placeholder="Date Of Birth" th:value="*{dob}" name="dob" />
+													<div class="col-md-6">
+														<div class="form-row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label for="fullname" class="required">Fullname</label>
+																	<input type="text" id="fullname" name="fullname" placeholder="fullname" class=" form-control" th:value="*{fullname}" />
+																</div>
+
+															</div>
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Phone</label>
+																	<input type="text" name="phone" placeholder="phone" id="input-phone" class="form-control" th:value="${user.phone}">
+																</div>
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="email" class="required">Email</label>
+															<input type="email" id="email" name="email" placeholder="Email" class="form-control" th:value="*{email}" />
+														</div>
+														<div class="form-group">
+															<label for="gender" class="required">Gender</label>
+															<select name="gender" id="gender" class="form-control">
+																<option th:selected="*{gender==1}" th:value="1" class=" form-control">Male</option>
+																<option th:selected="*{gender==0}" th:value="0" class=" form-control">Female</option>
+															</select>
+														</div>
+														<div class="form-group">
+															<div class="single-input-item">
+																<label for="dob" class="required">Date Of Birth</label>
+																<input type="date" id="dob" class=" form-control" th:field="*{dob}" placeholder="Date Of Birth" th:value="*{dob}" name="dob" />
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="address">Address</label>
+															<input type="text" name="address" placeholder="Enter your address" id="input-address" class="form-control" th:value="${user.address}">
 														</div>
 													</div>
 												</div>
-
 
 
 
 												<div class="single-input-item">
-													<button class="btn" type="submit">Save Changes</button>
+													<button class="btn w-100" type="submit">UPDATE</button>
 												</div>
 												<script>
 													function onFileSelected(
@@ -252,6 +254,53 @@
 									</div>
 								</div>
 								<!-- Single Tab Content End -->
+
+								<div class="tab-pane fade " id="account-changepassword" th:classappend="${isVerificationEmail}==true ? 'active': ''" role="tabpanel">
+									<!-- form xac thuc email -->
+									<div th:if="${isVerificationEmail}=='false'">
+										<form th:action="@{/verificationEmail}" method="post" autocomplete="off" class="mt-5">
+											<i class="text-danger">[[${mSendMail}]]</i>
+											<input required type="email" name="email" placeholder="Enter Your Email!" />
+											<button class="btn btn-info w-100" type="submit">Confirm</button>
+										</form>
+									</div>
+									<div class="myaccount-content" th:if="${isVerificationEmail}=='true'">
+										<h3>Set Password</h3>
+										<i class="text-danger">[[${mchangePassword}]]</i>
+										<div>
+											<form th:action="@{/changePassword}" method="post" autocomplete="off" class="form-group">
+												<div class="input-group form-group">
+													<input type="password" placeholder="currentPassword" name="currentPassword" id="ipnPassword-register" class="form-control" required />
+													<div class="input-group-append">
+														<button class="btn btn-outline-secondary" type="button" id="btnPassword-register">
+															<span class="fas fa-eye"></span>
+														</button>
+													</div>
+												</div>
+
+												<div class="input-group form-group">
+													<input type="password" placeholder="newPassword" name="newPassword" id="ipnPassword-register" class="form-control" required />
+													<div class="input-group-append">
+														<button class="btn btn-outline-secondary" type="button" id="btnPassword-register">
+															<span class="fas fa-eye"></span>
+														</button>
+													</div>
+												</div>
+
+												<div class="input-group form-group">
+													<input type="password" placeholder="confirmPassword" name="confirmPassword" id="ipnPassword-register" class="form-control" required />
+													<div class="input-group-append">
+														<button class="btn btn-outline-secondary" type="button" id="btnPassword-register">
+															<span class="fas fa-eye"></span>
+														</button>
+													</div>
+												</div>
+
+												<button class="btn w-100 mt-5" type="submit">Change</button>
+											</form>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						<!-- My Account Tab Content End -->

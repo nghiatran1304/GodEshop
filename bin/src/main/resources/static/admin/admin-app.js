@@ -13,10 +13,6 @@ app.config(function($routeProvider) {
 			templateUrl: "/admin/admin-accessory/index.html",
 			controller: "accessory-ctrl"
 		})
-		.when("/admin/management/user", {
-			templateUrl: "/admin/admin-user/index.html",
-			controller: "user-ctrl"
-		})
 		.when("/admin/management/account", {
 			templateUrl: "/admin/admin-account/index.html",
 			controller: "account-ctrl"
@@ -50,6 +46,8 @@ app.config(function($routeProvider) {
 			controller: "statistic-ctrl"
 		})
 		.otherwise({
-			templateUrl: "/admin/admin-home/index.html"
+			// templateUrl: "/admin/admin-home/index.html"
+			templateUrl: "/admin/admin-order/index.html",
+			controller: "order-ctrl"
 		});
 });

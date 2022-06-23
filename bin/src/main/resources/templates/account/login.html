@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index.html :: dynamic(~{::main})}">
 <body>
 	<main>
 		<link rel="stylesheet" href="/assets/css/Login-Register.css">
 		<!-- Breadcrumbs -->
-		<div class="breadcrumbs-container">
+		<div class="breadcrumbs-container mb-2">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
 						<nav class="woocommerce-breadcrumb">
-							<a href="/index">Home</a> <span class="separator">/</span> sign in
+							<a href="/index">Home</a>
+							<span class="separator">/</span>
+							sign in
 						</nav>
 					</div>
 				</div>
@@ -18,55 +19,78 @@
 		</div>
 		<!-- Breadcrumbs End -->
 		<!-- Page title -->
-		<div hidden><i th:text="${message}" class="float-left text-danger"></i></div>
-		<!-- <h2>Sign in/up Form</h2>	 -->	
+		<div th:unless="${messageRegister}=='REGISTER SUCCESS'">
+			<h1 class="text-danger text-center">[[${messageRegister}]]</h1>
+		</div>
+		<div th:if="${messageRegister}=='REGISTER SUCCESS'">
+			<h1 class="text-success text-center">[[${messageRegister}]]</h1>
+		</div>
+		<div th:unless="${messageLogin}=='LOGIN SUCCESS'">
+			<h1 class="text-danger text-center">[[${messageLogin}]]</h1>
+		</div>
+		<div th:if="${messageLogoff}=='YOU ARE LOGGED OUT'">
+			<h1 class="text-danger text-center">[[${messageLogoff}]]</h1>
+		</div>
+		<!-- <h2>Sign in/up Form</h2>	 -->
 		<div class="container mt-5" id="container">
 			<div class="form-container sign-up-container">
-				<form th:action="@{/register}" method="post">
+				<form th:action="@{/register}" method="post" autocomplete="off">
 					<h1>Create Account</h1>
 					<div class="social-container">
-						<a href="#" class="social"><i class="fab fa-facebook-f"></i></a> <a
-							href="/oauth2/authorization/google" class="social"><i
-							class="fab fa-google-plus-g"></i></a> <a href="#" class="social"><i
-							class="fab fa-linkedin-in"></i></a>
+						<a href="#" class="social">
+							<i class="fab fa-facebook-f"></i>
+						</a>
+						<a href="/oauth2/authorization/google" class="social">
+							<i class="fab fa-google-plus-g"></i>
+						</a>
+						<a href="#" class="social">
+							<i class="fab fa-linkedin-in"></i>
+						</a>
 					</div>
 					<span>or use your email for registration</span>
-					 <input type="text" placeholder="Username" name="username" class="form-control" required/>
-					 	
+					<input type="text" placeholder="Username" name="username" class="form-control" required />
+
 					<div class="input-group form-group">
-						<input type="password" placeholder="Password" name="password"
-							id="ipnPassword-register" class="form-control" required/>
+						<input type="password" placeholder="Password" name="password" id="ipnPassword-register" class="form-control" required />
 						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button"
-								id="btnPassword-register">
+							<button class="btn btn-outline-secondary" type="button" id="btnPassword-register">
 								<span class="fas fa-eye"></span>
 							</button>
 						</div>
 					</div>
-					<button >Sign Up</button>
+					<input type="text" pattern="[0-9]{10}" placeholder="Phone number" name="txtPhone" class="form-control mt-3" required />
+
+					<button>Sign Up</button>
 				</form>
 			</div>
 			<div class="form-container sign-in-container">
-				<form th:action="@{/account/login}" method="post">
+				<form th:action="@{/account/login}" method="post" autocomplete="off">
 					<h1>Sign in</h1>
 					<div class="social-container">
-						<a href="#" class="social"><i class="fab fa-facebook-f"></i></a> <a
-							href="/oauth2/authorization/google" class="social"><i
-							class="fab fa-google-plus-g"></i></a> <a href="#" class="social"><i
-							class="fab fa-linkedin-in"></i></a>
+						<a href="#" class="social">
+							<i class="fab fa-facebook-f"></i>
+						</a>
+						<a href="/oauth2/authorization/google" class="social">
+							<i class="fab fa-google-plus-g"></i>
+						</a>
+						<a href="#" class="social">
+							<i class="fab fa-linkedin-in"></i>
+						</a>
 					</div>
-					<span>or use your account</span> <input type="text"
-						placeholder="Username" name="username" class="form-control" required/>
+					<span>or use your account</span>
+					<input type="text" placeholder="Username" name="username" class="form-control" id="input-username" required />
 					<div class="input-group form-group">
-						<input type="password" placeholder="Password" name="password" 
-							id="ipnPassword" class="form-control"  required/>
+						<input type="password" placeholder="Password" name="password" id="ipnPassword" class="form-control" required />
 						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button"
-								id="btnPassword">
+							<button class="btn btn-outline-secondary" type="button" id="btnPassword">
 								<span class="fas fa-eye"></span>
 							</button>
 						</div>
+
 					</div>
+					<span th:unless="${#request.remoteUser}">
+						<a href="/forgotPassword">Forgot Password?</a>
+					</span>
 					<button type="submit" onclick="getToken()">Sign In</button>
 					<script>	
 						const ipnElementRegister = document.querySelector('#ipnPassword-register')
@@ -83,21 +107,21 @@
 						ipnElementRegister.setAttribute('type',currentTypeRegister === 'password' ? 'text': 'password')})
 						
 						let username = document.getElementById("input-username")
-						let password = document.getElementById("input-password")
+						let password = document.getElementById("ipnPassword")
 						let URL = 'http://localhost:8080/loginPage'
 						let formData = new FormData()
 											
 						let getToken = async() => {
-					//Cấu hình cho Header
+					//Cáº¥u hĂ¬nh cho Header
 						let myHeaders = new Headers();
 						myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-					//Set giá trị body (data gửi đi là username và password để lấy Token)
+					//Set giĂ¡ trá»‹ body (data gá»­i Ä‘i lĂ  username vĂ  password Ä‘á»ƒ láº¥y Token)
 						let urlencoded = new URLSearchParams();
 						urlencoded.append("username", username.value);
 						urlencoded.append("password", password.value);
 
-					// Set thuộc tính khi fetch API
+					// Set thuá»™c tĂ­nh khi fetch API
 						let requestOptions = {
 							method: 'POST',
 							headers: myHeaders,
@@ -105,10 +129,10 @@
 							redirect: 'follow'
 							};
 
-					// Gọi API
+					// Gá»�i API
 						let resp = await fetch(URL, requestOptions)
 												
-					// Xử lý giá trị trả về
+					// Xá»­ lĂ½ giĂ¡ trá»‹ tráº£ vá»�
 						let data = await resp.json()
 						sessionStorage.setItem("access_token", data.access_token)
 						sessionStorage.setItem("refresh_token", data.refresh_token) 
@@ -122,8 +146,7 @@
 				<div class="overlay">
 					<div class="overlay-panel overlay-left">
 						<h1>Welcome Back!</h1>
-						<p>To keep connected with us please login with your personal
-							info</p>
+						<p>To keep connected with us please login with your personal info</p>
 						<button class="ghost" id="signIn">Sign In</button>
 					</div>
 					<div class="overlay-panel overlay-right">

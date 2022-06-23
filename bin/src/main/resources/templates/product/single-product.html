@@ -132,10 +132,22 @@
 									</span>
 									<p>[[*{productDetail}]]</p>
 									<div class="box-quantity d-flex">
-										<form action="#">
+										<form action="#" hidden>
 											<input class="quantity mr-40" min="1" value="1" type="number">
 										</form>
-										<a class="add-cart btn" th:attr="ng-click=@{|cart.add(*{productId})|}">add to cart</a>
+										<!-- <a class="add-cart btn" th:attr="ng-click=@{|cart.add(*{productId})|}">add to cart</a> -->
+										<div th:if="${productItem.productQuantity > 0}">
+											<a class="add-cart btn" th:attr="ng-click=@{|cart.add(*{productId})|}">Add to cart</a>
+										</div>
+										<div th:if="${productItem.productQuantity <= 0}">
+											<a class="add-cart btn btn-secondary" th:attr="ng-click=@{|cart.outOfStock()|}">Out of stock</a>
+										</div>
+										<!-- <div class="add-to-cart" th:if="${productItem.productQuantity > 0}">
+											<a class="btn" th:attr="ng-click=@{|cart.add(${productItem.productId})|}">Add to cart</a>
+										</div>
+										<div class="add-to-cart" th:if="${productItem.productQuantity <= 0}">
+											<a class="btn btn-secondary" th:attr="ng-click=@{|cart.outOfStock()|}" >Out of stock</a>
+										</div> -->
 									</div>
 									<div class="wishlist-compear-area">
 										<a href="wishlist.html">
@@ -204,7 +216,7 @@
 									<a data-toggle="tab" href="#description">Description</a>
 								</li>
 								<li>
-									<a data-toggle="tab" href="#reviews">Reviews</a>
+									<a data-toggle="tab" href="#reviews">Feedback</a>
 								</li>
 							</ul>
 							<div class="tab-content">
@@ -301,7 +313,7 @@
 															<td>[[${pw.productWarranty}]]</td>
 														</tr>
 														<tr>
-															<th scope="row">Bracelet Material</th>
+															<th scope="row">Material</th>
 															<td>[[${pw.braceletMaterial}]]</td>
 														</tr>
 														<tr>
@@ -332,153 +344,80 @@
 									<p class="m-auto text-center"></p>
 								</div>
 								<div id="reviews" class="tab-pane fade product-review-area">
-									<h3>1 REVIEW FOR SIT VOLUPTATEM</h3>
-									<ol class="commentlist">
-										<li>
-											<div class="single-comment">
-												<div class="comment-avatar">
-													<img src="/assets/images/blog/road-avatar.jpg" alt="comment image bege">
-												</div>
-												<div class="comment-info">
-													<div class="product-rattings">
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
-														<span>
-															<i class="fa fa-star"></i>
-														</span>
-														<span>
-															<i class="fa fa-star-half-o"></i>
-														</span>
-														<span>
-															<i class="fa fa-star-o"></i>
-														</span>
-													</div>
-													<span class="date">
-														<strong>admin</strong> October 6, 2014 at 1:38 am
-													</span>
-													<p>Good product</p>
-												</div>
-											</div>
-										</li>
-									</ol>
-									<div class="comment-respond">
-										<p>Add a review</p>
-										<p>Your email address will not be published. Required fields are marked *</p>
-										<p>Your rating</p>
-										<div class="product-rattings">
-											<span>
-												<i class="fa fa-star"></i>
-											</span>
-											<span>
-												<i class="fa fa-star"></i>
-											</span>
-											<span>
-												<i class="fa fa-star"></i>
-											</span>
-											<span>
-												<i class="fa fa-star-half-o"></i>
-											</span>
-											<span>
-												<i class="fa fa-star-o"></i>
-											</span>
+									<h3>Send your feedback</h3>
+									<form action="/sendmail/send" method="post" enctype="multipart/form-data">
+										<div class="form-group">
+											<textarea name="body" style="resize: none" class="form-control" rows="3" placeholder="Body"></textarea>
 										</div>
-										<form action="#">
-											<div class="text-filds">
-												<label for="comment">
-													Your review
-													<span class="required">*</span>
-												</label>
-												<textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea>
-											</div>
-											<div class="comment-input">
-												<p class="comment-form-author">
-													<label for="author">
-														Name
-														<span class="required">*</span>
-													</label>
-													<input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required">
-												</p>
-												<p class="comment-form-email">
-													<label for="email">
-														Email
-														<span class="required">*</span>
-													</label>
-													<input id="email" name="email" type="text" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required">
-												</p>
-												<p class="comment-form-url">
-													<label for="url">Website</label>
-													<input id="url" name="url" type="text" value="" size="30" maxlength="200">
-												</p>
-											</div>
-											<div class="form-submit">
-												<input name="submit" type="submit" id="submit" class="submit" value="Submit">
-											</div>
-										</form>
-									</div>
+										<div class="form-group">
+											<input type="file" name="attachments" class="form-control-file" multiple="multiple" />
+										</div>
+										<div class="form-group">
+											<button class="btn btn-primary col-12">SEND MAIL</button>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- product description end -->
-			<!-- Single related product -->
-			<div class="single-related-product-area">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="section-title">
-								<h3>Related products</h3>
-							</div>
+		</div>
+		<!-- product description end -->
+		<!-- Single related product -->
+		<div class="single-related-product-area">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="section-title">
+							<h3>Related products</h3>
 						</div>
 					</div>
-					<div class="row">
-						<div class="related-product" th:each="rd, state:${lstRelateProduct}">
-							<div class="single-product-area">
-								<div class="product-wrapper gridview">
-									<div class="list-col4">
-										<div class="product-image">
-											<a th:href="@{|/product/${rd.productId}|}">
-												<th:block th:if="${rd.productDiscount > 0}">
-													<span class="isSale">Sale!</span>
-												</th:block>
-												<img th:src="@{|/upload/ProductImages/${rd.productImage}|}" style="width: 350px; height: 350px" alt="">
+				</div>
+				<div class="row">
+					<div class="related-product" th:each="rd, state:${lstRelateProduct}">
+						<div class="single-product-area">
+							<div class="product-wrapper gridview">
+								<div class="list-col4">
+									<div class="product-image">
+										<a th:href="@{|/product/${rd.productId}|}">
+											<th:block th:if="${rd.productDiscount > 0}">
+												<span class="isSale">Sale!</span>
+											</th:block>
+											<img th:src="@{|/upload/ProductImages/${rd.productImage}|}" style="width: 350px; height: 350px" alt="">
+										</a>
+										<div class="quickviewbtn">
+											<!-- <a th:href="@{|/product/${p.productId}|}" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View"> -->
+											<a th:href="@{|/product/${rd.productId}|}" data-original-title="Quick View">
+												<i class="ion-eye"></i>
 											</a>
-											<div class="quickviewbtn">
-												<!-- <a th:href="@{|/product/${p.productId}|}" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View"> -->
-												<a th:href="@{|/product/${rd.productId}|}" data-original-title="Quick View">
-													<i class="ion-eye"></i>
-												</a>
-											</div>
 										</div>
 									</div>
-									<div class="list-col8">
-										<div class="product-info">
-											<h2>
-												<a th:href="@{|/product/${rd.productId}|}">[[${rd.productName}]]</a>
-											</h2>
-											<span class="price">
-												<th:block th:if="${rd.productDiscount == null}">
-													<span class="price">$ [[${rd.productPrice}]] </span>
-												</th:block>
-												<th:block th:if="${rd.productDiscount != null}">
-													<span class="price">
-														<del>$ [[${rd.productPrice}]]</del>
-														$ [[${rd.productPrice - (rd.productPrice * rd.productDiscount / 100)}]]
-													</span>
-												</th:block>
-											</span>
+								</div>
+								<div class="list-col8">
+									<div class="product-info">
+										<h2>
+											<a th:href="@{|/product/${rd.productId}|}">[[${rd.productName}]]</a>
+										</h2>
+										<span class="price">
+											<th:block th:if="${rd.productDiscount == null}">
+												<span class="price">$ [[${rd.productPrice}]] </span>
+											</th:block>
+											<th:block th:if="${rd.productDiscount != null}">
+												<span class="price">
+													<del>$ [[${rd.productPrice}]]</del>
+													$ [[${rd.productPrice - (rd.productPrice * rd.productDiscount / 100)}]]
+												</span>
+											</th:block>
+										</span>
+									</div>
+									<div class="product-hidden">
+										<div class="add-to-cart">
+											<a class="add-cart btn" th:href="@{|/product/${rd.productId}|}">View more information</a>
 										</div>
-										<div class="product-hidden">
-											<div class="add-to-cart">
-												<a href="cart.html">Add to cart</a>
-											</div>
-											<div class="star-actions">
-												<div class="product-rattings">
+
+										<div class="star-actions">
+											<div class="product-rattings">
 												<th:block th:if="${rd.productEvaluation == 5}">
 													<span>
 														<i class="fa fa-star"></i>
@@ -538,19 +477,18 @@
 
 												</th:block>
 											</div>
-												<ul class="actions">
-													<li>
-														<a href="">
-															<i class="ion-android-favorite-outline"></i>
-														</a>
-													</li>
-													<li>
-														<a href="">
-															<i class="ion-ios-shuffle-strong"></i>
-														</a>
-													</li>
-												</ul>
-											</div>
+											<ul class="actions">
+												<li>
+													<a href="">
+														<i class="ion-android-favorite-outline"></i>
+													</a>
+												</li>
+												<li>
+													<a href="">
+														<i class="ion-ios-shuffle-strong"></i>
+													</a>
+												</li>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -559,9 +497,10 @@
 					</div>
 				</div>
 			</div>
-			<!-- Single related product end -->
+		</div>
+		<!-- Single related product end -->
 
-			<script>
+		<script>
 				let zoomer = function() {
 					document
 							.querySelector('#img-zoomer-box')

@@ -65,7 +65,7 @@
 											<td class="product-quantity">
 												<input type="number" min="1" style="color: black;" class="text-center font-weight-bold" ng-change="cart.saveToLocalStorage()" ng-model="item.qty">
 											</td>
-											<td class="product-subtotal" style="font-size: 20px" >$ {{item.finalPrice * item.qty}}</td>
+											<td class="product-subtotal" style="font-size: 20px" >$ {{item.finalPrice * item.qty | number : 2}}</td>
 											<td class="product-remove">
 												<a class="btn btn-danger" ng-click="cart.remove(item.productId)">
 													<i class="fa fa-times" aria-hidden="true" style="color: white;"></i>

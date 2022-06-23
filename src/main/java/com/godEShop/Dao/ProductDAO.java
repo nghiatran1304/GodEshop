@@ -147,7 +147,7 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 	// ---------------------------------------------------------------------------
 
 	@Query("SELECT new com.godEShop.Dto.ProductsStatisticDto" + "(p.id, p.name, p.quantity, sum(od.quantity)) "
-			+ "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o " + "WHERE od.product != 0 "
+			+ "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o " + "WHERE o.orderStatus between 2 and 4 "
 			+ "GROUP BY p.name, p.id, p.quantity ")
 	List<ProductsStatisticDto> getProductStatistic();
 
@@ -157,7 +157,7 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 
 	@Query("SELECT new com.godEShop.Dto.ProductsStatisticDto" + "(p.id, p.name, p.quantity, sum(od.quantity)) "
 			+ "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o "
-			+ "WHERE od.product != 0 AND p.name like ?1 " + "GROUP BY p.name, p.id, p.quantity ")
+			+ "WHERE od.product != 0 AND p.name like ?1 and o.orderStatus between 2 and 4 " + "GROUP BY p.name, p.id, p.quantity ")
 	List<ProductsStatisticDto> get1ProductStatistic(String name);
 
 	@Query("SELECT new com.godEShop.Dto.ProductImageDto" + "(p.id, MIN(pp.id)) " + "FROM Product p "
@@ -165,11 +165,23 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 	List<ProductImageDto> get1ProductImage(String name);
 
 	@Query("SELECT new com.godEShop.Dto.ProductStatisticDto" + "(od.id, p.name, o.createDate, od.quantity, od.price) "
-			+ "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o " + "WHERE p.id = ?1")
+			+ "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o " + "WHERE p.id = ?1 and o.orderStatus between 2 and 4")
 	List<ProductStatisticDto> get1ProductStatistic(Long id);
 
 	@Query("SELECT new com.godEShop.Dto.ProductImageDto" + "(p.id, MIN(pp.id)) " + "FROM Product p "
 			+ "INNER JOIN p.productPhotos pp " + "WHERE p.id like ?1 " + "GROUP BY p.id, p.name")
 	List<ProductImageDto> getSingleProductImage(Long id);
+	
+	// ---------------------------------------------------------------------------
+	
+	@Query("SELECT new com.godEShop.Dto.ProductsStatisticDto" + "(p.id, p.name, p.quantity, sum(od.quantity)) "
+			+ "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o " + "INNER JOIN o.account a " + "INNER JOIN a.users u "
+			+ "WHERE o.orderStatus between 2 and 4 and u.gender = ?1 "
+			+ "GROUP BY p.name, p.id, p.quantity ")
+	List<ProductsStatisticDto> getBestProductStatisticByMale(int gender);
+
+	@Query("SELECT new com.godEShop.Dto.ProductImageDto" + "(p.id, MIN(pp.id)) " + "FROM Product p "
+			+ "INNER JOIN p.productPhotos pp " + "GROUP BY p.id")
+	List<ProductImageDto> getBestProductImageByMale();
 
 }

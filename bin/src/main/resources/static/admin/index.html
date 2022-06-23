@@ -11,18 +11,33 @@
 <link rel="stylesheet" href="/admin/assets/vendors/font-awesome/css/font-awesome.min.css" />
 <link rel="stylesheet" href="/admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
 <link rel="stylesheet" href="/admin/assets/css/style.css" />
+
 <link rel="shortcut icon" href="/admin/assets/images/favicon.png" />
 <!-- ANGULARJS -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.2/angular-route.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- CHART -->
 
 <style>
 input[type="file"] {
 	display: none;
 }
+
+.modal-content {
+  width: 1300px;
+  left: -350px;
+  top: -45px;
+  overflow: auto;
+}
+
+#myChart {
+  width:1250px !important;
+  height:550px !important;
+}
+
 
 .custom-file-upload {
 	border: 1px solid #ccc;
@@ -49,117 +64,117 @@ input[type="file"] {
 }
 
 .card1 {
-    z-index: 0;
-    background-color: #ECEFF1;
-    margin-bottom: 50px;
-    border-radius: 10px;
+	z-index: 0;
+	background-color: #ECEFF1;
+	margin-bottom: 50px;
+	border-radius: 10px;
 }
 
 .top {
-    padding-top: 40px;
-    padding-left: 13% !important;
-    padding-right: 13% !important;
+	padding-top: 40px;
+	padding-left: 13% !important;
+	padding-right: 13% !important;
 }
 
 /*Icon progressbar*/
 #progressbar {
-    margin-bottom: 30px;
-    overflow: hidden;
-    color: #455A64;
-    padding-left: 0px;
-    margin-top: 30px;
-} 
+	margin-bottom: 30px;
+	overflow: hidden;
+	color: #455A64;
+	padding-left: 0px;
+	margin-top: 30px;
+}
 
 #progressbar li {
-    list-style-type: none;
-    font-size: 13px;
-    width: 25%;
-    float: left;
-    position: relative;
-    font-weight: 400;
+	list-style-type: none;
+	font-size: 13px;
+	width: 25%;
+	float: left;
+	position: relative;
+	font-weight: 400;
 }
 
 #progressbar .step0:before {
-    font-family: FontAwesome;
-    content: "\f10c";
-    color: #fff;
+	font-family: FontAwesome;
+	content: "\f10c";
+	color: #fff;
 }
 
 #progressbar li:before {
-    width: 40px;
-    height: 40px;
-    line-height: 45px;
-    display: block;
-    font-size: 20px;
-    background: #C5CAE9;
-    border-radius: 50%;
-    margin: auto;
-    padding: 0px;
+	width: 40px;
+	height: 40px;
+	line-height: 45px;
+	display: block;
+	font-size: 20px;
+	background: #C5CAE9;
+	border-radius: 50%;
+	margin: auto;
+	padding: 0px;
 }
 
 /*ProgressBar connectors*/
 #progressbar li:after {
-    content: '';
-    width: 100%;
-    height: 12px;
-    background: #C5CAE9;
-    position: absolute;
-    left: 0;
-    top: 16px;
-    z-index: -1;
+	content: '';
+	width: 100%;
+	height: 12px;
+	background: #C5CAE9;
+	position: absolute;
+	left: 0;
+	top: 16px;
+	z-index: -1;
 }
 
 #progressbar li:last-child:after {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    position: absolute;
-    left: -50%;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	position: absolute;
+	left: -50%;
 }
 
 #progressbar li:nth-child(2):after, #progressbar li:nth-child(3):after {
-    left: -50%;
+	left: -50%;
 }
 
 #progressbar li:first-child:after {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    position: absolute;
-    left: 50%;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	position: absolute;
+	left: 50%;
 }
 
 #progressbar li:last-child:after {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
 }
 
 #progressbar li:first-child:after {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
 }
 
 #progressbar li.active:before, #progressbar li.active:after {
-    background: green;
+	background: green;
 }
 
 #progressbar li.active:before {
-    font-family: FontAwesome;
-    content: "\f00c";
+	font-family: FontAwesome;
+	content: "\f00c";
 }
 
 .icon {
-    width: 60px;
-    height: 60px;
-    margin-right: 15px;
+	width: 60px;
+	height: 60px;
+	margin-right: 15px;
 }
 
-.icon-content { 
-    padding-bottom: 20px;
+.icon-content {
+	padding-bottom: 20px;
 }
 
 @media screen and (max-width: 992px) {
-    .icon-content {
-        width: 50%;
-    }
+	.icon-content {
+		width: 50%;
+	}
 }
 </style>
 </head>
@@ -183,7 +198,7 @@ input[type="file"] {
 							<!--change to offline or busy as needed-->
 						</div>
 						<div class="nav-profile-text d-flex flex-column pr-3">
-							<span class="font-weight-medium mb-2">[[${#request.remoteUser}]]</span>
+							<span class="font-weight-medium mb-2" id="adminUsername">[[${#request.remoteUser}]]</span>
 							<span class="font-weight-normal">[[*{fullname}]]</span>
 						</div>
 						<span class="badge badge-danger text-white ml-3 rounded">3</span>
@@ -212,9 +227,9 @@ input[type="file"] {
 							<li class="nav-item">
 								<a class="nav-link" href="#!admin/management/account">Account</a>
 							</li>
-							<li class="nav-item">
+							<!-- <li class="nav-item">
 								<a class="nav-link" href="#!admin/management/user">User</a>
-							</li>
+							</li> -->
 							<li class="nav-item">
 								<a class="nav-link" href="#!admin/management/brand">Brand</a>
 							</li>
@@ -453,12 +468,7 @@ input[type="file"] {
 				<!-- FOOTER -->
 				<footer class="footer">
 					<div class="d-sm-flex justify-content-center justify-content-sm-between">
-						<span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-						<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
-							Free
-							<a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a>
-							from Bootstrapdash.com
-						</span>
+						
 					</div>
 				</footer>
 				<!-- END FOOTER -->
@@ -482,7 +492,8 @@ input[type="file"] {
 	<script src="/admin/admin-braceletmaterial/braceletmaterial-ctrl.js"></script>
 	<script src="/admin/admin-glassmaterial/glassmaterial-ctrl.js"></script>
 	<script src="/admin/admin-machineinside/machineinside-ctrl.js"></script>
-	<script src="/admin/admin-user/user-ctrl.js"></script>
+	<!-- <script src="/admin/admin-user/user-ctrl.js"></script> -->
+	
 	<!-- container-scroller -->
 	<!-- plugins:js -->
 	<script src="/admin/assets/vendors/js/vendor.bundle.base.js"></script>

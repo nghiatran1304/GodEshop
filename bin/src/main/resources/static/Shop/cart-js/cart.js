@@ -6,33 +6,55 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 	$scope.getUser = function() {
 		$http.get(`/rest/getUserInfomation/${us}`).then(resp => {
 			$scope.account = resp.data;
+			$scope.order.address = resp.data.address;
+			$scope.orderPaypal.address = resp.data.address;
 		});
 	}
 	$scope.getUser();
 
+	$scope.getProductQuantity = {};
+
 	$scope.cart = {
 		items: [],
-
-		// thêm sản phẩm vào cart
-		add(productId) {
-			var item = this.items.find(item => item.productId == productId);
-			if (item) {
-				item.qty++;
-				this.saveToLocalStorage();
-			} else {
-				$http.get(`/rest/products/${productId}`).then(resp => {
-					resp.data.qty = 1;
-					this.items.push(resp.data);
-					this.saveToLocalStorage();
-				});
-			};
+		outOfStock() {
 			Swal.fire({
-				position: 'top-end',
-				icon: 'success',
-				title: 'Success',
-				showConfirmButton: false,
-				timer: 800
-			})
+				icon: 'error',
+				title: 'Oops...',
+				text: "Sản phẩm đã hết hàng !!!",
+			});
+		},
+		// add product to cart
+		add(productId) {
+			$http.get(`/rest/get-products/${productId}`).then(resp => {
+				$scope.getQuantityProduct = resp.data;
+				if ($scope.getQuantityProduct.quantity <= 0) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: "Sản phẩm đã hết hàng !!!",
+					});
+				} else {
+					var item = this.items.find(item => item.productId == productId);
+					if (item) {
+						item.qty++;
+						this.saveToLocalStorage();
+					} else {
+						$http.get(`/rest/products/${productId}`).then(resp => {
+							resp.data.qty = 1;
+							this.items.push(resp.data);
+							this.saveToLocalStorage();
+						});
+					};
+					Swal.fire({
+						position: 'top-end',
+						icon: 'success',
+						title: 'Success',
+						showConfirmButton: false,
+						timer: 800
+					});
+				}
+			});
+
 		},
 
 		// xóa sản phẩm
@@ -60,8 +82,26 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 
 		// lưu vào local storage
 		saveToLocalStorage() {
-			var json = JSON.stringify(angular.copy(this.items));
-			localStorage.setItem("cart", json);
+			var checkQuantity = true;
+			var itemQuantity = 0;
+			for (var i = 0; i < this.items.length; i++) {
+				if (this.items[i].qty > this.items[i].productQuantity) {
+					itemQuantity = this.items[i].productQuantity;
+					this.items[i].qty = itemQuantity;
+					checkQuantity = false;
+				}
+			}
+			if (checkQuantity) {
+				var json = JSON.stringify(angular.copy(this.items));
+				localStorage.setItem("cart", json);
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: "Sản phẩm này chỉ còn: " + itemQuantity + " sản phẩm !",
+				});
+			}
+
 		},
 
 		// đọc sản phẩm từ local storage
@@ -112,25 +152,34 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			});
 		},
 		purchase() {
-			var order = angular.copy(this);
-			$http.post("/rest/orders", order).then(resp => {
-				Swal.fire({
-					icon: 'success',
-					title: 'Thành công',
-					showConfirmButton: false,
-					timer: 1500
-				}).then((result) => {
-					$scope.cart.clear();
-					location.href = "/information";
-				});
-			}).catch(error => {
+			if (this.address == null || this.address == undefined || this.address.length <= 0) {
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: "Lỗi !!!",
+					text: "Failed !!!",
 				});
-				console.log(" >> Error purchase shopping-cart-app.js : " + error);
-			});
+			} else {
+				var order = angular.copy(this);
+				$http.post("/rest/orders", order).then(resp => {
+					Swal.fire({
+						icon: 'success',
+						title: 'Sucsess',
+						showConfirmButton: false,
+						timer: 1500
+					}).then((result) => {
+						$scope.cart.clear();
+						location.href = "/information";
+					});
+				}).catch(error => {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: "Failed !!!",
+					});
+					console.log(" >> Error purchase shopping-cart-app.js : " + error);
+				});
+			}
+
 
 		}
 	}
@@ -152,17 +201,25 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			});
 		},
 		purchase() {
-			var order = angular.copy(this);
-			$http.post("/rest/orders", order).then(resp => {
-				$scope.cart.clear();
-			}).catch(error => {
+			if (this.address == null || this.address == undefined || this.address.length <= 0) {
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: "Lỗi !!!",
+					text: "Failed !!!",
 				});
-				console.log(" >> Error purchase shopping-cart-app.js : " + error);
-			});
+			} else {
+				var order = angular.copy(this);
+				$http.post("/rest/orders", order).then(resp => {
+					$scope.cart.clear();
+				}).catch(error => {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: "Failed !!!",
+					});
+					console.log(" >> Error purchase shopping-cart-app.js : " + error);
+				});
+			}
 
 		}
 	}

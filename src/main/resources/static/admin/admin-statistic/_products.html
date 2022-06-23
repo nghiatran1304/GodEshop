@@ -1,8 +1,9 @@
 <div xmlns:th="http://www.thymeleaf.org">
+<button id="products" ng-click="exportProducts();" class="btn btn-success">Export Report To Excel</button>
 	<form>
 		<input type="text" class="form-control" placeholder="Search by name" ng-model="kwords" ng-change="findByNameDto(kwords)">
 	</form>
-	<table class="table table-hover table-bordered mt-2">
+	<table id="TableToExport" class="table table-hover table-bordered mt-2">
 		<thead class="thead-dark">
 			<tr class="text-center">
 				<th scope="col">Image</th>
@@ -71,7 +72,7 @@
 				<td style="height: 50px;width: 100px;border: 2px solid lightblue;">
 					<img ng-src="/upload/ProductImages/{{item.imageId}}" alt="" style="width: 60px; height: 60px"/>
 				</td>
-				<td style="height: 50px;width: 200px;font-size: 15px;border: 2px solid lightblue;" ng-click="detail(item.productId)">{{item.productName}}</td>
+				<td style="height: 50px;width: 200px;font-size: 15px;border: 2px solid lightblue;">{{item.productName}}</td>
 				<td style="height: 50px;width: 100px;font-size: 15px;border: 2px solid lightblue;">{{item.createDate  | date : 'dd-MM-yyyy'}}</td>
 				<td style="height: 50px;width: 100px;font-size: 15px;border: 2px solid lightblue;">{{item.quantity}}</td>
 				<td style="height: 50px;width: 100px;font-size: 15px;border: 2px solid lightblue;">${{item.price}}</td>
@@ -82,9 +83,6 @@
 	</table>
 		
 	<div style="display: flex;">
-		<div><input type="date" id="start" name="trip-start"
-       value="2018-07-22"
-       min="2018-01-01" max="2018-12-31"></div>
 		<div class="text-center" style="margin:auto;">
 			<button ng-click="pagerProduct.first()" class="btn btn-secondary">|<</button>
 			<button ng-click="pagerProduct.pre()" class="btn btn-secondary"><<</button>
