@@ -1,0 +1,160 @@
+<div xmlns:th="http://www.thymeleaf.org">
+
+	<div class="col-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<form class="forms-sample row" name="frm"
+					enctype="multipart/form-data" autocomplete="off">
+					<!-- image -->
+					<div class="col-4 text-center">
+						<div>
+							<h3>ACCESSORY'S IMAGE</h3>
+						</div>
+						<label for="inputGroupFile01"
+							ng-if="formProductPhoto.imageId != 'a'"> <img
+							ng-src="{{'/upload/ProductImages/' + formProductPhoto.imageId}}"
+							id="myID" style="width: 300px; height: 300px" alt="No Image" />
+						</label> <label for="inputGroupFile01" ng-model="formProductPhoto.imageId"
+							ng-if="formProductPhoto.imageId == 'a'"> <img
+							src="/upload/noImage.jpg" id="myID1"
+							style="width: 300px; height: 300px" alt="No Image" />
+						</label>
+						<div class="form-group">
+							<!-- <label>File upload</label> -->
+							<input type="file" class="file-upload-default" />
+							<div class="form-group col-xs-12">
+
+								<!-- chạy ok -->
+								<!-- <label class="custom-file-upload" ng-if="formProductPhoto.imageId == 'a'">
+									<input onchange="angular.element(this).scope().onFileSelected(this.files,event)" id="image" type="file" name="photo" class="custom-file-input1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+									Upload Image
+								</label> -->
+								<!-- kết thúc chạy ok -->
+								<!-- START TEST MULTI -->
+								<div class="container">
+									<label class="custom-file-upload" ng-show="isEdit == false">
+										<input multiple
+										onchange="angular.element(this).scope().upload1(this.files,event)"
+										accept="image/*" type="file" name="photo"
+										class="custom-file-input1" id="inputGroupFile01"
+										aria-describedby="inputGroupFileAddon01"> Upload Image
+									</label> 
+									<label class="custom-file-upload" ng-show="isEdit == true">
+										More Images <input type="file" class="btn btn-primary" id="uf"
+										accept="image/*" multiple
+										onchange="angular.element(this).scope().uploadImage(this.files)">
+									</label>
+									<hr>
+									<label ng-show="isEdit == false"
+										ng-repeat="filename in filenames"
+										title="Double click to delete"> <img
+										ng-src="{{url(filename)}}" ng-click="imageChose(filename)" ng-dblclick="delete1(filename)"
+										class="mb-3 mr-2" style="width: 80px; height: 80px" alt="">
+									</label>
+									 <label ng-show="isEdit == true"
+										ng-repeat="filename in filenames"
+										title="Double click to delete" class="ml-1"> 
+										<img
+										ng-src="{{'/upload/ProductImages/' + filename}}" ng-click="imageChose(filename)"
+										ng-dblclick="deleteImage(filename)" class="mb-3 mr-2"
+										style="width: 80px; height: 80px" alt="">
+									</label>
+								</div>
+								<!-- START TEST MULTI -->
+							</div>
+						</div>
+
+					</div>
+					<!-- input -->
+					<div class="col-8">
+						<div class="row">
+							<!-- 1 -->
+							<div class="col-6">
+								<div class="form-group">
+									<label for="exampleInputName1">
+										Name <small ng-show="frm.frmName.$invalid" class="text-danger"><i>*Input name</i></small>
+									</label>
+									<input type="text"
+										class="form-control" id="name" name="frmName" required
+										ng-model="formProduct.productName" placeholder="Name" />
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail3">Price<small ng-show="frm.frmPrice.$invalid" class="text-danger"><i>*Input price</i></small></label> 
+									<input
+										type="number" class="form-control" id="price" name="frmPrice" required
+										ng-model="formProduct.productPrice" placeholder="price" />
+								</div>
+								<div class="form-group">
+									<label>Warranty<small ng-show="frm.frmWarranty.$invalid" class="text-danger"><i>*Input Warranty</i></small></label> 
+									<input type="text" class="form-control" name="frmWarranty" required
+										ng-model="formProduct.productWarranty" placeholder="Warranty" />
+								</div>
+								<div class="form-group">
+									<label>Quantity<small ng-show="frm.frmQuantity.$invalid" class="text-danger"><i>*Input Quantity</i></small></label> 
+									 <input type="text" class="form-control"  name="frmQuantity" required
+										ng-model="formProduct.productQuantity" placeholder="Quantity" />
+								</div>
+								<div class="form-group">
+									<div>Create Date</div>
+									<input ng-model="formProduct.productCreateDate" type="date" readonly
+										class="form-control" />
+								</div>
+							</div>
+							<!-- 2 -->
+							<div class="col-6">
+								<div class="form-group">
+									<label>Brand</label> <select class="form-control"
+										ng-model="formProduct.brandId">
+										<option ng-repeat="b in lstBrands" ng-value="{{b.id}}"
+											ng-selected="formProduct.brandId == b.id">{{b.name}}</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Materials</label> <select class="form-control"
+										ng-model="formAccessory.braceletMaterialId">
+										<option ng-repeat="bm in lstBraceletMaterial"
+											ng-value="{{bm.id}}"
+											ng-selected="formAccessory.braceletMaterialId == bm.id">{{bm.name}}</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Color<small ng-show="frm.frmColor.$invalid" class="text-danger"><i>*Input Color</i></small></label> 
+									 <input type="text" class="form-control" name="frmColor" required
+										ng-model="formAccessory.accessoryColor" placeholder="Color" />
+								</div>
+								<div class="form-group">
+									<label>Made In<small ng-show="frm.frmMadeIn.$invalid" class="text-danger"><i>*Input MadeIn</i></small></label> 
+									 <input type="text" class="form-control" name="frmMadeIn" required
+										ng-model="formProduct.productMadeIn" placeholder="Made in" />
+								</div>
+								<div class="form-group">
+									<label>Detail</label>
+									<textarea class="form-control" rows="4"
+										ng-model="formProduct.productDetail"></textarea>
+								</div>
+								<div class="form-group">
+									<div class="mb-3">Available</div>
+									<label for="radio-inline"> <input
+										ng-model="formProduct.productIsDeteled" type="radio"
+										ng-value="false" name="available" /> Yes
+									</label> <label for="radio-inline" class="ml-3"> <input
+										ng-model="formProduct.productIsDeteled" type="radio"
+										ng-value="true" name="available" /> No
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<button ng-click="create(); " ng-show="showInsert == true"
+							class="btn btn-primary mr-2">Insert</button>
+						<button ng-click="update()" ng-show="showUpdate == true"
+							class="btn btn-warning mr-2">Update</button>
+						<button ng-click="deleteProduct(formProduct)"
+							class="btn btn-danger mr-2">Remove</button>
+						<button ng-click="reset()" class="btn btn-info">Cancel</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
