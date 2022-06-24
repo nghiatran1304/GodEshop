@@ -1,6 +1,7 @@
 package com.godEShop.Controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,8 +36,19 @@ public class RegisterController {
     public String Register(Model model, @RequestParam("username") String username,
 	    @RequestParam("password") String password, @RequestParam("txtPhone") String phoneNumber) {
 	try {
+		List<User> oldUser = userService.findAll();	
+	//	System.out.println("phone user 39:"+oldUser.get(40).getPhone());
+		for (User user : oldUser) {
+			if(phoneNumber.equals(user.getPhone())) {
+				model.addAttribute("mIsPhoneExisted", "true");
+				model.addAttribute("messageRegister", "FAILED");
+				return "forward:/account/login/form";
+			}
+		}
+		
 	    if (userService.findByUsername(username) == null && username.trim().length() > 0
 		    && password.trim().length() > 0 && phoneNumber.trim().length() > 0) {
+	    
 		Account acc = new Account();
 		acc.setUsername(username);
 		acc.setPassword(pe.encode(password));
@@ -62,6 +74,7 @@ public class RegisterController {
 	    }
 	} catch (Exception e) {
 	    // TODO: handle exception
+		System.out.println(e);
 	    model.addAttribute("messageRegister", "FAILED");
 	    return "forward:/account/login/form";
 	}

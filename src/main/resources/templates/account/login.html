@@ -47,7 +47,7 @@
 							<i class="fab fa-linkedin-in"></i>
 						</a>
 					</div>
-					<span>or use your email for registration</span>
+					
 					<input type="text" placeholder="Username" name="username" class="form-control" required />
 
 					<div class="input-group form-group">
@@ -58,8 +58,8 @@
 							</button>
 						</div>
 					</div>
-				
-					<input type="text" pattern="[0-9]{10}" placeholder="Phone number" name="txtPhone" class="form-control mt-3" required />
+					<span th:if="${mIsPhoneExisted}=='true'" class="text-danger">phone number is existed!</span>
+					<input type="text" pattern="[0-9]{10}" placeholder="Phone number" name="txtPhone" class="form-control " required />
 					<button>Sign Up</button>
 				</form>
 			</div>

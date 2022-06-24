@@ -152,12 +152,11 @@
 								</div>
 								<!-- Single Tab Content End -->
 
-
 								<div class="tab-pane fade" id="account-info" role="tabpanel">
 									<div class="myaccount-content">
-										<h3>Account Details : 	</h3>
+										<h3>Account Details : <span>[[${mUpdateInfo}]]</span>	</h3>
 										<div class="account-details-form checkout-form-list">
-											<form th:action="@{/update/accountDetail}" method="post" autocomplete="off" th:object="${user}" enctype="multipart/form-data">
+											<form th:action="@{/update/accountDetail}" method="POST" autocomplete="off" th:object="${user}" enctype="multipart/form-data">
 												<div class="row">
 													<div class="col-md-6 text-center">
 														<img id="myID" th:if="${isOAuth2} == false" th:src="@{|/upload/UserImages/${user.photo}|}" alt="" style="width: 350px; height: 350px" />
@@ -221,9 +220,10 @@
 
 
 												<div class="single-input-item">
-													<button class="btn w-100" type="submit">UPDATE</button>
+													<button class="btn w-100" type="submit" >UPDATE</button>
 												</div>
 												<script>
+													
 													function onFileSelected(
 															event) {
 														var selectedFile = event.target.files[0];
