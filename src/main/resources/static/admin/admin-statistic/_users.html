@@ -77,8 +77,8 @@
 		<tbody>
 			<tr style="height: 50px;" class="text-center" ng-repeat="item in userDetailPager.items | orderBy:sortType | filter:searchName" ng-click="edit(item)">
 				<td style="width: 300px;font-size: 30px;border: 2px solid lightblue;" ng-click="detailUser(item.id)">{{item.createDate  | date : 'dd-MM-yyyy'}}</td>
-				<td style="width: 200px;font-size: 30px;border: 2px solid lightblue;">${{item.price}}</td>
-				<td style="width: 200px;font-size: 30px;border: 2px solid lightblue;">{{item.quantity}}</td>
+				<td style="width: 300px;font-size: 30px;border: 2px solid lightblue;">${{item.price | number:2:0}}</td>
+				<td style="width: 100px;font-size: 30px;border: 2px solid lightblue;">{{item.quantity}}</td>
 				<td style="width: 300px;font-size: 30px;border: 2px solid lightblue;">${{item.quantity*item.price | number:2:0}}</td>
 				<td style="width: 300px;font-size: 30px;border: 2px solid lightblue;">{{item.orderStatus.name}}</td>
 			</tr>

@@ -41,7 +41,8 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     		+ "INNER JOIN a.users u "
     		+ "INNER JOIN o.orderDetails od "
     		+ "WHERE a.role != 'Admin' and o.orderStatus between 2 and 4 "
-    		+ "GROUP BY u.id, a.username, u.fullname, u.photo")
+    		+ "GROUP BY u.id, a.username, u.fullname, u.photo "
+    		+ "ORDER BY sum(od.quantity*od.price) DESC")
     List<UsersStatisticDto> getAllUserStat();
     
     @Query("SELECT new com.godEShop.Dto.UsersStatisticDto"

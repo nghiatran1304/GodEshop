@@ -223,6 +223,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		$scope.initializeUser = function() {
 			$http.get("/rest/statistic/users").then(resp => {
 				$scope.itemUsers = resp.data;
+				console.log(resp.data);
 			});
 		};
 
@@ -411,11 +412,11 @@ app.controller("statistic-ctrl", function($scope, $http) {
 						$scope.totalDelivery = d.data;
 						$http.get(`/rest/statistic/totalCompleteOrder`).then(e => {
 							$scope.totalComplete = e.data;
-							$scope.pending = Math.round($scope.totalPending/$scope.totalOrder*100);
-							$scope.confirm = Math.round($scope.totalConfirm/$scope.totalOrder*100);
-							$scope.delivery = Math.round($scope.totalDelivery/$scope.totalOrder*100);
-							$scope.complete = Math.round($scope.totalComplete/$scope.totalOrder*100);
-							$scope.cancel = 100-$scope.pending-$scope.confirm-$scope.delivery-$scope.complete;
+							$scope.pending = Math.round(($scope.totalPending/$scope.totalOrder*100)*100)/100;
+							$scope.confirm = Math.round(($scope.totalConfirm/$scope.totalOrder*100)*100)/100;
+							$scope.delivery = Math.round(($scope.totalDelivery/$scope.totalOrder*100)*100)/100;
+							$scope.complete = Math.round(($scope.totalComplete/$scope.totalOrder*100)*100)/100;
+							$scope.cancel = Math.round((100-$scope.pending-$scope.confirm-$scope.delivery-$scope.complete)*100)/100;
 							const dataOrderStatusStatistic = {
 								  labels: [
 								    'Pending',
