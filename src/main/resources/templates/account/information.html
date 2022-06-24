@@ -154,7 +154,7 @@
 
 								<div class="tab-pane fade" id="account-info" role="tabpanel">
 									<div class="myaccount-content">
-										<h3>Account Details : <span>[[${mUpdateInfo}]]</span>	</h3>
+										<h3>Account Details : <i th:unless="${mUpdateInfo}=='Update Success'" class="text-danger">[[${mUpdateInfo}]]</i><i th:if="${mUpdateInfo}=='Update Success'" class="text-success">[[${mUpdateInfo}]]</i>	</h3>
 										<div class="account-details-form checkout-form-list">
 											<form th:action="@{/update/accountDetail}" method="POST" autocomplete="off" th:object="${user}" enctype="multipart/form-data">
 												<div class="row">

@@ -56,16 +56,17 @@ public class InformationController {
 
 	@RequestMapping("/information")
 	public String informationPage(HttpServletRequest request, Model model) {
+		
 		String username = request.getRemoteUser();
 		User user = userService.findByUsername(username);
-
+	
 		if (user.getPhoto().contains("jpg") || user.getPhoto().contains("png") || user.getPhoto().contains("JPG")
 				|| user.getPhoto().contains("PNG")) {
 			model.addAttribute("isOAuth2", false);
 		} else {
 			model.addAttribute("isOAuth2", true);
 		}
-		if (isVerificationEmail == true) {
+		if (isVerificationEmail == true ) {
 			model.addAttribute("isVerificationEmail", "true");
 		} else {
 			model.addAttribute("isVerificationEmail", "false");
@@ -88,6 +89,7 @@ public class InformationController {
 			@RequestParam("address") String address, @RequestParam("phone") String phone,
 			@RequestPart("photo") MultipartFile photo, RedirectAttributes newUser) throws ParseException {
 		try {
+
 			String username = request.getRemoteUser();
 			Account acc = accountService.findByUsername(username);
 			User user = userService.findByUsername(username);
@@ -101,17 +103,21 @@ public class InformationController {
 			user.setPhone(phone);
 			user.setPhoto(user.getPhoto());
 			user.setAddress(address);
-
 			userService.create(user);
-			uploadService.saveUser(photo, user);
-			// model.addAttribute("user", user);
+			if (!photo.isEmpty()) {
+				uploadService.saveUser(photo, user);
+				model.addAttribute("mUpdateInfo", "Update Success");
+			}
 
-			return "redirect:/information";
+			// model.addAttribute("user", user);
+			model.addAttribute("mUpdateInfo", "Update Success");
+			return "forward:/information";
 
 		} catch (Exception e) {
 			// TODO: handle exception
-			model.addAttribute("mUpdateInfo", "Update failed");
-			return "redirect:/information";
+			System.out.println("error:" + e);
+			model.addAttribute("mUpdateInfo", "Update Failed");
+			return "forward:/information";
 		}
 
 	}
@@ -132,6 +138,7 @@ public class InformationController {
 		String username = request.getRemoteUser();
 		getAccount = accountService.findByUsername(username);
 		User u = userService.findByAccountUsername(username);
+		
 		try {
 			if (email.equalsIgnoreCase(u.getEmail())) {
 				int newNumber = 0;
@@ -175,13 +182,14 @@ public class InformationController {
 
 		try {
 			int pin = Integer.parseInt(number);
-			if (pin == checkPinNumber) {
+			if (pin == checkPinNumber ) {
 				isVerificationEmail = true;
 			} else {
 				isVerificationEmail = false;
 				model.addAttribute("mCheckPinEmail", "invalid verification code");
 			}
 			return "redirect:/information";
+			
 		} catch (Exception e) {
 			isVerificationEmail = false;
 			model.addAttribute("mCheckPinEmail", "invalid verification code");

@@ -51,14 +51,15 @@ public class ForgotPasswordController {
 		User u = userService.findByAccountUsername(username);
 		try {
 			if(email.equalsIgnoreCase(u.getEmail()) ) {
-				String randomPIN ="";
+				int newNumber = 0;
+				
 				Random rdn = new Random();
-				int number = rdn.nextInt(999999);
-				randomPIN="" + number;
-				if(number < 999999) {
-					randomPIN = "0" + number;
+				int number = rdn.nextInt(99999);
+
+				if (number < 999999) {
+					newNumber = number * 10;
 				}
-				checkPinNumber= Integer.parseInt(randomPIN);
+				checkPinNumber = newNumber;
 				MailInfo m = new MailInfo();
 				m.setFrom("testemailnghiatran@gmail.com");
 				m.setSubject("Reset login password GodEShop ");
