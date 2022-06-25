@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,6 +35,7 @@ import com.godEShop.Service.UserService;
 
 @Controller
 public class InformationController {
+
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -72,6 +72,7 @@ public class InformationController {
 			model.addAttribute("isVerificationEmail", "false");
 		}
 		model.addAttribute("user", user);
+
 
 		List<OrderListDto> orders = orderService.findByUsername1(username);
 		if (orders.size() != 0) {
@@ -128,6 +129,7 @@ public class InformationController {
 		model.addAttribute("orderDetails", orderDetails);
 		return "account/information";
 	}
+
 
 	/* ham gui ma xac thuc email */
 	int checkPinNumber = 0;

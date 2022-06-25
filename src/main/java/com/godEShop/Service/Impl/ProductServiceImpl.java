@@ -125,4 +125,10 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDAO.findByNameOrderDetail(productName);
 	}
+
+	@Override
+	public List<ProductWatchInfoDto> lstFullInfoWatchOutOfSoon() {
+	    // TODO Auto-generated method stub
+	    return productDAO.lstFullInfoWatchOutOfSoon();
+	}
 }

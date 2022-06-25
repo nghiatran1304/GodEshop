@@ -21,6 +21,8 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 	$scope.showUpdate = false;
 
 	$scope.isEdit = false;
+	
+	$scope.outOfSoon = [];
 
 	$scope.imageChose = function(filename) {
 		var imgtag = document.getElementById("myID");
@@ -81,6 +83,11 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 		$http.get("/rest/machines").then(resp => {
 			$scope.lstMachineInside = resp.data;
 		});
+		// product out of soon
+		$http.get("/rest/outOfSoon").then(resp => {
+			$scope.outOfSoon = resp.data;
+		})
+		
 	};
 
 	$scope.initialize();
@@ -437,6 +444,39 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 		}
 
 	}
+	
+	$scope.pageroutOfSoon = {
+		page: 0,
+		size: 5,
+		get items() {
+			var start = this.page * this.size;
+			return $scope.outOfSoon.slice(start, start + this.size);
+		},
+		get count() {
+			return Math.ceil(1.0 * $scope.outOfSoon.length / this.size);
+		},
+		first() {
+			this.page = 0;
+		},
+		pre() {
+			this.page--;
+			if (this.page < 0) {
+				this.last();
+			}
+		},
+		next() {
+			this.page++;
+			if (this.page >= this.count) {
+				this.first();
+			}
+		},
+		last() {
+			this.page = this.count - 1;
+		}
+
+	}
+	
+	
 
 	// -------------------- UPLOAD MULTI IMAGE---------------------
 	/*

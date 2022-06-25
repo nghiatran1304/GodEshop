@@ -56,4 +56,6 @@ public interface ProductService {
     List<ProductWatchInfoDto> lstSearchFullInfoWatch(String name);
     
     List<Product> findByNameOrderDetail(String productName);
+
+    List<ProductWatchInfoDto> lstFullInfoWatchOutOfSoon();
 }
