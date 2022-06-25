@@ -52,6 +52,12 @@ public class ProductRestController {
 	return productService.lstFullInfoWatch();
     }
     
+    @GetMapping("/rest/outOfSoon")
+    public List<ProductWatchInfoDto> getAllOutOfSoon(){
+	return productService.lstFullInfoWatchOutOfSoon();
+    }
+    
+    
     @GetMapping("/rest/products/search/{name}")
     public List<ProductWatchInfoDto> findBySearch(@PathVariable("name") String name) {
 	return productService.lstSearchFullInfoWatch("%" + name + "%");
