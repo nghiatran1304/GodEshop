@@ -65,15 +65,15 @@
 												</thead>
 
 												<tbody>
-													<tr ng-repeat="order in pager.orders" ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal">
+													<tr ng-repeat="order in pager.orders" >
 														<td hidden>{{order.orderId}}</td>
-														<td>{{order.createDate| date : "dd-MM-yyyy"}}</td>
-														<td>{{order.address}}</td>
-														<td ng-show="order.statusName == 'Cancel'" class="text-danger font-weight-bold">{{order.statusName}}</td>
-														<td ng-show="order.statusName == 'Pending'" class="text-warning font-weight-bold">{{order.statusName}}</td>
-														<td ng-show="order.statusName == 'Delivery'" class="text-primary font-weight-bold">{{order.statusName}}</td>
-														<td ng-show="order.statusName == 'Confirmed'" class="text-info font-weight-bold">{{order.statusName}}</td>
-														<td ng-show="order.statusName == 'Complete'" class="text-success font-weight-bold">{{order.statusName}}</td>
+														<td ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal">{{order.createDate| date : "dd-MM-yyyy"}}</td>
+														<td ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal">{{order.address}}</td>
+														<td ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal" ng-show="order.statusName == 'Cancel'" class="text-danger font-weight-bold">{{order.statusName}}</td>
+														<td ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal" ng-show="order.statusName == 'Pending'" class="text-warning font-weight-bold">{{order.statusName}}</td>
+														<td ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal" ng-show="order.statusName == 'Delivery'" class="text-primary font-weight-bold">{{order.statusName}}</td>
+														<td ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal" ng-show="order.statusName == 'Confirmed'" class="text-info font-weight-bold">{{order.statusName}}</td>
+														<td ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal" ng-show="order.statusName == 'Complete'" class="text-success font-weight-bold">{{order.statusName}}</td>
 
 														<td>
 															<button class="btn btn-info btn-lg" ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal">View</button>

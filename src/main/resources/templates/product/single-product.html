@@ -121,12 +121,12 @@
 									</div>
 									<span class="price">
 										<th:block th:if="${productItem.productDiscount == null || productItem.productDiscount == 0 || productItem.productEndDiscount.compareTo(timeNow) == -1}">
-											<span class="price">$ [[*{productPrice}]] </span>
+											<span class="price">$ [[*{#numbers.formatDecimal(productPrice, 0, 'COMMA', 2, 'POINT')}]] </span>
 										</th:block>
 										<th:block th:if="${productItem.productDiscount != null && (productItem.productEndDiscount.compareTo(timeNow) == 1 || productItem.productEndDiscount.compareTo(timeNow) == 0) }">
 											<span class="price">
 												<del>$ [[*{productPrice}]]</del>
-												$ [[*{productPrice - (productPrice * productDiscount / 100)}]]
+												$ [[*{#numbers.formatDecimal(productPrice - (productPrice * productDiscount / 100), 0, 'COMMA', 2, 'POINT')}]]
 											</span>
 										</th:block>
 									</span>

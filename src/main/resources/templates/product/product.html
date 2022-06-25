@@ -176,9 +176,9 @@
 												<span class="woocommerce-Price-amount amount"> <span
 													class="woocommerce-Price-currencySymbol"> <th:block
 															th:if="${p.productDiscount == null}">
-															$ [[${p.productPrice}]]
+															$ [[${#numbers.formatDecimal(p.productPrice, 0, 'COMMA', 2, 'POINT')}]]
 														</th:block> <th:block th:if="${p.productDiscount != null}">
-															<del>$ [[${p.productPrice}]]</del>
+															<del>$ [[${#numbers.formatDecimal(p.productPrice, 0, 'COMMA', 2, 'POINT')}]]</del>
 															$ <span
 																th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
 														</th:block>

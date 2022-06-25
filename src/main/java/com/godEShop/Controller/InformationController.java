@@ -52,8 +52,8 @@ public class InformationController {
 	MailerService mailerServie;
 	@Autowired
 	BCryptPasswordEncoder pe;
-	static Boolean isVerificationEmail = false;
-
+	 Boolean isVerificationEmail = false;
+	 Boolean isAccount = false;
 	@RequestMapping("/information")
 	public String informationPage(HttpServletRequest request, Model model) {
 		
@@ -66,7 +66,7 @@ public class InformationController {
 		} else {
 			model.addAttribute("isOAuth2", true);
 		}
-		if (isVerificationEmail == true ) {
+		if (isVerificationEmail == true && isAccount == true ) {
 			model.addAttribute("isVerificationEmail", "true");
 		} else {
 			model.addAttribute("isVerificationEmail", "false");
@@ -141,20 +141,15 @@ public class InformationController {
 		
 		try {
 			if (email.equalsIgnoreCase(u.getEmail())) {
-				int newNumber = 0;
-				Random rdn = new Random();
-				int number = rdn.nextInt(99999);
-
-				if (number < 999999) {
-					newNumber = number * 10;
-				}
-				checkPinNumber = newNumber;
+				isAccount = true;
+				int number = (int) Math.floor(((Math.random() * 899999) + 100000));
+				checkPinNumber = number;
 				MailInfo m = new MailInfo();
 				m.setFrom("testemailnghiatran@gmail.com");
 				m.setSubject("Verification your email");
 				m.setTo(email);
 				m.setBody("OTP: " + checkPinNumber);
-
+				
 				try {
 					mailerServie.send(m);
 					isVerificationEmail = false;
