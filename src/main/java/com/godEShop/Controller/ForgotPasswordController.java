@@ -33,8 +33,6 @@ public class ForgotPasswordController {
     @Autowired
     ServletContext application;
 
-    @Autowired
-    HttpServletRequest req;
 
     @Autowired
     BCryptPasswordEncoder pe;
