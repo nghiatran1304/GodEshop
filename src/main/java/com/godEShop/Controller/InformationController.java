@@ -52,10 +52,9 @@ public class InformationController {
 	@Autowired
 	BCryptPasswordEncoder pe;
 	 Boolean isVerificationEmail = false;
-	 Boolean isAccount = false;
+	
 	@RequestMapping("/information")
-	public String informationPage(HttpServletRequest request, Model model) {
-		
+	public String informationPage(HttpServletRequest request, Model model) {		
 		String username = request.getRemoteUser();
 		User user = userService.findByUsername(username);
 	
@@ -65,7 +64,7 @@ public class InformationController {
 		} else {
 			model.addAttribute("isOAuth2", true);
 		}
-		if (isVerificationEmail == true && isAccount == true ) {
+		if (isVerificationEmail == true ) {
 			model.addAttribute("isVerificationEmail", "true");
 		} else {
 			model.addAttribute("isVerificationEmail", "false");
@@ -142,7 +141,7 @@ public class InformationController {
 		
 		try {
 			if (email.equalsIgnoreCase(u.getEmail())) {
-				isAccount = true;
+			
 				int number = (int) Math.floor(((Math.random() * 899999) + 100000));
 				checkPinNumber = number;
 				MailInfo m = new MailInfo();
@@ -189,7 +188,7 @@ public class InformationController {
 		} catch (Exception e) {
 			isVerificationEmail = false;
 			model.addAttribute("mCheckPinEmail", "invalid verification code");
-			return "redirect:/information";
+			return "account/checkPinEmail";
 		}
 
 	}

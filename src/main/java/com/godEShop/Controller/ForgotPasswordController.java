@@ -86,7 +86,7 @@ public class ForgotPasswordController {
 
     }
 
-    Account acceptAccount = null;
+ 
 
     @RequestMapping("/checkPin")
     public String checkPin(Model model, @RequestParam("number") String number) {
