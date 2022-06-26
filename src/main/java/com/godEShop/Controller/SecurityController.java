@@ -1,6 +1,8 @@
 package com.godEShop.Controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +47,9 @@ public class SecurityController {
     @Autowired
     ServletContext servletContext;
 
+    List<String> usernameLoginFail = new ArrayList<>();
+    String temp = "";
+
     @RequestMapping({ "/account/login/form", "/loginPage" })
     public String loginForm(Model model) {
 	model.addAttribute("message", "PLEASE LOG IN");
@@ -59,6 +64,9 @@ public class SecurityController {
 
     @RequestMapping("/account/login/success")
     public String loginSuccess(Model model, HttpServletRequest request, HttpServletResponse response) {
+	sessionService.remove("getUsernameValue");
+	temp = "";
+	usernameLoginFail = new ArrayList<>();
 	model.addAttribute("messageLogin", "LOGIN SUCCESS");
 	if (req.isUserInRole("Admin")) {
 	    return "redirect:/admin";
@@ -69,6 +77,22 @@ public class SecurityController {
     @RequestMapping("/account/login/error")
     public String loginError(Model model) {
 	model.addAttribute("messageLogin", "WRONG LOGIN INFORMATION!");
+	// System.out.println(sessionService.get("getUsernameValue").toString());
+	int count = 0;
+	usernameLoginFail.add(sessionService.get("getUsernameValue").toString());
+	String usernameUsingLogin = sessionService.get("getUsernameValue").toString();
+	for (int i = 0; i < usernameLoginFail.size(); i++) {
+	    if (usernameUsingLogin.equalsIgnoreCase(usernameLoginFail.get(i))) {
+		count++;
+		if (count >= 3) {
+		    temp = usernameUsingLogin;
+		    break;
+		}
+	    }
+	}
+	if (count >= 3) {
+	    return "redirect:/forgotPassword";
+	}
 	return "account/login";
     }
 
@@ -81,20 +105,19 @@ public class SecurityController {
     @RequestMapping("/account/logoff/success")
     public String logoffSuccess(Model model) {
 	sessionService.remove("adminName");
-	model.addAttribute("messageLogoff", "YOU ARE LOGGED OUT");
+	// model.addAttribute("messageLogoff", "YOU ARE LOGGED OUT");
 	return "account/login";
     }
 
     @RequestMapping("/oauth2/login/success")
-    public String sucess(OAuth2AuthenticationToken oauth2) { // toàn bộ thông tin đăng nhập từ mạng xh nằm trong đối
-							     // tượng này
-
+    public String sucess(OAuth2AuthenticationToken oauth2) {
 	// Đọc thông tin tài khoản từ mạng xã hội
-
 	String email = oauth2.getPrincipal().getAttribute("email");
 	String fullname = oauth2.getPrincipal().getAttribute("name");
 	String photo = oauth2.getPrincipal().getAttribute("picture");
 	String password = Long.toHexString(System.currentTimeMillis());
+
+	System.out.println(oauth2.getPrincipal().getAttributes());
 
 	if (userService.findByUsername(email) == null) {
 	    Account newAccount = new Account();
