@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.godEShop.Dao.AccountDAO;
 import com.godEShop.Entity.Account;
 import com.godEShop.Service.AccountService;
+import com.godEShop.Service.SessionService;
 
 @Service
 public class UserDetailImpl implements UserDetailsService {
@@ -22,19 +23,23 @@ public class UserDetailImpl implements UserDetailsService {
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    SessionService sessionService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 	// TODO Auto-generated method stub
-
+	sessionService.remove("getUsernameValue");
 	try {
 	    Account account = accountService.findByUsername(username);
 	    // Tạo UserDetails từ Account
+	    sessionService.set("getUsernameValue", username.toString());
 	    String password = account.getPassword();
 	    String role = account.getRole().getId();
 	    return User.withUsername(username).password(password).roles(role).build();
 	} catch (Exception e) {
 	    // TODO: handle exception
+	    
 	    throw new UsernameNotFoundException(username + "not found");
 	}
     }
@@ -50,7 +55,8 @@ public class UserDetailImpl implements UserDetailsService {
 
 	Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 	// thay thế authentication này bằng authentication từ mạng xh
-	SecurityContextHolder.getContext().setAuthentication(auth); // SecurityContextHolder: nơi chứa tt secutiry
+	SecurityContextHolder.getContext().setAuthentication(auth); 
+	// SecurityContextHolder: nơi chứa tt secutiry
 
     }
 }
