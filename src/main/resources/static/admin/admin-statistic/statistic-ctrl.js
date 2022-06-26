@@ -1,18 +1,59 @@
+import { font } from './font.js'
 app.controller("statistic-ctrl", function($scope, $http) {
 	// ---------------- Start Product statistic --------------
 	$scope.itemsProduct = [];
-
+	$scope.exportProductsData = [];
 	$scope.initialize = function() {
-		// load products
 		$http.get("/rest/statistic/products").then(resp => {
 			$scope.itemsProduct = resp.data;
+			$scope.itemsProduct.forEach(item => {
+				$scope.exportProductsData.push({
+						productId: item.productId,
+						productImage: '',
+						productName: item.productName,
+						productStock: item.quantityleft,
+						productSold: item.quantity});
+			})
+			
 			$http.get("/rest/products/image").then(resp2 => {
 				for (var i = 0; i < resp.data.length; i++) {
 					if (resp.data.productId == resp2.data.productId) {
 						$scope.itemsProduct[i].imageId = resp2.data[i].imageId;
+						$scope.exportProductsData[i].productImage = resp2.data[i].imageId;
 					}
 				}	
 			})
+			
+			// Xuat bao cao thong ke Products
+			$scope.exportProducts = function() {
+		      	const ws = XLSX.utils.json_to_sheet($scope.exportProductsData);
+		      	const fileName = 'productsReport';
+		      	var wsrows = [];
+				const wb = XLSX.utils.book_new();
+				XLSX.utils.book_append_sheet(wb, ws, 'Report');
+				ws['!cols'] = [{ width: 10 }, { width: 40 }, { width: 40 }, { width: 15 }, { width: 15 } ]
+				wsrows.push({'hpt':20})
+				for (var i = 1; i <= $scope.exportProductsData.length; i++) {
+					wsrows.push({'hpt':100});
+				}
+				ws['!rows'] = wsrows;
+				XLSX.writeFile(wb, `${fileName}.xlsx`);
+			}
+			
+			$scope.exportPdfProducts = function() {
+				var testcolumns = ["ID", "Image", "Product Name", "Product Stock", "Product Sold"];
+				var testrows = [];
+				$scope.exportProductsData.forEach(item => {
+					testrows.push([item.productId, item.productImage, item.productName, item.productStock, item.productSold]);
+				})
+			    var doc = new jsPDF();
+				doc.addFileToVFS("MyFont.ttf", font);
+		        doc.addFont("MyFont.ttf", "MyFont", "normal");
+		        doc.setFont("MyFont");
+				doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+		        doc.save('productReport.pdf');
+  				
+			}
 		});
 	};
 
@@ -220,11 +261,53 @@ app.controller("statistic-ctrl", function($scope, $http) {
 	var userTab = document.getElementById('users-tab')
 	userTab.addEventListener('click', () => {
 		$scope.itemUsers = [];
+		$scope.exportUsersData = []
 		$scope.initializeUser = function() {
 			$http.get("/rest/statistic/users").then(resp => {
 				$scope.itemUsers = resp.data;
-				console.log(resp.data);
+				
+				$scope.itemUsers.forEach(item => {
+					$scope.exportUsersData.push({
+						userId: item.id,
+						userImage: item.image,
+						userName: item.username,
+						userFullname: item.fullname,
+						userOrders: item.orders,
+						userTotalBill: item.amount});
+				})
 			});
+			
+			// Xuat bao cao thong ke Users
+			$scope.exportUsers = function() {
+				const ws = XLSX.utils.json_to_sheet($scope.exportUsersData);
+				const fileName = 'usersReport';
+		      	var wsrows = [];
+				const wb = XLSX.utils.book_new();
+				XLSX.utils.book_append_sheet(wb, ws, 'Report');
+				ws['!cols'] = [{ width: 10 }, { width: 30 }, { width: 30 }, { width: 30 }, { width: 15 }, { width: 15 } ]
+				wsrows.push({'hpt':20})
+				for (var i = 1; i <= $scope.exportUsersData.length; i++) {
+					wsrows.push({'hpt':100});
+				}
+				ws['!rows'] = wsrows;
+				XLSX.writeFile(wb, `${fileName}.xlsx`);
+			}
+			
+			$scope.exportPdfUsers = function() {
+				var testcolumns = ["ID", "Image", "Username", "Fullname", "Orders", "Total bill"];
+				var testrows = [];
+				$scope.exportUsersData.forEach(item => {
+					testrows.push([item.userId, item.userImage, item.userName, item.userFullname, item.userOrders, item.userTotalBill]);
+				})
+			    
+			    var doc = new jsPDF();
+		        doc.addFileToVFS("MyFont.ttf", font);
+		        doc.addFont("MyFont.ttf", "MyFont", "normal");
+		        doc.setFont("MyFont");
+			    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+  				doc.save('userReport.pdf');
+  				
+			}
 		};
 
 		$scope.initializeUser();
@@ -463,15 +546,62 @@ app.controller("statistic-ctrl", function($scope, $http) {
 	var bestSellerNam = document.getElementById('bestseller-male-tab');
 	bestSellerNam.addEventListener('click', () => {
 		$scope.itemBestSellerNam = [];
+		$scope.exportMaleData = [];
 		$http.get(`/rest/statistic/productsByMale/1`).then(resp => {
 			$scope.itemBestSellerNam = resp.data;
+			
+			$scope.itemBestSellerNam.forEach(item => {
+				$scope.exportMaleData.push({
+						productId: item.productId,
+						productImage: '',
+						productName: item.productName,
+						productStock: item.quantityleft,
+						productSold: item.quantity});
+			}) 
+			
 			$http.get(`/rest/products/image`).then(resp2 => {
 				for (var i = 0; i < resp.data.length; i++) {
 					if (resp.data.productId == resp2.data.productId) {
 						$scope.itemBestSellerNam[i].imageId = resp2.data[i].imageId;
+						$scope.exportMaleData[i].productImage = resp2.data[i].imageId;
 					}
 				}	
 			});
+			
+			
+			// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nam
+			$scope.exportBestSellerMale = function() {
+				const ws = XLSX.utils.json_to_sheet($scope.exportMaleData);
+		      	const fileName = 'bestSellerMaleReport';
+		      	var wsrows = [];
+				const wb = XLSX.utils.book_new();
+				XLSX.utils.book_append_sheet(wb, ws, 'Report');
+				ws['!cols'] = [{ width: 10 }, { width: 40 }, { width: 40 }, { width: 15 }, { width: 15 } ]
+				wsrows.push({'hpt':20})
+				for (var i = 1; i <= $scope.exportMaleData.length; i++) {
+					wsrows.push({'hpt':100});
+				}
+				ws['!rows'] = wsrows;
+				XLSX.writeFile(wb, `${fileName}.xlsx`);
+			}
+			
+			$scope.exportPdfBestSellerMale = function() {
+				var testcolumns = ["ID", "Image", "Product Name", "Product Stock", "Product Sold"];
+				
+				// Can xu ly $scope.exportMaleData lay 5 thang co $scope.exportMaleData.itemProductSold cao nhat
+				//
+				var testrows = [];
+				$scope.exportMaleData.forEach(item => {
+					testrows.push([item.productId, item.productImage, item.productName, item.productStock, item.productSold]);
+				})
+			    
+			    var doc = new jsPDF();
+			    doc.addFileToVFS("MyFont.ttf", font);
+		        doc.addFont("MyFont.ttf", "MyFont", "normal");
+		        doc.setFont("MyFont");
+			    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+  				doc.save('userReport.pdf');
+			}
 			
 		});
 		$scope.sort();
@@ -491,16 +621,59 @@ app.controller("statistic-ctrl", function($scope, $http) {
 	var bestSellerNu = document.getElementById('bestseller-female-tab');
 	bestSellerNu.addEventListener('click', () => {
 		$scope.itemBestSellerNu = [];
+		$scope.exportFemaleData = [];
 		$http.get(`/rest/statistic/productsByMale/0`).then(resp => {
 			$scope.itemBestSellerNu = resp.data;
+			
+			$scope.itemBestSellerNu.forEach(item => {
+				$scope.exportFemaleData.push({
+						productId: item.productId,
+						productImage: '',
+						productName: item.productName,
+						productStock: item.quantityleft,
+						productSold: item.quantity});
+			}) 
+			
 			$http.get(`/rest/products/image`).then(resp2 => {
 				for (var i = 0; i < resp.data.length; i++) {
 					if (resp.data.productId == resp2.data.productId) {
 						$scope.itemBestSellerNu[i].imageId = resp2.data[i].imageId;
+						$scope.exportFemaleData[i].productImage = resp2.data[i].imageId;
 					}
 				}
-					
 			})
+			// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nu
+			$scope.exportBestSellerFemale = function() {
+				const ws = XLSX.utils.json_to_sheet($scope.exportFemaleData);
+		      	const fileName = 'bestSellerFemaleReport';
+		      	var wsrows = [];
+				const wb = XLSX.utils.book_new();
+				XLSX.utils.book_append_sheet(wb, ws, 'Report');
+				ws['!cols'] = [{ width: 10 }, { width: 40 }, { width: 40 }, { width: 15 }, { width: 15 } ]
+				wsrows.push({'hpt':20})
+				for (var i = 1; i <= $scope.exportFemaleData.length; i++) {
+					wsrows.push({'hpt':100});
+				}
+				ws['!rows'] = wsrows;
+				XLSX.writeFile(wb, `${fileName}.xlsx`);
+			}
+			
+			$scope.exportPdfBestSellerFemale = function() {
+				var testcolumns = ["ID", "Image", "Product Name", "Product Stock", "Product Sold"];
+				// Can xu ly $scope.exportFemaleData lay 5 thang co $scope.exportMaleData.itemProductSold cao nhat
+				//
+				var testrows = [];
+				$scope.exportFemaleData.forEach(item => {
+					testrows.push([item.productId, item.productImage, item.productName, item.productStock, item.productSold]);
+				})
+			    
+			    var doc = new jsPDF();
+			    doc.addFileToVFS("MyFont.ttf", font);
+		        doc.addFont("MyFont.ttf", "MyFont", "normal");
+		        doc.setFont("MyFont");
+			    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+  				doc.save('userReport.pdf');
+			}
 		});
 		$scope.sort();
 		$scope.bestSellerNuPager = {
@@ -563,34 +736,19 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		document.getElementById('sort').dispatchEvent(new Event('click'));
 	}
 	
-	
-	// ---------------- Start export excel --------------
-	// Xuat bao cao thong ke Products
-	$scope.exportProducts = function() {
-		const table = document.getElementById("TableToExport");
-      	const wb = XLSX.utils.table_to_book(table);
-      	XLSX.writeFile(wb, "report.xlsx");
-	}
-	
-	// Xuat bao cao thong ke Users
-	$scope.exportUsers = function() {
-		console.log("b");
-	}
-	
-	// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nam
-	$scope.exportBestSellerMale = function() {
-		
-	}
-	
-	// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nu
-	$scope.exportBestSellerFemale = function() {
-		
-	}
-	
-	// Xuat bao cao bieu do ty le user (nam/nu), user (da mua hang/ chua mua hang), don hang (pending/confirm/delivery/complete/cancel))
-	$scope.exportStatistic = function() {
-		console.log("e");
-	}
+	// Chuyen image sang Base64
+	const getBase64FromUrl = async (url) => {
+            const data = await fetch(url);
+            const blob = await data.blob();
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = () => {
+                    const base64data = reader.result;
+                    resolve(base64data);
+                }
+            });
+    }
 });
 
 

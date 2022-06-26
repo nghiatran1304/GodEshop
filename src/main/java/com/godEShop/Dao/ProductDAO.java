@@ -191,7 +191,7 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     List<ProductsStatisticDto> getBestProductStatisticByMale(int gender);
 
     @Query("SELECT new com.godEShop.Dto.ProductImageDto" + "(p.id, MIN(pp.id)) " + "FROM Product p "
-	    + "INNER JOIN p.productPhotos pp " + "GROUP BY p.id")
+	    + "INNER JOIN p.productPhotos pp " + "GROUP BY p.id ")
     List<ProductImageDto> getBestProductImageByMale();
 
 }

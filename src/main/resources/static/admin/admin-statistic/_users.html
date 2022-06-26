@@ -1,5 +1,6 @@
 <div xmlns:th="http://www.thymeleaf.org">
 <button id="users" ng-click="exportUsers();" class="btn btn-success">Export Report To Excel</button>
+<button id="users" ng-click="exportPdfUsers();" class="btn btn-success">Export Report To Pdf</button>
 	<form>
 		<input type="text" class="form-control" placeholder="Search by name" ng-model="kwords" ng-change="findByNameDto(kwords)">
 	</form>
