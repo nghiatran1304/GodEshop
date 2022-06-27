@@ -249,44 +249,44 @@ INSERT INTO Roles(Id, Name) VALUES
 GO
 
 INSERT INTO Accounts(Username, Password, IsDelete, RoleId) VALUES
-('admin01','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Admin'),
-('admin02','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Admin'),
-('admin03','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Admin'),
-('cust01','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust02','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust03','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust04','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',1, 'Customer'),
-('cust05','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust06','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust07','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust08','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust09','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust10','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust11','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust12','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust13','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust14','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust15','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust16','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust17','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust18','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust19','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust20','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust21','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust22','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust23','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust24','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust25','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust26','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust27','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust28','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust29','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust30','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust31','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust32','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust33','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust34','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer'),
-('cust35','$2a$10$n3YKwYbKjPEdAZJhH57JF.jZsR4qiY0g5thfeLZqcUG0Yth6eFmum',0, 'Customer')
+('admin01','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Admin'),
+('admin02','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Admin'),
+('admin03','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Admin'),
+('cust01','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust02','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust03','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust04','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',1, 'Customer'),
+('cust05','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust06','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust07','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust08','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust09','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust10','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust11','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust12','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust13','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust14','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust15','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust16','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust17','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust18','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust19','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust20','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust21','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust22','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust23','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust24','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust25','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust26','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust27','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust28','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust29','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust30','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust31','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust32','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust33','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust34','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer'),
+('cust35','$2a$10$7IOuX00RcmxGirx/dhecVeyl9TuJTcjRu5My8ByLPrWTYHjXAFsj2',0, 'Customer')
 GO
 
 INSERT INTO Users(Fullname, Email, Gender, Dob, Phone, Photo, Address, Username) VALUES
@@ -994,7 +994,7 @@ GO
 
 ---- Product Discount
 INSERT INTO ProductDiscounts(Discount,CreateDate,EndDate,ProductId,CreateBy) VALUES
-(3,'2022-05-15','2022-07-15',1,'admin01'),
+--(3,'2022-05-15','2022-07-15',1,'admin01'),
 (3,'2022-06-16','2022-07-26',2,'admin01'),
 (3,'2022-06-22','2022-06-28',3,'admin01'),
 (3,'2022-04-14','2022-09-14',4,'admin01'),
@@ -1824,3 +1824,7 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
 (110,52,2000,1),
 (111,51,3500,1)
 GO
+
+-- MatKhau@123
+
+
