@@ -264,7 +264,7 @@
 											<form th:action="@{/changePassword}" method="post" autocomplete="off" class="form-group">
 												<div class="input-group form-group">
 													<!-- <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="currentPassword" name="currentPassword" id="ipnCurrentPassword" class="form-control" required /> -->
-													<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="currentPassword" name="currentPassword" id="ipnCurrentPassword" class="form-control" required />
+													<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{8,}" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="currentPassword" name="currentPassword" id="ipnCurrentPassword" class="form-control" required />
 													<div class="input-group-append">
 														<button class="btn btn-outline-secondary" type="button" id="btnCurrentPassword">
 															<span class="fas fa-eye"></span>
@@ -274,7 +274,7 @@
 
 												<div class="input-group form-group">
 													<!-- <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="newPassword" name="newPassword" id="ipnNewPassword" class="form-control" required /> -->
-													<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="newPassword" name="newPassword" id="ipnNewPassword" class="form-control" required />
+													<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{8,}" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="newPassword" name="newPassword" id="ipnNewPassword" class="form-control" required />
 													<div class="input-group-append">
 														<button class="btn btn-outline-secondary" type="button" id="btnNewPassword">
 															<span class="fas fa-eye"></span>
@@ -284,7 +284,7 @@
 
 												<div class="input-group form-group">(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}
 													<!-- <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="confirmPassword" name="confirmPassword" id="ipnConfirmPassword" class="form-control" required /> -->
-													<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="confirmPassword" name="confirmPassword" id="ipnConfirmPassword" class="form-control" required />
+													<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{8,}" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="confirmPassword" name="confirmPassword" id="ipnConfirmPassword" class="form-control" required />
 													<div class="input-group-append">
 														<button class="btn btn-outline-secondary" type="button" id="btnConfirmPassword">
 															<span class="fas fa-eye"></span>

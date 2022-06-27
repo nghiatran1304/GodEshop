@@ -36,7 +36,7 @@
 											</th:block>
 											<th:block th:if="${p.productDiscount != null && (p.productEndDiscount == null ? true : (p.productEndDiscount.compareTo(timeNow) == 1 || p.productEndDiscount.compareTo(timeNow) == 0) ) }">
 												<del>$ [[${p.productPrice}]]</del>
-												 <!-- <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"> </span>-->
+												<!-- <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"> </span>-->
 												<span> $ [[${#numbers.formatDecimal(p.productPrice - (p.productPrice * p.productDiscount / 100), 0, 'COMMA', 2, 'POINT')}]] </span>
 											</th:block>
 										</span>
@@ -139,10 +139,11 @@
 									<div class="product-image">
 										<a th:href="@{|/product/${p.productId}|}">
 											<span class="onsale">Sale!</span>
-											<img th:src="@{|/upload/ProductImages/${p.productFirstImage}|}" style="width: 350px; height: 350px" alt="">
+											<img th:src="@{|/upload/ProductImages/${p.productFirstImage}|}" th:classappend="${p.productQuantity <= 0} ? backgroundGrey : ' '" style="width: 350px; height: 350px" alt="">
 										</a>
 										<div class="quickviewbtn">
-											<a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View">
+											<!-- <a href="#" data-toggle="modal" data-target="#product_modal" data-original-title="Quick View"> -->
+											<a th:href="@{|/product/${p.productId}|}" data-original-title="Quick View">
 												<i class="ion-eye"></i>
 											</a>
 										</div>
@@ -154,12 +155,20 @@
 											<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
 										</h2>
 										<span class="price">
-											<th:block th:if="${p.productDiscount == null || p.productEndDiscount >= GETDATE}">
+											<!-- <th:block th:if="${p.productDiscount == null || p.productEndDiscount >= GETDATE}">
 												$ [[${p.productPrice}]]
 											</th:block>
 											<th:block th:if="${p.productDiscount != null && p.productEndDiscount < GETDATE }">
 												<del>$ [[${p.productPrice}]]</del>
 											$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
+											</th:block> -->
+											<th:block th:if="${p.productDiscount == null || p.productDiscount == 0 || p.productEndDiscount == null ? true : p.productEndDiscount.compareTo(timeNow) == -1}">
+												$ [[${#numbers.formatDecimal(p.productPrice, 0, 'COMMA', 2, 'POINT')}]]
+											</th:block>
+											<th:block th:if="${p.productDiscount != null && (p.productEndDiscount == null ? true : (p.productEndDiscount.compareTo(timeNow) == 1 || p.productEndDiscount.compareTo(timeNow) == 0) ) }">
+												<del>$ [[${p.productPrice}]]</del>
+												<!-- <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"> </span>-->
+												<span> $ [[${#numbers.formatDecimal(p.productPrice - (p.productPrice * p.productDiscount / 100), 0, 'COMMA', 2, 'POINT')}]] </span>
 											</th:block>
 										</span>
 										<div class="product-rattings">
@@ -228,8 +237,14 @@
 									</div>
 									<div class="actions-wrapper">
 										<div class="add-to-cart" th:if="${p.productQuantity > 0}">
-											<a th:attr="ng-click=@{|cart.add(${p.productId})|}">Add to cart</a>
+											<a class="btn" th:attr="ng-click=@{|cart.add(${p.productId})|}">Add to cart</a>
 										</div>
+										<div class="add-to-cart" th:if="${p.productQuantity <= 0}">
+											<a class="btn btn-secondary" th:attr="ng-click=@{|cart.outOfStock()|}">Out of stock</a>
+										</div>
+										<!-- <div class="add-to-cart" th:if="${p.productQuantity > 0}">
+											<a th:attr="ng-click=@{|cart.add(${p.productId})|}">Add to cart</a>
+										</div> -->
 										<div class="add-to-cart" th:if="${p.productQuantity <= 0}">
 											<p>Out of stock</p>
 										</div>
