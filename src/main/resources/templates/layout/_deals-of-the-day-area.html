@@ -39,7 +39,9 @@
 											<span class="price">
 												<del>$ [[${p.productPrice}]]</del>
 												<!-- <span th:with="te=${lstSum[state.index]}" th:utext="${te}"></span> -->
-												<span>$ [[${p.productPrice - (p.productPrice * p.productDiscount / 100)}]]</span>
+												<!-- [[${#numbers.formatDecimal(p.productPrice, 0, 'COMMA', 2, 'POINT')}]] -->
+												<!-- p.productPrice - (p.productPrice * p.productDiscount / 100) -->
+												<span>$ [[${#numbers.formatDecimal(p.productPrice - (p.productPrice * p.productDiscount / 100), 0, 'COMMA', 2, 'POINT')}]]</span>
 											</span>
 											<div class="product-rattings">
 												<th:block th:if="${p.productEvaluation == 5}">

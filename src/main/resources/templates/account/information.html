@@ -16,11 +16,11 @@
 				</div>
 			</div>
 		</div>
- 
+
 
 		<!-- My Account page content Start -->
 		<div id="myaccount-page-content mt-5">
-	
+
 			<div class="container">
 				<div class="account-text-wrapper">
 					<div class="row">
@@ -65,7 +65,7 @@
 												</thead>
 
 												<tbody>
-													<tr ng-repeat="order in pager.orders" >
+													<tr ng-repeat="order in pager.orders">
 														<td hidden>{{order.orderId}}</td>
 														<td ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal">{{order.createDate| date : "dd-MM-yyyy"}}</td>
 														<td ng-click="edit(order.orderId)" data-toggle="modal" data-target="#myModal">{{order.address}}</td>
@@ -154,7 +154,11 @@
 
 								<div class="tab-pane fade" id="account-info" role="tabpanel">
 									<div class="myaccount-content">
-										<h3>Account Details : <i th:unless="${mUpdateInfo}=='Update Success'" class="text-danger">[[${mUpdateInfo}]]</i><i th:if="${mUpdateInfo}=='Update Success'" class="text-success">[[${mUpdateInfo}]]</i>	</h3>
+										<h3>
+											Account Details :
+											<i th:unless="${mUpdateInfo}=='Update Success'" class="text-danger">[[${mUpdateInfo}]]</i>
+											<i th:if="${mUpdateInfo}=='Update Success'" class="text-success">[[${mUpdateInfo}]]</i>
+										</h3>
 										<div class="account-details-form checkout-form-list">
 											<form th:action="@{/update/accountDetail}" method="POST" autocomplete="off" th:object="${user}" enctype="multipart/form-data">
 												<div class="row">
@@ -182,20 +186,20 @@
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label for="fullname" class="required">Fullname</label>
-																	<input type="text" id="fullname" name="fullname" placeholder="fullname" class=" form-control" th:value="*{fullname}" required/>
+																	<input type="text" id="fullname" name="fullname" placeholder="fullname" class=" form-control" th:value="*{fullname}" required />
 																</div>
 
 															</div>
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Phone</label>
-																	<input type="text" pattern="[0-9]{10}"  name="phone" placeholder="phone" id="input-phone" class="form-control" th:value="${user.phone}" required>
+																	<input type="text" pattern="[0-9]{10}" name="phone" placeholder="phone" id="input-phone" class="form-control" th:value="${user.phone}" required>
 																</div>
 															</div>
 														</div>
 														<div class="form-group">
 															<label for="email" class="required">Email</label>
-															<input type="email" id="email" name="email" placeholder="Email" class="form-control" th:value="*{email}" required/>
+															<input type="email" id="email" name="email" placeholder="Email" class="form-control" th:value="*{email}" required />
 														</div>
 														<div class="form-group">
 															<label for="gender" class="required">Gender</label>
@@ -220,10 +224,9 @@
 
 
 												<div class="single-input-item">
-													<button class="btn w-100" type="submit" >UPDATE</button>
+													<button class="btn w-100" type="submit">UPDATE</button>
 												</div>
 												<script>
-													
 													function onFileSelected(
 															event) {
 														var selectedFile = event.target.files[0];
@@ -238,7 +241,6 @@
 														reader
 																.readAsDataURL(selectedFile);
 													}
-												
 												</script>
 											</form>
 										</div>
@@ -246,7 +248,7 @@
 								</div>
 								<!-- Single Tab Content End -->
 
-								<div class="tab-pane fade " id="account-changepassword"  role="tabpanel">
+								<div class="tab-pane fade " id="account-changepassword" role="tabpanel">
 									<!-- form xac thuc email -->
 									<div th:if="${isVerificationEmail}=='false'">
 										<form th:action="@{/verificationEmail}" method="post" autocomplete="off" class="mt-5">
@@ -261,7 +263,8 @@
 										<div>
 											<form th:action="@{/changePassword}" method="post" autocomplete="off" class="form-group">
 												<div class="input-group form-group">
-													<input type="password"  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="currentPassword" name="currentPassword" id="ipnCurrentPassword" class="form-control" required />
+													<!-- <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="currentPassword" name="currentPassword" id="ipnCurrentPassword" class="form-control" required /> -->
+													<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="currentPassword" name="currentPassword" id="ipnCurrentPassword" class="form-control" required />
 													<div class="input-group-append">
 														<button class="btn btn-outline-secondary" type="button" id="btnCurrentPassword">
 															<span class="fas fa-eye"></span>
@@ -270,7 +273,8 @@
 												</div>
 
 												<div class="input-group form-group">
-													<input type="password"  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="newPassword" name="newPassword" id="ipnNewPassword" class="form-control" required />
+													<!-- <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="newPassword" name="newPassword" id="ipnNewPassword" class="form-control" required /> -->
+													<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="newPassword" name="newPassword" id="ipnNewPassword" class="form-control" required />
 													<div class="input-group-append">
 														<button class="btn btn-outline-secondary" type="button" id="btnNewPassword">
 															<span class="fas fa-eye"></span>
@@ -278,36 +282,69 @@
 													</div>
 												</div>
 
-												<div class="input-group form-group">
-													<input type="password"  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="confirmPassword" name="confirmPassword" id="ipnConfirmPassword" class="form-control" required />
+												<div class="input-group form-group">(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}
+													<!-- <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="confirmPassword" name="confirmPassword" id="ipnConfirmPassword" class="form-control" required /> -->
+													<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="confirmPassword" name="confirmPassword" id="ipnConfirmPassword" class="form-control" required />
 													<div class="input-group-append">
 														<button class="btn btn-outline-secondary" type="button" id="btnConfirmPassword">
 															<span class="fas fa-eye"></span>
 														</button>
 													</div>
 												</div>
-														
+
 												<button class="btn w-100 mt-5" type="submit">Change</button>
 												<script>
-											
-												const ipnCurrentPassword = document.querySelector('#ipnCurrentPassword')
-												const btnCurrentPassword = document.querySelector('#btnCurrentPassword')
-												const ipnNewPassword = document.querySelector('#ipnNewPassword')
-												const btnNewPassword = document.querySelector('#btnNewPassword')
-												const ipnConfirmPassword = document.querySelector('#ipnConfirmPassword')
-												const btnConfirmPassword = document.querySelector('#btnConfirmPassword')
-											
-												btnCurrentPassword.addEventListener('click',function() {				
-												const currentType = ipnCurrentPassword.getAttribute('type')				
-												ipnCurrentPassword.setAttribute('type',currentType === 'password' ? 'text': 'password')})	
-												
-												btnNewPassword.addEventListener('click',function() {				
-												const currentTypeNew = ipnNewPassword.getAttribute('type')				
-												ipnNewPassword.setAttribute('type',currentTypeNew === 'password' ? 'text': 'password')})
-												
-												btnConfirmPassword.addEventListener('click',function() {				
-												const currentTypeConfirm = ipnConfirmPassword.getAttribute('type')				
-												ipnConfirmPassword.setAttribute('type',currentTypeConfirm === 'password' ? 'text': 'password')})
+													const ipnCurrentPassword = document
+															.querySelector('#ipnCurrentPassword')
+													const btnCurrentPassword = document
+															.querySelector('#btnCurrentPassword')
+													const ipnNewPassword = document
+															.querySelector('#ipnNewPassword')
+													const btnNewPassword = document
+															.querySelector('#btnNewPassword')
+													const ipnConfirmPassword = document
+															.querySelector('#ipnConfirmPassword')
+													const btnConfirmPassword = document
+															.querySelector('#btnConfirmPassword')
+
+													btnCurrentPassword
+															.addEventListener(
+																	'click',
+																	function() {
+																		const currentType = ipnCurrentPassword
+																				.getAttribute('type')
+																		ipnCurrentPassword
+																				.setAttribute(
+																						'type',
+																						currentType === 'password' ? 'text'
+																								: 'password')
+																	})
+
+													btnNewPassword
+															.addEventListener(
+																	'click',
+																	function() {
+																		const currentTypeNew = ipnNewPassword
+																				.getAttribute('type')
+																		ipnNewPassword
+																				.setAttribute(
+																						'type',
+																						currentTypeNew === 'password' ? 'text'
+																								: 'password')
+																	})
+
+													btnConfirmPassword
+															.addEventListener(
+																	'click',
+																	function() {
+																		const currentTypeConfirm = ipnConfirmPassword
+																				.getAttribute('type')
+																		ipnConfirmPassword
+																				.setAttribute(
+																						'type',
+																						currentTypeConfirm === 'password' ? 'text'
+																								: 'password')
+																	})
 												</script>
 											</form>
 										</div>
