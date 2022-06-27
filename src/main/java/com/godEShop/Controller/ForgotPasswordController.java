@@ -1,7 +1,5 @@
 package com.godEShop.Controller;
 
-import java.util.Random;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -44,10 +42,14 @@ public class ForgotPasswordController {
     public String layout() {
 	return "account/forgot-password";
     }
-
+    @GetMapping("/changePasswordForm")
+    public String form() {
+    	
+    	return "account/changePasswordForm";
+    }
     int checkPinNumber = 0;
     Account getAccount;
-
+    
     @RequestMapping("/forgotPassword-send")
     public String sendMail(Model model, @RequestParam("username") String username,
 	    @RequestParam("email") String email) {
@@ -55,14 +57,8 @@ public class ForgotPasswordController {
 	User u = userService.findByAccountUsername(username);
 	try {
 	    if (email.equalsIgnoreCase(u.getEmail())) {
-		String randomPIN = "";
-		Random rdn = new Random();
-		int number = rdn.nextInt(999999);
-		randomPIN = "" + number;
-		if (number < 999999) {
-		    randomPIN = "0" + number;
-		}
-		checkPinNumber = Integer.parseInt(randomPIN);
+	    	int number = (int) Math.floor(((Math.random() * 899999) + 100000));
+		checkPinNumber = number;
 		MailInfo m = new MailInfo();
 		m.setFrom("testemailnghiatran@gmail.com");
 		m.setSubject("Reset login password GodEShop ");
@@ -86,7 +82,7 @@ public class ForgotPasswordController {
 
     }
 
- 
+    
 
     @RequestMapping("/checkPin")
     public String checkPin(Model model, @RequestParam("number") String number) {
@@ -107,8 +103,8 @@ public class ForgotPasswordController {
 	}
 
     }
-
-    @PostMapping("/changePasswordForgot")
+   
+    @RequestMapping("/changePasswordForgot")
     public String changePassword(HttpServletRequest request, Model model,
 	    @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword) {
 	try {
@@ -116,13 +112,18 @@ public class ForgotPasswordController {
 	    if (isVerificationEmail == true && newPassword.equals(confirmPassword)) {
 		acc.setPassword(pe.encode(newPassword));
 		accountService.update(acc);
+		model.addAttribute("mChangePassForgot","Change password success");
 		return "/account/login";
+	    }else {
+	    	model.addAttribute("mChangePassForgot","confirmation password does not match");
+	    	return "forward:/changePasswordForm";
 	    }
 	} catch (Exception e) {
 	    // TODO: handle exception
-	    return "redirect:/changePasswordForm";
+		model.addAttribute("mChangePassForgot","change password failed");
+	    return "forward:/changePasswordForm";
 	}
-	return "/account/login";
+	
     }
 
 }

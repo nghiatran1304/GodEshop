@@ -108,9 +108,9 @@ public class InformationController {
 				model.addAttribute("mUpdateInfo", "Update Success");
 			}
 
-			// model.addAttribute("user", user);
+			//model.addAttribute("user", user);
 			model.addAttribute("mUpdateInfo", "Update Success");
-			return "forward:/information";
+			return "redirect:/information";
 
 		} catch (Exception e) {
 			// TODO: handle exception
