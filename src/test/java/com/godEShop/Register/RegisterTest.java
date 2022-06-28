@@ -267,6 +267,7 @@ public class RegisterTest {
 		actionSignUp2.build().perform();
 
 //		String actualTitle = driver.getTitle();
+		// driver.findElement(By.xpath("/html/body/div[1]/main/div[2]/h1")).getText();
 		String currentUrl = driver.getCurrentUrl();
 		String actualTitle = currentUrl;
 
