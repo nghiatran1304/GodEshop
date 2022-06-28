@@ -17,7 +17,7 @@ public interface OrderDAO extends JpaRepository<Order, Long> {
     List<Order> findByUsername(String username);
 
     @Query("SELECT new com.godEShop.Dto.OrderListDto" + "(o.id,o.createDate,o.address,s.name) "
-	    + "from Order o inner join o.account a  " + "inner join o.orderStatus s where a.username=?1 order by o.createDate desc")
+	    + "from Order o inner join o.account a  " + "inner join o.orderStatus s where a.username=?1 order by o.createDate desc, o.id desc")
     List<OrderListDto> findByUsername1(String username);
 
     @Query("SELECT o FROM Order o WHERE o.orderStatus.id = 1 ORDER BY o.createDate DESC")
