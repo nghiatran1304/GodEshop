@@ -161,15 +161,23 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			} else {
 				var order = angular.copy(this);
 				$http.post("/rest/orders", order).then(resp => {
-					Swal.fire({
-						icon: 'success',
-						title: 'Sucsess',
-						showConfirmButton: false,
-						timer: 1500
-					}).then((result) => {
-						$scope.cart.clear();
-						location.href = "/information";
+					if (resp.data.id != null) {
+						Swal.fire({
+							icon: 'success',
+							title: 'Sucsess',
+							showConfirmButton: false,
+							timer: 1500
+						}).then((result) => {
+							$scope.cart.clear();
+							location.href = "/information";
+						});
+					}else{
+						Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: "This product is out of stock !!!",
 					});
+					}
 				}).catch(error => {
 					Swal.fire({
 						icon: 'error',
@@ -181,7 +189,8 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			}
 		}
 	}
-
+	
+	
 	$scope.orderPaypal = {
 		createDate: new Date(),
 		note: "",
@@ -199,6 +208,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			});
 		},
 		purchase() {
+			console.log($("#price"));
 			if (this.address == null || this.address == undefined || this.address.length <= 0) {
 				Swal.fire({
 					icon: 'error',
@@ -208,7 +218,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			} else {
 				var order = angular.copy(this);
 				$http.post("/rest/orders", order).then(resp => {
-					$scope.cart.clear();
+					 $scope.cart.clear();
 				}).catch(error => {
 					Swal.fire({
 						icon: 'error',
@@ -221,8 +231,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 
 		}
 	}
-
-
+	
 });
 
 

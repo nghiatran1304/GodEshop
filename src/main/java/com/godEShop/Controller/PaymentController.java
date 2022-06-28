@@ -29,6 +29,7 @@ public class PaymentController {
 
     @PostMapping("/pay")
     public String pay(HttpServletRequest request, @RequestParam("price") double price) {
+	System.out.println(price);
 	String cancelUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
 	String successUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;
 	try {
@@ -44,7 +45,7 @@ public class PaymentController {
 	    log.error(e.getMessage());
 	}
 	System.out.println(" >> pay() -> 2");
-	return "account/information";
+	return "redirect:/information";
     }
 
     @GetMapping(URL_PAYPAL_CANCEL)
