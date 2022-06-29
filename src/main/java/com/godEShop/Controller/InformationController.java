@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.godEShop.Dto.OrderCartViewDto;
-import com.godEShop.Dto.OrderListDto;
 import com.godEShop.Entity.Account;
 import com.godEShop.Entity.MailInfo;
 import com.godEShop.Entity.User;
@@ -57,7 +56,7 @@ public class InformationController {
 	public String informationPage(HttpServletRequest request, Model model) {		
 		String username = request.getRemoteUser();
 		User user = userService.findByUsername(username);
-	
+		
 		if (user.getPhoto().contains("jpg") || user.getPhoto().contains("png") || user.getPhoto().contains("JPG")
 				|| user.getPhoto().contains("PNG")) {
 			model.addAttribute("isOAuth2", false);
@@ -66,18 +65,12 @@ public class InformationController {
 		}
 		if (isVerificationEmail == true ) {
 			model.addAttribute("isVerificationEmail", "true");
-		} else {
+		} else if(isVerificationEmail == false ){
 			model.addAttribute("isVerificationEmail", "false");
 		}
 		model.addAttribute("user", user);
 
-
-		List<OrderListDto> orders = orderService.findByUsername1(username);
-		if (orders.size() != 0) {
-			model.addAttribute("orders", orders);
-		} else {
-			model.addAttribute("message", "is not have any orders before here");
-		}
+		isVerificationEmail = false;
 		return "account/information";
 	}
 
@@ -86,7 +79,7 @@ public class InformationController {
 			@RequestParam("fullname") String fullname, @RequestParam("email") String email,
 			@RequestParam("gender") Integer gender, @RequestParam("dob") String dob,
 			@RequestParam("address") String address, @RequestParam("phone") String phone,
-			@RequestPart("photo") MultipartFile photo, RedirectAttributes newUser) throws ParseException {
+			@RequestPart("photo") MultipartFile photo) throws ParseException {
 		try {
 
 			String username = request.getRemoteUser();
@@ -105,13 +98,13 @@ public class InformationController {
 			userService.create(user);
 			if (!photo.isEmpty()) {
 				uploadService.saveUser(photo, user);
-				model.addAttribute("mUpdateInfo", "Update Success");
-			}
-
-			//model.addAttribute("user", user);
+				model.addAttribute("mUpdateInfo", "Update Success");				
+			}	
+			
+		
+			
 			model.addAttribute("mUpdateInfo", "Update Success");
 			return "redirect:/information";
-
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("error:" + e);
@@ -200,19 +193,29 @@ public class InformationController {
 		try {
 			String username = request.getRemoteUser();
 			Account acc = accountService.findByUsername(username);
-
-			if (isVerificationEmail == true && newPassword.equals(confirmPassword)
-					&& pe.matches(currentPassword, acc.getPassword())) {
+		
+			if (!newPassword.equals(confirmPassword) ) {				
+				model.addAttribute("mChangePass", "confirmPassword and newPassword does not match");	
+				isVerificationEmail = true;
+				return "forward:/information";
+			}else if (!pe.matches(currentPassword, acc.getPassword())) {
+				model.addAttribute("mChangePass", "CurrentPassword incorrect");
+				isVerificationEmail = true;
+				return "forward:/information";
+			}else {
 				acc.setPassword(pe.encode(newPassword));
 				accountService.update(acc);
-				model.addAttribute("mChangPass", "CHANGE PASSWORD SUCCESS");
+				model.addAttribute("mChangePass", "CHANGE PASSWORD SUCCESS");
 				isVerificationEmail = false;
+				return "forward:/information";
 			}
 
 		} catch (Exception e) {
 			// TODO: handle exception
-			model.addAttribute("mChangPass", "CHANGE PASSWORD FAIL");
+			isVerificationEmail = true;
+			model.addAttribute("mChangePass", "CHANGE PASSWORD FAIL");
+			return "forward:/information";
 		}
-		return "redirect:/information";
+		
 	}
 }
