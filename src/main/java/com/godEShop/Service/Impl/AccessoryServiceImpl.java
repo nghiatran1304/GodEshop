@@ -41,5 +41,10 @@ public class AccessoryServiceImpl implements AccessoryService{
 		// TODO Auto-generated method stub
 		return acDAO.lstSearchFullInfoAccessory(name);
 	}
+	@Override
+	public List<ProductAccessoryInfoDto> lstFullInfoAccessoryOutOfSoon() {
+		// TODO Auto-generated method stub
+		return acDAO.lstFullInfoAccessoryOutOfSoon();
+	}
 
 }
