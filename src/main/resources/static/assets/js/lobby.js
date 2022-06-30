@@ -31,7 +31,8 @@ let initiate = async () => {
         let host = attributes.host.value
         let host_image = attributes.host_image.value
         let roomItem = `<div class="room__item" id="room__${room_id}">
-                            <img class="room__photo" src="./assets/images/streaming.webp" alt="">
+        					<p id="streaming" style="color:red; z-index: 9999999; position: absolute;"><img style="width: 60px; height:40px; color: red;" src="/assets/images/streaming.png"></p>
+                            <img class="room__photo" src="./assets/images/stream-thumbnail.png" alt="">
                             <div class="room__content">
                                 <p class="room__meta">
                                 	<h4 class="room_title">${roomName}</h4>

@@ -149,8 +149,12 @@
   bottom: 1rem;
   border-radius: 8px;
   padding: 1rem;
-  justify-content: center;
+  position: absolute;
+  left: 35%;
+  bottom: 350px;
+  
 }
+
 /* 
 
 */

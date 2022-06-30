@@ -101,7 +101,7 @@ let initiate = async () => {
         let kickUid = data.message.substring(7,data.message.length)
         if (command === '/kick') {
 			if (kickUid === uid) {
-				alert("Bạn đã bị khoá mõm!!")
+				alert("You were muted by host!!")
 				window.location = `/livestream`
 			}
 		}else {
@@ -295,6 +295,7 @@ let startStream = async () => {
 
     let player = `
                 <div class="video-container" style="position:absolute; "id="user-container-${rtcUid}">
+                	<p id="streaming" style="color:red; z-index: 9999999; position: absolute; left: 20px; top: 20px;"><img style="width: 50px; height:30px; color: red;" src="/assets/images/streaming.png"></p>
                     <div class="video-player" id="user-${rtcUid}">
                     </div>
                 </div>
@@ -309,7 +310,7 @@ let startStream = async () => {
 
 let endStream = async () => {
     streaming = false
-
+	document.getElementById('streaming').outerHTML = ""
     document.getElementById('stream-btn').innerHTML = 'Start Stream'
     document.getElementById('stream-btn').style.color = 'blue'
 
@@ -340,6 +341,7 @@ let handleUserPublished = async (user, mediaType) => {
 		player.innerHTML = ''
 		player = `
 		<div class="video-container" style="position:absolute; "id="user-container-${user.uid}">
+		<p id="streaming" style="color:red; z-index: 9999999; position: absolute; left: 20px; top: 20px;"><img style="width: 50px; height:30px; color: red;" src="/assets/images/streaming.png"></p>
 		<div class="video-player" id="user-${user.uid}">
 		</div>
 		</div>
