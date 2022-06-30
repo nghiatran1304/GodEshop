@@ -150,10 +150,23 @@
   border-radius: 8px;
   padding: 1rem;
   position: absolute;
-  left: 35%;
+  left: 40%;
   bottom: 350px;
-  
 }
+
+@media (max-width: 2500px) {
+  .stream__actions {
+	  bottom: 1rem;
+	  border-radius: 8px;
+	  padding: 1rem;
+	  position: absolute;
+	  left: 25%;
+	  bottom: 40px;
+	}
+}
+
+
+
 
 /* 
 
