@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.godEShop.Dto.ProductAccessoryInfoDto;
+import com.godEShop.Dto.ProductWatchInfoDto;
 import com.godEShop.Entity.Accessory;
 import com.godEShop.Entity.BraceletMaterial;
 import com.godEShop.Entity.Brand;
@@ -138,5 +139,9 @@ public class AccessoryRestController {
 	 @GetMapping("/rest/products-accessory/search/{name}")
 	    public List<ProductAccessoryInfoDto> findBySearch(@PathVariable("name") String name) {
 		return accessoryService.lstSearchFullInfoAccessory("%" + name + "%");
+	    }
+	 @GetMapping("/rest/outOfSoonAccessory")
+	    public List<ProductAccessoryInfoDto> getAllOutOfSoon(){
+		return accessoryService.lstFullInfoAccessoryOutOfSoon();
 	    }
 }
