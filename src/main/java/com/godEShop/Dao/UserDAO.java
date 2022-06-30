@@ -1,5 +1,6 @@
 package com.godEShop.Dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.godEShop.Dto.UserInfoDto;
+import com.godEShop.Dto.UserOrderedStatisticDto;
 import com.godEShop.Dto.UserStatisticDto;
 import com.godEShop.Dto.UsersStatisticDto;
 import com.godEShop.Entity.User;
@@ -51,9 +53,30 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     		+ "INNER JOIN o.account a "
     		+ "INNER JOIN a.users u "
     		+ "INNER JOIN o.orderDetails od "
+    		+ "WHERE a.role != 'Admin' and o.orderStatus between 2 and 4 and o.createDate between ?1 and ?2 "
+    		+ "GROUP BY u.id, a.username, u.fullname, u.photo "
+    		+ "ORDER BY sum(od.quantity*od.price) DESC")
+    List<UsersStatisticDto> getAllUserStatByTime(Date dateStart, Date dateEnd);
+    
+    @Query("SELECT new com.godEShop.Dto.UsersStatisticDto"
+    		+ "(u.id, a.username, u.fullname, u.photo, count(o.id), sum(od.quantity*od.price)) "
+    		+ "FROM Order o "
+    		+ "INNER JOIN o.account a "
+    		+ "INNER JOIN a.users u "
+    		+ "INNER JOIN o.orderDetails od "
     		+ "WHERE a.role != 'Admin' and o.orderStatus between 2 and 4 and a.username like ?1 "
     		+ "GROUP BY u.id, a.username, u.fullname, u.photo")
     List<UsersStatisticDto> find1UserStat(String username);
+    
+    @Query("SELECT new com.godEShop.Dto.UsersStatisticDto"
+    		+ "(u.id, a.username, u.fullname, u.photo, count(o.id), sum(od.quantity*od.price)) "
+    		+ "FROM Order o "
+    		+ "INNER JOIN o.account a "
+    		+ "INNER JOIN a.users u "
+    		+ "INNER JOIN o.orderDetails od "
+    		+ "WHERE a.role != 'Admin' and o.orderStatus between 2 and 4 and a.username like ?1 and o.createDate between ?2 and ?3 "
+    		+ "GROUP BY u.id, a.username, u.fullname, u.photo")
+    List<UsersStatisticDto> find1UserStatByTime(String username, Date dateStart, Date dateEnd);
 
     @Query("SELECT new com.godEShop.Dto.UserStatisticDto"
     		+ "(u.id, a.username, u.fullname, u.photo, o.createDate, od.price, od.quantity, o.orderStatus) "
@@ -65,14 +88,39 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     		+ "ORDER BY o.createDate")
     List<UserStatisticDto> get1UserStat(int id);
     
+    @Query("SELECT new com.godEShop.Dto.UserStatisticDto"
+    		+ "(u.id, a.username, u.fullname, u.photo, o.createDate, od.price, od.quantity, o.orderStatus) "
+    		+ "FROM Order o "
+    		+ "INNER JOIN o.account a "
+    		+ "INNER JOIN a.users u "
+    		+ "INNER JOIN o.orderDetails od "
+    		+ "WHERE u.id = ?1 and o.createDate between ?2 and ?3 "
+    		+ "ORDER BY o.createDate")
+    List<UserStatisticDto> get1UserStatByTime(int id, Date dateStart, Date dateEnd);
+    
     @Query(value = "SELECT COUNT(*) FROM Users u inner join Accounts a on a.username = u.username where roleid != 'Admin'", nativeQuery = true)
     int getTotalAccount();
     
     @Query(value = "SELECT COUNT(*) FROM Users u inner join Accounts a on a.username = u.username where roleid != 'Admin' and gender = 1", nativeQuery = true)
     int getTotalAccountByMale();
     
-    @Query(value = "SELECT COUNT(*) FROM Users u inner join Accounts a on a.username = u.username where roleid != 'Admin' and u.username in "
-    		+ "(select username from Orders)", nativeQuery = true)
-    int getTotalAccountOrdered();
+    @Query("SELECT new com.godEShop.Dto.UserOrderedStatisticDto"
+    		+ "(u.id, a.username) "
+    		+ "FROM Order o "
+    		+ "INNER JOIN o.account a "
+    		+ "INNER JOIN a.users u "
+    		+ "INNER JOIN o.orderDetails od "
+    		+ "WHERE a.role != 'Admin' and a.username in (select account from Order) "
+    		+ "ORDER BY u.id, a.username")
+    List<UserOrderedStatisticDto> getTotalAccountOrdered();
     
+    @Query("SELECT new com.godEShop.Dto.UserOrderedStatisticDto"
+    		+ "(u.id, a.username) "
+    		+ "FROM Order o "
+    		+ "INNER JOIN o.account a "
+    		+ "INNER JOIN a.users u "
+    		+ "INNER JOIN o.orderDetails od "
+    		+ "WHERE a.role != 'Admin' and a.username in (select account from Order) and o.createDate between ?1 and ?2 "
+    		+ "ORDER BY u.id, a.username")
+    List<UserOrderedStatisticDto> getTotalAccountOrderedByTime(Date dateStart, Date dateEnd);
 }

@@ -1,5 +1,6 @@
 package com.godEShop.Dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -55,15 +56,30 @@ public interface OrderDAO extends JpaRepository<Order, Long> {
     @Query(value = "select count(*) from Orders", nativeQuery=true)
     int getTotalOrder();
     
+    @Query(value = "select count(*) from Orders where createDate between ?1 and ?2", nativeQuery=true)
+    int getTotalOrderByTime(Date dateStart, Date dateEnd);
+    
     @Query(value = "select count(*) from Orders where orderStatusId = 1", nativeQuery=true)
     int getTotalPendingOrder();
+    
+    @Query(value = "select count(*) from Orders where orderStatusId = 1 and createDate between ?1 and ?2", nativeQuery=true)
+    int getTotalPendingOrderByTime(Date dateStart, Date dateEnd);
     
     @Query(value = "select count(*) from Orders where orderStatusId = 2", nativeQuery=true)
     int getTotalConfirmOrder();
     
+    @Query(value = "select count(*) from Orders where orderStatusId = 2 and createDate between ?1 and ?2", nativeQuery=true)
+    int getTotalConfirmOrderByTime(Date dateStart, Date dateEnd);
+    
     @Query(value = "select count(*) from Orders where orderStatusId = 3", nativeQuery=true)
     int getTotalDeliveryOrder();
     
+    @Query(value = "select count(*) from Orders where orderStatusId = 3 and createDate between ?1 and ?2", nativeQuery=true)
+    int getTotalDeliveryOrderByTime(Date dateStart, Date dateEnd);
+    
     @Query(value = "select count(*) from Orders where orderStatusId = 4", nativeQuery=true)
     int getTotalCompleteOrder();
+    
+    @Query(value = "select count(*) from Orders where orderStatusId = 4 and createDate between ?1 and ?2", nativeQuery=true)
+    int getTotalCompleteOrderByTime(Date dateStart, Date dateEnd);
 }

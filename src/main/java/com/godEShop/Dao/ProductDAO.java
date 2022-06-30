@@ -1,5 +1,6 @@
 package com.godEShop.Dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -158,6 +159,11 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 	    + "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o "
 	    + "WHERE o.orderStatus between 2 and 4 " + "GROUP BY p.name, p.id, p.quantity ")
     List<ProductsStatisticDto> getProductStatistic();
+    
+    @Query("SELECT new com.godEShop.Dto.ProductsStatisticDto" + "(p.id, p.name, p.quantity, sum(od.quantity)) "
+    	    + "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o "
+    	    + "WHERE o.orderStatus between 2 and 4 and o.createDate between ?1 and ?2 " + "GROUP BY p.name, p.id, p.quantity ")
+        List<ProductsStatisticDto> getProductStatisticByTime(Date dateStart, Date dateEnd);
 
     @Query("SELECT new com.godEShop.Dto.ProductImageDto" + "(p.id, MIN(pp.id)) " + "FROM Product p "
 	    + "INNER JOIN p.productPhotos pp " + "GROUP BY p.id")
@@ -168,6 +174,18 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 	    + "WHERE od.product != 0 AND p.name like ?1 and o.orderStatus between 2 and 4 "
 	    + "GROUP BY p.name, p.id, p.quantity ")
     List<ProductsStatisticDto> get1ProductStatistic(String name);
+    
+    @Query("SELECT new com.godEShop.Dto.ProductsStatisticDto" + "(p.id, p.name, p.quantity, sum(od.quantity)) "
+    	    + "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o "
+    	    + "WHERE od.product != 0 AND p.name like ?1 and o.orderStatus between 2 and 4 and o.createDate between ?2 and ?3 "
+    	    + "GROUP BY p.name, p.id, p.quantity ")
+        List<ProductsStatisticDto> get1ProductStatisticByTime(String name, Date dateStart, Date dateEnd);
+    
+    @Query("SELECT new com.godEShop.Dto.ProductsStatisticDto" + "(p.id, p.name, p.quantity, sum(od.quantity)) "
+    	    + "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o "
+    	    + "WHERE od.product != 0 AND p.name like ?1 and o.orderStatus between 2 and 4 and o.createDate between ?2 and ?3 "
+    	    + "GROUP BY p.name, p.id, p.quantity ")
+        List<ProductsStatisticDto> get1ProductStatisticByTimeByTime(String name, Date dateStart, Date dateEnd);
 
     @Query("SELECT new com.godEShop.Dto.ProductImageDto" + "(p.id, MIN(pp.id)) " + "FROM Product p "
 	    + "INNER JOIN p.productPhotos pp " + "WHERE p.name like ?1 " + "GROUP BY p.id, p.name")
@@ -177,6 +195,11 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 	    + "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o "
 	    + "WHERE p.id = ?1 and o.orderStatus between 2 and 4")
     List<ProductStatisticDto> get1ProductStatistic(Long id);
+    
+    @Query("SELECT new com.godEShop.Dto.ProductStatisticDto" + "(od.id, p.name, o.createDate, od.quantity, od.price) "
+    	    + "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o "
+    	    + "WHERE p.id = ?1 and o.orderStatus between 2 and 4 and o.createDate between ?2 and ?3 ")
+    List<ProductStatisticDto> get1ProductStatisticByTime(Long id, Date dateStart, Date dateEnd);
 
     @Query("SELECT new com.godEShop.Dto.ProductImageDto" + "(p.id, MIN(pp.id)) " + "FROM Product p "
 	    + "INNER JOIN p.productPhotos pp " + "WHERE p.id like ?1 " + "GROUP BY p.id, p.name")
@@ -189,6 +212,12 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
 	    + "INNER JOIN a.users u " + "WHERE o.orderStatus between 2 and 4 and u.gender = ?1 "
 	    + "GROUP BY p.name, p.id, p.quantity ")
     List<ProductsStatisticDto> getBestProductStatisticByMale(int gender);
+    
+    @Query("SELECT new com.godEShop.Dto.ProductsStatisticDto" + "(p.id, p.name, p.quantity, sum(od.quantity)) "
+    	    + "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o " + "INNER JOIN o.account a "
+    	    + "INNER JOIN a.users u " + "WHERE o.orderStatus between 2 and 4 and u.gender = ?1 and o.createDate between ?2 and ?3 "
+    	    + "GROUP BY p.name, p.id, p.quantity ")
+        List<ProductsStatisticDto> getBestProductStatisticByMaleByTime(int gender, Date dateStart, Date dateEnd);
 
     @Query("SELECT new com.godEShop.Dto.ProductImageDto" + "(p.id, MIN(pp.id)) " + "FROM Product p "
 	    + "INNER JOIN p.productPhotos pp " + "GROUP BY p.id ")

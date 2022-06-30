@@ -1,6 +1,10 @@
 <div xmlns:th="http://www.thymeleaf.org">
 <button id="users" ng-click="exportUsers();" class="btn btn-success">Export Report To Excel</button>
 <button id="users" ng-click="exportPdfUsers();" class="btn btn-success">Export Report To Pdf</button>
+Start<input ng-change="disabledUserFlagToggle();" placeholder="Select date" type="date" id="startDateUsers" ng-model="startDate">
+End<input ng-change="disabledUserFlagToggle();" placeholder="Select date" type="date" id="endDateUsers" ng-model="endDate">
+<button class="btn btn-success" id="submit" ng-click="historyByTimeUser();" ng-disabled="disabledUserFlag">Submit</button>
+<button class="btn btn-success" id="submit" ng-click="clearUser();">Clear</button>
 	<form>
 		<input type="text" class="form-control" placeholder="Search by name" ng-model="kwords" ng-change="findByNameDto(kwords)">
 	</form>
@@ -23,12 +27,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr style="height: 50px;" class="text-center" ng-repeat="item in userPager.items | orderBy:sortType | filter:searchName" ng-click="edit(item)">
+			<tr style="height: 50px;" class="text-center" ng-repeat="item in userPager.items | orderBy:sortType | filter:searchName">
 				<td style="width: 300px;font-size: 30px;border: 2px solid lightblue;">
-					<img ng-src="/upload/UserImages/{{item.image}}" alt="" style="width: 80px; height: 80px"/>
+					<img ng-src="/upload/UserImages/{{item.image}}" alt="" style="width: 80px; height: 80px" ng-click="detailUser(item.id)"/>
 				</td>
 				<td style="width: 200px;font-size: 30px;border: 2px solid lightblue;" ng-click="detailUser(item.id)">{{item.username}}</td>
-				<td style="width: 400px;font-size: 30px;border: 2px solid lightblue;">{{item.fullname}}</td>
+				<td style="width: 400px;font-size: 30px;border: 2px solid lightblue;" ng-click="detailUser(item.id)">{{item.fullname}}</td>
 				<td style="width: 200px;font-size: 30px;border: 2px solid lightblue;">{{item.orders}}</td>
 				<td style="width: 300px;font-size: 30px;border: 2px solid lightblue;">${{item.amount | number:0:0}}</td>
 			</tr>
