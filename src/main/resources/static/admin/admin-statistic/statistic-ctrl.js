@@ -112,14 +112,18 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				})
 				
 				$http.get("/rest/products/image").then(resp2 => {
-					for (var i = 0; i < resp.data.length; i++) {
-						if (resp.data.productId == resp2.data.productId) {
-							$scope.itemsProduct[i].imageId = resp2.data[i].imageId;
-							$scope.exportProductsData[i].productImage = resp2.data[i].imageId;
-						}
-					}	
+					resp2.data.forEach((item, index) => {
+						$scope.itemsProduct.forEach((item2, index2) => {
+							if (item.productId == item2.productId) {
+								$scope.itemsProduct[index2].imageId = item.imageId;
+								$scope.exportProductsData.imageId = item.imageId;
+							}
+						})
+						
+					})
+					
+					
 				});
-				
 				
 				// Xuat bao cao thong ke Products
 				$scope.exportProducts = function() {

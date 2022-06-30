@@ -310,7 +310,10 @@ let startStream = async () => {
 
 let endStream = async () => {
     streaming = false
-	document.getElementById('streaming').outerHTML = ""
+    if (document.getElementById('streaming') !== null) {
+		document.getElementById('streaming').outerHTML = ""
+	}
+	
     document.getElementById('stream-btn').innerHTML = 'Start Stream'
     document.getElementById('stream-btn').style.color = 'blue'
 
@@ -336,18 +339,17 @@ let endStream = async () => {
 let handleUserPublished = async (user, mediaType) => {
     await rtcClient.subscribe(user, mediaType)
 	let player = document.getElementById('video__stream')
-        
 	if (mediaType === 'video') {
-		player.innerHTML = ''
-		player = `
-		<div class="video-container" style="position:absolute; "id="user-container-${user.uid}">
-		<p id="streaming" style="color:red; z-index: 9999999; position: absolute; left: 20px; top: 20px;"><img style="width: 50px; height:30px; color: red;" src="/assets/images/streaming.png"></p>
-		<div class="video-player" id="user-${user.uid}">
-		</div>
-		</div>
-		`
-		document.getElementById('video__stream').insertAdjacentHTML('beforeend', player)
-		user.videoTrack.play(`user-${user.uid}`)
+			player.innerHTML = ''
+			player = `
+				<div class="video-container" style="position:absolute; "id="user-container-${user.uid}">
+				<p id="streaming" style="color:red; z-index: 9999999; position: absolute; left: 20px; top: 20px;"><img style="width: 50px; height:30px; color: red;" src="/assets/images/streaming.png"></p>
+				<div class="video-player" id="user-${user.uid}">
+				</div>
+				</div>
+				`
+			document.getElementById('video__stream').insertAdjacentHTML('beforeend', player)
+			user.videoTrack.play(`user-${user.uid}`)
 	}
 	if (mediaType === 'audio') {
 		user.audioTrack.play()
@@ -397,6 +399,7 @@ let toggleScreen = async (e) => {
 
         let player = `
                     <div class="video-container" style="position:absolute; "id="user-container-${rtcUid}">
+                    <p id="streaming" style="color:red; z-index: 9999999; position: absolute; left: 20px; top: 20px;"><img style="width: 50px; height:30px; color: red;" src="/assets/images/streaming.png"></p>
                         <div class="video-player" id="user-${rtcUid}">
                         </div>
                     </div>
@@ -426,7 +429,6 @@ let toggleScreen = async (e) => {
         localScreenTracks.play(`user-${rtcUid}`)
         await rtcClient.unpublish([localTracks[1]])
         await rtcClient.publish([localScreenTracks])
-        
     }
 }
 
