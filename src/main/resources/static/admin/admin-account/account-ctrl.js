@@ -1,5 +1,10 @@
 app.controller("account-ctrl", function($scope, $http) {
-
+	$(document).keypress(
+		function(event) {
+			if (event.which == '13') {
+				event.preventDefault();
+			}
+		});
 	$scope.items = [];
 	$scope.lstRole = [];
 	$scope.form = {};

@@ -1,6 +1,11 @@
 app.controller("order-ctrl", function($scope, $http) {
 
-
+	$(document).keypress(
+		function(event) {
+			if (event.which == '13') {
+				event.preventDefault();
+			}
+		});
 
 	$scope.items = [];
 	$scope.itemsPending = [];
@@ -75,7 +80,7 @@ app.controller("order-ctrl", function($scope, $http) {
 	$scope.confirm = function() {
 		var o = angular.copy($scope.form);
 		$scope.getOrderStatus = 2;
-		$http.put(`/rest/order-update-confirm/${o.id}`,o).then(resp => {
+		$http.put(`/rest/order-update-confirm/${o.id}`, o).then(resp => {
 			$scope.init();
 			$(".nav-tabs a:eq(2)").tab('show');
 		})

@@ -1,5 +1,10 @@
 app.controller("machineinside-ctrl", function($scope, $http) {
-
+	$(document).keypress(
+		function(event) {
+			if (event.which == '13') {
+				event.preventDefault();
+			}
+		});
 	$scope.items = [];
 	$scope.form = {};
 	$scope.showInsert = false;

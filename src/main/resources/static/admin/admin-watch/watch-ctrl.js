@@ -1,4 +1,10 @@
 app.controller("watch-ctrl", function($rootScope, $scope, $http) {
+	$(document).keypress(
+		function(event) {
+			if (event.which == '13') {
+				event.preventDefault();
+			}
+		});
 
 	$scope.items = [];
 	$scope.lstCategory = [];
@@ -21,7 +27,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 	$scope.showUpdate = false;
 
 	$scope.isEdit = false;
-	
+
 	$scope.outOfSoon = [];
 
 	$scope.imageChose = function(filename) {
@@ -87,7 +93,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 		$http.get("/rest/outOfSoon").then(resp => {
 			$scope.outOfSoon = resp.data;
 		})
-		
+
 	};
 
 	$scope.initialize();
@@ -106,7 +112,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 	// xóa form
 	$scope.reset = function() {
 		getProductIdEdit = null;
-		$rootScope.getProductIdAfterInsert = null; 
+		$rootScope.getProductIdAfterInsert = null;
 		$scope.formProduct.productId = null;
 		$scope.isEdit = false;
 		$scope.showInsert = true;
@@ -444,7 +450,7 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 		}
 
 	}
-	
+
 	$scope.pageroutOfSoon = {
 		page: 0,
 		size: 5,
@@ -475,8 +481,8 @@ app.controller("watch-ctrl", function($rootScope, $scope, $http) {
 		}
 
 	}
-	
-	
+
+
 
 	// -------------------- UPLOAD MULTI IMAGE---------------------
 	/*

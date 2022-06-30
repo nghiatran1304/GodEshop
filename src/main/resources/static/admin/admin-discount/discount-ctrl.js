@@ -1,5 +1,10 @@
 app.controller("discount-ctrl", function($scope, $http) {
-
+	$(document).keypress(
+		function(event) {
+			if (event.which == '13') {
+				event.preventDefault();
+			}
+		});
 	$scope.form = {};
 	$scope.items = {};
 
