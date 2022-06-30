@@ -1,6 +1,10 @@
 <div xmlns:th="http://www.thymeleaf.org">
 <button id="products" ng-click="exportProducts();" class="btn btn-success">Export Report To Excel</button>
-<button id="products" ng-click="exportPdfProducts();" class="btn btn-success">Export Report To Pdf</button>
+<button id="products2" ng-click="exportPdfProducts();" class="btn btn-success">Export Report To Pdf</button>
+Start<input ng-change="disabledFlagToggle();" placeholder="Select date" type="date" id="startDateProducts" ng-model="startDate">
+End<input ng-change="disabledFlagToggle();" ng-click="disabledFlagToggle();" placeholder="Select date" type="date" id="endDateProducts" ng-model="endDate">
+<button class="btn btn-success" id="submit" ng-click="historyByTime();" ng-disabled="disabledFlag">Submit</button>
+<button class="btn btn-success" id="submit" ng-click="clear();">Clear</button>
 	<form>
 		<input type="text" class="form-control" placeholder="Search by name" ng-model="kwords" ng-change="findByNameDto(kwords)">
 	</form>
@@ -22,7 +26,7 @@
 		<tbody>
 			<tr style="height: 50px; " class="text-center" ng-repeat="item in pager.items | orderBy:sortType | filter:searchName" ng-click="edit(item)">
 				<td style="width: 400px;border: 2px solid lightblue;">
-					<img ng-src="/upload/ProductImages/{{item.imageId}}" alt="" style="width: 80px; height: 80px"/>
+					<img ng-src="/upload/ProductImages/{{item.imageId}}" alt="" style="width: 80px; height: 80px" ng-click="detail(item.productId)"/>
 				</td>
 				<td style="width: 900px;font-size: 30px;border: 2px solid lightblue;" ng-click="detail(item.productId)">{{item.productName}}</td>
 				<td style="width: 300px;font-size: 30px;border: 2px solid lightblue;">{{item.quantityleft}}</td>
@@ -102,7 +106,6 @@
     </div>
   </div>
 </div>
-	
-	
 </div>
+
 

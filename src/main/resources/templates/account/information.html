@@ -23,18 +23,21 @@
 
 			<div class="container">
 				<div class="account-text-wrapper">
+					<h1 th:if="${mChangePass}=='CHANGE PASSWORD SUCCESS'" class="text-center text-success" id="mChangePass">[[${mChangePass}]]</h1>					
+						<h1 th:unless="${mChangePass}=='CHANGE PASSWORD SUCCESS'" class="text-center text-danger" id="mChangePass">[[${mChangePass}]]</h1>
+						
 					<div class="row">
 						<div class="col-md-3">
 							<div class="myaccount-tab-menu nav" role="tablist">
-								<a href="#orders" class="active" data-toggle="tab">
+								<a href="#orders" class="" data-toggle="tab" >
 									<i class="fa fa-cart-arrow-down"></i>
 									Orders
 								</a>
-								<a href="#account-info" data-toggle="tab">
+								<a href="#account-info" data-toggle="tab" class="" th:classappend="${isVerificationEmail=='true'?'' : 'active'}">
 									<i class="fa fa-user"></i>
 									Account Details
 								</a>
-								<a href="#account-changepassword" data-toggle="tab">
+								<a href="#account-changepassword" data-toggle="tab" class="" th:classappend="${isVerificationEmail=='true'?'active' : ''}">
 									<i class="fa fa-user"></i>
 									Change Password
 								</a>
@@ -47,10 +50,11 @@
 						<!-- My Account Tab Menu End -->
 
 						<!-- My Account Tab Content Start -->
+					
 						<div class="col-md-9 mt-15 mt-lg-0" ng-controller="order-cart-view-ctrl">
 							<div class="tab-content" id="myaccountContent">
 								<!-- Single Tab Content Start -->
-								<div class="tab-pane fade show active" id="orders" role="tabpanel">
+								<div class="tab-pane fade " id="orders" role="tabpanel">
 									<div class="myaccount-content">
 										<div class="myaccount-table table-responsive text-center">
 											<table class="table table-bordered table-hover">
@@ -152,12 +156,11 @@
 								</div>
 								<!-- Single Tab Content End -->
 
-								<div class="tab-pane fade" id="account-info" role="tabpanel">
+								<div class="tab-pane fade " id="account-info" role="tabpanel" th:classappend="${isVerificationEmail=='true'?'' : 'active show'}">
 									<div class="myaccount-content">
 										<h3>
 											Account Details :
-											<i th:unless="${mUpdateInfo}=='Update Success'" class="text-danger">[[${mUpdateInfo}]]</i>
-											<i th:if="${mUpdateInfo}=='Update Success'" class="text-success">[[${mUpdateInfo}]]</i>
+										
 										</h3>
 										<div class="account-details-form checkout-form-list">
 											<form th:action="@{/update/accountDetail}" method="POST" autocomplete="off" th:object="${user}" enctype="multipart/form-data">
@@ -248,7 +251,7 @@
 								</div>
 								<!-- Single Tab Content End -->
 
-								<div class="tab-pane fade " id="account-changepassword" role="tabpanel">
+								<div class="tab-pane fade " id="account-changepassword" role="tabpanel" th:classappend="${isVerificationEmail=='true'?'active show' : ''}">
 									<!-- form xac thuc email -->
 									<div th:if="${isVerificationEmail}=='false'">
 										<form th:action="@{/verificationEmail}" method="post" autocomplete="off" class="mt-5">
@@ -259,7 +262,7 @@
 									</div>
 									<div class="myaccount-content" th:if="${isVerificationEmail}=='true'">
 										<h3>Set Password</h3>
-										<i class="text-danger">[[${mchangePassword}]]</i>
+										
 										<div>
 											<form th:action="@{/changePassword}" method="post" autocomplete="off" class="form-group">
 												<div class="input-group form-group">
@@ -293,7 +296,14 @@
 												</div>
 
 												<button class="btn w-100 mt-5" type="submit">Change</button>
-												<script>
+												<script>											
+												setTimeout(function(){
+													document.getElementById("mChangePass").hidden = true;
+												}, 3000);
+												</script>
+												<script >
+												
+
 													const ipnCurrentPassword = document
 															.querySelector('#ipnCurrentPassword')
 													const btnCurrentPassword = document

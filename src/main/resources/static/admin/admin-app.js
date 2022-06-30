@@ -1,4 +1,6 @@
+
 var app = angular.module("admin-app", ["ngRoute"]);
+
 app.config(function($routeProvider) {
 	$routeProvider
 		.when("/admin/order", {
@@ -51,3 +53,5 @@ app.config(function($routeProvider) {
 			controller: "order-ctrl"
 		});
 });
+
+
