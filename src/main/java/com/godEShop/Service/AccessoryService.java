@@ -3,6 +3,7 @@ package com.godEShop.Service;
 import java.util.List;
 
 import com.godEShop.Dto.ProductAccessoryInfoDto;
+import com.godEShop.Dto.ProductWatchInfoDto;
 import com.godEShop.Entity.Accessory;
 
 public interface AccessoryService {
@@ -15,6 +16,7 @@ public interface AccessoryService {
 	Accessory update(Accessory ac);
 
 	List<ProductAccessoryInfoDto> lstSearchFullInfoAccessory(String string);
-
+	
+	List<ProductAccessoryInfoDto> lstFullInfoAccessoryOutOfSoon();
 	
 }
