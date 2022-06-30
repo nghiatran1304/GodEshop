@@ -208,8 +208,8 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			});
 		},
 		purchase() {
-			console.log($("#price"));
-			if (this.address == null || this.address == undefined || this.address.length <= 0) {
+			
+			if (this.address == null || this.address == undefined || this.address.length <= 0 || $scope.order.address == null || $scope.order.address == undefined || $scope.order.address.length <= 0) {
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',

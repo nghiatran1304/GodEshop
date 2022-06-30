@@ -23,12 +23,16 @@ public class PaymentController {
     public static final String URL_PAYPAL_SUCCESS = "pay/success";
     public static final String URL_PAYPAL_CANCEL = "pay/cancel";
     private Logger log = LoggerFactory.getLogger(getClass());
-   
+
     @Autowired
     PaypalService paypalService;
 
     @PostMapping("/pay")
-    public String pay(HttpServletRequest request, @RequestParam("price") double price) {
+    public String pay(HttpServletRequest request, @RequestParam("price") double price, @RequestParam("frmAddress") String address) {
+	if (address.length() <= 0) {
+	    return "redirect:/checkout";
+	}
+	System.out.println(address);
 	System.out.println(price);
 	String cancelUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
 	String successUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;
