@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -31,25 +30,24 @@ public class ForgotPasswordController {
     @Autowired
     ServletContext application;
 
-
-
     @Autowired
     BCryptPasswordEncoder pe;
     static Boolean isVerificationEmail = false;
-
 
     @GetMapping("/forgotPassword")
     public String layout() {
 	return "account/forgot-password";
     }
+
     @GetMapping("/changePasswordForm")
     public String form() {
-    	
-    	return "account/changePasswordForm";
+
+	return "account/changePasswordForm";
     }
+
     int checkPinNumber = 0;
     Account getAccount;
-    
+
     @RequestMapping("/forgotPassword-send")
     public String sendMail(Model model, @RequestParam("username") String username,
 	    @RequestParam("email") String email) {
@@ -57,7 +55,7 @@ public class ForgotPasswordController {
 	User u = userService.findByAccountUsername(username);
 	try {
 	    if (email.equalsIgnoreCase(u.getEmail())) {
-	    	int number = (int) Math.floor(((Math.random() * 899999) + 100000));
+		int number = (int) Math.floor(((Math.random() * 899999) + 100000));
 		checkPinNumber = number;
 		MailInfo m = new MailInfo();
 		m.setFrom("testemailnghiatran@gmail.com");
@@ -82,8 +80,6 @@ public class ForgotPasswordController {
 
     }
 
-    
-
     @RequestMapping("/checkPin")
     public String checkPin(Model model, @RequestParam("number") String number) {
 
@@ -103,7 +99,7 @@ public class ForgotPasswordController {
 	}
 
     }
-   
+
     @RequestMapping("/changePasswordForgot")
     public String changePassword(HttpServletRequest request, Model model,
 	    @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword) {
@@ -112,18 +108,18 @@ public class ForgotPasswordController {
 	    if (isVerificationEmail == true && newPassword.equals(confirmPassword)) {
 		acc.setPassword(pe.encode(newPassword));
 		accountService.update(acc);
-		model.addAttribute("mChangePassForgot","Change password success");
+		model.addAttribute("mChangePassForgot", "Change password success");
 		return "/account/login";
-	    }else {
-	    	model.addAttribute("mChangePassForgot","confirmation password does not match");
-	    	return "forward:/changePasswordForm";
+	    } else {
+		model.addAttribute("mChangePassForgot", "confirmation password does not match");
+		return "forward:/changePasswordForm";
 	    }
 	} catch (Exception e) {
 	    // TODO: handle exception
-		model.addAttribute("mChangePassForgot","change password failed");
+	    model.addAttribute("mChangePassForgot", "change password failed");
 	    return "forward:/changePasswordForm";
 	}
-	
+
     }
 
 }

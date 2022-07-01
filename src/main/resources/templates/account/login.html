@@ -40,7 +40,7 @@
 			<div class="form-container sign-up-container">
 				<form th:action="@{/register}" method="post" autocomplete="off">
 					<h1>Create Account</h1>
-					<div class="social-container">
+					<!-- <div class="social-container">
 						<a href="#" class="social">
 							<i class="fab fa-facebook-f"></i>
 						</a>
@@ -50,9 +50,9 @@
 						<a href="#" class="social">
 							<i class="fab fa-linkedin-in"></i>
 						</a>
-					</div>
+					</div> -->
 					
-					<input type="text" placeholder="Username" name="username" class="form-control" required />
+					<input type="text" placeholder="Username" name="username" class="form-control mt-3" required />
 					
 					<div class="input-group form-group">
 						<!-- <input pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" type="password" placeholder="Password" name="password" id="ipnPassword-register" class="form-control" required /> -->
@@ -64,7 +64,8 @@
 						</div>
 					</div>
 					<span th:if="${mIsPhoneExisted}=='true'" class="text-danger">phone number is existed!</span>
-					<input type="text" pattern="[0-9]{10}" placeholder="Phone number" name="txtPhone" class="form-control " required />
+					<input type="text" pattern="[0-9]{10}" placeholder="Phone number" name="txtPhone" class="form-control mt-3" required />
+					<input type="email" id="email" name="txtEmail" placeholder="Email" class="form-control mt-2" required />
 					<button>Sign Up</button>
 				</form>
 			</div>
