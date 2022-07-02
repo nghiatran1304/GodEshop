@@ -1205,6 +1205,7 @@ INSERT INTO Orders(CreateDate,Address,Username,OrderstatusId,OrdermethodId) VALU
 
 GO
 
+/*
 --ORDERDETAILS
 INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
 (1,75,80000,1),
@@ -1349,6 +1350,7 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
 (110,52,2000,1),
 (11,51,3500,1)
 GO
+*/
 
 ---ProductLikes
 INSERT INTO ProductLikes(IsLiked,ProductId,Username) VALUES
