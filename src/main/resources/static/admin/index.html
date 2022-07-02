@@ -1,213 +1,221 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<title>GodWatch Admin</title>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<title>GodWatch Admin</title>
 
 
-<link rel="stylesheet" href="/admin/assets/vendors/mdi/css/materialdesignicons.min.css" />
-<link rel="stylesheet" href="/admin/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
-<link rel="stylesheet" href="/admin/assets/vendors/css/vendor.bundle.base.css" />
-<link rel="stylesheet" href="/admin/assets/vendors/font-awesome/css/font-awesome.min.css" />
-<link rel="stylesheet" href="/admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
-<link rel="stylesheet" href="/admin/assets/css/style.css" />
+	<link rel="stylesheet" href="/admin/assets/vendors/mdi/css/materialdesignicons.min.css" />
+	<link rel="stylesheet" href="/admin/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
+	<link rel="stylesheet" href="/admin/assets/vendors/css/vendor.bundle.base.css" />
+	<link rel="stylesheet" href="/admin/assets/vendors/font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
+	<link rel="stylesheet" href="/admin/assets/css/style.css" />
 
-<link rel="shortcut icon" href="/admin/assets/images/favicon.png" />
-<!-- ANGULARJS -->
+	<link rel="shortcut icon" href="/admin/assets/images/favicon.png" />
+	<!-- ANGULARJS -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.2/angular-route.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- CHART -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
-	
-<!-- EXPORT -->
-<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.13/jspdf.plugin.autotable.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.2/angular-route.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<!-- CHART -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
 
-<style>
-input[type="file"] {
-	display: none;
-}
+	<!-- EXPORT -->
+	<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.13/jspdf.plugin.autotable.min.js"></script>
 
-.modal-content {
-  width: 1300px;
-  left: -350px;
-  top: -45px;
-  overflow: auto;
-}
+	<style>
+		input[type="file"] {
+			display: none;
+		}
 
-#myChart {
-  width:1250px !important;
-  height:550px !important;
-}
+		.modal-content {
+			width: 1300px;
+			left: -350px;
+			top: -45px;
+			overflow: auto;
+		}
+
+		#myChart {
+			width: 1250px !important;
+			height: 550px !important;
+		}
 
 
-.custom-file-upload {
-	border: 1px solid #ccc;
-	display: inline-block;
-	padding: 6px 12px;
-	cursor: pointer;
-}
+		.custom-file-upload {
+			border: 1px solid #ccc;
+			display: inline-block;
+			padding: 6px 12px;
+			cursor: pointer;
+		}
 
-.btn-5 {
-	width: 130px;
-	height: 40px;
-	line-height: 42px;
-	padding: 0;
-	border: none;
-	background: rgb(18, 164, 221);
-	color: white;
-}
+		.btn-5 {
+			width: 130px;
+			height: 40px;
+			line-height: 42px;
+			padding: 0;
+			border: none;
+			background: rgb(18, 164, 221);
+			color: white;
+		}
 
-.btn-5:hover {
-	color: black;
-	background: transparent;
-	box-shadow: none;
-	border: 1px solid black;
-}
+		.btn-5:hover {
+			color: black;
+			background: transparent;
+			box-shadow: none;
+			border: 1px solid black;
+		}
 
-.card1 {
-	z-index: 0;
-	background-color: #ECEFF1;
-	margin-bottom: 50px;
-	border-radius: 10px;
-}
+		.card1 {
+			z-index: 0;
+			background-color: #ECEFF1;
+			margin-bottom: 50px;
+			border-radius: 10px;
+		}
 
-.top {
-	padding-top: 40px;
-	padding-left: 13% !important;
-	padding-right: 13% !important;
-}
+		.top {
+			padding-top: 40px;
+			padding-left: 13% !important;
+			padding-right: 13% !important;
+		}
 
-/*Icon progressbar*/
-#progressbar {
-	margin-bottom: 30px;
-	overflow: hidden;
-	color: #455A64;
-	padding-left: 0px;
-	margin-top: 30px;
-}
+		/*Icon progressbar*/
+		#progressbar {
+			margin-bottom: 30px;
+			overflow: hidden;
+			color: #455A64;
+			padding-left: 0px;
+			margin-top: 30px;
+		}
 
-#progressbar li {
-	list-style-type: none;
-	font-size: 13px;
-	width: 25%;
-	float: left;
-	position: relative;
-	font-weight: 400;
-}
+		#progressbar li {
+			list-style-type: none;
+			font-size: 13px;
+			width: 25%;
+			float: left;
+			position: relative;
+			font-weight: 400;
+		}
 
-#progressbar .step0:before {
-	font-family: FontAwesome;
-	content: "\f10c";
-	color: #fff;
-}
+		#progressbar .step0:before {
+			font-family: FontAwesome;
+			content: "\f10c";
+			color: #fff;
+		}
 
-#progressbar li:before {
-	width: 40px;
-	height: 40px;
-	line-height: 45px;
-	display: block;
-	font-size: 20px;
-	background: #C5CAE9;
-	border-radius: 50%;
-	margin: auto;
-	padding: 0px;
-}
+		#progressbar li:before {
+			width: 40px;
+			height: 40px;
+			line-height: 45px;
+			display: block;
+			font-size: 20px;
+			background: #C5CAE9;
+			border-radius: 50%;
+			margin: auto;
+			padding: 0px;
+		}
 
-/*ProgressBar connectors*/
-#progressbar li:after {
-	content: '';
-	width: 100%;
-	height: 12px;
-	background: #C5CAE9;
-	position: absolute;
-	left: 0;
-	top: 16px;
-	z-index: -1;
-}
+		/*ProgressBar connectors*/
+		#progressbar li:after {
+			content: '';
+			width: 100%;
+			height: 12px;
+			background: #C5CAE9;
+			position: absolute;
+			left: 0;
+			top: 16px;
+			z-index: -1;
+		}
 
-#progressbar li:last-child:after {
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
-	position: absolute;
-	left: -50%;
-}
+		#progressbar li:last-child:after {
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px;
+			position: absolute;
+			left: -50%;
+		}
 
-#progressbar li:nth-child(2):after, #progressbar li:nth-child(3):after {
-	left: -50%;
-}
+		#progressbar li:nth-child(2):after,
+		#progressbar li:nth-child(3):after {
+			left: -50%;
+		}
 
-#progressbar li:first-child:after {
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-	position: absolute;
-	left: 50%;
-}
+		#progressbar li:first-child:after {
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
+			position: absolute;
+			left: 50%;
+		}
 
-#progressbar li:last-child:after {
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
-}
+		#progressbar li:last-child:after {
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
 
-#progressbar li:first-child:after {
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-}
+		#progressbar li:first-child:after {
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
+		}
 
-#progressbar li.active:before, #progressbar li.active:after {
-	background: green;
-}
+		#progressbar li.active:before,
+		#progressbar li.active:after {
+			background: green;
+		}
 
-#progressbar li.active:before {
-	font-family: FontAwesome;
-	content: "\f00c";
-}
+		#progressbar li.active:before {
+			font-family: FontAwesome;
+			content: "\f00c";
+		}
 
-.icon {
-	width: 60px;
-	height: 60px;
-	margin-right: 15px;
-}
+		.icon {
+			width: 60px;
+			height: 60px;
+			margin-right: 15px;
+		}
 
-.icon-content {
-	padding-bottom: 20px;
-}
+		.icon-content {
+			padding-bottom: 20px;
+		}
 
-@media screen and (max-width: 992px) {
-	.icon-content {
-		width: 50%;
-	}
-}
-</style>
+		@media screen and (max-width: 992px) {
+			.icon-content {
+				width: 50%;
+			}
+		}
+	</style>
 </head>
+
 <body ng-app="admin-app">
 	<div class="container-scroller" th:object="${session.adminName}">
 		<nav class="sidebar sidebar-offcanvas" id="sidebar">
 			<div class="text-center sidebar-brand-wrapper d-flex align-items-center">
 				<a class="sidebar-brand brand-logo" href="index.html">
-					<img src="/admin/assets/images/logo.svg" alt="logo" />
+					<!-- <img src="/admin/assets/images/logo.svg" alt="logo" /> -->
+					<img src="/admin/assets/images/Glogo/logo.png" alt="Nikado">
 				</a>
 				<a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="index.html">
-					<img src="/admin/assets/images/logo-mini.svg" alt="logo" />
+					<!-- <img src="/admin/assets/images/logo-mini.svg" alt="logo" /> -->
+					<img src="/admin/assets/images/Glogo/whiteLogo.png" alt="Nikado">
 				</a>
 			</div>
 			<ul class="nav">
 				<li class="nav-item nav-profile">
 					<a href="#" class="nav-link">
-						<div class="nav-profile-image">
+						<!-- <div class="nav-profile-image">
 							<img src="/admin/assets/images/faces/face1.jpg" alt="profile" />
 							<span class="login-status online"></span>
-							<!--change to offline or busy as needed-->
-						</div>
+							change to offline or busy as needed
+						</div> -->
 						<div class="nav-profile-text d-flex flex-column pr-3">
-							<span class="font-weight-medium mb-2" id="adminUsername">[[${#request.remoteUser}]]</span>
-							<span class="font-weight-normal">[[*{fullname}]]</span>
+							<span class="font-weight-bold mb-2 text-danger" style="font-size:15px;"
+								id="adminUsername">[[${#request.remoteUser}]]</span>
+							<span class="font-weight-normal"
+								style="font-size: 18px; color: black">[[*{fullname}]]</span>
 						</div>
 						<span class="badge badge-danger text-white ml-3 rounded">3</span>
 					</a>
@@ -219,7 +227,8 @@ input[type="file"] {
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="collapse" href="#management" aria-expanded="false" aria-controls="ui-basic">
+					<a class="nav-link" data-toggle="collapse" href="#management" aria-expanded="false"
+						aria-controls="ui-basic">
 						<i class="mdi mdi-crosshairs-gps menu-icon"></i>
 						<span class="menu-title">Management</span>
 						<i class="menu-arrow"></i>
@@ -268,52 +277,53 @@ input[type="file"] {
 						<span class="menu-title">Statistic</span>
 					</a>
 				</li>
-				<li class="nav-item">
+				<!-- <li class="nav-item">
 					<a class="nav-link" href="#!admin">
 						<i class="mdi mdi-table-large menu-icon"></i>
 						<span class="menu-title">More</span>
 					</a>
-				</li>
+				</li> -->
 				<li class="nav-item">
 					<span class="nav-link" href="#">
 						<span class="menu-title">Docs</span>
 					</span>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="https://www.bootstrapdash.com/demo/breeze-free/documentation/documentation.html">
+					<a class="nav-link"
+						href="https://www.bootstrapdash.com/demo/breeze-free/documentation/documentation.html">
 						<i class="mdi mdi-file-document-box menu-icon"></i>
 						<span class="menu-title">Documentation</span>
 					</a>
 				</li>
 				<li class="nav-item sidebar-actions">
 					<div class="nav-link">
-						<div class="mt-4">
-							<div class="border-none">
+						<div class="">
+							<!-- <div class="border-none">
 								<p class="text-black">Notification</p>
-							</div>
+							</div> -->
 							<div class="border-none">
-								<a class="nav__link" id="create__room__btn" href="#"> Create Room </a>
+								<a class="nav__link" id="create__room__btn" style="font-size: 20px; color: #A22514"
+									href="#"> Livestream Room </a>
 							</div>
 							<script>
 								let btnCreateRoom = document.getElementById('create__room__btn')
 								btnCreateRoom.addEventListener('click', () => {
 									let roomId = String(Math.floor(Math.random() * 10000))
-								    sessionStorage.setItem('room_name', "123")
-								    sessionStorage.setItem('avatar', "/assets/images/default.PNG")
-								    sessionStorage.setItem('display_name', "Hải")
-								    sessionStorage.setItem('host', true)
-								    window.location = `room/${roomId}`
+									sessionStorage.setItem('room_name', "123")
+									sessionStorage.setItem('avatar', "/assets/images/default.PNG")
+									sessionStorage.setItem('display_name', "Hải")
+									sessionStorage.setItem('host', true)
+									window.location = `room/${roomId}`
 								})							 						
 							</script>
-
-							<ul class="mt-4 pl-0">
-								<li>
-									<a th:href="@{/account/logoff}">Sign Out</a>
-								</li>
-							</ul>
 						</div>
 					</div>
 				</li>
+
+				<li  class="nav-item mt-5">
+					<a th:href="@{/account/logoff}" style="font-size: 20px; color: black">Sign Out</a>
+				</li>
+
 			</ul>
 		</nav>
 		<div class="container-fluid page-body-wrapper">
@@ -339,16 +349,19 @@ input[type="file"] {
 					<a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="index.html">
 						<img src="/admin/assets/images/logo-mini.svg" alt="logo" />
 					</a>
-					<button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button" data-toggle="minimize">
+					<button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button"
+						data-toggle="minimize">
 						<i class="mdi mdi-menu"></i>
 					</button>
 					<ul class="navbar-nav">
 						<li class="nav-item dropdown">
-							<a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+							<a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
+								data-toggle="dropdown">
 								<i class="mdi mdi-bell-outline"></i>
 								<span class="count count-varient1">7</span>
 							</a>
-							<div class="dropdown-menu navbar-dropdown navbar-dropdown-large preview-list" aria-labelledby="notificationDropdown">
+							<div class="dropdown-menu navbar-dropdown navbar-dropdown-large preview-list"
+								aria-labelledby="notificationDropdown">
 								<h6 class="p-3 mb-0">Notifications</h6>
 								<a class="dropdown-item preview-item">
 									<div class="preview-thumbnail">
@@ -388,11 +401,13 @@ input[type="file"] {
 							</div>
 						</li>
 						<li class="nav-item dropdown d-none d-sm-flex">
-							<a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown">
+							<a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
+								data-toggle="dropdown">
 								<i class="mdi mdi-email-outline"></i>
 								<span class="count count-varient2">5</span>
 							</a>
-							<div class="dropdown-menu navbar-dropdown navbar-dropdown-large preview-list" aria-labelledby="messageDropdown">
+							<div class="dropdown-menu navbar-dropdown navbar-dropdown-large preview-list"
+								aria-labelledby="messageDropdown">
 								<h6 class="p-3 mb-0">Messages</h6>
 								<a class="dropdown-item preview-item">
 									<div class="preview-item-content flex-grow">
@@ -411,7 +426,8 @@ input[type="file"] {
 								<a class="dropdown-item preview-item">
 									<div class="preview-item-content flex-grow">
 										<span class="badge badge-pill badge-danger">Projects</span>
-										<p class="text-small text-muted ellipsis mb-0">New project will start tomorrow</p>
+										<p class="text-small text-muted ellipsis mb-0">New project will start tomorrow
+										</p>
 									</div>
 									<p class="text-small text-muted align-self-start">4:10 PM</p>
 								</a>
@@ -446,8 +462,8 @@ input[type="file"] {
 						</li>
 						<li class="nav-item nav-profile dropdown border-0">
 							<a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
-								<img class="nav-profile-img mr-2" alt="" src="/admin/assets/images/faces/face1.jpg" />
-								<span class="profile-name">[[*{fullname}]]</span>
+								<!-- <img class="nav-profile-img mr-2" alt="" src="/admin/assets/images/faces/face1.jpg" /> -->
+								<span class="profile-name" style="font-size:20px; color: #fff;">[[*{fullname}]]</span>
 							</a>
 							<div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
 								<a class="dropdown-item" href="#">
@@ -461,7 +477,8 @@ input[type="file"] {
 							</div>
 						</li>
 					</ul>
-					<button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+					<button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+						data-toggle="offcanvas">
 						<span class="mdi mdi-menu"></span>
 					</button>
 				</div>
@@ -476,7 +493,7 @@ input[type="file"] {
 				<!-- FOOTER -->
 				<footer class="footer">
 					<div class="d-sm-flex justify-content-center justify-content-sm-between">
-						
+
 					</div>
 				</footer>
 				<!-- END FOOTER -->
@@ -486,8 +503,8 @@ input[type="file"] {
 		</div>
 		<!-- page-body-wrapper ends -->
 	</div>
-	
-    <!-- JS Process -->
+
+	<!-- JS Process -->
 	<script src="/admin/admin-app.js"></script>
 	<script src="/admin/admin-watch/watch-ctrl.js"></script>
 	<script src="/admin/admin-accessory/accessory-ctrl.js"></script>
@@ -501,7 +518,7 @@ input[type="file"] {
 	<script src="/admin/admin-glassmaterial/glassmaterial-ctrl.js"></script>
 	<script src="/admin/admin-machineinside/machineinside-ctrl.js"></script>
 	<!-- <script src="/admin/admin-user/user-ctrl.js"></script> -->
-	
+
 	<!-- container-scroller -->
 	<!-- plugins:js -->
 	<script src="/admin/assets/vendors/js/vendor.bundle.base.js"></script>
@@ -526,4 +543,5 @@ input[type="file"] {
 	<!-- End custom js for this page -->
 	<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+
 <body>
 	<main>
 		<link rel="stylesheet" href="/assets/css/Login-Register.css">
@@ -34,7 +35,7 @@
 		<div th:if="${mChangePassForgot}=='Change password success'">
 			<h1 class="text-success text-center">[[${mChangePassForgot}]]</h1>
 		</div>
-		
+
 		<!-- <h2>Sign in/up Form</h2>	 -->
 		<div class="container mt-5" id="container">
 			<div class="form-container sign-up-container">
@@ -51,12 +52,15 @@
 							<i class="fab fa-linkedin-in"></i>
 						</a>
 					</div> -->
-					
+
 					<input type="text" placeholder="Username" name="username" class="form-control mt-3" required />
-					
+
 					<div class="input-group form-group">
 						<!-- <input pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" type="password" placeholder="Password" name="password" id="ipnPassword-register" class="form-control" required /> -->
-						<input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{8,}" title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" type="password" placeholder="Password" name="password" id="ipnPassword-register" class="form-control" required />
+						<input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{8,}"
+							title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
+							type="password" placeholder="Password" name="password" id="ipnPassword-register"
+							class="form-control" required />
 						<div class="input-group-append">
 							<button class="btn btn-outline-secondary" type="button" id="btnPassword-register">
 								<span class="fas fa-eye"></span>
@@ -64,8 +68,10 @@
 						</div>
 					</div>
 					<span th:if="${mIsPhoneExisted}=='true'" class="text-danger">phone number is existed!</span>
-					<input type="text" pattern="[0-9]{10}" placeholder="Phone number" name="txtPhone" class="form-control mt-3" required />
-					<input type="email" id="email" name="txtEmail" placeholder="Email" class="form-control mt-2" required />
+					<input type="text" pattern="[0-9]{10}" placeholder="Phone number" name="txtPhone"
+						class="form-control mt-3" required />
+					<input type="email" id="email" name="txtEmail" placeholder="Email" class="form-control mt-2"
+						required />
 					<button>Sign Up</button>
 				</form>
 			</div>
@@ -74,19 +80,21 @@
 					<h1>Sign in</h1>
 					<div class="social-container">
 						<a href="#" class="social">
-							<i class="fab fa-facebook-f"></i>
+							<i class="fab fa-facebook-f text-primary" style="font-size: 20px"></i>
 						</a>
 						<a href="/oauth2/authorization/google" class="social">
-							<i class="fab fa-google-plus-g"></i>
+							<i class="fab fa-google-plus-g text-danger" style="font-size: 20px"></i>
 						</a>
 						<a href="#" class="social">
-							<i class="fab fa-linkedin-in"></i>
+							<i class="fab fa-linkedin-in text-info" style="font-size: 20px"></i>
 						</a>
 					</div>
-					<span>or use your account</span>
-					<input type="text" placeholder="Username" name="username" class="form-control" id="input-username" required />
+					<!-- <span>or use your account</span> -->
+					<input type="text" placeholder="Username" name="username" class="form-control" id="input-username"
+						required />
 					<div class="input-group form-group">
-						<input type="password" placeholder="Password" name="password" id="ipnPassword" class="form-control" required />
+						<input type="password" placeholder="Password" name="password" id="ipnPassword"
+							class="form-control" required />
 						<div class="input-group-append">
 							<button class="btn btn-outline-secondary" type="button" id="btnPassword">
 								<span class="fas fa-eye"></span>
@@ -94,57 +102,59 @@
 						</div>
 
 					</div>
-					<span th:unless="${#request.remoteUser}">
+					<span th:unless="${#request.remoteUser}" class="mb-3">
 						<a href="/forgotPassword">Forgot Password?</a>
 					</span>
 					<button type="submit" onclick="getToken()">Sign In</button>
-					<script>	
+					<script>
 						const ipnElementRegister = document.querySelector('#ipnPassword-register')
 						const btnElementRegister = document.querySelector('#btnPassword-register')
 						const ipnElement = document.querySelector('#ipnPassword')
 						const btnElement = document.querySelector('#btnPassword')
-					
-						btnElement.addEventListener('click',function() {				
-						const currentType = ipnElement.getAttribute('type')				
-						ipnElement.setAttribute('type',currentType === 'password' ? 'text': 'password')})	
-						
-						btnElementRegister.addEventListener('click',function() {				
-						const currentTypeRegister = ipnElementRegister.getAttribute('type')				
-						ipnElementRegister.setAttribute('type',currentTypeRegister === 'password' ? 'text': 'password')})
-						
+
+						btnElement.addEventListener('click', function () {
+							const currentType = ipnElement.getAttribute('type')
+							ipnElement.setAttribute('type', currentType === 'password' ? 'text' : 'password')
+						})
+
+						btnElementRegister.addEventListener('click', function () {
+							const currentTypeRegister = ipnElementRegister.getAttribute('type')
+							ipnElementRegister.setAttribute('type', currentTypeRegister === 'password' ? 'text' : 'password')
+						})
+
 						let username = document.getElementById("input-username")
 						let password = document.getElementById("ipnPassword")
 						let URL = 'http://localhost:8080/loginPage'
 						let formData = new FormData()
-											
-						let getToken = async() => {
-					//Cáº¥u hĂ¬nh cho Header
-						let myHeaders = new Headers();
-						myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-					//Set giĂ¡ trá»‹ body (data gá»­i Ä‘i lĂ  username vĂ  password Ä‘á»ƒ láº¥y Token)
-						let urlencoded = new URLSearchParams();
-						urlencoded.append("username", username.value);
-						urlencoded.append("password", password.value);
+						let getToken = async () => {
+							//Cáº¥u hĂ¬nh cho Header
+							let myHeaders = new Headers();
+							myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-					// Set thuá»™c tĂ­nh khi fetch API
-						let requestOptions = {
-							method: 'POST',
-							headers: myHeaders,
-							body: urlencoded,
-							redirect: 'follow'
+							//Set giĂ¡ trá»‹ body (data gá»­i Ä‘i lĂ  username vĂ  password Ä‘á»ƒ láº¥y Token)
+							let urlencoded = new URLSearchParams();
+							urlencoded.append("username", username.value);
+							urlencoded.append("password", password.value);
+
+							// Set thuá»™c tĂ­nh khi fetch API
+							let requestOptions = {
+								method: 'POST',
+								headers: myHeaders,
+								body: urlencoded,
+								redirect: 'follow'
 							};
 
-					// Gá»�i API
-						let resp = await fetch(URL, requestOptions)
-												
-					// Xá»­ lĂ½ giĂ¡ trá»‹ tráº£ vá»�
-						let data = await resp.json()
-						sessionStorage.setItem("access_token", data.access_token)
-						sessionStorage.setItem("refresh_token", data.refresh_token) 
+							// Gá»�i API
+							let resp = await fetch(URL, requestOptions)
+
+							// Xá»­ lĂ½ giĂ¡ trá»‹ tráº£ vá»�
+							let data = await resp.json()
+							sessionStorage.setItem("access_token", data.access_token)
+							sessionStorage.setItem("refresh_token", data.refresh_token)
 						}
-						
-					
+
+
 					</script>
 				</form>
 			</div>
@@ -165,20 +175,21 @@
 		</div>
 		<!-- Login-Register -->
 		<script>
-        const signUpButton = document.getElementById('signUp');
-        const signInButton = document.getElementById('signIn');
-        const container = document.getElementById('container');
+			const signUpButton = document.getElementById('signUp');
+			const signInButton = document.getElementById('signIn');
+			const container = document.getElementById('container');
 
-        signUpButton.addEventListener('click', () => {
-            container.classList.add('right-panel-active');
-        });
+			signUpButton.addEventListener('click', () => {
+				container.classList.add('right-panel-active');
+			});
 
-        signInButton.addEventListener('click', () => {
-            container.classList.remove('right-panel-active');
-        });
-    </script>
+			signInButton.addEventListener('click', () => {
+				container.classList.remove('right-panel-active');
+			});
+		</script>
 
 		<!-- cart page content end -->
 	</main>
 </body>
+
 </html>

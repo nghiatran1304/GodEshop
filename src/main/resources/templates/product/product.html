@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+
 <body>
 	<main>
 		<!-- Breadcrumbs -->
@@ -25,13 +25,13 @@
 					<div class="col-xs-12 col-md-3 sidebar-shop">
 						<div class="sidebar-product-categori">
 							<div class="widget-title">
-								<h3>TOP BRANDS</h3>
+								<h3>BRANDS</h3>
 							</div>
 							<div class="widget-content">
 								<ul class="product-categories">
 									<li class="cat-item" th:each="lst, state : ${lstBrands}">
 										<a
-										th:href="@{|/product?search-category=${cateName}&search-brand=${lst.name}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&isGender=${gender}|}">[[${lst.name}]]</a>
+											th:href="@{|/product?search-category=${cateName}&search-brand=${lst.name}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&isGender=${gender}|}">[[${lst.name}]]</a>
 										<span class="count"></span>
 									</li>
 								</ul>
@@ -41,71 +41,113 @@
 									<h3>Filter by price</h3>
 								</div>
 								<div class="widget-content">
-									<form  name="frm"
-										th:action="@{|/product?minPrice=${minPrice}&maxPrice=${maxPrice}&isGender=${gender}&search-category=&search-brand=|}"
-										method="get">
-										<div class="form-group">
+									<small class="text-danger"><i>[[${mPrice}]]</i></small>
+									<form name="frm"
+										th:action="@{|/product?minPrice=${minPrice}&maxPrice=${maxPrice}&search-category=${cateName}&search-brand=${brandName}&isGender=${gender}|}"
+										method="get" autocomplete="off" class="p-0 m-0">
+										<div class="form-group p-0 mb-0">
 											<div class="row">
-												<div class="col-4">
-													<input type="text" required min="0" name="minPrice" />
+												<div class="col-5 p-0">
+													<input type="text" required min="0" name="minPrice"
+														class="form-control" placeholder="min price" />
 												</div>
-												<div class="col-2 text-center">
-												<i class="fa-solid fa-arrow-right-long"></i>
+												<div class="col-2 text-align-center mt-3">
+													<i class="fa-solid fa-arrow-right-long"></i>
 												</div>
-												
-												<div class="col-4">
-													<input type="text" required min="0" name="maxPrice" /> <br />
+												<div class="col-5 p-0">
+													<input type="text" required min="0" name="maxPrice"
+														class="form-control"  placeholder="max price" />
 												</div>
-
 											</div>
-
 										</div>
-											 <small  class="text-danger"><i>[[${mPrice}]]</i></small>
-										<button  class="btn btn-info w-100" type="submit">APPLY</button>
+										<button class="btn btn-primary col mt-0" type="submit">APPLY</button>
 									</form>
 								</div>
 
 							</div>
 							<div class="product-filter mb-30">
 								<div class="widget-title">
-									<h3>SEARCH FILTER</h3>
+									<h3>FILTER BY GENDER</h3>
 								</div>
 								<div class="widget-content">
-									<form th:action="@{|/product?isGender=${gender}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&search-category=&search-brand=|}" method="get">
-										<div class="row">
-											<div class="col-5">
-												<div class="form-check">
+									<!-- <form
+										th:action="@{|/product?isGender=${gender}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&search-category=&search-brand=|}"
+										method="get"> -->
+									<form>
+										<div class="">
+											<div class="row pl-3">
+												<div class="form-check col-12 form-group">
+													<input class="form-check-input" type="checkbox" value="3"
+														name="isGender" id="isGenderSelected3" th:checked="${genderAll}" onclick="fnGenderAll()"
+														style="width:20px; height:20px;">
+													<label for="isGenderSelected3" class="form-check-label ml-3"> <a
+															style="font-size: 19px" id="linkGenderAll"
+															th:href="@{|/product?search-category=${cateName}&search-brand=${brandName}&isGender=3&minPrice=${sminPrice}&maxPrice=${smaxPrice}|}">All
+															Gender</a>
+													</label>
+													<script>
+														function fnGenderAll(){
+															document.getElementById("linkGenderAll").click();
+														}
+													</script>
+												</div>
+
+												<div class="form-check col-12 form-group">
 													<input class="form-check-input" type="checkbox" value="1"
-														name="isGender" id="isGenderSelected1"> <label
-														for="isGenderSelected1" class="form-check-label">
-														Male </label>
+														name="isGender" id="isGenderSelected1"
+														th:checked="${genderMale}" style="width:20px; height:20px;" onclick="fnGenderMale()">
+													<label for="isGenderSelected1" class="form-check-label ml-3">
+														<a style="font-size: 19px" id="linkGenderMale"
+															th:href="@{|/product?search-category=${cateName}&search-brand=${brandName}&isGender=1&minPrice=${sminPrice}&maxPrice=${smaxPrice}|}">
+															Male
+														</a>
+													</label>
+													<script>
+														function fnGenderMale(){
+															document.getElementById("linkGenderMale").click();
+														}
+													</script>
 												</div>
 
-
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value="0"
-														name="isGender" id="isGenderSelected0"> <label
-														class="form-check-label" for="isGenderSelected0">
-														Female </label>
+												<div class="form-check col-12 form-group">
+													<input class="form-check-input" type="checkbox" value="0" onclick="fnGenderFemale()"
+														name="isGender" id="isGenderSelected0"
+														th:checked="${genderFemale}" style="width:20px; height:20px;">
+													<label class="form-check-label ml-3" for="isGenderSelected0"><a
+															style="font-size: 19px" id="linkGenderFemale"
+															th:href="@{|/product?search-category=${cateName}&search-brand=${brandName}&isGender=0&minPrice=${sminPrice}&maxPrice=${smaxPrice}|}">Female</a>
+													</label>
+													<script>
+														function fnGenderFemale(){
+															document.getElementById("linkGenderFemale").click();
+														}
+													</script>
 												</div>
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value="2"
-														name="isGender" id="isGenderSelected2"> <label
-														class="form-check-label" for="isGenderSelected2">
-														Unisex </label>
+												<div class="form-check col-12 form-group">
+													<input class="form-check-input" type="checkbox" value="2" onclick="fnGenderUnisex()"
+														name="isGender" id="isGenderSelected2"
+														th:checked="${genderUnisex}" style="width:20px; height:20px;">
+													<label class="form-check-label ml-3" for="isGenderSelected2"> <a
+															style="font-size: 19px" id="linkGenderUnisex"
+															th:href="@{|/product?search-category=${cateName}&search-brand=${brandName}&isGender=2&minPrice=${sminPrice}&maxPrice=${smaxPrice}|}">Others</a>
+													</label>
+													<script>
+														function fnGenderUnisex(){
+															document.getElementById("linkGenderUnisex").click();
+														}
+													</script>
 												</div>
 											</div>
-
-											<div class="col-7">
+											<!-- <div class="col-7">
 												<button class="btn btn-info w-100 h-100" type="submit">APPLY</button>
-											</div>
+											</div>-->
 										</div>
 									</form>
 								</div>
 
 							</div>
-							
-						
+
+
 							<div class="product-filter mb-30">
 								<div class="widget-title">
 									<h3>TOP SELLER PRODUCTS</h3>
@@ -116,15 +158,14 @@
 											<div class="product-image">
 												<a title="Phasellus vel hendrerit"
 													th:href="@{|/product/${p.productId}|}"> <img alt=""
-													th:src="@{|/upload/ProductImages/${p.productImage}|}"
-													style="width: 150px; height: 50px">
+														th:src="@{|/upload/ProductImages/${p.productImage}|}"
+														style="width: 150px; height: 50px">
 												</a>
 											</div>
 											<div class="product-info">
 												<a title="Phasellus vel hendrerit"
-													th:href="@{|/product/${p.productId}|}"
-													style="size: 1px !important"> <span
-													class="product-title">[[${p.productName}]]</span>
+													th:href="@{|/product/${p.productId}|}" style="size: 1px !important">
+													<span class="product-title">[[${p.productName}]]</span>
 												</a>
 												<div class="star-rating">
 													<div class="rating-box">
@@ -174,15 +215,18 @@
 													</div>
 												</div>
 												<span class="woocommerce-Price-amount amount"> <span
-													class="woocommerce-Price-currencySymbol"> <th:block
-															th:if="${p.productDiscount == null}">
-															$ [[${#numbers.formatDecimal(p.productPrice, 0, 'COMMA', 2, 'POINT')}]]
-														</th:block> <th:block th:if="${p.productDiscount != null}">
-															<del>$ [[${#numbers.formatDecimal(p.productPrice, 0, 'COMMA', 2, 'POINT')}]]</del>
+														class="woocommerce-Price-currencySymbol">
+														<th:block th:if="${p.productDiscount == null}">
+															$ [[${#numbers.formatDecimal(p.productPrice, 0, 'COMMA', 2,
+															'POINT')}]]
+														</th:block>
+														<th:block th:if="${p.productDiscount != null}">
+															<del>$ [[${#numbers.formatDecimal(p.productPrice, 0,
+																'COMMA', 2, 'POINT')}]]</del>
 															$ <span
 																th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
 														</th:block>
-												</span>
+													</span>
 												</span>
 											</div>
 										</li>
@@ -191,8 +235,7 @@
 								</div>
 							</div>
 							<div class="sidebar-single-banner">
-								<a href="#"> <img src="/assets/images/GBanner/sale2.jpg"
-									alt="Banner">
+								<a href="#"> <img src="/assets/images/GBanner/sale2.jpg" alt="Banner">
 								</a>
 							</div>
 							<div class="sidebar-tag">
@@ -224,7 +267,8 @@
 						<div class="product-toolbar">
 							<div class="topbar-title">
 								<h1>
-									<a href="/product">All Products </a> <span class="text-primary">[[${nameOfSearch}]]</span>
+									<a href="/product">All Products </a> <span
+										class="text-primary">[[${nameOfSearch}]]</span>
 								</h1>
 							</div>
 							<div class="product-toolbar-inner">
@@ -232,10 +276,9 @@
 									<ul class="nav nav-tabs">
 										<li class="active"><a data-toggle="tab" href="#grid">
 												<i class="ion-grid"></i>
-										</a></li>
-										<li><a data-toggle="tab" href="#list"> <i
-												class="ion-navicon"></i>
-										</a></li>
+											</a></li>
+										<li><a data-toggle="tab" href="#list"> <i class="ion-navicon"></i>
+											</a></li>
 									</ul>
 								</div>
 								<p class="woocommerce-result-count">
@@ -246,8 +289,7 @@
 								<div class="woocommerce-ordering">
 									<form method="get" class="woocommerce-ordering hidden-xs">
 										<div class="orderby-wrapper">
-											<label>Sort By :</label> <select
-												class="nice-select-menu orderby"
+											<label>Sort By :</label> <select class="nice-select-menu orderby"
 												onchange="location = this.value;">
 												<option
 													th:value="@{|/product?search-category=${cateName}&search-brand=${brandName}|}"
@@ -256,10 +298,10 @@
 												<option
 													th:value="@{|/product?sort=discount&search-category=${cateName}&search-brand=${brandName}|}"
 													th:selected="${sortChose == 'b'}">Sort by discount</option>
-												<option
+												<!-- <option
 													th:value="@{|/product?sort=rating&search-category=${cateName}&search-brand=${brandName}|}"
 													th:selected="${sortChose == 'c'}">Sort by average
-													rating</option>
+													rating</option> -->
 												<option
 													th:value="@{|/product?sort=newest&search-category=${cateName}&search-brand=${brandName}|}"
 													th:selected="${sortChose == 'd'}">Sort by newnest</option>
@@ -299,22 +341,21 @@
 							</ul> -->
 							<div class="col-12 text-center">
 
-								<a
-									th:href="@{|/product?p=0&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&isGender=${gender}|}"
+								<a th:href="@{|/product?p=0&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&isGender=${gender}|}"
 									class="btn btn-info font-weight-bold a1 mr-2"> <i
-									class="fa-solid fa-backward-step"></i>
+										class="fa-solid fa-backward-step"></i>
 								</a> <a
 									th:href="@{|/product?p=${page.number-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&isGender=${gender}|}"
 									class="btn btn-info font-weight-bold a1 mr-2"> <i
-									class="fa-solid fa-angles-left"></i>
+										class="fa-solid fa-angles-left"></i>
 								</a> <a
 									th:href="@{|/product?p=${page.number+1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&isGender=${gender}|}"
 									class="btn btn-info font-weight-bold a1 mr-2"> <i
-									class="fa-solid fa-angles-right"></i>
+										class="fa-solid fa-angles-right"></i>
 								</a> <a
 									th:href="@{|/product?p=${page.totalPages-1}&sort=${sortSelected}&search-category=${cateName}&search-brand=${brandName}&minPrice=${sminPrice}&maxPrice=${smaxPrice}&isGender=${gender}|}"
 									class="btn btn-info font-weight-bold a1 mr-2"><i
-									class="fa-solid fa-forward-step"></i> </a>
+										class="fa-solid fa-forward-step"></i> </a>
 
 							</div>
 						</nav>
@@ -325,4 +366,5 @@
 		<!-- Shop page wraper end -->
 	</main>
 </body>
+
 </html>
