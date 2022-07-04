@@ -2,24 +2,24 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-06-28T14:56:24Z" name="Default suite" finished-at="2022-06-28T14:56:45Z" duration-ms="21009">
+  <suite started-at="2022-07-01T09:14:05Z" name="Default suite" finished-at="2022-07-01T09:14:52Z" duration-ms="47072">
     <groups>
     </groups>
-    <test started-at="2022-06-28T14:56:24Z" name="Default test" finished-at="2022-06-28T14:56:45Z" duration-ms="21009">
-      <class name="com.godEShop.Register.RegisterTest">
-        <test-method is-config="true" signature="suiteTest()[pri:0, instance:com.godEShop.Register.RegisterTest@41330d4f]" started-at="2022-06-28T14:56:24Z" name="suiteTest" finished-at="2022-06-28T14:56:27Z" duration-ms="2148" status="PASS">
+    <test started-at="2022-07-01T09:14:05Z" name="Default test" finished-at="2022-07-01T09:14:52Z" duration-ms="47072">
+      <class name="com.godEShop.Login.LoginTest">
+        <test-method is-config="true" signature="suiteTest()[pri:0, instance:com.godEShop.Login.LoginTest@41330d4f]" started-at="2022-07-01T09:14:05Z" name="suiteTest" finished-at="2022-07-01T09:14:11Z" duration-ms="5117" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- suiteTest -->
-        <test-method signature="LoginRegistration()[pri:1, instance:com.godEShop.Register.RegisterTest@41330d4f]" started-at="2022-06-28T14:56:27Z" name="LoginRegistration" description="Test Registration" finished-at="2022-06-28T14:56:45Z" duration-ms="18224" status="PASS">
+        <test-method signature="LoginTest()[pri:1, instance:com.godEShop.Login.LoginTest@41330d4f]" started-at="2022-07-01T09:14:11Z" name="LoginTest" description="Test Login" finished-at="2022-07-01T09:14:51Z" duration-ms="40954" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- LoginRegistration -->
-        <test-method is-config="true" signature="suiteTearDown()[pri:0, instance:com.godEShop.Register.RegisterTest@41330d4f]" started-at="2022-06-28T14:56:45Z" name="suiteTearDown" finished-at="2022-06-28T14:56:45Z" duration-ms="618" status="PASS">
+        </test-method> <!-- LoginTest -->
+        <test-method is-config="true" signature="suiteTearDown()[pri:0, instance:com.godEShop.Login.LoginTest@41330d4f]" started-at="2022-07-01T09:14:51Z" name="suiteTearDown" finished-at="2022-07-01T09:14:52Z" duration-ms="976" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- suiteTearDown -->
-      </class> <!-- com.godEShop.Register.RegisterTest -->
+      </class> <!-- com.godEShop.Login.LoginTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

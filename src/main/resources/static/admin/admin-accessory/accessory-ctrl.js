@@ -1,5 +1,10 @@
 app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
-
+	$(document).keypress(
+		function(event) {
+			if (event.which == '13') {
+				event.preventDefault();
+			}
+		});
 	$scope.items = [];
 	$scope.lstBrands = [];
 	$scope.lstBraceletMaterial = [];
@@ -23,17 +28,17 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 		var imgtag = document.getElementById("myID");
 		imgtag.src = "/upload/ProductImages/" + filename;
 	}
-		$scope.setNormal = function() {
-	
+	$scope.setNormal = function() {
+
 		$scope.formProduct.productIsDeteled = false;
 		$scope.formProduct.brandId = 1;
 		$scope.formAccessory.braceletMaterialId = 1;
-	
+
 
 	}
 	$scope.initialize = function() {
-	$scope.setNormal();
-	$scope.formProduct.productCreateDate = new Date();
+		$scope.setNormal();
+		$scope.formProduct.productCreateDate = new Date();
 		$scope.showInsert = true;
 		$scope.formProductPhoto.imageId = 'a';
 		// load products
@@ -75,7 +80,7 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 	// xóa form
 	$scope.reset = function() {
 		getProductIdEdit = null;
-		$rootScope.getProductIdAfterInsert = null; 
+		$rootScope.getProductIdAfterInsert = null;
 		$scope.formProduct.productId = null;
 		$scope.isEdit = false;
 		$scope.showInsert = true;
@@ -154,7 +159,7 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 		$http.post(`/rest/post-product`, productItem).then(resp => {
 			resp.data.createDate = new Date(resp.data.createDate);
 			$rootScope.getProductIdAfterInsert = resp.data.id;
-			$scope.initialize();		
+			$scope.initialize();
 		}).catch(error => {
 			Swal.fire({
 				icon: 'error',
@@ -392,7 +397,7 @@ app.controller("accessory-ctrl", function($rootScope, $scope, $http) {
 		}
 
 	}
-	
+
 	$scope.pageroutOfSoon = {
 		page: 0,
 		size: 5,
