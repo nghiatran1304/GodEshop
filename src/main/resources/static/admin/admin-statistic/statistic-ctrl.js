@@ -282,14 +282,12 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		if ($scope.newStart == null && $scope.newEnd == null) {
 			$http.get(`/rest/statistic/product/${id}`).then(resp => {
 				$scope.itemProduct = resp.data;
-					
 				for (var i = 0; i < $scope.itemProduct.length; i++) {
 					orderDateTime.push({'time' : $scope.itemProduct[i].createDate, 'revenue': $scope.itemProduct[i].quantity});
 				}
 				orderDateTime.sort((a,b) => Date.parse(b.time) - Date.parse(a.time));
 				startDate = orderDateTime[orderDateTime.length-1].time;
 				endDate = orderDateTime[0].time;
-		       	
 				var months = monthsBetween(startDate, endDate);
 			    months.forEach(item => {
 					labels.push(item);
@@ -297,16 +295,15 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					
 				var tempDateTime = [];
 					
-		
 				orderDateTime.forEach(item => {
 					const tempDate = new Date(item.time);
 					tempDateTime.push({key: getFormattedDate(tempDate), value: item.revenue});
 				})
 					
 				var dataForChart = [];
-					
+				
 				var filterdData = filterData(tempDateTime);
-					
+				
 				for(var i = 0; i < months.length; i++){
 					var tempValue = 0;
 					for(var j = 0; j < filterdData.length; j++){
@@ -357,7 +354,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				var dataForChart = [];
 					
 				var filterdData = filterData(tempDateTime);
-					
+				
 				for(var i = 0; i < months.length; i++){
 					var tempValue = 0;
 					for(var j = 0; j < filterdData.length; j++){
@@ -443,6 +440,8 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		$scope.newStart = null;
 		$scope.newEnd = null;
 		$scope.itemUsers = [];
+		var userStartDate;
+		var userEndDate;
 		$scope.exportUsersData = []
 		$scope.initializeUser = function() {
 			if ($scope.newStart == null & $scope.newEnd == null) {
@@ -589,50 +588,177 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		$scope.detailUser = function(userId) {
 			$('#exampleModal2').modal('show')
 			$scope.userDetails = [];
+			var userDateTime = [];
+			var labels = [];
+			var data = {};
+			var config = {};
+			var handledData = [];
+			if (myChartUser!=null) {
+				myChartUser.destroy();
+				userDateTime = [];
+				labels = [];
+			}
 			
 			if ($scope.newStart == null & $scope.newEnd == null) {
 				$http.get(`/rest/statistic/user/${userId}`).then(resp => {
 					$scope.userDetails = resp.data;
+					for (var i = 0; i < $scope.userDetails.length; i++) {
+						userDateTime.push({'time': $scope.userDetails[i].createDate, 'orderbill': $scope.userDetails[i].price})
+					}
+					
+					userDateTime.sort((a,b) => Date.parse(b.time) - Date.parse(a.time));
+					userStartDate = userDateTime[userDateTime.length-1].time;
+					userEndDate = userDateTime[0].time;
+					
+					var months = monthsBetween(userStartDate, userEndDate);
+					months.forEach(item => {
+						labels.push(item);
+					})
+					
+					var tempUserDateTime = [];
+					
+					userDateTime.forEach(item => {
+						var newDate = new Date(item.time);
+						tempUserDateTime.push({'key': getFormattedDate(newDate), 'value':item.orderbill})
+					})
+					
+					var handledUserData = filterData(tempUserDateTime);
+					var dataForUserChart = [];
+					
+					for (var i = 0; i < months.length; i++) {
+						var tempValue = 0;
+						for (var j = 0; j < handledUserData.length; j++) {
+							if (months[i] === handledUserData[j].key) {
+								tempValue = handledUserData[j].value;
+							}
+						}
+						dataForUserChart.push({time: months[i], totalbill: tempValue});
+					}
+					
+					data = {
+					    labels: labels,
+					    datasets: [{
+					      label: '',
+					      backgroundColor: 'rgb(0, 255, 0)',
+					      borderColor: 'rgb(255, 99, 132)',
+					      data: [],
+					    }]
+					};
+					
+					data.datasets.forEach(item => {
+						dataForUserChart.forEach(item2 => {
+							item.data.push(item2.totalbill);
+						})
+					})
+
+			  		config = {
+					    type: 'bar',
+					    data: data,
+					    options: {
+							legend: {
+				          		display: false
+				       	 	},
+				       	 	tooltips: {
+							    callbacks: {
+							        label: function (tooltipItem) {
+							            return (new Intl.NumberFormat('en-US', {
+							                style: 'currency',
+							                currency: 'USD',
+							            })).format(tooltipItem.value);
+							        }
+							    }
+							},
+						}
+					};
+					myChartUser = new Chart(
+					    document.getElementById('myChartUser'),
+					    config
+					);
 				})
 			}else {
 				$http.get(`/rest/statistic/userByTime/${userId}` + '/start=' + $scope.newStart + '&end=' + $scope.newEnd).then(resp => {
 					$scope.userDetails = resp.data;
+					console.log(resp.data);
+					for (var i = 0; i < $scope.userDetails.length; i++) {
+						userDateTime.push({'time': $scope.userDetails[i].createDate, 'orderbill': $scope.userDetails[i].price})
+					}
+					
+					userDateTime.sort((a,b) => Date.parse(b.time) - Date.parse(a.time));
+					userStartDate = userDateTime[userDateTime.length-1].time;
+					userEndDate = userDateTime[0].time;
+					
+					var months = monthsBetween(userStartDate, userEndDate);
+					months.forEach(item => {
+						labels.push(item);
+					})
+					
+					var tempUserDateTime = [];
+					
+					userDateTime.forEach(item => {
+						var newDate = new Date(item.time);
+						tempUserDateTime.push({'key': getFormattedDate(newDate), 'value':item.orderbill})
+					})
+					
+					var handledUserData = filterData(tempUserDateTime);
+					var dataForUserChart = [];
+					
+					for (var i = 0; i < months.length; i++) {
+						var tempValue = 0;
+						for (var j = 0; j < handledUserData.length; j++) {
+							if (months[i] === handledUserData[j].key) {
+								tempValue = handledUserData[j].value;
+							}
+						}
+						dataForUserChart.push({time: months[i], totalbill: tempValue});
+					}
+					
+					data = {
+					    labels: labels,
+					    datasets: [{
+					      label: '',
+					      backgroundColor: 'rgb(0, 255, 0)',
+					      borderColor: 'rgb(255, 99, 132)',
+					      data: [],
+					    }]
+					};
+					
+					data.datasets.forEach(item => {
+						dataForUserChart.forEach(item2 => {
+							item.data.push(item2.totalbill);
+						})
+					})
+
+			  		config = {
+					    type: 'bar',
+					    data: data,
+					    options: {
+							legend: {
+				          		display: false
+				       	 	},
+				       	 	tooltips: {
+							    callbacks: {
+							        label: function (tooltipItem) {
+							            return (new Intl.NumberFormat('en-US', {
+							                style: 'currency',
+							                currency: 'USD',
+							            })).format(tooltipItem.value);
+							        }
+							    }
+							},
+						}
+					};
+					myChartUser = new Chart(
+					    document.getElementById('myChartUser'),
+					    config
+					);
 				})
 			}
 			
-			const labels = [
-			    'January',
-			    'February',
-			    'March',
-			    'April',
-			    'May',
-			    'June',
-			  ];
 			
-			  const data = {
-			    labels: labels,
-			    datasets: [{
-			      label: '',
-			      backgroundColor: 'rgb(0, 255, 0)',
-			      borderColor: 'rgb(255, 99, 132)',
-			      data: [0, 10, 5, 2, 20, 30, 45],
-			    }]
-			  };
 			
-			  const config = {
-			    type: 'bar',
-			    data: data,
-			    options: {
-					legend: {
-		          		display: false
-		       	 	},
-				}
-			  };
 			
-			myChartUser = new Chart(
-			    document.getElementById('myChartUser'),
-			    config
-			);
+			
+			
 			
 			$scope.userDetailPager = {
 				page: 0,
@@ -677,14 +803,21 @@ app.controller("statistic-ctrl", function($scope, $http) {
 	// ----------------Start Statistic --------------
 	var statTab = document.getElementById('statistic-tab')
 	statTab.addEventListener('click', () => {
-		var myChartOrder = null;
-		var myChartUser = null;
+		var myChartOrderStat = null;
+		var myChartUserStat = null;
+		
+		
 		$scope.disabledStatFlag = true;
 		$scope.disabledStatFlagToggle = function() {
 			$scope.disabledStatFlag = false;
 			$scope.getDate('startDateStat', 'endDateStat');
 		}
 		$scope.clearStat = function() {
+			if(myChartUserStat!= null || myChartOrderStat!=null) {
+				myChartUserStat.destroy();
+				myChartOrderStat.destroy();
+			}
+			
 			$scope.newStart = null;
 			$scope.newEnd = null;
 			$("input[type=date]").val("");
@@ -697,8 +830,8 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					$scope.totalAccountOrdered = respTotalAccountOrdered.data;
 					const dataBuyStatByUser = {
 						  labels: [
-						    'Đã mua',
-						    'Chưa mua'
+						    'Ordered',
+						    'Not Order Yet'
 						  ],
 						  datasets: [{
 						    label: '',
@@ -714,11 +847,20 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					const configBuyStatByUser = {
 					  type: 'pie',
 					  data: dataBuyStatByUser,
-					  legend: {
-					      display: false
-					    },
+					  options: {
+			                tooltips: {
+			                    callbacks: {
+			                        label: function (tooltipItems, data) {
+			                            return data.labels[tooltipItems.index] +
+			                                " : " +
+			                                data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] +
+			                                '%';
+			                        }
+			                    }
+			                }
+			            }
 					};
-					myChartUser = new Chart(
+					myChartUserStat = new Chart(
 					    document.getElementById('buyStatByUser'),
 					    configBuyStatByUser
 					);
@@ -773,9 +915,20 @@ app.controller("statistic-ctrl", function($scope, $http) {
 								const configOrderStatusStatistic = {
 								  type: 'pie',
 								  data: dataOrderStatusStatistic,
-								  
+								  options: {
+						                tooltips: {
+						                    callbacks: {
+						                        label: function (tooltipItems, data) {
+						                            return data.labels[tooltipItems.index] +
+						                                " : " +
+						                                data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] +
+						                                '%';
+						                        }
+						                    }
+						                }
+						            }
 								};
-								myChartOrder = new Chart(
+								myChartOrderStat = new Chart(
 								    document.getElementById('orderStatusStatistic'),
 								    configOrderStatusStatistic
 								);
@@ -785,6 +938,10 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				})
 			})
 		}
+		$scope.clearChart = function() {
+			myChartUserStat.destroy();
+			myChartOrderStat.destroy();
+		}
 		$scope.newStart = null;
 		$scope.newEnd = null;
 		// Thong ke user theo gioi tinh
@@ -792,6 +949,10 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		$scope.totalAccount = 0;
 		$scope.totalAccountByMale = 0;
 		if ($scope.newStart == null & $scope.newEnd == null) {
+			if(myChartUserStat!= null || myChartOrderStat!=null) {
+				myChartUserStat.destroy();
+				myChartOrderStat.destroy();
+			}
 			// Thong ke tai khoan da dat hang hay chua
 			// Xu ly du lieu
 			$scope.totalAccount = 0;
@@ -802,8 +963,8 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					$scope.totalAccountOrdered = respTotalAccountOrdered.data;
 					const dataBuyStatByUser = {
 						  labels: [
-						    'Đã mua',
-						    'Chưa mua'
+						    'Ordered',
+						    'Not Order Yet'
 						  ],
 						  datasets: [{
 						    label: '',
@@ -819,10 +980,21 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					const configBuyStatByUser = {
 					  type: 'pie',
 					  data: dataBuyStatByUser,
-					  
+					  options: {
+			                tooltips: {
+			                    callbacks: {
+			                        label: function (tooltipItems, data) {
+			                            return data.labels[tooltipItems.index] +
+			                                " : " +
+			                                data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] +
+			                                '%';
+			                        }
+			                    }
+			                }
+			            }
 					};
 					
-					myChartUser = new Chart(
+					myChartUserStat = new Chart(
 					    document.getElementById('buyStatByUser'),
 					    configBuyStatByUser
 					);
@@ -877,9 +1049,20 @@ app.controller("statistic-ctrl", function($scope, $http) {
 								const configOrderStatusStatistic = {
 								  type: 'pie',
 								  data: dataOrderStatusStatistic,
-								  
+								  options: {
+						                tooltips: {
+						                    callbacks: {
+						                        label: function (tooltipItems, data) {
+						                            return data.labels[tooltipItems.index] +
+						                                " : " +
+						                                data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] +
+						                                '%';
+						                        }
+						                    }
+						                }
+						            }
 								};
-								myChartOrder = new Chart(
+								myChartOrderStat = new Chart(
 								    document.getElementById('orderStatusStatistic'),
 								    configOrderStatusStatistic
 								);
@@ -891,13 +1074,10 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		}
 		
 		$scope.showStat = function() {
-			if(myChart!=null){
-	        	orderDateTime = [];
-	        	labels = [];
-	   		}
-	   		myChartUser.destroy();
-	   		myChartOrder.destroy();
-	   		
+			if(myChartUserStat!= null || myChartOrderStat!=null) {
+				myChartUserStat.destroy();
+				myChartOrderStat.destroy();
+			}
 	   		
 			$scope.getDate('startDateStat', 'endDateStat');
 			// Thong ke tai khoan da dat hang hay chua
@@ -910,8 +1090,8 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					$scope.totalAccountOrdered = respTotalAccountOrdered.data;
 					const dataBuyStatByUser = {
 						  labels: [
-						    'Đã mua',
-						    'Chưa mua'
+						    'Ordered',
+						    'Not Order Yet'
 						  ],
 						  datasets: [{
 						    label: '',
@@ -927,9 +1107,21 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					const configBuyStatByUser = {
 					  type: 'pie',
 					  data: dataBuyStatByUser,
+					  options: {
+			                tooltips: {
+			                    callbacks: {
+			                        label: function (tooltipItems, data) {
+			                            return data.labels[tooltipItems.index] +
+			                                " : " +
+			                                data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] +
+			                                '%';
+			                        }
+			                    }
+			                }
+			            }
 					};
 					
-					myChartUser = new Chart(
+					myChartUserStat = new Chart(
 					    document.getElementById('buyStatByUser'),
 					    configBuyStatByUser
 					);
@@ -984,9 +1176,20 @@ app.controller("statistic-ctrl", function($scope, $http) {
 								const configOrderStatusStatistic = {
 								  type: 'pie',
 								  data: dataOrderStatusStatistic,
-								  
+								  options: {
+						                tooltips: {
+						                    callbacks: {
+						                        label: function (tooltipItems, data) {
+						                            return data.labels[tooltipItems.index] +
+						                                " : " +
+						                                data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] +
+						                                '%';
+						                        }
+						                    }
+						                }
+						            }
 								};
-								myChartOrder = new Chart(
+								myChartOrderStat = new Chart(
 								    document.getElementById('orderStatusStatistic'),
 								    configOrderStatusStatistic
 								);

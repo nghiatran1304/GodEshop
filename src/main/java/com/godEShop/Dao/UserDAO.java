@@ -84,7 +84,7 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     		+ "INNER JOIN o.account a "
     		+ "INNER JOIN a.users u "
     		+ "INNER JOIN o.orderDetails od "
-    		+ "WHERE u.id = ?1 "
+    		+ "WHERE u.id = ?1 and o.orderStatus between 2 and 4 "
     		+ "ORDER BY o.createDate")
     List<UserStatisticDto> get1UserStat(int id);
     
@@ -94,7 +94,7 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     		+ "INNER JOIN o.account a "
     		+ "INNER JOIN a.users u "
     		+ "INNER JOIN o.orderDetails od "
-    		+ "WHERE u.id = ?1 and o.createDate between ?2 and ?3 "
+    		+ "WHERE u.id = ?1 and o.createDate between ?2 and ?3 and o.orderStatus between 2 and 4 "
     		+ "ORDER BY o.createDate")
     List<UserStatisticDto> get1UserStatByTime(int id, Date dateStart, Date dateEnd);
     
