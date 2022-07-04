@@ -260,7 +260,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		data = {
 			labels: labels,
 		    datasets: [{
-		      label: 'Statistic in month',
+		      label: '',
 		      backgroundColor: 'rgb(255, 99, 132)',
 		      borderColor: 'rgb(255, 99, 132)',
 		      data: [],
@@ -427,6 +427,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 	
 	var userTab = document.getElementById('users-tab');
 	userTab.addEventListener('click', () => {
+		var myChartUser = null;
 		$scope.disabledUserFlag = true;
 		$scope.disabledUserFlagToggle = function() {
 			$scope.disabledUserFlag = false;
@@ -598,6 +599,40 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					$scope.userDetails = resp.data;
 				})
 			}
+			
+			const labels = [
+			    'January',
+			    'February',
+			    'March',
+			    'April',
+			    'May',
+			    'June',
+			  ];
+			
+			  const data = {
+			    labels: labels,
+			    datasets: [{
+			      label: '',
+			      backgroundColor: 'rgb(0, 255, 0)',
+			      borderColor: 'rgb(255, 99, 132)',
+			      data: [0, 10, 5, 2, 20, 30, 45],
+			    }]
+			  };
+			
+			  const config = {
+			    type: 'bar',
+			    data: data,
+			    options: {
+					legend: {
+		          		display: false
+		       	 	},
+				}
+			  };
+			
+			myChartUser = new Chart(
+			    document.getElementById('myChartUser'),
+			    config
+			);
 			
 			$scope.userDetailPager = {
 				page: 0,
