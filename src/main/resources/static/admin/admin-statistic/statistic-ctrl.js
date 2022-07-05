@@ -330,40 +330,68 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		}else {
 			$http.get(`/rest/statistic/productByTime/${id}/start=` + $scope.newStart + '&end=' + $scope.newEnd).then(resp => {
 				$scope.itemProduct = resp.data;
-					
+				
+				// ---- start xu ly chart
 				for (var i = 0; i < $scope.itemProduct.length; i++) {
 					orderDateTime.push({'time' : $scope.itemProduct[i].createDate, 'revenue': $scope.itemProduct[i].quantity});
 				}
 				orderDateTime.sort((a,b) => Date.parse(b.time) - Date.parse(a.time));
 				startDate = orderDateTime[orderDateTime.length-1].time;
 				endDate = orderDateTime[0].time;
-		       	
-				var months = monthsBetween(startDate, endDate);
+				
+				
+				var months = [];
+				var tempDateTime = [];
+				
+				var dateDiffHanled = dateDiff($scope.newStart, $scope.newEnd)
+				
+		        if (dateDiffHanled <= 30) {
+		            var {day} = datesBetween($scope.newStart, $scope.newEnd)
+		            day.forEach(item => {
+						months.push(item);
+					})
+					orderDateTime.forEach(item => {
+						const tempDate = new Date(item.time);
+						tempDateTime.push({key: getFormattedFullDate(tempDate), value: item.revenue});
+					})
+		        }else if (dateDiffHanled <= 900) {
+		            var {month} = datesBetween($scope.newStart, $scope.newEnd)
+		            month.forEach(item => {
+						months.push(item);
+					})
+					orderDateTime.forEach(item => {
+						const tempDate = new Date(item.time);
+						tempDateTime.push({key: getFormattedDate(tempDate), value: item.revenue});
+					})
+		        }else {
+		            var {year} = datesBetween($scope.newStart, $scope.newEnd)
+		            year.forEach(item => {
+						months.push(item);
+					})
+					orderDateTime.forEach(item => {
+						const tempDate = new Date(item.time);
+						tempDateTime.push({key: getFormattedYear(tempDate), value: item.revenue});
+					})
+		        }
+				
 			    months.forEach(item => {
 					labels.push(item);
 				})
 					
-				var tempDateTime = [];
-					
-		
-				orderDateTime.forEach(item => {
-					const tempDate = new Date(item.time);
-					tempDateTime.push({key: getFormattedDate(tempDate), value: item.revenue});
-				})
-					
 				var dataForChart = [];
-					
+				
 				var filterdData = filterData(tempDateTime);
 				
 				for(var i = 0; i < months.length; i++){
 					var tempValue = 0;
 					for(var j = 0; j < filterdData.length; j++){
-						if(months[i] === filterdData[j].key){
+						if(months[i] == filterdData[j].key){
 							tempValue = filterdData[j].value;
 						}
 					}
 					dataForChart.push({time: months[i], revenue: tempValue});
 				}
+				// ---- end xu ly chart
 					
 					//---------------------------------
 				data.datasets.forEach(item => {
@@ -1635,6 +1663,18 @@ app.controller("statistic-ctrl", function($scope, $http) {
     }
      
     // Xu ly datetime cua du lieu query tu database thanh kieu mm/yyyy de hien thi	
+    function getFormattedYear(date) {
+		var year = date.getFullYear();
+				
+		var month = (1 + date.getMonth()).toString();
+		month = month.length > 1 ? month : '0' + month;
+				
+		var day = date.getDate().toString();
+		day = day.length > 1 ? day : '0' + day;
+				  
+		return year;
+	}
+	
 	function getFormattedDate(date) {
 		var year = date.getFullYear();
 				
@@ -1645,6 +1685,18 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		day = day.length > 1 ? day : '0' + day;
 				  
 		return year + '-' + month;
+	}
+	
+	function getFormattedFullDate(date) {
+		var year = date.getFullYear();
+				
+		var month = (1 + date.getMonth()).toString();
+		month = month.length > 1 ? month : '0' + month;
+				
+		var day = date.getDate().toString();
+		day = day.length > 1 ? day : '0' + day;
+				  
+		return year + '-' + month + '-' + day;
 	}
 			
 	// Xu ly du lieu khi query tu database (cac san pham duoc mua trong 1 thang se gop lai thanh 1 thang, so luong cac san pham se cong lai voi nhau)
@@ -1701,21 +1753,21 @@ app.controller("statistic-ctrl", function($scope, $http) {
     }
 
 	function datesBetween(startDate, endDate) {
-		const days = [],  
-		months = new Set(),
-		years = new Set()
+		const day = [],  
+		month = new Set(),
+		year = new Set()
 		
 		const dateMove = new Date(startDate)
 		let date = startDate
 		while (date < endDate){
 			date = dateMove.toISOString().slice(0,10)
 			                
-			months.add(date.slice(0, 7))
-			years.add(date.slice(0, 4))
-			days.push(date)
+			month.add(date.slice(0, 7))
+			year.add(date.slice(0, 4))
+			day.push(date)
 			dateMove.setDate(dateMove.getDate()+1)
 		}
-		return {years: [...years], months: [...months], days}
+		return {year: [...year], month: [...month], day}
 	}
 });
 
