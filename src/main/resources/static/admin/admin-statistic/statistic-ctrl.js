@@ -35,12 +35,14 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				})
 				
 				$http.get("/rest/products/image").then(resp2 => {
-					for (var i = 0; i < resp.data.length; i++) {
-						if (resp.data.productId == resp2.data.productId) {
-							$scope.itemsProduct[i].imageId = resp2.data[i].imageId;
-							$scope.exportProductsData[i].productImage = resp2.data[i].imageId;
-						}
-					}	
+					resp2.data.forEach((item, index) => {
+						$scope.itemsProduct.forEach((item2, index2) => {
+							if (item.productId == item2.productId) {
+								$scope.itemsProduct[index2].imageId = item.imageId;
+								$scope.exportProductsData.imageId = item.imageId;
+							}
+						})
+					})
 				});
 				
 				
@@ -119,10 +121,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 								$scope.exportProductsData.imageId = item.imageId;
 							}
 						})
-						
 					})
-					
-					
 				});
 				
 				// Xuat bao cao thong ke Products
@@ -289,6 +288,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				startDate = orderDateTime[orderDateTime.length-1].time;
 				endDate = orderDateTime[0].time;
 				var months = monthsBetween(startDate, endDate);
+				
 			    months.forEach(item => {
 					labels.push(item);
 				})
@@ -678,7 +678,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 			}else {
 				$http.get(`/rest/statistic/userByTime/${userId}` + '/start=' + $scope.newStart + '&end=' + $scope.newEnd).then(resp => {
 					$scope.userDetails = resp.data;
-					console.log(resp.data);
 					for (var i = 0; i < $scope.userDetails.length; i++) {
 						userDateTime.push({'time': $scope.userDetails[i].createDate, 'orderbill': $scope.userDetails[i].price})
 					}
@@ -1229,12 +1228,14 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					}) 
 					
 					$http.get(`/rest/products/image`).then(resp2 => {
-						for (var i = 0; i < resp.data.length; i++) {
-							if (resp.data.productId == resp2.data.productId) {
-								$scope.itemBestSellerNam[i].imageId = resp2.data[i].imageId;
-								$scope.exportMaleData[i].productImage = resp2.data[i].imageId;
-							}
-						}	
+						resp2.data.forEach((item, index) => {
+							$scope.itemBestSellerNam.forEach((item2, index2) => {
+								if (item.productId == item2.productId) {
+									$scope.itemBestSellerNam[index2].imageId = item.imageId;
+									$scope.exportMaleData.productImage = item.imageId;
+								}
+							})
+						})	
 					});
 					
 					
@@ -1292,12 +1293,14 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					}) 
 					
 					$http.get(`/rest/products/image`).then(resp2 => {
-						for (var i = 0; i < resp.data.length; i++) {
-							if (resp.data.productId == resp2.data.productId) {
-								$scope.itemBestSellerNam[i].imageId = resp2.data[i].imageId;
-								$scope.exportMaleData[i].productImage = resp2.data[i].imageId;
-							}
-						}	
+						resp2.data.forEach((item, index) => {
+							$scope.itemBestSellerNam.forEach((item2, index2) => {
+								if (item.productId == item2.productId) {
+									$scope.itemBestSellerNam[index2].imageId = item.imageId;
+									$scope.exportMaleData.productImage = item.imageId;
+								}
+							})
+						})
 					});
 					
 					
@@ -1355,12 +1358,14 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				}) 
 				
 				$http.get(`/rest/products/image`).then(resp2 => {
-					for (var i = 0; i < resp.data.length; i++) {
-						if (resp.data.productId == resp2.data.productId) {
-							$scope.itemBestSellerNam[i].imageId = resp2.data[i].imageId;
-							$scope.exportMaleData[i].productImage = resp2.data[i].imageId;
-						}
-					}	
+					resp2.data.forEach((item, index) => {
+						$scope.itemBestSellerNam.forEach((item2, index2) => {
+							if (item.productId == item2.productId) {
+								$scope.itemBestSellerNam[index2].imageId = item.imageId;
+								$scope.exportMaleData.productImage = item.imageId;
+							}
+						})
+					})
 				});
 				
 				
@@ -1441,12 +1446,14 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				}) 
 				
 				$http.get(`/rest/products/image`).then(resp2 => {
-					for (var i = 0; i < resp.data.length; i++) {
-						if (resp.data.productId == resp2.data.productId) {
-							$scope.itemBestSellerNu[i].imageId = resp2.data[i].imageId;
-							$scope.exportFemaleData[i].productImage = resp2.data[i].imageId;
-						}
-					}
+					resp2.data.forEach((item, index) => {
+						$scope.itemBestSellerNu.forEach((item2, index2) => {
+							if (item.productId == item2.productId) {
+								$scope.itemBestSellerNu[index2].imageId = item.imageId;
+								$scope.exportFemaleData.productImage = item.imageId;
+							}
+						})
+					})
 				})
 				// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nu
 				$scope.exportBestSellerFemale = function() {
@@ -1491,7 +1498,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		if ($scope.newStart == null & $scope.newEnd == null) {
 			$http.get(`/rest/statistic/productsByMale/0`).then(resp => {
 				$scope.itemBestSellerNu = resp.data;
-				
 				$scope.itemBestSellerNu.forEach(item => {
 					$scope.exportFemaleData.push({
 							productId: item.productId,
@@ -1502,12 +1508,14 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				}) 
 				
 				$http.get(`/rest/products/image`).then(resp2 => {
-					for (var i = 0; i < resp.data.length; i++) {
-						if (resp.data.productId == resp2.data.productId) {
-							$scope.itemBestSellerNu[i].imageId = resp2.data[i].imageId;
-							$scope.exportFemaleData[i].productImage = resp2.data[i].imageId;
-						}
-					}
+					resp2.data.forEach((item, index) => {
+						$scope.itemBestSellerNu.forEach((item2, index2) => {
+							if (item.productId == item2.productId) {
+								$scope.itemBestSellerNu[index2].imageId = item.imageId;
+								$scope.exportFemaleData.productImage = item.imageId;
+							}
+						})
+					})
 				})
 				// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nu
 				$scope.exportBestSellerFemale = function() {
@@ -1550,7 +1558,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 			$scope.getDate('startDate5Female', 'endDate5Female');
 			$http.get(`/rest/statistic/productsByMaleByTime/0/start=` + $scope.newStart + '&end=' + $scope.newEnd).then(resp => {
 				$scope.itemBestSellerNu = resp.data;
-				
 				$scope.itemBestSellerNu.forEach(item => {
 					$scope.exportFemaleData.push({
 							productId: item.productId,
@@ -1561,12 +1568,14 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				}) 
 				
 				$http.get(`/rest/products/image`).then(resp2 => {
-					for (var i = 0; i < resp.data.length; i++) {
-						if (resp.data.productId == resp2.data.productId) {
-							$scope.itemBestSellerNu[i].imageId = resp2.data[i].imageId;
-							$scope.exportFemaleData[i].productImage = resp2.data[i].imageId;
-						}
-					}
+					resp2.data.forEach((item, index) => {
+						$scope.itemBestSellerNu.forEach((item2, index2) => {
+							if (item.productId == item2.productId) {
+								$scope.itemBestSellerNu[index2].imageId = item.imageId;
+								$scope.exportFemaleData.productImage = item.imageId;
+							}
+						})
+					})
 				})
 				// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nu
 				$scope.exportBestSellerFemale = function() {
@@ -1622,7 +1631,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
     	let [a, b] = args.map(arg => arg.split("-").slice(0, 2)
     				.reduce((y, m) => m - 1 + y * 12));
     	return Array.from({length: b - a + 1}, _ => a++)
-    				.map(m => ("0" + (m % 12 + 1)).slice(-2) + "/" + ~~(m / 12));
+    				.map(m => (~~(m / 12) + '-' + ("0" + (m % 12 + 1)).slice(-2)));
     }
      
     // Xu ly datetime cua du lieu query tu database thanh kieu mm/yyyy de hien thi	
@@ -1635,7 +1644,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		var day = date.getDate().toString();
 		day = day.length > 1 ? day : '0' + day;
 				  
-		return month + '/' + year;
+		return year + '-' + month;
 	}
 			
 	// Xu ly du lieu khi query tu database (cac san pham duoc mua trong 1 thang se gop lai thanh 1 thang, so luong cac san pham se cong lai voi nhau)
@@ -1680,6 +1689,33 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		$scope.newStart = $scope.start1.substring(0,4)  + '-' + $scope.start1.substring(5,7) + '-' + $scope.start1.substring(8,10);
 		$scope.end1 = document.getElementById(b).value;
 		$scope.newEnd = $scope.end1.substring(0,4) + '-' + $scope.end1.substring(5,7) + '-' + $scope.end1.substring(8,10);
+	}
+	
+	function dateDiff(string1, string2) {
+		var date1 = new Date(string1)
+        var date2 = new Date(string2)
+        var dateDiffBySec = date2 - date1
+		var convertSecToDay = 1000*60*60*24
+		var dateDiffHandled = Math.floor(dateDiffBySec / convertSecToDay)
+		return dateDiffHandled
+    }
+
+	function datesBetween(startDate, endDate) {
+		const days = [],  
+		months = new Set(),
+		years = new Set()
+		
+		const dateMove = new Date(startDate)
+		let date = startDate
+		while (date < endDate){
+			date = dateMove.toISOString().slice(0,10)
+			                
+			months.add(date.slice(0, 7))
+			years.add(date.slice(0, 4))
+			days.push(date)
+			dateMove.setDate(dateMove.getDate()+1)
+		}
+		return {years: [...years], months: [...months], days}
 	}
 });
 
