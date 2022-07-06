@@ -287,17 +287,43 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				orderDateTime.sort((a,b) => Date.parse(b.time) - Date.parse(a.time));
 				startDate = orderDateTime[orderDateTime.length-1].time;
 				endDate = orderDateTime[0].time;
-				var months = monthsBetween(startDate, endDate);
+				
+				var months = [];
+				var tempDateTime = [];
+				
+				var dateDiffHanled = dateDiff(startDate, endDate)
+				
+		        if (dateDiffHanled <= 30) {
+		            var {day} = datesBetween(startDate, endDate)
+		            day.forEach(item => {
+						months.push(item);
+					})
+					orderDateTime.forEach(item => {
+						const tempDate = new Date(item.time);
+						tempDateTime.push({key: getFormattedFullDate(tempDate), value: item.revenue});
+					})
+		        }else if (dateDiffHanled <= 900) {
+		            var {month} = datesBetween(startDate, endDate)
+		            month.forEach(item => {
+						months.push(item);
+					})
+					orderDateTime.forEach(item => {
+						const tempDate = new Date(item.time);
+						tempDateTime.push({key: getFormattedDate(tempDate), value: item.revenue});
+					})
+		        }else {
+		            var {year} = datesBetween(startDate, endDate)
+		            year.forEach(item => {
+						months.push(item);
+					})
+					orderDateTime.forEach(item => {
+						const tempDate = new Date(item.time);
+						tempDateTime.push({key: getFormattedYear(tempDate), value: item.revenue});
+					})
+		        }
 				
 			    months.forEach(item => {
 					labels.push(item);
-				})
-					
-				var tempDateTime = [];
-					
-				orderDateTime.forEach(item => {
-					const tempDate = new Date(item.time);
-					tempDateTime.push({key: getFormattedDate(tempDate), value: item.revenue});
 				})
 					
 				var dataForChart = [];
@@ -307,7 +333,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				for(var i = 0; i < months.length; i++){
 					var tempValue = 0;
 					for(var j = 0; j < filterdData.length; j++){
-						if(months[i] === filterdData[j].key){
+						if(months[i] == filterdData[j].key){
 							tempValue = filterdData[j].value;
 						}
 					}
@@ -338,8 +364,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				orderDateTime.sort((a,b) => Date.parse(b.time) - Date.parse(a.time));
 				startDate = orderDateTime[orderDateTime.length-1].time;
 				endDate = orderDateTime[0].time;
-				
-				
+
 				var months = [];
 				var tempDateTime = [];
 				
@@ -638,16 +663,42 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					userStartDate = userDateTime[userDateTime.length-1].time;
 					userEndDate = userDateTime[0].time;
 					
-					var months = monthsBetween(userStartDate, userEndDate);
-					months.forEach(item => {
-						labels.push(item);
-					})
-					
+					var months = [];
 					var tempUserDateTime = [];
 					
-					userDateTime.forEach(item => {
-						var newDate = new Date(item.time);
-						tempUserDateTime.push({'key': getFormattedDate(newDate), 'value':item.orderbill})
+					var dateDiffHanled = dateDiff(userStartDate, userEndDate)
+					console.log(dateDiffHanled);
+			        if (dateDiffHanled <= 30) {
+			            var {day} = datesBetween(userStartDate, userEndDate)
+			            day.forEach(item => {
+							months.push(item);
+						})
+						userDateTime.forEach(item => {
+							const tempDate = new Date(item.time);
+							tempUserDateTime.push({key: getFormattedFullDate(tempDate), value: item.orderbill});
+						})
+			        }else if (dateDiffHanled <= 900) {
+			            var {month} = datesBetween(userStartDate, userEndDate)
+			            month.forEach(item => {
+							months.push(item);
+						})
+						userDateTime.forEach(item => {
+							const tempDate = new Date(item.time);
+							tempUserDateTime.push({key: getFormattedDate(tempDate), value: item.orderbill});
+						})
+			        }else {
+			            var {year} = datesBetween(userStartDate, userEndDate)
+			            year.forEach(item => {
+							months.push(item);
+						})
+						userDateTime.forEach(item => {
+							const tempDate = new Date(item.time);
+							tempUserDateTime.push({key: getFormattedYear(tempDate), value: item.orderbill});
+						})
+			        }
+					
+				    months.forEach(item => {
+						labels.push(item);
 					})
 					
 					var handledUserData = filterData(tempUserDateTime);
@@ -656,7 +707,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					for (var i = 0; i < months.length; i++) {
 						var tempValue = 0;
 						for (var j = 0; j < handledUserData.length; j++) {
-							if (months[i] === handledUserData[j].key) {
+							if (months[i] == handledUserData[j].key) {
 								tempValue = handledUserData[j].value;
 							}
 						}
@@ -714,16 +765,42 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					userStartDate = userDateTime[userDateTime.length-1].time;
 					userEndDate = userDateTime[0].time;
 					
-					var months = monthsBetween(userStartDate, userEndDate);
-					months.forEach(item => {
-						labels.push(item);
-					})
-					
+					var months = [];
 					var tempUserDateTime = [];
 					
-					userDateTime.forEach(item => {
-						var newDate = new Date(item.time);
-						tempUserDateTime.push({'key': getFormattedDate(newDate), 'value':item.orderbill})
+					var dateDiffHanled = dateDiff($scope.newStart, $scope.newEnd)
+					console.log(dateDiffHanled);
+			        if (dateDiffHanled <= 30) {
+			            var {day} = datesBetween($scope.newStart, $scope.newEnd)
+			            day.forEach(item => {
+							months.push(item);
+						})
+						userDateTime.forEach(item => {
+							const tempDate = new Date(item.time);
+							tempUserDateTime.push({key: getFormattedFullDate(tempDate), value: item.orderbill});
+						})
+			        }else if (dateDiffHanled <= 900) {
+			            var {month} = datesBetween($scope.newStart, $scope.newEnd)
+			            month.forEach(item => {
+							months.push(item);
+						})
+						userDateTime.forEach(item => {
+							const tempDate = new Date(item.time);
+							tempUserDateTime.push({key: getFormattedDate(tempDate), value: item.orderbill});
+						})
+			        }else {
+			            var {year} = datesBetween($scope.newStart, $scope.newEnd)
+			            year.forEach(item => {
+							months.push(item);
+						})
+						userDateTime.forEach(item => {
+							const tempDate = new Date(item.time);
+							tempUserDateTime.push({key: getFormattedYear(tempDate), value: item.orderbill});
+						})
+			        }
+					
+				    months.forEach(item => {
+						labels.push(item);
 					})
 					
 					var handledUserData = filterData(tempUserDateTime);
@@ -732,7 +809,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					for (var i = 0; i < months.length; i++) {
 						var tempValue = 0;
 						for (var j = 0; j < handledUserData.length; j++) {
-							if (months[i] === handledUserData[j].key) {
+							if (months[i] == handledUserData[j].key) {
 								tempValue = handledUserData[j].value;
 							}
 						}
@@ -780,10 +857,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					);
 				})
 			}
-			
-			
-			
-			
 			
 			
 			
