@@ -1,9 +1,26 @@
 <div xmlns:th="http://www.thymeleaf.org">
-<button id="statistic" ng-click="exportStatistic();" class="btn btn-success">Export Report To Excel</button>
-Start<input ng-change="disabledStatFlagToggle();" placeholder="Select date" type="date" id="startDateStat" ng-model="startDate">
-End<input ng-change="disabledStatFlagToggle();" placeholder="Select date" type="date" id="endDateStat" ng-model="endDate">
-<button class="btn btn-success" id="submit" ng-click="showStat();" ng-disabled="disabledStatFlag">Submit</button>
-<button class="btn btn-success" id="submit" ng-click="clearStat();">Clear</button>
-	 <div style="position: absolute; height: 800px; width: 800px;"><canvas id="buyStatByUser"></canvas></div>
-	 <div style="position: absolute; right: 200px; height: 800px; width: 800px;"><canvas id="orderStatusStatistic"></canvas></div>
+	<div class="row">
+		<div class="col-2"><input ng-change="disabledStatFlagToggle();" placeholder="Select date" type="date"
+				id="startDateStat" ng-model="startDate" class="form-control"></div>
+		<div class="col-2"><input ng-change="disabledStatFlagToggle();" placeholder="Select date" type="date"
+				id="endDateStat" ng-model="endDate" class="form-control"></div>
+		<div class="col-2">
+			<button class="btn btn-success" id="submit" ng-click="showStat();"
+				ng-disabled="disabledStatFlag">Submit</button>
+			<button class="btn btn-success" id="submit" ng-click="clearStat();">Clear</button>
+		</div>
+		<div class="col-4"></div>
+		<div class="col-2"><button id="statistic" ng-click="exportStatistic();" class="btn btn-success">Export Report To
+				Excel</button></div>
+	</div>
+	
+	
+<!-- 	style="position: absolute; height: 800px; width: 800px;"
+	 style="position: absolute; right: 200px; height: 800px; width: 800px;" -->
+	<div class="row mt-5">
+		<div  class="col-6"><canvas id="buyStatByUser"></canvas></div>
+		<div class="col-6"><canvas
+			id="orderStatusStatistic"></canvas></div>
+	</div>
+	
 </div>

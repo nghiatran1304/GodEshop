@@ -1,33 +1,39 @@
 <div xmlns:th="http://www.thymeleaf.org">
-<button id="bestSellerFemale" ng-click="exportBestSellerFemale();" class="btn btn-success">Export Report To Excel</button>
-<button id="bestSellerFemale" ng-click="exportPdfBestSellerFemale();" class="btn btn-success">Export Report To Pdf</button>
-Start<input ng-change="disabled5FemaleFlagToggle();" placeholder="Select date" type="date" id="startDate5Female" ng-model="startDate">
-End<input ng-change="disabled5FemaleFlagToggle();" placeholder="Select date" type="date" id="endDate5Female" ng-model="endDate">
-<button class="btn btn-success" id="submit" ng-click="best5Female();" ng-disabled="disabled5FemaleFlag">Submit</button>
-<button class="btn btn-success" id="submit" ng-click="clear5Female();">Clear</button>
+<div class="row">
+	<div class="col-2"><input ng-change="disabled5FemaleFlagToggle();" placeholder="Select date" type="date" id="startDate5Female" ng-model="startDate" class="form-control"></div>
+	<div class="col-2"><input ng-change="disabled5FemaleFlagToggle();" placeholder="Select date" type="date" id="endDate5Female" ng-model="endDate" class="form-control"></div>
+	<div class="col-2">
+		<button class="btn btn-success" id="submit" ng-click="best5Female();" ng-disabled="disabled5FemaleFlag">Submit</button>
+		<button class="btn btn-success" id="submit" ng-click="clear5Female();">Clear</button>
+	</div>
+	<div class="col-4"></div>
+	<div class="col-1"><button id="bestSellerFemale" ng-click="exportBestSellerFemale();" class="btn btn-success">Export Excel</button></div>
+	<div class="col-1"><button id="bestSellerFemale" ng-click="exportPdfBestSellerFemale();" class="btn btn-success">Export Pdf</button></div>
+</div>
+
 	<table id="bestSellerFemaleTable" class="table table-hover table-bordered mt-2">
 		<thead class="thead-dark">
 			<tr class="text-center">
-				<th scope="col">Image</th>
+				<th scope="col" style="font-size:20px" class="text-warning font-weight-bold">Image</th>
 				<th scope="col">
-					<a class="text-warning font-weight-bold" href="" ng-click="sortByCategoryName('productName')">Product's Name</a>
+					<a class="text-warning font-weight-bold" href="" style="font-size:20px" ng-click="sortByCategoryName('productName')">Product's Name</a>
 				</th>
 				<th scope="col">
-					<a class="text-warning font-weight-bold" href="" ng-click="sortByCategoryName('quantityleft')">Product's Stock</a>
+					<a class="text-warning font-weight-bold" href="" style="font-size:20px" ng-click="sortByCategoryName('quantityleft')">Product's Stock</a>
 				</th>
 				<th scope="col">
-					<a id="sort" class="text-warning font-weight-bold" href="" ng-click="sortByCategoryName('quantity')">Total Product Sold</a>
+					<a id="sort" class="text-warning font-weight-bold" href="" style="font-size:20px" ng-click="sortByCategoryName('quantity')">Total Product Sold</a>
 				</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr style="height: 50px;" class="text-center" ng-repeat="item in bestSellerNuPager.items | orderBy:sortType | filter:searchName">
-				<td style="width: 300px;font-size: 30px;border: 2px solid lightblue;">
-					<img ng-src="/upload/ProductImages/{{item.imageId}}" alt="" style="width: 80px; height: 80px"/>
+			<tr class="text-center" ng-repeat="item in bestSellerNuPager.items | orderBy:sortType | filter:searchName">
+				<td style="width: 300px;border: 2px solid lightblue;">
+					<img ng-src="/upload/ProductImages/{{item.imageId}}" alt="" style="width: 120px; height: 120px"/>
 				</td>
-				<td style="width: 200px;font-size: 30px;border: 2px solid lightblue;">{{item.productName}}</td>
-				<td style="width: 400px;font-size: 30px;border: 2px solid lightblue;">{{item.quantityleft}}</td>
-				<td style="width: 400px;font-size: 30px;border: 2px solid lightblue;">{{item.quantity}}</td>
+				<td style="width: 200px;font-size: 20px;border: 2px solid lightblue;">{{item.productName}}</td>
+				<td style="width: 400px;font-size: 20px;border: 2px solid lightblue;">{{item.quantityleft}}</td>
+				<td style="width: 400px;font-size: 20px;border: 2px solid lightblue;">{{item.quantity}}</td>
 			</tr>
 		</tbody>
 	</table>
