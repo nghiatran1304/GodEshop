@@ -14,6 +14,8 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 
 	$scope.getProductQuantity = {};
 
+	$scope.canOrder = false;
+
 	$scope.cart = {
 		items: [],
 		outOfStock() {
@@ -34,6 +36,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 						text: "Sản phẩm đã hết hàng !!!",
 					});
 				} else {
+					$scope.canOrder = true;
 					var item = this.items.find(item => item.productId == productId);
 					if (item) {
 						item.qty++;
@@ -62,6 +65,11 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			var index = this.items.findIndex(item => item.productId == productId);
 			this.items.splice(index, 1);
 			this.saveToLocalStorage();
+			if (this.items.length <= 0) {
+				$scope.canOrder = false;
+			}else{
+				$scope.canOrder = true;
+			}
 		},
 
 		// xóa tất cả sản phẩm
@@ -108,6 +116,11 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 		loadFromLocalStorage() {
 			var json = localStorage.getItem("cart");
 			this.items = json ? JSON.parse(json) : [];
+			if (this.items.length <= 0) {
+				$scope.canOrder = false;
+			}else{
+				$scope.canOrder = true;
+			}
 		}
 	}
 	// end $scope.cart
@@ -171,12 +184,12 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 							$scope.cart.clear();
 							location.href = "/information";
 						});
-					}else{
+					} else {
 						Swal.fire({
-						icon: 'error',
-						title: 'Oops...',
-						text: "This product is out of stock !!!",
-					});
+							icon: 'error',
+							title: 'Oops...',
+							text: "This product is out of stock !!!",
+						});
 					}
 				}).catch(error => {
 					Swal.fire({
@@ -189,8 +202,8 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			}
 		}
 	}
-	
-	
+
+
 	$scope.orderPaypal = {
 		createDate: new Date(),
 		note: "",
@@ -208,7 +221,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			});
 		},
 		purchase() {
-			
+
 			if (this.address == null || this.address == undefined || this.address.length <= 0 || $scope.order.address == null || $scope.order.address == undefined || $scope.order.address.length <= 0) {
 				Swal.fire({
 					icon: 'error',
@@ -218,7 +231,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			} else {
 				var order = angular.copy(this);
 				$http.post("/rest/orders", order).then(resp => {
-					 $scope.cart.clear();
+					$scope.cart.clear();
 				}).catch(error => {
 					Swal.fire({
 						icon: 'error',
@@ -231,7 +244,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 
 		}
 	}
-	
+
 });
 
 

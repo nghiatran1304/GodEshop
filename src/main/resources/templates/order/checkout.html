@@ -104,12 +104,12 @@
 									<div class="payment-method">
 										<div class="payment-accordion">
 											<div class="order-button-payment mt-2" ng-show="payments == 1 || payments != 2">
-												<button ng-click="order.purchase()" class="col-12 btn btn-primary">Order</button>
+												<button ng-if="canOrder" ng-click="order.purchase()" class="col-12 btn btn-primary">Order</button>
 											</div>
 											<form method="post" th:action="@{/pay}" name="frm" style="background: none !important" class="m-0 p-0" ng-show="payments == 2">
 												<input type="text" hidden name="frmAddress" ng-model="orderPaypal.address" required />
 												<input type="text" ng-model="cart.amount" name="price" hidden />
-												<button type="submit" ng-click="orderPaypal.purchase()" class="btn btn-primary col-12">Payment with Paypal</button>
+												<button ng-if="canOrder" type="submit" ng-click="orderPaypal.purchase()" class="btn btn-primary col-12">Payment with Paypal</button>
 											</form>
 										</div>
 									</div>
