@@ -73,6 +73,7 @@ public class RegisterTest {
 			String key = ""; // key - ô stt
 			String username = ""; // giá trị ô username
 			String password = ""; // giá trị ô password
+			String email = "";
 			String telephone = ""; // giá trị ô telephone
 			String expected = ""; // giá trị ô expected
 			while (cellIterator.hasNext()) {
@@ -84,12 +85,14 @@ public class RegisterTest {
 			    } else if (cell.getColumnIndex() == 2) {
 				password = dataFormat.formatCellValue(cell);
 			    } else if (cell.getColumnIndex() == 3) {
-				telephone = dataFormat.formatCellValue(cell);
+				email = dataFormat.formatCellValue(cell);
 			    } else if (cell.getColumnIndex() == 4) {
+				telephone = dataFormat.formatCellValue(cell);
+			    } else if (cell.getColumnIndex() == 5) {
 				expected = dataFormat.formatCellValue(cell);
 			    }
 
-			    String[] myArr = { username, password, telephone, expected };
+			    String[] myArr = { username, password, email, telephone, expected };
 			    dataLoginTest.put(key, myArr);
 			}
 		    }
@@ -141,8 +144,8 @@ public class RegisterTest {
 	    driver = new ChromeDriver();
 	    driver.manage().window().maximize();
 //	    workbook = new XSSFWorkbook(new FileInputStream(new File(EXCEL_DIR + "TEST_LOGIN.xlsx")));
-	    workbook = new XSSFWorkbook(new FileInputStream(
-		    new File("D:/DA2/GodEshop/test-resources/data/TEST_REGISTRATION.xlsx")));
+	    workbook = new XSSFWorkbook(
+		    new FileInputStream(new File("D:/DA2/GodEshop/test-resources/data/TEST_REGISTRATION.xlsx")));
 	    worksheet = workbook.getSheet("TestData");
 	    readDataFromExcel(); // đọc dữ liệu
 	    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -156,8 +159,8 @@ public class RegisterTest {
 	    rowStyle.setWrapText(true);
 
 	    // viết header vào dòng đầu tiên
-	    TestNGResult.put("1", new Object[] { "STT", "Username", "Password", "Telephone", "Action", "Expected",
-		    "Actual", "Status", "Date Check", "LINK", "Image" });
+	    TestNGResult.put("1", new Object[] { "STT", "Username", "Password", "Email", "Telephone", "Action",
+		    "Expected", "Actual", "Status", "Date Check", "LINK", "Image" });
 	} catch (Exception e) {
 	    System.out.println("suiteTest() : " + e.getMessage());
 	}
@@ -240,8 +243,9 @@ public class RegisterTest {
 		String[] value = dataLoginTest.get(key);
 		String username = value[0];
 		String password = value[1];
-		String telephone = value[2];
-		String expected = value[3];
+		String email = value[2];
+		String telephone = value[3];
+		String expected = value[4];
 
 		LocalDateTime myDateObj = LocalDateTime.now();
 		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss | dd-MM-yyyy ");
@@ -255,9 +259,11 @@ public class RegisterTest {
 		actionSignUp1.build().perform();
 
 		driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/input[1]")).sendKeys(username);
-		driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/div[2]/input"))
+		driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/div/input"))
 			.sendKeys(password);
-		driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/input[2]")).sendKeys("0"+telephone);
+		driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/input[3]")).sendKeys(email);
+		driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/input[2]"))
+			.sendKeys("0" + telephone);
 
 		Thread.sleep(1000);
 
@@ -280,7 +286,7 @@ public class RegisterTest {
 		    TestNGResult.put(String.valueOf(index + 1), new Object[] { String.valueOf(index), // STT
 			    username, // Username
 			    password, // password
-			    telephone, "Test Registration", // action
+			    email, telephone, "Test Registration", // action
 			    expected, // expected
 			    actualTitle, // actual
 			    "PASS", // status
@@ -297,18 +303,20 @@ public class RegisterTest {
 
 		    driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/input[1]"))
 			    .sendKeys(username);
-		    driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/div[2]/input"))
+		    driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/div/input"))
 			    .sendKeys(password);
+		    driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/input[3]")).sendKeys(email);
 		    driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/input[2]"))
-			    .sendKeys(telephone);
+			    .sendKeys("0" + telephone);
 //		    String path = IMAGE_DIR + "failure-" + System.currentTimeMillis() + ".png";
-		    String path = "D:/DA2/GodEshop/test-resources/images/" + "failure-"
-			    + System.currentTimeMillis() + ".png";
+		    String path = "D:/DA2/GodEshop/test-resources/images/" + "failure-" + System.currentTimeMillis()
+			    + ".png";
 
 		    takeScreenShot(driver, path);
 		    TestNGResult.put(String.valueOf(index + 1),
-			    new Object[] { String.valueOf(index), username, password, telephone, "Test Registration",
-				    expected, actualTitle, "FAILED", formattedDate, path.replace("\\", "/") });
+			    new Object[] { String.valueOf(index), username, password, email, telephone,
+				    "Test Registration", expected, actualTitle, "FAILED", formattedDate,
+				    path.replace("\\", "/") });
 		}
 
 		index++;
