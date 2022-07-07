@@ -115,6 +115,8 @@ public class SecurityController {
 	String email = oauth2.getPrincipal().getAttribute("email");
 	String fullname = oauth2.getPrincipal().getAttribute("name");
 	String photo = oauth2.getPrincipal().getAttribute("picture");
+
+	
 	String password = Long.toHexString(System.currentTimeMillis());
 
 	System.out.println(oauth2.getPrincipal().getAttributes());

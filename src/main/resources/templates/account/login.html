@@ -70,6 +70,7 @@
 					<span th:if="${mIsPhoneExisted}=='true'" class="text-danger">phone number is existed!</span>
 					<input type="text" pattern="[0-9]{10}" placeholder="Phone number" name="txtPhone"
 						class="form-control mt-3" required />
+					<span th:if="${mIsEmailExisted}=='true'" class="text-danger">email is existed!</span>
 					<input type="email" id="email" name="txtEmail" placeholder="Email" class="form-control mt-2"
 						required />
 					<button>Sign Up</button>
@@ -128,16 +129,16 @@
 						let formData = new FormData()
 
 						let getToken = async () => {
-							//Cáº¥u hĂ¬nh cho Header
+							//CÃ¡ÂºÂ¥u hÄ‚Â¬nh cho Header
 							let myHeaders = new Headers();
 							myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-							//Set giĂ¡ trá»‹ body (data gá»­i Ä‘i lĂ  username vĂ  password Ä‘á»ƒ láº¥y Token)
+							//Set giÄ‚Â¡ trÃ¡Â»â€¹ body (data gÃ¡Â»Â­i Ã„â€˜i lÄ‚Â  username vÄ‚Â  password Ã„â€˜Ã¡Â»Æ’ lÃ¡ÂºÂ¥y Token)
 							let urlencoded = new URLSearchParams();
 							urlencoded.append("username", username.value);
 							urlencoded.append("password", password.value);
 
-							// Set thuá»™c tĂ­nh khi fetch API
+							// Set thuÃ¡Â»â„¢c tÄ‚Â­nh khi fetch API
 							let requestOptions = {
 								method: 'POST',
 								headers: myHeaders,
@@ -145,10 +146,10 @@
 								redirect: 'follow'
 							};
 
-							// Gá»�i API
+							// GÃ¡Â»ï¿½i API
 							let resp = await fetch(URL, requestOptions)
 
-							// Xá»­ lĂ½ giĂ¡ trá»‹ tráº£ vá»�
+							// XÃ¡Â»Â­ lÄ‚Â½ giÄ‚Â¡ trÃ¡Â»â€¹ trÃ¡ÂºÂ£ vÃ¡Â»ï¿½
 							let data = await resp.json()
 							sessionStorage.setItem("access_token", data.access_token)
 							sessionStorage.setItem("refresh_token", data.refresh_token)

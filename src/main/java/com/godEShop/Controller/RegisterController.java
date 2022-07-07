@@ -44,6 +44,11 @@ public class RegisterController {
 		    model.addAttribute("messageRegister", "FAILED");
 		    return "forward:/account/login/form";
 		}
+		if (email.equals(user.getEmail())) {
+		    model.addAttribute("mIsEmailExisted", "true");
+		    model.addAttribute("messageRegister", "FAILED");
+		    return "forward:/account/login/form";
+		}
 	    }
 
 	    if (userService.findByUsername(username) == null && username.trim().length() > 0
