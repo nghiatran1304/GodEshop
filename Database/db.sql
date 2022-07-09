@@ -1205,152 +1205,6 @@ INSERT INTO Orders(CreateDate,Address,Username,OrderstatusId,OrdermethodId) VALU
 
 GO
 
-/*
---ORDERDETAILS
-INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
-(1,75,80000,1),
-(2,74,72500,1),
-(3,73,99600,1),
-(4,72,35000,1),
-(5,71,25000,1),
-(6,70,390,1),
-(7,69,310,1),
-(8,68,340,1),
-(9,67,340,1),
-(10,66,340,1),
-(11,65,110,1),
-(12,9,200,1),
-(13,8,200,1),
-(14,7,250,1),
-(15,6,200,1),
-(16,5,2,1),
-(17,4,15,1),
-(18,3,10,1),
-(19,2,5,1),
-(20,1,2,1),
-(21,10,250,1),
-(22,11,100,1),
-(23,12,60,1),
---cust07
-(24,13,100,1),
-(25,14,100,1),
-(26,15,100,1),
---cust08
-(27,16,649702,1),
-(28,17,349702,1),
-(29,18,649702,1),
---cust09
-(30,19,300,1),
-(31,20,500,1),
-(32,21,25,1),
---cust10
-(33,22,20,1),
-(34,23,35,1),
-(35,24,30,1),
-(35,25,25,1),
---cust11 
-(36,26,220,1),
-(37,27,170,1),
-(38,28,200,1),
---cust12
-(39,29,160,1),
-(40,30,135,1),
-(41,31,145,1),
---cust13
-(42,32,145,1),
-(43,33,150,1),
-(44,34,155,1),
---cust14
-(45,35,120,1),
-(46,36,6500,1),
-(47,37,1800,1),
---cust15
-(48,38,750,1),
-(49,39,2350,1),
-(50,40,6500,1),
---cust16
-(51,41,185,1),
-(52,42,160,1),
-(53,43,185,1),
---cust17
-(54,44,225,1),
-(55,45,350,1),
-(56,46,165,1),
---cust18
-(57,47,225,1),
-(58,48,222,1),
-(59,49,165,1),
---cust19
-(60,50,235,1),
--- tới đây
-(61,51,3500,1),
-(61,52,2000,1),
---cust20
-(63,53,2550,1),
-(64,54,1250,1),
-(65,55,3450,1),
---cust21
-(66,56,3350,1),
-(67,57,120,1),
-(68,58,150,1),
---cust22
-(69,59,75,1),
-(70,60,135,1),
-(71,61,125,1),
---cust23
-(72,62,275,1),
-(73,63,550,1),
-(74,64,250,1),
---cust24
-(75,65,110,1),
-(76,66,340,1),
-(77,67,340,1),
---cust25
-(78,68,340,1),
-(79,69,310,1),
-(80,70,390,1),
---cust26
-(81,71,25000,1),
-(82,72,35000,1),
-(83,73,99600,1),
---cust27
-(84,74,72500,1),
-(85,75,80000,1),
-(86,75,80000,1),
---cust28
-(87,74,72500,1),
-(88,73,99600,1),
-(89,72,35000,1),
---cust29
-(90,71,25000,1),
-(91,70,390,1),
-(92,69,310,1),
---cust30
-(93,68,340,1),
-(94,67,340,1),
-(95,66,340,1),
---cust31
-(96,65,110,1),
-(97,64,250,1),
-(98,63,550,1),
---cust32
-(99,62,275,1),
-(101,61,125,1),
-(102,60,135,1),
---cust33
-(103,59,75,1),
-(104,8,150,1),
-(105,57,120,1),
---cust34
-(106,56,3350,1),
-(107,55,3450,1),
-(108,54,1250,1),
---cust35
-(109,53,2250,1),
-(110,52,2000,1),
-(11,51,3500,1)
-GO
-*/
 
 ---ProductLikes
 INSERT INTO ProductLikes(IsLiked,ProductId,Username) VALUES
@@ -1549,56 +1403,6 @@ INSERT INTO ProductEvaluations(Evaluation,ProductId,Username) VALUES
 (5,44,'cust35')
 GO
 
-/*
---PRODUCT COMMENTS
-INSERT INTO ProductComments(TopicUsername,CommentContent,ProductId) VALUES
-(N'cust01',N'Sản phẩm quá đẹp, tuyệt vời',1),
-(N'cust01',N'Siêu phẩm năm nay',2),
-(N'cust01',N'Sản phẩm đẹp, nhẹ, sang trọng',3),
-(N'cust01',N'Tôi đã tham khảo rất nhiều nơi nhưng sản phẩm ở đây bán thật sự rất tốt',4),
-(N'cust01',N'Sản phẩm này được ra mắt khi nào vậy ạ?',5),
---user2
-(N'cust02',N'Chiếc này và chiếc SE-1002 khác nhau chỗ nào vậy ạ',6),
-(N'cust02',N'Sản phẩm có hỗ trợ đổi trả không ??',7),
-(N'cust02',N'Sản phẩm free ship ở HCM không admin ơi?',8),
-(N'cust02',N'Chiếc này dây đeo bằng cacbon phải không shop?',9),
-(N'cust02',N'Địa chỉ shop ở đâu ạ',10),
---user3
-(N'cust03',N'Shop có phiên bản giới hạn của chiếc này không?',11),
-(N'cust03',N'Khi nào hàng về ạ?',12),
-(N'cust03',N'Sản phẩm này có khuyến mãi kèm dây đeo không?',13),
-(N'cust03',N'Admin cho mình hỏi mình mua chiếc này giờ muốn thay dây thì làm thế nào ạ',14),
-(N'cust03',N'Khi nào có phiên bản v2 của sản phẩm này vậy ạ?',15)
-GO
---Product Photo
-INSERT INTO CommentPhotos(ID,CommentId) VALUES
-('babyg-analog-p1-1.jpg',1),
-('babyg-automatic-p3-1.jpg',2),
-('babyg-digital-p2-1.jpg',3)
-GO
-
-INSERT INTO ProductReplies(CommentId,ReplyContent,Username) VALUES
-(1,N'Cảm ơn bạn đã chia sẻ','admin01'),
-(2,N'Godshop cảm ơn bạn đã ủng hộ','admin01'),
-(3,N'Cảm ơn thông tin đánh giá của bạn, mong bạn luôn ủng hộ shop','admin01'),
-(4,N'Cảm ơn (User01) đánh giá cao sản phẩm của GodShop','admin01'),
-(5,N'Dạ Sản Phẩm này được ra mắt vào thời điểm tháng 03-2022, đây là sản phẩm mới nhất của Shop ạ','admin01'),
---reply user02
-(6,N'Dạ chiếc này sử dụng dây đeo tay bằng cacbon sợi và chiếc SE-1002 sử dụng dây đeo là titanium, 2 chất liệu dây khác nhau thôi ạ','admin02'),
-(7,N'Sản phẩm của GodShop đảm bảo giá tốt nhất từ hãng, hỗ trợ đổi trả sản phẩm trong 7 ngày nếu gặp lỗi, hỗ trợ thu lại giá = 90% trong 30 ngày đầu tiên','admin02'),
-(8,N'Shop miễn phí ship khắp khu vực Miền Nam và 1 số tỉnh thành phía Bắc bạn nhé','admin02'),
-(9,N'Dạ đúng rồi bạn, dây đeo tay bằng cacbon sợi','admin02'),
-(10,N'Địa chỉ của shop ở 112 Tên Lửa, Bình Trị Đông B, Quận Bình Tân,TP.HCM bạn nhé, mong bạn ghé ủng hộ','admin02'),
-
---reply user03
-(11,N'Cảm ơn bạn đã quan tâm tới sản phẩm của chúng tôi, rất tiếc hiện tại chưa có thông tin nào về bản giới hạn của sản phẩm này ạ','admin03'),
-(12,N'Sản phẩm có sẵn tại shop, rất vui được phục vụ bạn','admin03'),
-(13,N'Sản phẩm không có kèm khuyến mại dây đeo, tuy nhiên GodShop có rất nhiều dây đeo chính hãng kiểu dáng lịch sự, hiện đại.. bạn có thể tham khảo trực tiếp tại cửa hàng ạ','admin03'),
-(14,N'Bạn vui để lòng giữ điện thoại, sẽ có nhân viên liên hệ với bạn để hướng dẫn','admin03'),
-(15,N'Phiên bản V2 sẽ được ra mắt trong tháng 11 năm nay, GodShop sẽ gửi 1 email tới bạn khi có sản phẩm V2, cảm ơn bạn đã quan tâm','admin03')
-GO
-*/
-
 --=====================phụ kiện===============================
 INSERT INTO Accessories(Colors,BraceletmaterialId,ProductId) VALUES
 (N'Xanh',1,76),
@@ -1617,7 +1421,7 @@ UPDATE Products set IsDeleted = 1 where id = 70 or id = 26 or id = 4;
 
 
 --==================================================== 
-INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
+INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) VALUES
 (1,75,80000,1),
 (1,1,2,2),
 (1,2,5,2),
@@ -1826,8 +1630,6 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) values
 (110,52,2000,1),
 (111,51,3500,1)
 GO
-
--- MatKhau@123
 
 
 
