@@ -667,7 +667,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					var tempUserDateTime = [];
 					
 					var dateDiffHanled = dateDiff(userStartDate, userEndDate)
-					console.log(dateDiffHanled);
 			        if (dateDiffHanled <= 30) {
 			            var {day} = datesBetween(userStartDate, userEndDate)
 			            day.forEach(item => {
@@ -769,7 +768,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					var tempUserDateTime = [];
 					
 					var dateDiffHanled = dateDiff($scope.newStart, $scope.newEnd)
-					console.log(dateDiffHanled);
 			        if (dateDiffHanled <= 30) {
 			            var {day} = datesBetween($scope.newStart, $scope.newEnd)
 			            day.forEach(item => {
@@ -1506,8 +1504,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 			});
 		}
 		
-		
-		$scope.sort();
 		$scope.bestSellerNamPager = {
 				page: 0,
 				size: 5,
@@ -1712,7 +1708,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				}
 			});
 		}
-		$scope.sort();
+		
 		$scope.bestSellerNuPager = {
 				page: 0,
 				size: 5,
@@ -1736,6 +1732,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
     }
      
     // Xu ly datetime cua du lieu query tu database thanh kieu mm/yyyy de hien thi	
+    // Chuyen kieu Date thanh yyyy de xu ly
     function getFormattedYear(date) {
 		var year = date.getFullYear();
 				
@@ -1748,6 +1745,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		return year;
 	}
 	
+	// Chuyen kieu Date thanh yyyy-mm de xu ly
 	function getFormattedDate(date) {
 		var year = date.getFullYear();
 				
@@ -1760,6 +1758,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		return year + '-' + month;
 	}
 	
+	// Chuyen kieu Date thanh yyyy-mm-dd de xu ly
 	function getFormattedFullDate(date) {
 		var year = date.getFullYear();
 				
@@ -1791,12 +1790,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		return tempData;
 	}
 	
-	// Sort array theo so san pham da ban duoc
-	$scope.sort = function() {
-		document.getElementById('sort').dispatchEvent(new Event('click'));
-		document.getElementById('sort').dispatchEvent(new Event('click'));
-	}
-	
 	// Chuyen image sang Base64
 	function convertImgToBase64(img, outputFormat){
 	    // clear canvas
@@ -1809,6 +1802,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 	    return canvas.toDataURL("image/" + (outputFormat || "jpeg"));
 	}
 	
+	// Xu ly date thanh kieu dd-mm-yyyy
 	$scope.getDate = function(a, b) {
 		$scope.start1 = document.getElementById(a).value;
 		$scope.newStart = $scope.start1.substring(0,4)  + '-' + $scope.start1.substring(5,7) + '-' + $scope.start1.substring(8,10);
@@ -1816,6 +1810,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		$scope.newEnd = $scope.end1.substring(0,4) + '-' + $scope.end1.substring(5,7) + '-' + $scope.end1.substring(8,10);
 	}
 	
+	// Tinh so ngay tu 2 ngay de xu ly date len chartjs
 	function dateDiff(string1, string2) {
 		var date1 = new Date(string1)
         var date2 = new Date(string2)
@@ -1825,6 +1820,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		return dateDiffHandled
     }
 
+	// Xu ly lay tat ca cac ngay/thang/nam tu khoang thoi gian cho truoc
 	function datesBetween(startDate, endDate) {
 		const day = [],  
 		month = new Set(),

@@ -210,13 +210,15 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     @Query("SELECT new com.godEShop.Dto.ProductsStatisticDto" + "(p.id, p.name, p.quantity, sum(od.quantity)) "
 	    + "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o " + "INNER JOIN o.account a "
 	    + "INNER JOIN a.users u " + "WHERE o.orderStatus between 2 and 4 and u.gender = ?1 "
-	    + "GROUP BY p.name, p.id, p.quantity ")
+	    + "GROUP BY p.name, p.id, p.quantity "
+	    + "ORDER BY  sum(od.quantity) DESC")
     List<ProductsStatisticDto> getBestProductStatisticByMale(int gender);
     
     @Query("SELECT new com.godEShop.Dto.ProductsStatisticDto" + "(p.id, p.name, p.quantity, sum(od.quantity)) "
     	    + "FROM Product p " + "INNER JOIN p.orderDetails od " + "INNER JOIN od.order o " + "INNER JOIN o.account a "
     	    + "INNER JOIN a.users u " + "WHERE o.orderStatus between 2 and 4 and u.gender = ?1 and o.createDate between ?2 and ?3 "
-    	    + "GROUP BY p.name, p.id, p.quantity ")
+    	    + "GROUP BY p.name, p.id, p.quantity "
+    	    + "ORDER BY  sum(od.quantity) DESC")
         List<ProductsStatisticDto> getBestProductStatisticByMaleByTime(int gender, Date dateStart, Date dateEnd);
 
     @Query("SELECT new com.godEShop.Dto.ProductImageDto" + "(p.id, MIN(pp.id)) " + "FROM Product p "
