@@ -255,27 +255,15 @@ app.controller("statistic-ctrl", function($scope, $http) {
         	labels = [];
    		}
   
-	  
-		data = {
+ 		data = {
 			labels: labels,
-		    datasets: [{
-		      label: '',
-		      backgroundColor: 'rgb(255, 99, 132)',
-		      borderColor: 'rgb(255, 99, 132)',
-		      data: [],
-		    }]
+			datasets: [{
+				label: '',
+				backgroundColor: 'rgb(255, 99, 132)',
+				borderColor: 'rgb(255, 99, 132)',
+				data: [],
+				}]
 		};
-		  
-	  	config = {
-	    	type: 'line',
-	    	data: data,
-	    	options: {
-				legend: {
-	          		display: false
-	       	 	},
-			}
-	  	};
-  
 		
 		$('#exampleModal').modal('toggle');
 		if ($scope.newStart == null && $scope.newEnd == null) {
@@ -285,23 +273,35 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					orderDateTime.push({'time' : $scope.itemProduct[i].createDate, 'revenue': $scope.itemProduct[i].quantity});
 				}
 				orderDateTime.sort((a,b) => Date.parse(b.time) - Date.parse(a.time));
+				
 				startDate = orderDateTime[orderDateTime.length-1].time;
 				endDate = orderDateTime[0].time;
-				
 				var months = [];
 				var tempDateTime = [];
 				
 				var dateDiffHanled = dateDiff(startDate, endDate)
 				
+				
 		        if (dateDiffHanled <= 30) {
-		            var {day} = datesBetween(startDate, endDate)
-		            day.forEach(item => {
-						months.push(item);
-					})
-					orderDateTime.forEach(item => {
-						const tempDate = new Date(item.time);
-						tempDateTime.push({key: getFormattedFullDate(tempDate), value: item.revenue});
-					})
+					if (dateDiffHanled == 0){
+						var {day} = datesBetween(startDate, endDate)
+			            day.forEach(item => {
+							months.push(item);
+						})
+						orderDateTime.forEach(item => {
+							const tempDate = new Date(item.time);
+							tempDateTime.push({key: getFormattedFullDate(tempDate), value: item.revenue});
+						})
+					}else {
+						var {day} = datesBetween(startDate, endDate)
+			            day.forEach(item => {
+							months.push(item);
+						})
+						orderDateTime.forEach(item => {
+							const tempDate = new Date(item.time);
+							tempDateTime.push({key: getFormattedFullDate(tempDate), value: item.revenue});
+						})
+					}
 		        }else if (dateDiffHanled <= 900) {
 		            var {month} = datesBetween(startDate, endDate)
 		            month.forEach(item => {
@@ -325,6 +325,8 @@ app.controller("statistic-ctrl", function($scope, $http) {
 			    months.forEach(item => {
 					labels.push(item);
 				})
+				
+				
 					
 				var dataForChart = [];
 				
@@ -346,6 +348,23 @@ app.controller("statistic-ctrl", function($scope, $http) {
 						item.data.push(item2.revenue);
 					})
 				})
+				
+				  
+			  	config = {
+			    	type: 'line',
+			    	data: data,
+			    	options: {
+						legend: {
+			          		display: false
+			       	 	},
+					}
+			  	};
+			  	
+			  	// -- Tao chart statistic tu data cua product da xu ly
+				myChart = new Chart(
+				    document.getElementById('myChart'),
+				    config
+				);
 					
 				$http.get(`/rest/products/singleimage/${id}`).then(resp2 => {
 					for (var i = 0; i < resp.data.length; i++) {
@@ -424,6 +443,23 @@ app.controller("statistic-ctrl", function($scope, $http) {
 						item.data.push(item2.revenue);
 					})
 				})
+				
+				  
+			  	config = {
+			    	type: 'line',
+			    	data: data,
+			    	options: {
+						legend: {
+			          		display: false
+			       	 	},
+					}
+			  	};
+			  	
+			  	// -- Tao chart statistic tu data cua product da xu ly
+				myChart = new Chart(
+				    document.getElementById('myChart'),
+				    config
+				);
 					
 				$http.get(`/rest/products/singleimage/${id}`).then(resp2 => {
 					for (var i = 0; i < resp.data.length; i++) {
@@ -464,11 +500,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 			}
 		}
 		
-		// -- Tao chart statistic tu data cua product da xu ly
-		myChart = new Chart(
-		    document.getElementById('myChart'),
-		    config
-		);
 	}
 	
 	// ---------------- End Product statistic --------------
@@ -1822,21 +1853,43 @@ app.controller("statistic-ctrl", function($scope, $http) {
 
 	// Xu ly lay tat ca cac ngay/thang/nam tu khoang thoi gian cho truoc
 	function datesBetween(startDate, endDate) {
-		const day = [],  
-		month = new Set(),
-		year = new Set()
-		
-		const dateMove = new Date(startDate)
-		let date = startDate
-		while (date < endDate){
-			date = dateMove.toISOString().slice(0,10)
-			                
-			month.add(date.slice(0, 7))
-			year.add(date.slice(0, 4))
-			day.push(date)
-			dateMove.setDate(dateMove.getDate()+1)
+		var check = new Date(endDate) - new Date(startDate)
+		if (check == 0) {
+			const day = []
+			
+			
+			let date = startDate
+			let newDate = new Date(date)
+			newDate = newDate.setDate(newDate.getDate()-30)
+			let newStartDate = new Date(newDate)
+			newStartDate = newStartDate.toISOString().slice(0,10)
+			let dateMove = new Date(newStartDate)
+			
+			while (newStartDate < endDate){
+				newStartDate = dateMove.toISOString().slice(0,10)
+				day.push(newStartDate)
+				dateMove.setDate(dateMove.getDate()+1)
+			}
+			return {day}
+		}else {
+			const day = [],  
+			month = new Set(),
+			year = new Set()
+			
+			const dateMove = new Date(startDate)
+			let date = startDate
+			while (date < endDate){
+				date = dateMove.toISOString().slice(0,10)
+				                
+				month.add(date.slice(0, 7))
+				year.add(date.slice(0, 4))
+				day.push(date)
+				dateMove.setDate(dateMove.getDate()+1)
+			}
+			return {year: [...year], month: [...month], day}
 		}
-		return {year: [...year], month: [...month], day}
+		
+		
 	}
 });
 
