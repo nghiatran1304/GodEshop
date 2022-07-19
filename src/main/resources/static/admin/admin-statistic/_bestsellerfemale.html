@@ -7,33 +7,27 @@
 		<button class="btn btn-success" id="submit" ng-click="clear5Female();">Clear</button>
 	</div>
 	<div class="col-4"></div>
-	<div class="col-1"><button id="bestSellerFemale" ng-click="exportBestSellerFemale();" class="btn btn-success">Export Excel</button></div>
-	<div class="col-1"><button id="bestSellerFemale" ng-click="exportPdfBestSellerFemale();" class="btn btn-success">Export Pdf</button></div>
+	<div class="col-1"><button id="bestSellerFemale" ng-click="exportBestSellerFemale();" class="btn btn-success">Excel</button></div>
+	<div class="col-1"><button id="bestSellerFemale" ng-click="exportPdfBestSellerFemale();" class="btn btn-success">PDF</button></div>
 </div>
 
 	<table id="bestSellerFemaleTable" class="table table-hover table-bordered mt-2">
-		<thead class="thead-dark">
+		<thead class="thead-dark" style="border: 1px solid lightblue;">
 			<tr class="text-center">
-				<th scope="col" style="font-size:20px" class="text-warning font-weight-bold">Image</th>
-				<th scope="col">
-					<a class="text-warning font-weight-bold" href="" style="font-size:20px" ng-click="sortByCategoryName('productName')">Product's Name</a>
-				</th>
-				<th scope="col">
-					<a class="text-warning font-weight-bold" href="" style="font-size:20px" ng-click="sortByCategoryName('quantityleft')">Product's Stock</a>
-				</th>
-				<th scope="col">
-					<a id="sort" class="text-warning font-weight-bold" href="" style="font-size:20px" ng-click="sortByCategoryName('quantity')">Total Product Sold</a>
-				</th>
+				<th scope="col" style="font-size:18px" class="text-danger font-weight-bold">Image</th>
+				<th scope="col" style="font-size:18px" class="text-danger font-weight-bold">Product's Name</th>
+				<th scope="col" style="font-size:18px" class="text-danger font-weight-bold">Product's Stock</th>
+				<th scope="col" style="font-size:18px" class="text-danger font-weight-bold">Total Product Sold</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class="text-center" ng-repeat="item in bestSellerNuPager.items | orderBy:sortType | filter:searchName">
-				<td style="width: 300px;border: 2px solid lightblue;">
-					<img ng-src="/upload/ProductImages/{{item.imageId}}" alt="" style="width: 120px; height: 120px"/>
+				<td style="width: 150px;border: 1px solid lightblue;">
+					<img ng-src="/upload/ProductImages/{{item.imageId}}" alt="" style="width: 120px; height: 100px"/>
 				</td>
-				<td style="width: 200px;font-size: 20px;border: 2px solid lightblue;">{{item.productName}}</td>
-				<td style="width: 400px;font-size: 20px;border: 2px solid lightblue;">{{item.quantityleft}}</td>
-				<td style="width: 400px;font-size: 20px;border: 2px solid lightblue;">{{item.quantity}}</td>
+				<td style="width: 200px;font-size: 18px;border: 1px solid lightblue;">{{item.productName}}</td>
+				<td style="width: 100px;font-size: 18px;border: 1px solid lightblue;">{{item.quantityleft}}</td>
+				<td style="width: 100px;font-size: 18px;border: 1px solid lightblue;">{{item.quantity}}</td>
 			</tr>
 		</tbody>
 	</table>

@@ -15,10 +15,10 @@
 		</div>
 		<div class="col-4"></div>
 		<div class="col-1">
-			<button id="products" ng-click="exportProducts();" class="btn btn-success">Export Excel</button>
+			<button id="products" ng-click="exportProducts();" class="btn btn-success">Excel</button>
 		</div>
 		<div class="col-1">
-			<button id="products2" ng-click="exportPdfProducts();" class="btn btn-success">Export Pdf</button>
+			<button id="products2" ng-click="exportPdfProducts();" class="btn btn-success">PDF</button>
 		</div>
 	</div>
 	<form class="mt-2 mb-2">
@@ -28,17 +28,17 @@
 	<table id="TableToExport" class="table table-hover table-bordered mt-2">
 		<thead class="thead-dark">
 			<tr class="text-center">
-				<th scope="col" class="text-warning font-weight-bold" style="font-size:20px">Image</th>
+				<th scope="col" class="text-danger font-weight-bold" style="font-size:18px">Image</th>
 				<th scope="col">
-					<a class="text-warning font-weight-bold" href=""
-						ng-click="sortByCategoryName('productName')" style="font-size:20px">Product's name</a>
+					<a class="text-danger font-weight-bold" href=""
+						ng-click="sortByCategoryName('productName')" style="font-size:18px">Product's name</a>
 				</th>
 				<th scope="col">
-					<a class="text-warning font-weight-bold" href=""
-						ng-click="sortByCategoryName('quantityleft')" style="font-size:20px">Product's quantity left</a>
+					<a class="text-danger font-weight-bold" href=""
+						ng-click="sortByCategoryName('quantityleft')" style="font-size:18px">Product's quantity left</a>
 				</th>
 				<th scope="col">
-					<a class="text-warning font-weight-bold" href="" style="font-size:20px" ng-click="sortByCategoryName('quantity')">Total
+					<a class="text-danger font-weight-bold" href="" style="font-size:18px" ng-click="sortByCategoryName('quantity')">Total
 						number of products sold</a>
 				</th>
 			</tr>
@@ -46,14 +46,14 @@
 		<tbody>
 			<tr class="text-center"
 				ng-repeat="item in pager.items | orderBy:sortType | filter:searchName" ng-click="edit(item)">
-				<td style="width: 300px;border: 2px solid lightblue;">
-					<img ng-src="/upload/ProductImages/{{item.imageId}}" alt="" style="width: 120px; height: 120px"
+				<td style="width: 150px;border: 1px solid lightblue;">
+					<img ng-src="/upload/ProductImages/{{item.imageId}}" alt="" style="width: 120px; height: 100px"
 						ng-click="detail(item.productId)" />
 				</td>
-				<td style="width: 300px;font-size:20px;border: 2px solid lightblue;" ng-click="detail(item.productId)">
+				<td style="width: 300px;font-size:18px;border: 1px solid lightblue;" ng-click="detail(item.productId)">
 					{{item.productName}}</td>
-				<td style="width: 300px;font-size:20px;border: 2px solid lightblue;">{{item.quantityleft}}</td>
-				<td style="width: 400px;font-size:20px;border: 2px solid lightblue;">{{item.quantity}}</td>
+				<td style="width: 50px;font-size:18px;border: 1px solid lightblue;">{{item.quantityleft}}</td>
+				<td style="width: 50px;font-size:18px;border: 1px solid lightblue;">{{item.quantity}}</td>
 			</tr>
 		</tbody>
 	</table>

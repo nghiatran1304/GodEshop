@@ -71,28 +71,18 @@ public class OrderProcessing {
 		    if (row.getRowNum() >= 1) {
 			Iterator<Cell> cellIterator = row.cellIterator();
 			String key = ""; // key - ô stt
-			String username = ""; // giá trị ô username
-			String password = ""; // giá trị ô password
-			String email = "";
-			String telephone = ""; // giá trị ô telephone
+			String stage = ""; // giá trị ô username
 			String expected = ""; // giá trị ô expected
 			while (cellIterator.hasNext()) {
 			    Cell cell = cellIterator.next();
 			    if (cell.getColumnIndex() == 0) {
 				key = dataFormat.formatCellValue(cell);
 			    } else if (cell.getColumnIndex() == 1) {
-				username = dataFormat.formatCellValue(cell);
+				stage = dataFormat.formatCellValue(cell);
 			    } else if (cell.getColumnIndex() == 2) {
-				password = dataFormat.formatCellValue(cell);
-			    } else if (cell.getColumnIndex() == 3) {
-				email = dataFormat.formatCellValue(cell);
-			    } else if (cell.getColumnIndex() == 4) {
-				telephone = dataFormat.formatCellValue(cell);
-			    } else if (cell.getColumnIndex() == 5) {
 				expected = dataFormat.formatCellValue(cell);
 			    }
-
-			    String[] myArr = { username, password, email, telephone, expected };
+			    String[] myArr = { stage, expected };
 			    dataLoginTest.put(key, myArr);
 			}
 		    }
@@ -142,7 +132,7 @@ public class OrderProcessing {
 	    driver.manage().window().maximize();
 //	    workbook = new XSSFWorkbook(new FileInputStream(new File(EXCEL_DIR + "TEST_LOGIN.xlsx")));
 	    workbook = new XSSFWorkbook(
-		    new FileInputStream(new File("D:/DA2/GodEshop/test-resources/data/TEST_REGISTRATION.xlsx")));
+		    new FileInputStream(new File("D:/DA2/GodEshop/test-resources/data/TEST_ORDER.xlsx")));
 	    worksheet = workbook.getSheet("TestData");
 	    readDataFromExcel(); // đọc dữ liệu
 	    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -156,10 +146,145 @@ public class OrderProcessing {
 	    rowStyle.setWrapText(true);
 
 	    // viết header vào dòng đầu tiên
-	    TestNGResult.put("1", new Object[] { "STT", "Username", "Password", "Email", "Telephone", "Action",
-		    "Expected", "Actual", "Status", "Date Check", "LINK", "Image" });
+	    TestNGResult.put("1", new Object[] { "STT", "STATE", "Action", "Expected", "Actual", "Status", "Date Check",
+		    "LINK", "Image" });
 	} catch (Exception e) {
 	    System.out.println("suiteTest() : " + e.getMessage());
+	}
+    }
+
+    @AfterClass
+    public void suiteTearDown() {
+	Set<String> keyset = TestNGResult.keySet();
+	int rownum = 0;
+	for (String key : keyset) {
+	    CellStyle rowStyle = workbook.createCellStyle();
+	    Row row = worksheet.createRow(rownum++);
+	    Object[] objArr = TestNGResult.get(key);
+	    int cellnum = 0;
+	    for (Object obj : objArr) {
+		rowStyle.setAlignment(HorizontalAlignment.CENTER);
+		rowStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+		rowStyle.setWrapText(true);
+		int flag = cellnum++;
+		Cell cell = row.createCell(flag);
+		if (obj instanceof Date) {
+		    cell.setCellValue((Date) obj);
+		} else if (obj instanceof Boolean) {
+		    cell.setCellValue((Boolean) obj);
+		} else if (obj instanceof String) {
+		    cell.setCellValue((String) obj);
+		} else if (obj instanceof Double) {
+		    cell.setCellValue((Double) obj);
+		}
+
+		if (obj.toString().contains("failure") && obj.toString().contains(".png")) {
+		    try {
+			row.setHeightInPoints(80);
+			writeImage(obj.toString(), row, cell, worksheet);
+			CreationHelper creationHelper = worksheet.getWorkbook().getCreationHelper();
+			XSSFHyperlink hyperlink = (XSSFHyperlink) creationHelper.createHyperlink(HyperlinkType.URL);
+			cell.setCellValue("Full Image");
+			hyperlink.setAddress(obj.toString().replace("\\", "/"));
+			cell.setHyperlink(hyperlink);
+			rowStyle.setAlignment(HorizontalAlignment.CENTER);
+			rowStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+			rowStyle.setWrapText(true);
+			row.setRowStyle(rowStyle);
+
+		    } catch (Exception d) {
+			System.out.println("Write Image : " + d.getMessage());
+		    }
+		}
+		rowStyle.setAlignment(HorizontalAlignment.CENTER);
+		rowStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+		rowStyle.setWrapText(true);
+		worksheet.autoSizeColumn(cellnum);
+		worksheet.setColumnWidth(7, 7000);
+		row.setRowStyle(rowStyle);
+	    }
+	    try {
+//		FileOutputStream out = new FileOutputStream(new File(EXCEL_DIR + "RESULT_TEST_LOGIN.xlsx"));
+		FileOutputStream out = new FileOutputStream(
+			new File("D:/DA2/GodEshop/test-resources/data/RESULT_TEST_ORDER.xlsx"));
+
+		workbook.write(out);
+		out.close();
+		System.out.println("Successfully save to Excel File!!!");
+	    } catch (Exception e) {
+		System.out.println("suiteTearDown() : " + e.getMessage());
+	    }
+	}
+    }
+
+    // -------------- TEST CAST -------------------------
+
+    @Test(description = "Test Registration", priority = 1)
+    public void LoginRegistration() {
+	try {
+	    Set<String> keySet = dataLoginTest.keySet();
+	    int index = 1;
+	    for (String key : keySet) {
+		String[] value = dataLoginTest.get(key);
+		String stage = value[0];
+		String expected = value[1];
+
+		LocalDateTime myDateObj = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss | dd-MM-yyyy");
+		String formattedDate = myDateObj.format(myFormatObj);
+
+		driver.get("http://localhost:8080/account/login/form");
+
+		WebElement btnSignUp1 = driver
+			.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[3]/div/div[2]/button"));
+		Actions actionSignUp1 = new Actions(driver).click(btnSignUp1);
+		actionSignUp1.build().perform();
+
+		// driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/input[1]")).sendKeys(username);
+
+		Thread.sleep(1000);
+
+		WebElement btnSignUp2 = driver
+			.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/button"));
+		Actions actionSignUp2 = new Actions(driver).click(btnSignUp2);
+		actionSignUp2.build().perform();
+
+//		String actualTitle = driver.getTitle();
+		// driver.findElement(By.xpath("/html/body/div[1]/main/div[2]/h1")).getText();
+		String currentUrl = driver.getCurrentUrl();
+		String actualTitle = currentUrl;
+
+		Thread.sleep(1000);
+
+		if (actualTitle.equalsIgnoreCase(expected)) {
+		    TestNGResult.put(String.valueOf(index + 1), new Object[] { String.valueOf(index), // STT
+			    stage, expected, // expected
+			    actualTitle, // actual
+			    "PASS", // status
+			    formattedDate, // date check
+			    "" // image
+		    });
+
+		} else {
+		    driver.get("http://localhost:8080/account/login/form");
+		    WebElement btnSignUp3 = driver
+			    .findElement(By.xpath("/html/body/div[1]/main/div[4]/div[3]/div/div[2]/button"));
+		    Actions actionSignUp3 = new Actions(driver).click(btnSignUp3);
+		    actionSignUp3.build().perform();
+
+		    // driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/input[1]")).sendKeys(username);
+
+		    String path = "D:/DA2/GodEshop/test-resources/images/" + "failure-" + System.currentTimeMillis()
+			    + ".png";
+
+		    takeScreenShot(driver, path);
+		    TestNGResult.put(String.valueOf(index + 1), new Object[] { String.valueOf(index), stage,
+			    "Test Order", expected, actualTitle, "FAILED", formattedDate, path.replace("\\", "/") });
+		}
+		index++;
+	    }
+	} catch (Exception e) {
+	    System.out.println("LoginRegistration() : " + e.getMessage());
 	}
     }
 

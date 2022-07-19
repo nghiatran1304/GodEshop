@@ -1733,10 +1733,11 @@ li.megamenu-img a {
 
 .deal-counter > div::after {
     color: #12a4dd;
-    content: "";
+    content: "ON ";
     display: inline-block;
     font-family: "Ionicons";
-    font-size: 24px;
+    font-weight: bold;
+    font-size: 20px;
     left: 0;
     margin-right: 20px;
     position: absolute;
