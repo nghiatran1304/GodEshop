@@ -53,8 +53,6 @@ public class LoginTest {
     private Map<String, Object[]> TestNGResult;
     private Map<String, String[]> dataLoginTest;
 
-    private final String EXCEL_DIR = "D:/xxx/xxx/DU_AN_TOT_NGHIEP/Code/GodEShop/test-resources/data/";
-    private final String IMAGE_DIR = "D:/xxx/xxx/DU_AN_TOT_NGHIEP/Code/GodEShop/test-resources/images/";
 
     // đọc dữ liệu từ file excel
     private void readDataFromExcel() {
@@ -138,7 +136,7 @@ public class LoginTest {
 	    driver.manage().window().maximize();
 //	    workbook = new XSSFWorkbook(new FileInputStream(new File(EXCEL_DIR + "TEST_LOGIN.xlsx")));
 	    workbook = new XSSFWorkbook(new FileInputStream(
-		    new File("D:/xxx/xxx/DU_AN_TOT_NGHIEP/Code/GodEShop/test-resources/data/TEST_LOGIN.xlsx")));
+		    new File(new File("test-resources/data/TEST_LOGIN.xlsx").getAbsolutePath())));
 	    worksheet = workbook.getSheet("TestData");
 	    readDataFromExcel(); // đọc dữ liệu
 	    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -213,9 +211,8 @@ public class LoginTest {
 	    }
 	    try {
 //		FileOutputStream out = new FileOutputStream(new File(EXCEL_DIR + "RESULT_TEST_LOGIN.xlsx"));
-		FileOutputStream out = new FileOutputStream(new File(
-			"D:/xxx/xxx/DU_AN_TOT_NGHIEP/Code/GodEShop/test-resources/data/RESULT_TEST_LOGIN.xlsx"));
-
+//		FileOutputStream out = new FileOutputStream(new File("/test-resources/data/RESULT_TEST_LOGIN.xlsx"));
+		FileOutputStream out = new FileOutputStream(new File("test-resources/data/RESULT_TEST_LOGIN.xlsx").getAbsolutePath());
 		workbook.write(out);
 		out.close();
 		System.out.println("Successfully save to Excel File!!!");
@@ -228,7 +225,7 @@ public class LoginTest {
     // -------------- TEST CAST -------------------------
 
     @Test(description = "Test Login", priority = 1)
-    public void LoginTest() {
+    public void LoginRunTest() {
 	try {
 	    Set<String> keySet = dataLoginTest.keySet();
 	    int index = 1;
@@ -292,10 +289,11 @@ public class LoginTest {
 		    driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[2]/form/div[2]/input"))
 			    .sendKeys(password);
 //		    String path = IMAGE_DIR + "failure-" + System.currentTimeMillis() + ".png";
-		    String path = "D:/xxx/xxx/DU_AN_TOT_NGHIEP/Code/GodEShop/test-resources/images/" + "failure-"
+		    String path = "test-resources/images/" + "failure-"
 			    + System.currentTimeMillis() + ".png";
-
-		    takeScreenShot(driver, path);
+//		    takeScreenShot(driver, path);
+		    File dir = new File(path);
+		    takeScreenShot(driver, dir.getAbsolutePath().toString());
 		    TestNGResult.put(String.valueOf(index + 1),
 			    new Object[] { String.valueOf(index), username, password, "Test Login", expected,
 				    actualTitle, "FAILED", formattedDate, path.replace("\\", "/") });

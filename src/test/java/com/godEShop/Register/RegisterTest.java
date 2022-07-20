@@ -53,9 +53,6 @@ public class RegisterTest {
     private Map<String, Object[]> TestNGResult;
     private Map<String, String[]> dataLoginTest;
 
-    private final String EXCEL_DIR = "D:/DA2/GodEshop/test-resources/data/";
-    private final String IMAGE_DIR = "D:/DA2/GodEshop/test-resources/images/";
-
     // đọc dữ liệu từ file excel
     private void readDataFromExcel() {
 	try {
@@ -144,8 +141,7 @@ public class RegisterTest {
 	    driver = new ChromeDriver();
 	    driver.manage().window().maximize();
 //	    workbook = new XSSFWorkbook(new FileInputStream(new File(EXCEL_DIR + "TEST_LOGIN.xlsx")));
-	    workbook = new XSSFWorkbook(
-		    new FileInputStream(new File("D:/DA2/GodEshop/test-resources/data/TEST_REGISTRATION.xlsx")));
+	    workbook = new XSSFWorkbook(new FileInputStream(new File(new File("test-resources/data/TEST_REGISTRATION.xlsx").getAbsolutePath())));
 	    worksheet = workbook.getSheet("TestData");
 	    readDataFromExcel(); // đọc dữ liệu
 	    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -220,9 +216,8 @@ public class RegisterTest {
 	    }
 	    try {
 //		FileOutputStream out = new FileOutputStream(new File(EXCEL_DIR + "RESULT_TEST_LOGIN.xlsx"));
-		FileOutputStream out = new FileOutputStream(
-			new File("D:/DA2/GodEshop/test-resources/data/RESULT_TEST_REGISTRATION.xlsx"));
-
+//		FileOutputStream out = new FileOutputStream(new File("D:/DA2/GodEshop/test-resources/data/RESULT_TEST_REGISTRATION.xlsx"));
+		FileOutputStream out = new FileOutputStream(new File("test-resources/data/RESULT_TEST_REGISTRATION.xlsx").getAbsolutePath());
 		workbook.write(out);
 		out.close();
 		System.out.println("Successfully save to Excel File!!!");
@@ -309,10 +304,13 @@ public class RegisterTest {
 		    driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/input[2]"))
 			    .sendKeys("0" + telephone);
 //		    String path = IMAGE_DIR + "failure-" + System.currentTimeMillis() + ".png";
-		    String path = "D:/DA2/GodEshop/test-resources/images/" + "failure-" + System.currentTimeMillis()
-			    + ".png";
-
-		    takeScreenShot(driver, path);
+//		    String path = "D:/DA2/GodEshop/test-resources/images/" + "failure-" + System.currentTimeMillis()
+//			    + ".png";
+//
+//		    takeScreenShot(driver, path);
+		    String path = "test-resources/images/" + "failure-" + System.currentTimeMillis() + ".png";
+		    File dir = new File(path);
+		    takeScreenShot(driver, dir.getAbsolutePath().toString());
 		    TestNGResult.put(String.valueOf(index + 1),
 			    new Object[] { String.valueOf(index), username, password, email, telephone,
 				    "Test Registration", expected, actualTitle, "FAILED", formattedDate,
