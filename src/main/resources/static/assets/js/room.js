@@ -62,12 +62,9 @@ let initiate = async () => {
             document.getElementById('stream__controls').style.display = 'flex'
         }
     } catch (error) {
-        /*
         await rtmClient.setChannelAttributes(room, { 'room_name': roomName, 'host': uid, 'host_image': avatar, 'host_id': uid })
         host = true
         document.getElementById('stream__controls').style.display = 'flex'
-        */
-        console.log(error)
     }
 
     const channel = await rtmClient.createChannel(room)
@@ -116,6 +113,7 @@ let initiate = async () => {
         let data = JSON.parse(messageData.text)
         let name = data.displayName
         let myAvatar = data.avatar
+        let packageId = data.packageId
         let command = data.message.substring(0,5)
         let kickUid = data.message.substring(7,data.message.length)
         if (command === '/kick') {
@@ -124,7 +122,7 @@ let initiate = async () => {
 				window.location = `/livestream`
 			}
 		}else {
-			addMessageToDom(data.message, memberId, name, myAvatar)
+			addMessageToDom(data.message, memberId, name, myAvatar, packageId)
 
         	let participants = await channel.getMembers()
        		updateParticipantTotal(participants)
@@ -182,12 +180,10 @@ let initiate = async () => {
 
     window.addEventListener('beforeunload', leaveChannel)
 
-    let addMessageToDom = async (messageData, memberId, displayName, avatar) => {
-		let messageId = String(Math.floor(Math.random() * 10000))
+    let addMessageToDom = async (messageData, memberId, displayName, avatar, packageId) => {
 		let attributes = await rtmClient.getChannelAttributesByKeys(room, ['room_name', 'host_id'])
         roomName = attributes.room_name.value
         hostId = attributes.host_id.value
-        
 		if (messageData === '/end') {
 			if (memberId === hostId) {
 				setTimeout(function(){
@@ -200,7 +196,11 @@ let initiate = async () => {
 				 }
 		    	},2000);
 			}
-        }else {
+        }else if (messageData.includes('/remove__')) {
+			let messageIdToRemove = messageData.substring(9, messageData.length)
+			
+			document.getElementById(messageIdToRemove).innerText = 'This comment was removed by MODERATER!'
+		}else {
 			let created = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 	        if (created.startsWith("0")) {
 	            created.substring(1)
@@ -208,23 +208,24 @@ let initiate = async () => {
 	        let messageItem
 	        let messagesWrapper = document.getElementById('messages')
 	        let kickBtn
+	        let removeBtn
 	        if (uid === hostId) {
 				messageItem = `
-	                        <div class="message__wrapper">
-	                        <img class="avatar__md" src="${avatar}">
-	                        <div class="message__body">
-	                            <strong class="message__author">${displayName}</strong>
-	                            <small class="message__timestamp">${created}</small>
-	                            <p class="message__text">${messageData}</p>
-	                        </div>
-	                        <div class="message__acction">
-	                        	<div class="message__action__remove">
-	                        		<button class="message__action__remove" id="remove__">X</button>
-		                        </div>	
-		                        <div class="message__action__kick">
-	                        		<button value="${memberId}" class="message__action__kick" id="kick__${messageId}">O</button>
-		                        </div>
-	                        </div>                        
+	                        <div class="message__wrapper" id="${packageId}">
+	                        	<img class="avatar__md" src="${avatar}">
+	                       		<div class="message__body">
+		                            <strong class="message__author">${displayName}</strong>
+		                            <small class="message__timestamp">${created}</small>
+		                            <p class="message__text__${packageId}">${messageData}</p>
+	                        	</div>
+		                        <div class="message__acction">
+		                        	<div class="message__action__remove">
+		                        		<button value="${packageId}" class="message__action__remove" id="remove__">X</button>
+			                        </div>	
+			                        <div class="message__action__kick">
+		                        		<button value="${memberId}" class="message__action__kick" id="kick__${packageId}">O</button>
+			                        </div>
+		                        </div>                        
 	                    </div>`
 	                    
 						
@@ -235,31 +236,41 @@ let initiate = async () => {
 	                        <div class="message__body">
 	                            <strong class="message__author">${displayName}</strong>
 	                            <small class="message__timestamp">${created}</small>
-	                            <p class="message__text">${messageData}</p>
+	                            <p id="${packageId}" class="message__text">${messageData}</p>
 	                        </div>                      
 	                    </div>`
 			}
 	        messagesWrapper.insertAdjacentHTML('beforeend', messageItem)
 	        messageContainer.scrollTop = messageContainer.scrollHeight
-	        kickBtn = document.getElementById(`kick__${messageId}`)
+	        kickBtn = document.getElementById(`kick__${packageId}`)
+	        removeBtn = document.getElementById(`${packageId}`)
 	        if (uid === hostId) {
 				kickBtn.addEventListener('click', (e) => {
 					let command = `/kick__` + e.target.value
 					channel.sendMessage({ text: JSON.stringify({ 'message': command, 'displayName': uid, 'avatar': avatar }) })
+				})
+				
+				removeBtn.addEventListener('click', (e) => {
+					let command = `/remove__` + e.target.value
+					channel.sendMessage({ text: JSON.stringify({ 'message': command, 'displayName': uid, 'avatar': avatar }) })
+					let messageClass = 'message__text__' + packageId
+					document.getElementsByClassName(messageClass)[0].innerText = 'This comment was removed by MODERATER!'
 				})
 			}
 		}
     }
 
     let sendMessage = async (e) => {
+	 	let messageId = String(Math.floor(Math.random() * 100000))
 		if (uid.includes("GUEST")) {
 			alert("Vui lòng đăng nhập để có thể bình luận!")
 			return false
 		}else {
 			e.preventDefault()
 	        let message = e.target.message.value
-	        channel.sendMessage({ text: JSON.stringify({ 'message': message, 'displayName': uid, 'avatar': avatar }) })
-	        addMessageToDom(message, uid, uid, avatar)
+	       
+	        channel.sendMessage({ text: JSON.stringify({'message': message, 'displayName': uid, 'avatar': avatar, 'packageId': messageId}) })
+	        addMessageToDom(message, uid, uid, avatar, messageId)
 	        e.target.reset()
 		}
         
