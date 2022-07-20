@@ -29,6 +29,7 @@ let initiate = async () => {
         let attributes = await rtmClient.getChannelAttributesByKeys(room_id, ['room_name', 'host', 'host_image'])
         let roomName = attributes.room_name.value
         let host = attributes.host.value
+        
         let host_image = attributes.host_image.value
         let roomItem = `<div class="room__item" id="room__${room_id}">
         					<p id="streaming" style="color:red; z-index: 9999999; position: absolute;"><img style="width: 60px; height:40px; color: red;" src="/assets/images/streaming.png"></p>
@@ -36,7 +37,6 @@ let initiate = async () => {
                             <div class="room__content">
                                 <p class="room__meta">
                                 	<h4 class="room_title">${roomName}</h4>
-                                    
                                 </p>
                                 
                                 <div class="room__box">

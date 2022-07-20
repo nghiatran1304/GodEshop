@@ -306,17 +306,7 @@
 								<a class="nav__link" id="create__room__btn" style="font-size: 20px; color: #A22514"
 									href="#"> Livestream Room </a>
 							</div>
-							<script>
-								let btnCreateRoom = document.getElementById('create__room__btn')
-								btnCreateRoom.addEventListener('click', () => {
-									let roomId = String(Math.floor(Math.random() * 10000))
-									sessionStorage.setItem('room_name', "123")
-									sessionStorage.setItem('avatar', "/assets/images/default.PNG")
-									sessionStorage.setItem('display_name', "Hải")
-									sessionStorage.setItem('host', true)
-									window.location = `room/${roomId}`
-								})							 						
-							</script>
+							
 						</div>
 					</div>
 				</li>
@@ -506,6 +496,7 @@
 	</div>
 
 	<!-- JS Process -->
+	<script src="/admin/assets/js/admin-livestream.js"></script>
 	<script src="/admin/admin-app.js"></script>
 	<script src="/admin/admin-watch/watch-ctrl.js"></script>
 	<script src="/admin/admin-accessory/accessory-ctrl.js"></script>

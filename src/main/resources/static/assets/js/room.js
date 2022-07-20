@@ -4,11 +4,15 @@ let APP_ID = '9026d01943724f1c8178e41aa938e367'
 let token = null
 
 let currentUser = document.getElementById('current-user').innerText.trim()
+let url = 'http://localhost:8080/rest/getUserInfomation/'
+
 let uid
 let btnKick
+var avatar
 
 if (currentUser === "Account") {
 	uid = 'GUEST' + String(Math.floor(Math.random() * 10000))
+	avatar = '/upload/UserImages/guest-user.jpg'
 }else {
 	uid = currentUser
 }
@@ -21,10 +25,19 @@ let hostID = sessionStorage.getItem("room_id")
 let roomName = 'Stream title'
 let displayName = sessionStorage.getItem("display_name")
 
+getUserInfo(url, currentUser).then(data => {
+	avatar = `/upload/UserImages/` + data.photo
+})
+
+
+async function getUserInfo(url, username) {
+	const response = await fetch(url + username)
+	const data = await response.json()
+	return data;
+}
+
 let urlParams = window.location.pathname
 let room = urlParams.substring(6, urlParams.length)
-
-let avatar = sessionStorage.getItem('avatar')
 
 
 
@@ -36,19 +49,22 @@ let initiate = async () => {
     
     rtmClient = await AgoraRTM.createInstance(APP_ID)
 	await rtmClient.login({ uid, token })
-
     try {
         let attributes = await rtmClient.getChannelAttributesByKeys(room, ['room_name', 'host_id'])
         roomName = attributes.room_name.value
         hostId = attributes.host_id.value
         if (uid === hostId) {
+			await rtmClient.setChannelAttributes(room, { 'room_name': roomName, 'host': uid, 'host_image': avatar, 'host_id': uid })
             host = true
             document.getElementById('stream__controls').style.display = 'flex'
         }
     } catch (error) {
+        /*
         await rtmClient.setChannelAttributes(room, { 'room_name': roomName, 'host': uid, 'host_image': avatar, 'host_id': uid })
         host = true
         document.getElementById('stream__controls').style.display = 'flex'
+        */
+        console.log(error)
     }
 
     const channel = await rtmClient.createChannel(room)
@@ -192,7 +208,7 @@ let initiate = async () => {
 	        if (uid === hostId) {
 				messageItem = `
 	                        <div class="message__wrapper">
-	                        <img class="avatar__md" src="/assets/images/default.PNG">
+	                        <img class="avatar__md" src="${avatar}">
 	                        <div class="message__body">
 	                            <strong class="message__author">${displayName}</strong>
 	                            <small class="message__timestamp">${created}</small>
@@ -212,7 +228,7 @@ let initiate = async () => {
 			}else {
 				messageItem = `
 	                        <div class="message__wrapper">
-	                        <img class="avatar__md" src="/assets/images/default.PNG">
+	                        <img class="avatar__md" src="${avatar}">
 	                        <div class="message__body">
 	                            <strong class="message__author">${displayName}</strong>
 	                            <small class="message__timestamp">${created}</small>
@@ -233,15 +249,29 @@ let initiate = async () => {
     }
 
     let sendMessage = async (e) => {
-        e.preventDefault()
-        let message = e.target.message.value
-        channel.sendMessage({ text: JSON.stringify({ 'message': message, 'displayName': uid, 'avatar': avatar }) })
-        addMessageToDom(message, uid, uid, avatar)
-        e.target.reset()
+		if (!host) {
+			alert("Vui lòng đăng nhập để có thể bình luận!")
+			return false
+		}else {
+			e.preventDefault()
+	        let message = e.target.message.value
+	        channel.sendMessage({ text: JSON.stringify({ 'message': message, 'displayName': uid, 'avatar': avatar }) })
+	        addMessageToDom(message, uid, uid, avatar)
+	        e.target.reset()
+		}
+        
+        
     }
 
     let messageForm = document.getElementById('message__form')
     messageForm.addEventListener('submit', sendMessage)
+    
+    if (!host) {
+		let messageInput = document.getElementById('message__input')
+		let messageError = `<span style="color:red; font-style: italic;">Vui lòng <a style="color: blue;currsor: pointer;" href="">đăng nhập</a> để có thể bình luận</span>`
+		messageInput.insertAdjacentHTML('afterend', messageError)
+	}
+	
 
 }
 
