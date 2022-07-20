@@ -27,11 +27,10 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				$scope.itemsProduct = resp.data;
 				$scope.itemsProduct.forEach(item => {
 					$scope.exportProductsData.push({
-							productId: item.productId,
-							productImage: '',
-							productName: item.productName,
-							productStock: item.quantityleft,
-							productSold: item.quantity});
+						ID: item.productId,
+						Name: item.productName,
+						Stock: item.quantityleft,
+						Sold: item.quantity});
 				})
 				
 				$http.get("/rest/products/image").then(resp2 => {
@@ -39,7 +38,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 						$scope.itemsProduct.forEach((item2, index2) => {
 							if (item.productId == item2.productId) {
 								$scope.itemsProduct[index2].imageId = item.imageId;
-								$scope.exportProductsData.imageId = item.imageId;
 							}
 						})
 					})
@@ -53,7 +51,8 @@ app.controller("statistic-ctrl", function($scope, $http) {
 			      	var wsrows = [];
 					const wb = XLSX.utils.book_new();
 					XLSX.utils.book_append_sheet(wb, ws, 'Report');
-					ws['!cols'] = [{ width: 10 }, { width: 40 }, { width: 40 }, { width: 15 }, { width: 15 } ]
+					
+					ws['!cols'] = [{ width: 20 }, { width: 40 }, { width: 15 }, { width: 15 } ]
 					wsrows.push({'hpt':20})
 					for (var i = 1; i <= $scope.exportProductsData.length; i++) {
 						wsrows.push({'hpt':100});
@@ -63,37 +62,24 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				}
 				
 				$scope.exportPdfProducts = function() {
-					/* Chay thu dung may rang chiu =))
-				    var doc = new jsPDF();
-					for(var i = 0; i < $scope.exportProductsData.length; i++) {
-						doc.autoTable({
-							html: '#TableToExport',
-							bodyStyles: {minCellHeight: 15},
-						    didDrawCell: function(data) {
-								if (data.column.index === 0 && data.cell.section === 'body') {
-									var td = data.cell.raw;
-									var img = td.getElementsByTagName('img')[0];
-									var textPos = data.cell.textPos;
-									doc.addImage(img.src, 'png', textPos.x,  textPos.y, 30, 30);
-								}
-							}
-						});
-					}
-					doc.save('test.pdf');
-					*/
-					
-					
 					var doc = new jsPDF();
+					var header = function () {
+	                    doc.setFontSize(18);
+	                    doc.setTextColor(255,0,0);
+	                    doc.setFontStyle('normal');
+	                    doc.text("PRODUCT REPORT", 80 , 10);
+               		};
 					var testcolumns = ["ID", "Product Name", "Product Stock", "Product Sold"];
 					var testrows = [];
 					$scope.exportProductsData.forEach(item => {
-						testrows.push([item.productId, item.productName, item.productStock, item.productSold]);
+						testrows.push([item.ID, item.Name, item.Stock, item.Sold]);
 					})
 					doc.addFileToVFS("MyFont.ttf", font);
 			        doc.addFont("MyFont.ttf", "MyFont", "normal");
 			        doc.setFont("MyFont");
-					doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+					doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}, didDrawPage: header});
 			        doc.save('productReport.pdf');
+	  				
 	  				
 				}
 			});
@@ -106,11 +92,10 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				$scope.itemsProduct = resp.data;
 				$scope.itemsProduct.forEach(item => {
 					$scope.exportProductsData.push({
-							productId: item.productId,
-							productImage: '',
-							productName: item.productName,
-							productStock: item.quantityleft,
-							productSold: item.quantity});
+						ID: item.productId,
+						Name: item.productName,
+						Stock: item.quantityleft,
+						Sold: item.quantity});
 				})
 				
 				$http.get("/rest/products/image").then(resp2 => {
@@ -118,7 +103,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 						$scope.itemsProduct.forEach((item2, index2) => {
 							if (item.productId == item2.productId) {
 								$scope.itemsProduct[index2].imageId = item.imageId;
-								$scope.exportProductsData.imageId = item.imageId;
 							}
 						})
 					})
@@ -142,17 +126,22 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				
 				$scope.exportPdfProducts = function() {
 					var doc = new jsPDF();
+					var header = function () {
+	                    doc.setFontSize(18);
+	                    doc.setTextColor(255,0,0);
+	                    doc.setFontStyle('normal');
+	                    doc.text("PRODUCT REPORT", 80 , 10);
+               		};
 					var testcolumns = ["ID", "Product Name", "Product Stock", "Product Sold"];
 					var testrows = [];
 					$scope.exportProductsData.forEach(item => {
-						testrows.push([item.productId, item.productName, item.productStock, item.productSold]);
+						testrows.push([item.ID, item.Name, item.Stock, item.Sold]);
 					})
 					doc.addFileToVFS("MyFont.ttf", font);
 			        doc.addFont("MyFont.ttf", "MyFont", "normal");
 			        doc.setFont("MyFont");
-					doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+					doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}, didDrawPage: header});
 			        doc.save('productReport.pdf');
-	  				
 				}
 			});
 		}
@@ -534,12 +523,11 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					
 					$scope.itemUsers.forEach(item => {
 						$scope.exportUsersData.push({
-							userId: item.id,
-							userImage: item.image,
-							userName: item.username,
-							userFullname: item.fullname,
-							userOrders: item.orders,
-							userTotalBill: item.amount});
+							Id: item.id,
+							Username: item.username,
+							Fullname: item.fullname,
+							Orders: item.orders,
+							TotalBills: item.amount});
 					})
 				});
 				
@@ -563,14 +551,20 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					var testcolumns = ["ID", "Username", "Fullname", "Orders", "Total bill"];
 					var testrows = [];
 					$scope.exportUsersData.forEach(item => {
-						testrows.push([item.userId, item.userName, item.userFullname, item.userOrders, item.userTotalBill]);
+						testrows.push([item.Id, item.Username, item.Fullname, item.Orders, item.TotalBills]);
 					})
 				    
 				    var doc = new jsPDF();
+				    var header = function () {
+	                    doc.setFontSize(18);
+	                    doc.setTextColor(255,0,0);
+	                    doc.setFontStyle('normal');
+	                    doc.text("USER REPORT", 80 , 10);
+               		};
 			        doc.addFileToVFS("MyFont.ttf", font);
 			        doc.addFont("MyFont.ttf", "MyFont", "normal");
 			        doc.setFont("MyFont");
-				    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+				    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}, didDrawPage: header});
 	  				doc.save('userReport.pdf');
 				}
 			}
@@ -583,12 +577,11 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					
 					$scope.itemUsers.forEach(item => {
 						$scope.exportUsersData.push({
-							userId: item.id,
-							userImage: item.image,
-							userName: item.username,
-							userFullname: item.fullname,
-							userOrders: item.orders,
-							userTotalBill: item.amount});
+							Id: item.id,
+							Username: item.username,
+							Fullname: item.fullname,
+							Orders: item.orders,
+							TotalBills: item.amount});
 					})
 				});
 				
@@ -612,14 +605,20 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					var testcolumns = ["ID", "Username", "Fullname", "Orders", "Total bill"];
 					var testrows = [];
 					$scope.exportUsersData.forEach(item => {
-						testrows.push([item.userId, item.userName, item.userFullname, item.userOrders, item.userTotalBill]);
+						testrows.push([item.Id, item.Username, item.Fullname, item.Orders, item.TotalBills]);
 					})
 				    
 				    var doc = new jsPDF();
+				    var header = function () {
+	                    doc.setFontSize(18);
+	                    doc.setTextColor(255,0,0);
+	                    doc.setFontStyle('normal');
+	                    doc.text("USER REPORT", 80 , 10);
+               		};
 			        doc.addFileToVFS("MyFont.ttf", font);
 			        doc.addFont("MyFont.ttf", "MyFont", "normal");
 			        doc.setFont("MyFont");
-				    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+				    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}, didDrawPage: header});
 	  				doc.save('userReport.pdf');
 				}
 			}
@@ -1350,11 +1349,10 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					$scope.itemBestSellerNam = resp.data;
 					$scope.itemBestSellerNam.forEach(item => {
 						$scope.exportMaleData.push({
-								productId: item.productId,
-								productImage: '',
-								productName: item.productName,
-								productStock: item.quantityleft,
-								productSold: item.quantity});
+								Id: item.productId,
+								Name: item.productName,
+								Stock: item.quantityleft,
+								Sold: item.quantity});
 					}) 
 					
 					$http.get(`/rest/products/image`).then(resp2 => {
@@ -1362,7 +1360,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 							$scope.itemBestSellerNam.forEach((item2, index2) => {
 								if (item.productId == item2.productId) {
 									$scope.itemBestSellerNam[index2].imageId = item.imageId;
-									$scope.exportMaleData.productImage = item.imageId;
 								}
 							})
 						})	
@@ -1392,14 +1389,20 @@ app.controller("statistic-ctrl", function($scope, $http) {
 						//
 						var testrows = [];
 						$scope.exportMaleData.forEach(item => {
-							testrows.push([item.productId, item.productName, item.productStock, item.productSold]);
+							testrows.push([item.Id, item.Name, item.Stock, item.Sold]);
 						})
 					    
 					    var doc = new jsPDF();
+					    var header = function () {
+		                    doc.setFontSize(18);
+		                    doc.setTextColor(255,0,0);
+		                    doc.setFontStyle('normal');
+		                    doc.text("BEST SELLER BY MALE REPORT", 60 , 10);
+	               		};
 					    doc.addFileToVFS("MyFont.ttf", font);
 				        doc.addFont("MyFont.ttf", "MyFont", "normal");
 				        doc.setFont("MyFont");
-					    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+					    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}, didDrawPage: header});
 		  				doc.save('bestSellerMaleReport.pdf');
 					}
 					
@@ -1415,11 +1418,10 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					$scope.itemBestSellerNam = resp.data;
 					$scope.itemBestSellerNam.forEach(item => {
 						$scope.exportMaleData.push({
-								productId: item.productId,
-								productImage: '',
-								productName: item.productName,
-								productStock: item.quantityleft,
-								productSold: item.quantity});
+								Id: item.productId,
+								Name: item.productName,
+								Stock: item.quantityleft,
+								Sold: item.quantity});
 					}) 
 					
 					$http.get(`/rest/products/image`).then(resp2 => {
@@ -1427,7 +1429,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 							$scope.itemBestSellerNam.forEach((item2, index2) => {
 								if (item.productId == item2.productId) {
 									$scope.itemBestSellerNam[index2].imageId = item.imageId;
-									$scope.exportMaleData.productImage = item.imageId;
 								}
 							})
 						})
@@ -1457,14 +1458,20 @@ app.controller("statistic-ctrl", function($scope, $http) {
 						//
 						var testrows = [];
 						$scope.exportMaleData.forEach(item => {
-							testrows.push([item.productId, item.productName, item.productStock, item.productSold]);
+							testrows.push([item.Id, item.Name, item.Stock, item.Sold]);
 						})
 					    
 					    var doc = new jsPDF();
+					    var header = function () {
+		                    doc.setFontSize(18);
+		                    doc.setTextColor(255,0,0);
+		                    doc.setFontStyle('normal');
+		                    doc.text("BEST SELLER BY MALE REPORT", 60 , 10);
+	               		};
 					    doc.addFileToVFS("MyFont.ttf", font);
 				        doc.addFont("MyFont.ttf", "MyFont", "normal");
 				        doc.setFont("MyFont");
-					    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+					    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}, didDrawPage: header});
 		  				doc.save('bestSellerMaleReport.pdf');
 					}
 					
@@ -1480,11 +1487,10 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				$scope.itemBestSellerNam = resp.data;
 				$scope.itemBestSellerNam.forEach(item => {
 					$scope.exportMaleData.push({
-							productId: item.productId,
-							productImage: '',
-							productName: item.productName,
-							productStock: item.quantityleft,
-							productSold: item.quantity});
+								Id: item.productId,
+								Name: item.productName,
+								Stock: item.quantityleft,
+								Sold: item.quantity});
 				}) 
 				
 				$http.get(`/rest/products/image`).then(resp2 => {
@@ -1492,7 +1498,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 						$scope.itemBestSellerNam.forEach((item2, index2) => {
 							if (item.productId == item2.productId) {
 								$scope.itemBestSellerNam[index2].imageId = item.imageId;
-								$scope.exportMaleData.productImage = item.imageId;
 							}
 						})
 					})
@@ -1522,14 +1527,20 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					//
 					var testrows = [];
 					$scope.exportMaleData.forEach(item => {
-						testrows.push([item.productId, item.productName, item.productStock, item.productSold]);
+						testrows.push([item.Id, item.Name, item.Stock, item.Sold]);
 					})
 				    
 				    var doc = new jsPDF();
+				    var header = function () {
+						doc.setFontSize(18);
+						doc.setTextColor(255,0,0);
+						doc.setFontStyle('normal');
+						doc.text("BEST SELLER BY MALE REPORT", 60 , 10);
+	               	};
 				    doc.addFileToVFS("MyFont.ttf", font);
 			        doc.addFont("MyFont.ttf", "MyFont", "normal");
 			        doc.setFont("MyFont");
-				    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+				    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}, didDrawPage: header});
 	  				doc.save('bestSellerMaleReport.pdf');
 				}
 			});
@@ -1566,11 +1577,10 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				
 				$scope.itemBestSellerNu.forEach(item => {
 					$scope.exportFemaleData.push({
-							productId: item.productId,
-							productImage: '',
-							productName: item.productName,
-							productStock: item.quantityleft,
-							productSold: item.quantity});
+							Id: item.productId,
+							Name: item.productName,
+							Stock: item.quantityleft,
+							Sold: item.quantity});
 				}) 
 				
 				$http.get(`/rest/products/image`).then(resp2 => {
@@ -1578,7 +1588,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 						$scope.itemBestSellerNu.forEach((item2, index2) => {
 							if (item.productId == item2.productId) {
 								$scope.itemBestSellerNu[index2].imageId = item.imageId;
-								$scope.exportFemaleData.productImage = item.imageId;
 							}
 						})
 					})
@@ -1605,14 +1614,20 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					//
 					var testrows = [];
 					$scope.exportFemaleData.forEach(item => {
-						testrows.push([item.productId, item.productName, item.productStock, item.productSold]);
+						testrows.push([item.Id, item.Name, item.Stock, item.Sold]);
 					})
 				    
 				    var doc = new jsPDF();
+				    var header = function () {
+						doc.setFontSize(18);
+						doc.setTextColor(255,0,0);
+						doc.setFontStyle('normal');
+		            	doc.text("BEST SELLER BY MALE REPORT", 60 , 10);
+	               	};
 				    doc.addFileToVFS("MyFont.ttf", font);
 			        doc.addFont("MyFont.ttf", "MyFont", "normal");
 			        doc.setFont("MyFont");
-				    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+				    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}, didDrawPage: header});
 	  				doc.save('bestSellerFemaleReport.pdf');
 				}
 			});
@@ -1628,11 +1643,10 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				$scope.itemBestSellerNu = resp.data;
 				$scope.itemBestSellerNu.forEach(item => {
 					$scope.exportFemaleData.push({
-							productId: item.productId,
-							productImage: '',
-							productName: item.productName,
-							productStock: item.quantityleft,
-							productSold: item.quantity});
+							Id: item.productId,
+							Name: item.productName,
+							Stock: item.quantityleft,
+							Sold: item.quantity});
 				}) 
 				
 				$http.get(`/rest/products/image`).then(resp2 => {
@@ -1640,7 +1654,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 						$scope.itemBestSellerNu.forEach((item2, index2) => {
 							if (item.productId == item2.productId) {
 								$scope.itemBestSellerNu[index2].imageId = item.imageId;
-								$scope.exportFemaleData.productImage = item.imageId;
 							}
 						})
 					})
@@ -1667,14 +1680,20 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					//
 					var testrows = [];
 					$scope.exportFemaleData.forEach(item => {
-						testrows.push([item.productId, item.productName, item.productStock, item.productSold]);
+						testrows.push([item.Id, item.Name, item.Stock, item.Sold]);
 					})
 				    
 				    var doc = new jsPDF();
+				    var header = function () {
+						doc.setFontSize(18);
+						doc.setTextColor(255,0,0);
+						doc.setFontStyle('normal');
+						doc.text("BEST SELLER BY FEMALE REPORT", 60 , 10);
+	               	};
 				    doc.addFileToVFS("MyFont.ttf", font);
 			        doc.addFont("MyFont.ttf", "MyFont", "normal");
 			        doc.setFont("MyFont");
-				    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+				    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}, didDrawPage: header});
 	  				doc.save('bestSellerFemaleReport.pdf');
 				}
 			});
@@ -1688,11 +1707,10 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				$scope.itemBestSellerNu = resp.data;
 				$scope.itemBestSellerNu.forEach(item => {
 					$scope.exportFemaleData.push({
-							productId: item.productId,
-							productImage: '',
-							productName: item.productName,
-							productStock: item.quantityleft,
-							productSold: item.quantity});
+							Id: item.productId,
+							Name: item.productName,
+							Stock: item.quantityleft,
+							Sold: item.quantity});
 				}) 
 				
 				$http.get(`/rest/products/image`).then(resp2 => {
@@ -1700,7 +1718,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 						$scope.itemBestSellerNu.forEach((item2, index2) => {
 							if (item.productId == item2.productId) {
 								$scope.itemBestSellerNu[index2].imageId = item.imageId;
-								$scope.exportFemaleData.productImage = item.imageId;
 							}
 						})
 					})
@@ -1723,18 +1740,23 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				
 				$scope.exportPdfBestSellerFemale = function() {
 					var testcolumns = ["ID", "Product Name", "Product Stock", "Product Sold"];
-					// Can xu ly $scope.exportFemaleData lay 5 thang co $scope.exportMaleData.itemProductSold cao nhat
 					//
 					var testrows = [];
 					$scope.exportFemaleData.forEach(item => {
-						testrows.push([item.productId, item.productName, item.productStock, item.productSold]);
+						testrows.push([item.Id, item.Name, item.Stock, item.Sold]);
 					})
 				    
 				    var doc = new jsPDF();
+				    var header = function () {
+						doc.setFontSize(18);
+						doc.setTextColor(255,0,0);
+						doc.setFontStyle('normal');
+						doc.text("BEST SELLER BY FEMALE REPORT", 60 , 10);
+	               	};
 				    doc.addFileToVFS("MyFont.ttf", font);
 			        doc.addFont("MyFont.ttf", "MyFont", "normal");
 			        doc.setFont("MyFont");
-				    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}});
+				    doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}, didDrawPage: header});
 	  				doc.save('bestSellerFemaleReport.pdf');
 				}
 			});
@@ -1889,8 +1911,21 @@ app.controller("statistic-ctrl", function($scope, $http) {
 			return {year: [...year], month: [...month], day}
 		}
 		
-		
 	}
+	
+	// Xu ly image url thanh base64
+	const getBase64FromUrl = async (url) => {
+            const data = await fetch(url);
+            const blob = await data.blob();
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(blob); 
+                reader.onloadend = () => {
+                const base64data = reader.result;   
+                resolve(base64data);
+                }
+            });
+    }
 });
 
 
