@@ -25,9 +25,12 @@ let hostID = sessionStorage.getItem("room_id")
 let roomName = 'Stream title'
 let displayName = sessionStorage.getItem("display_name")
 
-getUserInfo(url, currentUser).then(data => {
-	avatar = `/upload/UserImages/` + data.photo
-})
+if (currentUser !== null) {
+	getUserInfo(url, currentUser).then(data => {
+		avatar = `/upload/UserImages/` + data.photo
+	})
+}
+
 
 
 async function getUserInfo(url, username) {
@@ -249,7 +252,7 @@ let initiate = async () => {
     }
 
     let sendMessage = async (e) => {
-		if (!host) {
+		if (uid.includes("GUEST")) {
 			alert("Vui lòng đăng nhập để có thể bình luận!")
 			return false
 		}else {
@@ -266,7 +269,7 @@ let initiate = async () => {
     let messageForm = document.getElementById('message__form')
     messageForm.addEventListener('submit', sendMessage)
     
-    if (!host) {
+    if (uid.includes("GUEST")) {
 		let messageInput = document.getElementById('message__input')
 		let messageError = `<span style="color:red; font-style: italic;">Vui lòng <a style="color: blue;currsor: pointer;" href="">đăng nhập</a> để có thể bình luận</span>`
 		messageInput.insertAdjacentHTML('afterend', messageError)
