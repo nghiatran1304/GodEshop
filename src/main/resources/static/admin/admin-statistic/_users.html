@@ -7,7 +7,11 @@
 		<button class="btn btn-success" id="submit" ng-click="clearUser();">Clear</button>
 	</div>
 	<div class="col-4"></div>
-	<div class="col-1"><button id="users" ng-click="exportUsers();" class="btn btn-success">Excel</button></div>
+	<div class="col-1">
+	<!-- <button id="users" ng-click="exportUsers();" class="btn btn-success">Excel</button> -->
+	<a href="/export/users" class="btn btn-success">Excel</a>
+	</div>
+	
 	<div class="col-1"><button id="users" ng-click="exportPdfUsers();" class="btn btn-success">PDF</button></div>
 </div>
 

@@ -44,22 +44,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				});
 				
 				
-				// Xuat bao cao thong ke Products
-				$scope.exportProducts = function() {
-			      	const ws = XLSX.utils.json_to_sheet($scope.exportProductsData);
-			      	const fileName = 'productsReport';
-			      	var wsrows = [];
-					const wb = XLSX.utils.book_new();
-					XLSX.utils.book_append_sheet(wb, ws, 'Report');
-					
-					ws['!cols'] = [{ width: 20 }, { width: 40 }, { width: 15 }, { width: 15 } ]
-					wsrows.push({'hpt':20})
-					for (var i = 1; i <= $scope.exportProductsData.length; i++) {
-						wsrows.push({'hpt':100});
-					}
-					ws['!rows'] = wsrows;
-					XLSX.writeFile(wb, `${fileName}.xlsx`);
-				}
 				
 				$scope.exportPdfProducts = function() {
 					var doc = new jsPDF();
@@ -109,20 +93,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				});
 				
 				// Xuat bao cao thong ke Products
-				$scope.exportProducts = function() {
-			      	const ws = XLSX.utils.json_to_sheet($scope.exportProductsData);
-			      	const fileName = 'productsReport';
-			      	var wsrows = [];
-					const wb = XLSX.utils.book_new();
-					XLSX.utils.book_append_sheet(wb, ws, 'Report');
-					ws['!cols'] = [{ width: 10 }, { width: 40 }, { width: 40 }, { width: 15 }, { width: 15 } ]
-					wsrows.push({'hpt':20})
-					for (var i = 1; i <= $scope.exportProductsData.length; i++) {
-						wsrows.push({'hpt':100});
-					}
-					ws['!rows'] = wsrows;
-					XLSX.writeFile(wb, `${fileName}.xlsx`);
-				}
 				
 				$scope.exportPdfProducts = function() {
 					var doc = new jsPDF();
@@ -532,20 +502,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				});
 				
 				// Xuat bao cao thong ke Users
-				$scope.exportUsers = function() {
-					const ws = XLSX.utils.json_to_sheet($scope.exportUsersData);
-					const fileName = 'usersReport';
-			      	var wsrows = [];
-					const wb = XLSX.utils.book_new();
-					XLSX.utils.book_append_sheet(wb, ws, 'Report');
-					ws['!cols'] = [{ width: 10 }, { width: 30 }, { width: 30 }, { width: 30 }, { width: 15 }, { width: 15 } ]
-					wsrows.push({'hpt':20})
-					for (var i = 1; i <= $scope.exportUsersData.length; i++) {
-						wsrows.push({'hpt':100});
-					}
-					ws['!rows'] = wsrows;
-					XLSX.writeFile(wb, `${fileName}.xlsx`);
-				}
 				
 				$scope.exportPdfUsers = function() {
 					var testcolumns = ["ID", "Username", "Fullname", "Orders", "Total bill"];
@@ -586,20 +542,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				});
 				
 				// Xuat bao cao thong ke Users
-				$scope.exportUsers = function() {
-					const ws = XLSX.utils.json_to_sheet($scope.exportUsersData);
-					const fileName = 'usersReport';
-			      	var wsrows = [];
-					const wb = XLSX.utils.book_new();
-					XLSX.utils.book_append_sheet(wb, ws, 'Report');
-					ws['!cols'] = [{ width: 10 }, { width: 30 }, { width: 30 }, { width: 30 }, { width: 15 }, { width: 15 } ]
-					wsrows.push({'hpt':20})
-					for (var i = 1; i <= $scope.exportUsersData.length; i++) {
-						wsrows.push({'hpt':100});
-					}
-					ws['!rows'] = wsrows;
-					XLSX.writeFile(wb, `${fileName}.xlsx`);
-				}
 				
 				$scope.exportPdfUsers = function() {
 					var testcolumns = ["ID", "Username", "Fullname", "Orders", "Total bill"];
@@ -1367,20 +1309,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					
 					
 					// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nam
-					$scope.exportBestSellerMale = function() {
-						const ws = XLSX.utils.json_to_sheet($scope.exportMaleData);
-				      	const fileName = 'bestSellerMaleReport';
-				      	var wsrows = [];
-						const wb = XLSX.utils.book_new();
-						XLSX.utils.book_append_sheet(wb, ws, 'Report');
-						ws['!cols'] = [{ width: 10 }, { width: 40 }, { width: 40 }, { width: 15 }, { width: 15 } ]
-						wsrows.push({'hpt':20})
-						for (var i = 1; i <= $scope.exportMaleData.length; i++) {
-							wsrows.push({'hpt':100});
-						}
-						ws['!rows'] = wsrows;
-						XLSX.writeFile(wb, `${fileName}.xlsx`);
-					}
 					
 					$scope.exportPdfBestSellerMale = function() {
 						var testcolumns = ["ID", "Product Name", "Product Stock", "Product Sold"];
@@ -1436,20 +1364,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					
 					
 					// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nam
-					$scope.exportBestSellerMale = function() {
-						const ws = XLSX.utils.json_to_sheet($scope.exportMaleData);
-				      	const fileName = 'bestSellerMaleReport';
-				      	var wsrows = [];
-						const wb = XLSX.utils.book_new();
-						XLSX.utils.book_append_sheet(wb, ws, 'Report');
-						ws['!cols'] = [{ width: 10 }, { width: 40 }, { width: 40 }, { width: 15 }, { width: 15 } ]
-						wsrows.push({'hpt':20})
-						for (var i = 1; i <= $scope.exportMaleData.length; i++) {
-							wsrows.push({'hpt':100});
-						}
-						ws['!rows'] = wsrows;
-						XLSX.writeFile(wb, `${fileName}.xlsx`);
-					}
 					
 					$scope.exportPdfBestSellerMale = function() {
 						var testcolumns = ["ID", "Product Name", "Product Stock", "Product Sold"];
@@ -1505,20 +1419,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				
 				
 				// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nam
-				$scope.exportBestSellerMale = function() {
-					const ws = XLSX.utils.json_to_sheet($scope.exportMaleData);
-			      	const fileName = 'bestSellerMaleReport';
-			      	var wsrows = [];
-					const wb = XLSX.utils.book_new();
-					XLSX.utils.book_append_sheet(wb, ws, 'Report');
-					ws['!cols'] = [{ width: 10 }, { width: 40 }, { width: 40 }, { width: 15 }, { width: 15 } ]
-					wsrows.push({'hpt':20})
-					for (var i = 1; i <= $scope.exportMaleData.length; i++) {
-						wsrows.push({'hpt':100});
-					}
-					ws['!rows'] = wsrows;
-					XLSX.writeFile(wb, `${fileName}.xlsx`);
-				}
 				
 				$scope.exportPdfBestSellerMale = function() {
 					var testcolumns = ["ID", "Product Name", "Product Stock", "Product Sold"];
@@ -1593,20 +1493,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					})
 				})
 				// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nu
-				$scope.exportBestSellerFemale = function() {
-					const ws = XLSX.utils.json_to_sheet($scope.exportFemaleData);
-			      	const fileName = 'bestSellerFemaleReport';
-			      	var wsrows = [];
-					const wb = XLSX.utils.book_new();
-					XLSX.utils.book_append_sheet(wb, ws, 'Report');
-					ws['!cols'] = [{ width: 10 }, { width: 40 }, { width: 40 }, { width: 15 }, { width: 15 } ]
-					wsrows.push({'hpt':20})
-					for (var i = 1; i <= $scope.exportFemaleData.length; i++) {
-						wsrows.push({'hpt':100});
-					}
-					ws['!rows'] = wsrows;
-					XLSX.writeFile(wb, `${fileName}.xlsx`);
-				}
 				
 				$scope.exportPdfBestSellerFemale = function() {
 					var testcolumns = ["ID", "Product Name", "Product Stock", "Product Sold"];
@@ -1659,20 +1545,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					})
 				})
 				// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nu
-				$scope.exportBestSellerFemale = function() {
-					const ws = XLSX.utils.json_to_sheet($scope.exportFemaleData);
-			      	const fileName = 'bestSellerFemaleReport';
-			      	var wsrows = [];
-					const wb = XLSX.utils.book_new();
-					XLSX.utils.book_append_sheet(wb, ws, 'Report');
-					ws['!cols'] = [{ width: 10 }, { width: 40 }, { width: 40 }, { width: 15 }, { width: 15 } ]
-					wsrows.push({'hpt':20})
-					for (var i = 1; i <= $scope.exportFemaleData.length; i++) {
-						wsrows.push({'hpt':100});
-					}
-					ws['!rows'] = wsrows;
-					XLSX.writeFile(wb, `${fileName}.xlsx`);
-				}
 				
 				$scope.exportPdfBestSellerFemale = function() {
 					var testcolumns = ["ID", "Product Name", "Product Stock", "Product Sold"];
@@ -1723,20 +1595,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 					})
 				})
 				// Xuat bao cao thong ke Top 5 best Seller theo nguoi mua la Nu
-				$scope.exportBestSellerFemale = function() {
-					const ws = XLSX.utils.json_to_sheet($scope.exportFemaleData);
-			      	const fileName = 'bestSellerFemaleReport';
-			      	var wsrows = [];
-					const wb = XLSX.utils.book_new();
-					XLSX.utils.book_append_sheet(wb, ws, 'Report');
-					ws['!cols'] = [{ width: 10 }, { width: 40 }, { width: 40 }, { width: 15 }, { width: 15 } ]
-					wsrows.push({'hpt':20})
-					for (var i = 1; i <= $scope.exportFemaleData.length; i++) {
-						wsrows.push({'hpt':100});
-					}
-					ws['!rows'] = wsrows;
-					XLSX.writeFile(wb, `${fileName}.xlsx`);
-				}
 				
 				$scope.exportPdfBestSellerFemale = function() {
 					var testcolumns = ["ID", "Product Name", "Product Stock", "Product Sold"];

@@ -7,7 +7,10 @@
 		<button class="btn btn-success" id="submit" ng-click="clear5Male();">Clear</button>
 	</div>
 	<div class="col-4"></div>
-	<div class="col-1"><button id="bestSellerMale" ng-click="exportBestSellerMale();" class="btn btn-success">Excel</button></div>
+	<div class="col-1">
+	<!-- <button id="bestSellerMale" ng-click="exportBestSellerMale();" class="btn btn-success">Excel</button> -->
+	<a href="/export/productsByMale" class="btn btn-success">Excel</a>
+	</div>
 	<div class="col-1"><button id="bestSellerMale" ng-click="exportPdfBestSellerMale();" class="btn btn-success">PDF</button></div>
 </div>
 	<table id="bestSellerMaleTable" class="table table-hover table-bordered mt-2">
