@@ -20,8 +20,6 @@ app.controller("order-ctrl", function($scope, $http) {
 	$scope.orderInfoDto = {};
 
 	$scope.init = function() {
-
-
 		$http.get(`/rest/allOrders`).then(resp => {
 			$scope.items = resp.data
 		})
@@ -59,8 +57,9 @@ app.controller("order-ctrl", function($scope, $http) {
 	$scope.getNotes;
 	$scope.getOrderStatus;
 
-
+	var getItemPending = null;
 	$scope.edit = function(item) {
+		getItemPending = item.id;
 		$scope.form = angular.copy(item);
 		var id = angular.copy(item.id);
 		$http.get(`/rest/order-infoDto/${id}`).then(resp => {
@@ -86,10 +85,20 @@ app.controller("order-ctrl", function($scope, $http) {
 		})
 	}
 
+	$scope.cancelOrder = function() {
+		$http.put(`/rest/admin-cancel/${getItemPending}`, "cancel order").then(resp => {
+			$scope.init();
+			$(".nav-tabs a:eq(5)").tab('show');
+			$scope.edit($scope.form);
+			// location.reload();
+		});
+	}
+
 	$scope.delivery = function() {
 		var o = angular.copy($scope.form);
 		$scope.getOrderStatus = 3;
 		$http.put(`/rest/order-update-delivery/${o.id}`, o).then(resp => {
+			$scope.form = {};
 			$scope.init();
 			$(".nav-tabs a:eq(3)").tab('show');
 		})

@@ -39,6 +39,8 @@ public interface OrderService {
     
     Order updateCancel(Order o);
 
+    Order update(Order o);
+
 	
 
 }

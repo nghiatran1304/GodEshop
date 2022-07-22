@@ -7,5 +7,5 @@ import com.godEShop.Entity.OrderStatus;
 
 @Repository
 public interface OrderStatusDAO extends JpaRepository<OrderStatus, Integer> {
-
+    
 }

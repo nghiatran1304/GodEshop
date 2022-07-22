@@ -1630,6 +1630,3 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) VALUES
 (110,52,2000,1),
 (111,51,3500,1)
 GO
-
-
-

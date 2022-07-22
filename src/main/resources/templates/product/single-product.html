@@ -215,8 +215,11 @@
 								<li class="active">
 									<a data-toggle="tab" href="#description">Description</a>
 								</li>
-								<li>
+								<li th:if="${#request.remoteUser}">
 									<a data-toggle="tab" href="#reviews">Feedback</a>
+								</li>
+								<li th:unless="${#request.remoteUser}">
+									<a href="/account/login/form">Feedback</a>
 								</li>
 							</ul>
 							<div class="tab-content">

@@ -38,12 +38,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order create(JsonNode orderData) {
 	// TODO Auto-generated method stub
-	
+
 	ObjectMapper mapper = new ObjectMapper();
-	
+
 	boolean flag = false;
-	TypeReference<List<OrderDetail>> typeTest = new TypeReference<List<OrderDetail>>() {};
-	List<OrderDetail> detailsTest = mapper.convertValue(orderData.get("orderDetails"), typeTest).stream().collect(Collectors.toList());
+	TypeReference<List<OrderDetail>> typeTest = new TypeReference<List<OrderDetail>>() {
+	};
+	List<OrderDetail> detailsTest = mapper.convertValue(orderData.get("orderDetails"), typeTest).stream()
+		.collect(Collectors.toList());
 	for (int i = 0; i < detailsTest.size(); i++) {
 	    Product oldProduct = productDAO.getById(detailsTest.get(i).getProduct().getId());
 	    if (oldProduct.getQuantity() <= 0) {
@@ -51,15 +53,16 @@ public class OrderServiceImpl implements OrderService {
 		break;
 	    }
 	}
-	if(flag) {
+	if (flag) {
 	    return null;
 	}
-	
-	
+
 	Order order = mapper.convertValue(orderData, Order.class);
 	orderDAO.save(order);
-	TypeReference<List<OrderDetail>> type = new TypeReference<List<OrderDetail>>() {};
-	List<OrderDetail> details = mapper.convertValue(orderData.get("orderDetails"), type).stream().peek(d -> d.setOrder(order)).collect(Collectors.toList());
+	TypeReference<List<OrderDetail>> type = new TypeReference<List<OrderDetail>>() {
+	};
+	List<OrderDetail> details = mapper.convertValue(orderData.get("orderDetails"), type).stream()
+		.peek(d -> d.setOrder(order)).collect(Collectors.toList());
 	orderDetailDAO.saveAll(details);
 
 	// kiểm tra -> giảm số lượng sản phẩm ở đây
@@ -166,6 +169,12 @@ public class OrderServiceImpl implements OrderService {
 	Order oldOder = o;
 	oldOder.setOrderStatus(osDAO.getById(5));
 	return orderDAO.save(oldOder);
+    }
+
+    @Override
+    public Order update(Order o) {
+	// TODO Auto-generated method stub
+	return orderDAO.save(o);
     }
 
 }

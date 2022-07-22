@@ -33,15 +33,14 @@ public class ProductRestController {
 
     @Autowired
     CategoryService categoryService;
-    
+
     public static Product productInserted = new Product();
 
-    
     @GetMapping("/rest/get-products/{id}")
     public Product getProductInfo(@PathVariable("id") Long id) {
 	return productService.getById(id);
     }
-    
+
     @GetMapping("/rest/products/{productId}")
     public ProductShopDto getOne(@PathVariable("productId") Long id) {
 	return productService.productShopById1(id);
@@ -51,25 +50,19 @@ public class ProductRestController {
     public List<ProductWatchInfoDto> getAll() {
 	return productService.lstFullInfoWatch();
     }
-    
+
     @GetMapping("/rest/outOfSoon")
-    public List<ProductWatchInfoDto> getAllOutOfSoon(){
+    public List<ProductWatchInfoDto> getAllOutOfSoon() {
 	return productService.lstFullInfoWatchOutOfSoon();
     }
-    
-    
+
     @GetMapping("/rest/products/search/{name}")
     public List<ProductWatchInfoDto> findBySearch(@PathVariable("name") String name) {
 	return productService.lstSearchFullInfoWatch("%" + name + "%");
     }
 
-
     @PostMapping("/rest/products")
-    public Product create(@RequestBody ProductWatchInfoDto product) throws Exception{
-	System.out.println(product == null ? " >>>> NULL PRODUCT" : " >>>>> NOT NULL PRODUCT");
-	System.out.println(product.getCategoryId() == null ? " >>>> NULL CATEGORY ID " : " >>>>> NOT NULL CATEGORY ID : " + product.getCategoryId());
-	System.out.println(product.getBrandId() == null ? " >>>> NULL BRAND ID" : " >>>>> NOT NULL BRAND ID: " + product.getBrandId());
-	
+    public Product create(@RequestBody ProductWatchInfoDto product) throws Exception {
 	Category c = categoryService.getById(product.getCategoryId());
 	Brand b = brandService.getById(product.getBrandId());
 	Product p = new Product();
@@ -83,9 +76,9 @@ public class ProductRestController {
 	p.setWarranty(product.getProductWarranty());
 	p.setBrand(b);
 	p.setCategory(c);
-	
+
 	productInserted = p;
-	
+
 	return productService.create(p);
     }
 
