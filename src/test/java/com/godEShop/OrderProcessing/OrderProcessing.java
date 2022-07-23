@@ -53,8 +53,8 @@ public class OrderProcessing {
     private Map<String, Object[]> TestNGResult;
     private Map<String, String[]> dataLoginTest;
 
-    private final String EXCEL_DIR = "D:/DA2/GodEshop/test-resources/data/";
-    private final String IMAGE_DIR = "D:/DA2/GodEshop/test-resources/images/";
+    //private final String EXCEL_DIR = "D:/DA2/GodEshop/test-resources/data/";
+    // private final String IMAGE_DIR = "D:/DA2/GodEshop/test-resources/images/";
 
     // đọc dữ liệu từ file excel
     private void readDataFromExcel() {

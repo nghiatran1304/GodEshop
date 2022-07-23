@@ -34,7 +34,7 @@ public class OrderRestController {
 
     @Autowired
     ProductService productService;
-    
+
     @Autowired
     OrderStatusService orderStatusService;
 
@@ -99,13 +99,13 @@ public class OrderRestController {
     @PutMapping("/rest/admin-cancel/{id}")
     public Order adminCancelOrder(@PathVariable("id") Long id, @RequestBody String str) {
 	List<OrderDetail> lstOd = orderDetailService.findAllProductByOrderDetailId(id);
-	
+
 	OrderStatus os = orderStatusService.findById(5);
-	
+
 	Order o = orderService.findById(lstOd.get(0).getOrder().getId());
 	o.setOrderStatus(os);
 	orderService.update(o);
-	
+
 	for (int i = 0; i < lstOd.size(); i++) {
 	    Product p = productService.getById(lstOd.get(i).getProduct().getId());
 	    int newQuantity = p.getQuantity() + lstOd.get(i).getQuantity();

@@ -36,11 +36,9 @@ public interface OrderService {
     Order updateDelivery(Order o);
 
     Order updateSuccess(Order o);
-    
+
     Order updateCancel(Order o);
 
     Order update(Order o);
-
-	
 
 }
