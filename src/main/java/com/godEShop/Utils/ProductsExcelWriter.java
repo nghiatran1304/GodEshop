@@ -57,7 +57,6 @@ public class ProductsExcelWriter {
         createCell(row, 2, "Name", style);    
         createCell(row, 3, "Stock", style);
         createCell(row, 4, "Sold", style);
-         
     }
      
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {

@@ -1,10 +1,7 @@
 import { font } from './font.js'
 
 app.controller("statistic-ctrl", function($scope, $http) {
-	$scope.start;
-	$scope.newStart;
-	$scope.end;
-	$scope.newEnd;
+	
 	// ---------------- Start Product statistic --------------
 	$scope.itemsProduct = [];
 	$scope.exportProductsData = [];
@@ -21,7 +18,23 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		$scope.initialize();
 	}
 	
+	$scope.excel = function() {
+		var btnExport = document.getElementById("excelExport");
+		if ($scope.newStart == null & $scope.newEnd == null) {
+			btnExport.href = '/export/products';
+			btnExport.addEventListener('click', () => {});
+		}else {
+			btnExport.href = '/export/products/start=' + $scope.newStart + '&end=' + $scope.newEnd;
+			btnExport.addEventListener('click', () => {});
+		}
+	}
+	
 	$scope.initialize = function() {
+		
+	$scope.start;
+	$scope.newStart;
+	$scope.end;
+	$scope.newEnd;
 		if ($scope.newStart == null & $scope.newEnd == null) {
 			$http.get("/rest/statistic/products").then(resp => {
 				$scope.itemsProduct = resp.data;
@@ -63,7 +76,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 			        doc.setFont("MyFont");
 					doc.autoTable(testcolumns, testrows, {styles: {font: "MyFont"}, didDrawPage: header});
 			        doc.save('productReport.pdf');
-	  				
 	  				
 				}
 			});
