@@ -16,15 +16,15 @@
 		<div class="col-4"></div>
 		<div class="col-1">
 			<!-- <button id="products" ng-click="exportProducts();" class="btn btn-success">Excel</button> -->
-			<a id="excelExport" class="btn btn-success" ng-click="excel()">Excel</a>
+			<a id="excelExportProducts" class="btn btn-success" ng-click="excelProducts()">Excel</a>
 		</div>
 		<div class="col-1">
 			<button id="products2" ng-click="exportPdfProducts();" class="btn btn-success">PDF</button>
 		</div>
 	</div>
 	<form class="mt-2 mb-2">
-		<input type="text" class="form-control" placeholder="Search by name" ng-model="kwords"
-			ng-change="findByNameDto(kwords)">
+		<input id="kwordInput1" type="text" class="form-control" placeholder="Search by name" ng-model="kwords1"
+			ng-change="findByNameDto(kwords1)">
 	</form>
 	<table id="TableToExport" class="table table-hover table-bordered mt-2">
 		<thead class="thead-dark">

@@ -18,19 +18,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		$scope.initialize();
 	}
 	
-	$scope.excel = function() {
-		var btnExport = document.getElementById("excelExport");
-		if ($scope.newStart == null & $scope.newEnd == null) {
-			btnExport.href = '/export/products';
-			btnExport.addEventListener('click', () => {});
-		}else {
-			btnExport.href = '/export/products/start=' + $scope.newStart + '&end=' + $scope.newEnd;
-			btnExport.addEventListener('click', () => {});
-		}
-	}
-	
 	$scope.initialize = function() {
-		
 	$scope.start;
 	$scope.newStart;
 	$scope.end;
@@ -473,12 +461,19 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		
 	}
 	
+	var productTab = document.getElementById('products-tab');
+	productTab.addEventListener('click', () => {
+		$scope.clearKword();
+		$scope.initialize();
+	});
+	
 	// ---------------- End Product statistic --------------
 	
 	// ---------------- Start User statistic --------------
 	
 	var userTab = document.getElementById('users-tab');
 	userTab.addEventListener('click', () => {
+		$scope.clearKword();
 		var myChartUser = null;
 		$scope.disabledUserFlag = true;
 		$scope.disabledUserFlagToggle = function() {
@@ -1796,6 +1791,81 @@ app.controller("statistic-ctrl", function($scope, $http) {
                 }
             });
     }
+    
+    $scope.excelProducts = function() {
+		var btnExport = document.getElementById("excelExportProducts");
+		var inpKword = document.getElementById("kwordInput1").value;
+		if ($scope.newStart == null & $scope.newEnd == null) {
+			if (inpKword === undefined || inpKword === "") {
+				btnExport.href = '/export/products';
+				btnExport.addEventListener('click', () => {});
+			}else {
+				btnExport.href = '/export/products/name=' + inpKword;
+				btnExport.addEventListener('click', () => {});
+			}
+		}else {
+			if (inpKword === undefined || inpKword === "") {
+				btnExport.href = '/export/products/start=' + $scope.newStart + '&end=' + $scope.newEnd;
+				btnExport.addEventListener('click', () => {});
+			}else {
+				btnExport.href = '/export/products/name=' + inpKword + '/start=' + $scope.newStart + '&end=' + $scope.newEnd;
+				btnExport.addEventListener('click', () => {});
+			}
+			
+		}
+	}
+	
+	$scope.excelUsers = function() {
+		var btnExport = document.getElementById("excelExportUsers");
+		var inpKword = document.getElementById("kwordInput2").value;
+		if ($scope.newStart == null & $scope.newEnd == null) {
+			if (inpKword === undefined || inpKword === "") {
+				btnExport.href = '/export/users';
+				btnExport.addEventListener('click', () => {});
+			}else {
+				btnExport.href = '/export/users/name=' + inpKword;
+				btnExport.addEventListener('click', () => {});
+			}
+		}else {
+			if (inpKword === undefined || inpKword === "") {
+				btnExport.href = '/export/users/start=' + $scope.newStart + '&end=' + $scope.newEnd;
+				btnExport.addEventListener('click', () => {});
+			}else {
+				btnExport.href = '/export/users/name=' + inpKword + '/start=' + $scope.newStart + '&end=' + $scope.newEnd;
+				btnExport.addEventListener('click', () => {});
+			}
+			
+		}
+	}
+	
+	$scope.excelByMale = function() {
+		var btnExport = document.getElementById("excelExportByMale");
+		if ($scope.newStart == null & $scope.newEnd == null) {
+			btnExport.href = '/export/productsByMale';
+			btnExport.addEventListener('click', () => {});
+		}else {
+			btnExport.href = '/export/productsByMale/start=' + $scope.newStart + '&end=' + $scope.newEnd;
+			btnExport.addEventListener('click', () => {});
+		}
+	}
+	
+	$scope.excelByFemale = function() {
+		var btnExport = document.getElementById("excelExportByFemale");
+		if ($scope.newStart == null & $scope.newEnd == null) {
+			btnExport.href = '/export/productsByFemale';
+			btnExport.addEventListener('click', () => {});
+		}else {
+			btnExport.href = '/export/productsByFemale/start=' + $scope.newStart + '&end=' + $scope.newEnd;
+			btnExport.addEventListener('click', () => {});
+		}
+	}
+	
+	$scope.clearKword = function() {
+		$scope.kwords1 = "";
+		document.getElementById('kwordInput1').value = "";
+		$scope.kwords2 = "";
+		document.getElementById('kwordInput2').value = "";
+	}
 });
 
 
