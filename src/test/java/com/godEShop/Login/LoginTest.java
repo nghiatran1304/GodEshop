@@ -134,7 +134,6 @@ public class LoginTest {
 	    WebDriverManager.chromedriver().setup();
 	    driver = new ChromeDriver();
 	    driver.manage().window().maximize();
-//	    workbook = new XSSFWorkbook(new FileInputStream(new File(EXCEL_DIR + "TEST_LOGIN.xlsx")));
 	    workbook = new XSSFWorkbook(new FileInputStream(
 		    new File(new File("test-resources/data/TEST_LOGIN.xlsx").getAbsolutePath())));
 	    worksheet = workbook.getSheet("TestData");
@@ -210,8 +209,6 @@ public class LoginTest {
 		row.setRowStyle(rowStyle);
 	    }
 	    try {
-//		FileOutputStream out = new FileOutputStream(new File(EXCEL_DIR + "RESULT_TEST_LOGIN.xlsx"));
-//		FileOutputStream out = new FileOutputStream(new File("/test-resources/data/RESULT_TEST_LOGIN.xlsx"));
 		FileOutputStream out = new FileOutputStream(new File("test-resources/data/RESULT_TEST_LOGIN.xlsx").getAbsolutePath());
 		workbook.write(out);
 		out.close();
@@ -250,7 +247,6 @@ public class LoginTest {
 		Actions actions = new Actions(driver).click(btnLogin);
 		actions.build().perform();
 
-//		String actualTitle = driver.getTitle();
 		String actualTitle = driver
 			.findElement(
 				By.xpath("/html/body/div[1]/div[1]/header/div[1]/div/div/div[2]/div/div/div[1]/div/a"))
@@ -288,10 +284,8 @@ public class LoginTest {
 		    driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[2]/form/input")).sendKeys(username);
 		    driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[2]/form/div[2]/input"))
 			    .sendKeys(password);
-//		    String path = IMAGE_DIR + "failure-" + System.currentTimeMillis() + ".png";
 		    String path = "test-resources/images/" + "failure-"
 			    + System.currentTimeMillis() + ".png";
-//		    takeScreenShot(driver, path);
 		    File dir = new File(path);
 		    takeScreenShot(driver, dir.getAbsolutePath().toString());
 		    TestNGResult.put(String.valueOf(index + 1),

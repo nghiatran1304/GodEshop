@@ -113,6 +113,15 @@ app.controller("order-ctrl", function($scope, $http) {
 		})
 	}
 
+	$scope.getListDelivery = function() {
+			var btnExport = document.getElementById("btnExportListDelivery");
+			btnExport.href = '/rest/order-delivery/print';
+			btnExport.addEventListener('click', () => { });
+//		$http.get(`/rest/order-delivery/print`).then(resp => {
+
+//		});
+	}
+
 
 	$scope.pager = {
 		page: 0,
