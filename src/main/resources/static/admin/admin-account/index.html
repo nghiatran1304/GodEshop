@@ -36,7 +36,7 @@
 										<label for="">
 											Username <small ng-show="frm.frmUsername.$invalid" class="text-danger"><i>*Input username</i></small>
 										</label>
-										<input type="text" class="form-control" name="frmUsername" ng-model="form.accountUsername" required placeholder="Username" />
+										<input type="text" class="form-control" name="frmUsername" ng-readonly="isEdit" ng-model="form.accountUsername" required placeholder="Username" />
 									</div>
 									<div class="form-group">
 										<label for="">

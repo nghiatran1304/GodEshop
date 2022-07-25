@@ -1,7 +1,5 @@
-
 app.controller("order-cart-view-ctrl", function($scope, $http) {
 	$scope.orders = [];
-	
 	
 	let username = document.getElementById('current-user').innerText;
 	$scope.init = function() {
@@ -20,17 +18,14 @@ app.controller("order-cart-view-ctrl", function($scope, $http) {
 				$scope.total += item.orderPrice*item.orderQuantity;
 			} )
 			
-			
 		});
 		$scope.cancel = function() {
 			
 		$http.put(`/rest/order-update-cancel/${id}`).then(
 			window.location.reload()
 		);
-		
 	}
 	
-
 	}
 	$scope.pager = {
 		page: 0,

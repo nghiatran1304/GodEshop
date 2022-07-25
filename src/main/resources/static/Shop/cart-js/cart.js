@@ -67,7 +67,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			this.saveToLocalStorage();
 			if (this.items.length <= 0) {
 				$scope.canOrder = false;
-			}else{
+			} else {
 				$scope.canOrder = true;
 			}
 		},
@@ -118,7 +118,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 			this.items = json ? JSON.parse(json) : [];
 			if (this.items.length <= 0) {
 				$scope.canOrder = false;
-			}else{
+			} else {
 				$scope.canOrder = true;
 			}
 		}
@@ -246,22 +246,6 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 	}
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

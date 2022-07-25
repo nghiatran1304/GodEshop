@@ -158,9 +158,10 @@ public class OrderRestController {
 	rowStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 	rowStyle.setWrapText(true);
 
-	data.put("1", new Object[] { "STT", "Order ID", "Fullname", "Address", "Phone", "Payment Method", "Customer's Sign" });
+	data.put("1", new Object[] { "STT", "Order ID", "Fullname", "Address", "Phone", "Payment Method", "Total", "Customer's Sign" });
 
 	List<Order> lstOrder = orderService.findAllOrderDelivery();
+	
 
 	for (int i = 0; i < lstOrder.size(); i++) {
 	    String stt = String.valueOf((i + 1)).toString();
@@ -170,9 +171,17 @@ public class OrderRestController {
 	    String phone = userService.findByUsername(lstOrder.get(i).getAccount().getUsername()).getPhone();
 	    String paymentMethod = orderMethodSevice.getById(lstOrder.get(i).getOrderMethod().getId()).getName();
 	    String sign = " ";
+	    String total = " ";
+	    
+	    List<OrderDetail> lstOd = orderDetailService.findAllProductByOrderDetailId(lstOrder.get(i).getId());
+	    double getTotalBill = 0;
+	    for(int j = 0; j < lstOd.size(); j++) {
+		getTotalBill += (lstOd.get(j).getPrice() * lstOd.get(j).getQuantity());
+	    }
+	    total = String.valueOf(String.format("%.2f", getTotalBill).toString()) + " $";
 
 	    data.put(String.valueOf((i + 1) + 1).toString(),
-		    new Object[] { stt, orderId, fullname, orderAddress, phone, paymentMethod, sign });
+		    new Object[] { stt, orderId, fullname, orderAddress, phone, paymentMethod, total, sign });
 	}
 
 	Set<String> keyset = data.keySet();
@@ -199,7 +208,8 @@ public class OrderRestController {
 	    worksheet.setColumnWidth(3, 20000);
 	    worksheet.setColumnWidth(4, 5000);
 	    worksheet.setColumnWidth(5, 7000);
-	    worksheet.setColumnWidth(6, 5000);
+	    worksheet.setColumnWidth(6, 6000);
+	    worksheet.setColumnWidth(7, 6000);
 	    rowStyleResult.setAlignment(HorizontalAlignment.CENTER);
 	    rowStyleResult.setVerticalAlignment(VerticalAlignment.CENTER);
 	    rowStyleResult.setWrapText(true);
