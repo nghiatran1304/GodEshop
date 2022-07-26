@@ -8,4 +8,6 @@ public interface OrderMethodService {
 
     List<OrderMethod> lstOrderMethod();
     
+    OrderMethod getById(int id);
+    
 }

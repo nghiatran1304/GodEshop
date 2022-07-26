@@ -20,6 +20,12 @@ public class OrderMethodServiceImpl implements OrderMethodService{
 	// TODO Auto-generated method stub
 	return omDAO.findAll();
     }
+
+    @Override
+    public OrderMethod getById(int id) {
+	// TODO Auto-generated method stub
+	return omDAO.getById(id);
+    }
     
     
 }
