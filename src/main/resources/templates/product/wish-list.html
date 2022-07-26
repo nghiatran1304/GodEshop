@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+<body>
+	<main>
+
+		<div class="container" ng-controller="single-product-ctrl">
+			<div id="list" class="tab-pane fade show active">
+				<div class="row">
+					<div class="col-sm-12" th:each="p : ${pageLike.content}">
+						<div class="single-product-area">
+							<div class="product-wrapper listview">
+								<div class="list-col4">
+									<div class="product-image">
+										<a th:href="@{|/product/${p.productId}|}"> <span
+											class="onsale">Sale!</span> <img
+											th:src="@{|/upload/ProductImages/${p.productFirstImage}|}"
+											th:classappend="${p.productQuantity <= 0} ? backgroundGrey : ' '"
+											style="width: 350px; height: 350px" alt="">
+										</a>
+									
+									</div>
+								</div>
+								<div class="list-col8">
+									<div class="product-info">
+										<h2>
+											<a th:href="@{|/product/${p.productId}|}">[[${p.productName}]]</a>
+										</h2>
+										<span class="price"> <!-- <th:block th:if="${p.productDiscount == null || p.productEndDiscount >= GETDATE}">
+												$ [[${p.productPrice}]]
+											</th:block>
+											<th:block th:if="${p.productDiscount != null && p.productEndDiscount < GETDATE }">
+												<del>$ [[${p.productPrice}]]</del>
+											$ <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"></span>
+											</th:block> --> <th:block
+												th:if="${p.productDiscount == null || p.productDiscount == 0 || p.productEndDiscount == null ? true : p.productEndDiscount.compareTo(timeNow) == -1}">
+												$ [[${#numbers.formatDecimal(p.productPrice, 0, 'COMMA', 2, 'POINT')}]]
+											</th:block> <th:block
+												th:if="${p.productDiscount != null && (p.productEndDiscount == null ? true : (p.productEndDiscount.compareTo(timeNow) == 1 || p.productEndDiscount.compareTo(timeNow) == 0) ) }">
+												<del>$ [[${p.productPrice}]]</del>
+												<!-- <span th:text="${p.productPrice - (p.productPrice * p.productDiscount / 100)}"> </span>-->
+												<span> $ [[${#numbers.formatDecimal(p.productPrice -
+													(p.productPrice * p.productDiscount / 100), 0, 'COMMA', 2,
+													'POINT')}]] </span>
+											</th:block>
+										</span>
+										<div class="product-rattings">
+											<th:block th:if="${p.productEvaluation == 5}">
+												<span> <i class="fa fa-star"></i>
+												</span>
+												<span> <i class="fa fa-star"></i>
+												</span>
+												<span> <i class="fa fa-star"></i>
+												</span>
+												<span> <i class="fa fa-star"></i>
+												</span>
+												<span> <i class="fa fa-star"></i>
+												</span>
+											</th:block>
+											<th:block th:if="${p.productEvaluation == 4}">
+												<span> <i class="fa fa-star"></i>
+												</span>
+												<span> <i class="fa fa-star"></i>
+												</span>
+												<span> <i class="fa fa-star"></i>
+												</span>
+												<span> <i class="fa fa-star"></i>
+												</span>
+											</th:block>
+											<th:block th:if="${p.productEvaluation == 3}">
+												<span> <i class="fa fa-star"></i>
+												</span>
+												<span> <i class="fa fa-star"></i>
+												</span>
+												<span> <i class="fa fa-star"></i>
+												</span>
+											</th:block>
+											<th:block th:if="${p.productEvaluation == 2}">
+												<span> <i class="fa fa-star"></i>
+												</span>
+												<span> <i class="fa fa-star"></i>
+												</span>
+											</th:block>
+											<th:block th:if="${p.productEvaluation == 1}">
+												<span> <i class="fa fa-star"></i>
+												</span>
+											</th:block>
+											<th:block th:if="${p.productEvaluation == null}">
+
+											</th:block>
+										</div>
+										<div class="product-desc">
+											<p>[[${p.productDetail}]]</p>
+										</div>
+									</div>
+								
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+	</main>
+</body>
+</html>

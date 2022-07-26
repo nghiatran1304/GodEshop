@@ -224,5 +224,16 @@ public interface ProductDAO extends JpaRepository<Product, Long> {
     @Query("SELECT new com.godEShop.Dto.ProductImageDto" + "(p.id, MIN(pp.id)) " + "FROM Product p "
 	    + "INNER JOIN p.productPhotos pp " + "GROUP BY p.id ")
     List<ProductImageDto> getBestProductImageByMale();
+    
 
+    @Query("SELECT new com.godEShop.Dto.ProductShopDto"
+    	    + "(p.id, c.id, p.name, p.price, p.createDate, c.name, MIN(pp.id), CAST(AVG(pe.evaluation) AS int), pd.discount, p.detail, MAX(pd.endDate), p.quantity, pd.createDate) "
+    	    + "FROM Product p " + "FULL JOIN p.productPhotos pp " + "FULL JOIN p.productEvaluations pe "
+    	    + "FULL JOIN p.brand pb " + "FULL JOIN p.productDiscounts pd " + "FULL JOIN p.category c "
+    	    + "FULL JOIN p.watches w "
+    	    + "INNER JOIN p.productLikes pl " + "inner join pl.account a "
+    	    + "WHERE p.isDeleted = 0 AND c.available = 0 AND pl.isLiked = 1 AND a.username = ?1 "
+    	    + "GROUP BY p.id, c.id, p.name, p.price, p.createDate, c.name, pd.discount, p.detail, p.quantity, pd.createDate "
+    	    + "")
+        Page<ProductShopDto> productLike(String username,Pageable pageable );
 }

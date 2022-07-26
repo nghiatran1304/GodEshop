@@ -2,7 +2,10 @@ package com.godEShop.RestController;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,8 @@ import com.godEShop.Dto.ProductWatchInfoDto;
 import com.godEShop.Entity.Brand;
 import com.godEShop.Entity.Category;
 import com.godEShop.Entity.Product;
+import com.godEShop.Entity.ProductLike;
+import com.godEShop.Service.AccountService;
 import com.godEShop.Service.BrandService;
 import com.godEShop.Service.CategoryService;
 import com.godEShop.Service.ProductService;
@@ -25,86 +30,114 @@ import com.godEShop.Service.ProductService;
 @RestController
 public class ProductRestController {
 
-    @Autowired
-    ProductService productService;
+	@Autowired
+	ProductService productService;
 
-    @Autowired
-    BrandService brandService;
+	@Autowired
+	BrandService brandService;
 
-    @Autowired
-    CategoryService categoryService;
+	@Autowired
+	CategoryService categoryService;
 
-    public static Product productInserted = new Product();
+	@Autowired
+	AccountService accountService;
 
-    @GetMapping("/rest/get-products/{id}")
-    public Product getProductInfo(@PathVariable("id") Long id) {
-	return productService.getById(id);
+	public static Product productInserted = new Product();
+
+	@GetMapping("/rest/get-products/{id}")
+	public Product getProductInfo(@PathVariable("id") Long id) {
+		return productService.getById(id);
+	}
+
+	@GetMapping("/rest/products/{productId}")
+	public ProductShopDto getOne(@PathVariable("productId") Long id ) {
+		
+		return productService.productShopById1(id);
+	}
+
+	@GetMapping("/rest/products")
+	public List<ProductWatchInfoDto> getAll() {
+		return productService.lstFullInfoWatch();
+	}
+
+	@GetMapping("/rest/outOfSoon")
+	public List<ProductWatchInfoDto> getAllOutOfSoon() {
+		return productService.lstFullInfoWatchOutOfSoon();
+	}
+
+	@GetMapping("/rest/products/search/{name}")
+	public List<ProductWatchInfoDto> findBySearch(@PathVariable("name") String name) {
+		return productService.lstSearchFullInfoWatch("%" + name + "%");
+	}
+
+	@PostMapping("/rest/products")
+	public Product create(@RequestBody ProductWatchInfoDto product) throws Exception {
+		Category c = categoryService.getById(product.getCategoryId());
+		Brand b = brandService.getById(product.getBrandId());
+		Product p = new Product();
+		p.setCreateDate(product.getProductCreateDate());
+		p.setDetail(product.getProductDetail());
+		p.setMadeIn(product.getProductMadeIn());
+		p.setName(product.getProductName());
+		p.setIsDeleted(product.getProductIsDeteled());
+		p.setPrice(product.getProductPrice());
+		p.setQuantity(product.getProductQuantity());
+		p.setWarranty(product.getProductWarranty());
+		p.setBrand(b);
+		p.setCategory(c);
+
+		productInserted = p;
+
+		return productService.create(p);
+	}
+
+	@PutMapping("/rest/products/{id}")
+	public Product update(@PathVariable("id") Long id, @RequestBody ProductWatchInfoDto product) {
+		Brand b = brandService.getById(product.getBrandId());
+		Category c = categoryService.getById(product.getCategoryId());
+		Product p = new Product();
+		p.setId(product.getProductId());
+		p.setCreateDate(product.getProductCreateDate());
+		p.setDetail(product.getProductDetail());
+		p.setMadeIn(product.getProductMadeIn());
+		p.setName(product.getProductName());
+		p.setIsDeleted(product.getProductIsDeteled());
+		p.setPrice(product.getProductPrice());
+		p.setQuantity(product.getProductQuantity());
+		p.setWarranty(product.getProductWarranty());
+		p.setBrand(b);
+		p.setCategory(c);
+
+		return productService.update(p);
+	}
+
+	@DeleteMapping("/rest/delete/products/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		productService.delete(id);
+	}	
+
+	@PutMapping("/rest/add-wishList/{productId}")
+    public ProductLike createPl(Model model , @PathVariable("productId") Long id ,HttpServletRequest request, @RequestBody ProductLike str ) {
+    	ProductLike pl = productService.getProductLikeByUsernameAndProductId(request.getRemoteUser(), id);
+    	
+    		if(pl != null) {
+    			if(pl.getIsLiked()) {
+    				pl.setIsLiked(false);
+    				model.addAttribute("isLiked","false"); 
+    			}else {
+    				pl.setIsLiked(true);
+    				model.addAttribute("isLiked","true");
+    			}
+    		}else {  
+    			pl = new ProductLike();
+    			pl.setIsLiked(true);
+    			pl.setAccount(accountService.findByUsername(request.getRemoteUser()));
+    			pl.setProduct(productService.getById(id));
+    			model.addAttribute("isLiked","true");
+    			
+    		}
+    	
+    	return productService.createProductLike(pl);
+    	
     }
-
-    @GetMapping("/rest/products/{productId}")
-    public ProductShopDto getOne(@PathVariable("productId") Long id) {
-	return productService.productShopById1(id);
-    }
-
-    @GetMapping("/rest/products")
-    public List<ProductWatchInfoDto> getAll() {
-	return productService.lstFullInfoWatch();
-    }
-
-    @GetMapping("/rest/outOfSoon")
-    public List<ProductWatchInfoDto> getAllOutOfSoon() {
-	return productService.lstFullInfoWatchOutOfSoon();
-    }
-
-    @GetMapping("/rest/products/search/{name}")
-    public List<ProductWatchInfoDto> findBySearch(@PathVariable("name") String name) {
-	return productService.lstSearchFullInfoWatch("%" + name + "%");
-    }
-
-    @PostMapping("/rest/products")
-    public Product create(@RequestBody ProductWatchInfoDto product) throws Exception {
-	Category c = categoryService.getById(product.getCategoryId());
-	Brand b = brandService.getById(product.getBrandId());
-	Product p = new Product();
-	p.setCreateDate(product.getProductCreateDate());
-	p.setDetail(product.getProductDetail());
-	p.setMadeIn(product.getProductMadeIn());
-	p.setName(product.getProductName());
-	p.setIsDeleted(product.getProductIsDeteled());
-	p.setPrice(product.getProductPrice());
-	p.setQuantity(product.getProductQuantity());
-	p.setWarranty(product.getProductWarranty());
-	p.setBrand(b);
-	p.setCategory(c);
-
-	productInserted = p;
-
-	return productService.create(p);
-    }
-
-    @PutMapping("/rest/products/{id}")
-    public Product update(@PathVariable("id") Long id, @RequestBody ProductWatchInfoDto product) {
-	Brand b = brandService.getById(product.getBrandId());
-	Category c = categoryService.getById(product.getCategoryId());
-	Product p = new Product();
-	p.setId(product.getProductId());
-	p.setCreateDate(product.getProductCreateDate());
-	p.setDetail(product.getProductDetail());
-	p.setMadeIn(product.getProductMadeIn());
-	p.setName(product.getProductName());
-	p.setIsDeleted(product.getProductIsDeteled());
-	p.setPrice(product.getProductPrice());
-	p.setQuantity(product.getProductQuantity());
-	p.setWarranty(product.getProductWarranty());
-	p.setBrand(b);
-	p.setCategory(c);
-
-	return productService.update(p);
-    }
-
-    @DeleteMapping("/rest/delete/products/{id}")
-    public void delete(@PathVariable("id") Long id) {
-	productService.delete(id);
-    }
-
 }

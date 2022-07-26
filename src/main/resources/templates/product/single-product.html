@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index.html :: dynamic(~{::main})}">
 <body>
 	<main>
-		<div class="single-product-page" th:object="${productItem}">
+		<div ng-controller="single-product-ctrl" class="single-product-page" th:object="${productItem}">
 			<!-- Breadcrumbs -->
 			<div class="breadcrumbs-container">
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-12">
 							<nav class="woocommerce-breadcrumb">
-								<a href="index.html">Home</a>
+								<a href="/index">Home</a>
 								<span class="separator">/</span>
-								<a href="shop.html">Shop</a>
+								<a href="/product">Shop</a>
 								<span class="separator">/</span>
 								<a href="#">Detail</a>
 							</nav>
@@ -151,11 +151,17 @@
 											<a class="btn btn-secondary" th:attr="ng-click=@{|cart.outOfStock()|}" >Out of stock</a>
 										</div> -->
 									</div>
-									<div class="wishlist-compear-area">
-										<a href="wishlist.html">
-											<i class="ion-ios-heart-outline"></i>
+									<div class="wishlist-compear-area" >
+										<a  th:if="${isLiked}=='false'" th:attr="ng-click=@{|addToWishList(*{productId})|}"  >
+										<i   class="fa-regular fa-heart"></i>
 											Add to Wishlist
 										</a>
+										
+									 	<a th:if="${isLiked}=='true'" th:attr="ng-click=@{|addToWishList(*{productId})|}"  >
+											<i  class="fa-solid fa-heart"></i>
+											Add to Wishlist
+										</a> 
+										
 										<a href="#">
 											<i class="ion-ios-loop-strong"></i>
 											Compare

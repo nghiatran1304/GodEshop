@@ -11,6 +11,7 @@ import com.godEShop.Dto.ProductShopDto;
 import com.godEShop.Dto.ProductWatchInfoDto;
 import com.godEShop.Dto.WatchDto;
 import com.godEShop.Entity.Product;
+import com.godEShop.Entity.ProductLike;
 
 public interface ProductService {
 
@@ -58,4 +59,12 @@ public interface ProductService {
     List<Product> findByNameOrderDetail(String productName);
 
     List<ProductWatchInfoDto> lstFullInfoWatchOutOfSoon();
+
+
+	ProductLike getProductLikeByUsernameAndProductId(String username , Long id);
+	
+	ProductLike createProductLike(ProductLike pl);
+
+	Page<ProductShopDto> productLike(  String remoteUserr,Pageable pageable);
+	
 }

@@ -251,7 +251,7 @@
 										<div class="star-actions">
 											<ul class="actions">
 												<li>
-													<a href="">
+													<a th:attr="ng-click=@{|addToWishList(*{productId})|}">
 														<i class="ion-android-favorite-outline"></i>
 														Add to Wishlist
 													</a>
