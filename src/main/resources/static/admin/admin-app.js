@@ -1,56 +1,55 @@
-var app = angular.module("admin-app", ["ngRoute"]);
+var app = angular.module("admin-app", ["ngRoute"])
 
 app.config(function($routeProvider) {
 	$routeProvider
-		.when("/admin/order", {
+		.when("/order", {
 			templateUrl: "/admin/admin-order/index.html",
 			controller: "order-ctrl"
 		})
-		.when("/admin/management/watch", {
+		.when("/management/watch", {
 			templateUrl: "/admin/admin-watch/index.html",
 			controller: "watch-ctrl"
 		})
-		.when("/admin/management/accessory", {
+		.when("/management/accessory", {
 			templateUrl: "/admin/admin-accessory/index.html",
 			controller: "accessory-ctrl"
 		})
-		.when("/admin/management/account", {
+		.when("/management/account", {
 			templateUrl: "/admin/admin-account/index.html",
 			controller: "account-ctrl"
 		})
-		.when("/admin/management/brand", {
+		.when("/management/brand", {
 			templateUrl: "/admin/admin-brand/index.html",
 			controller: "brand-ctrl"
 		})
-		.when("/admin/management/glassmaterial", {
+		.when("/management/glassmaterial", {
 			templateUrl: "/admin/admin-glassmaterial/index.html",
 			controller: "glassmaterial-ctrl"
 		})
-		.when("/admin/management/braceletmaterial", {
+		.when("/management/braceletmaterial", {
 			templateUrl: "/admin/admin-braceletmaterial/index.html",
 			controller: "braceletmaterial-ctrl"
 		})
-		.when("/admin/management/machineinside", {
+		.when("/management/machineinside", {
 			templateUrl: "/admin/admin-machineinside/index.html",
 			controller: "machineinside-ctrl"
 		})
-		.when("/admin/management/category", {
+		.when("/management/category", {
 			templateUrl: "/admin/admin-category/index.html",
 			controller: "category-ctrl"
 		})
-		.when("/admin/discount", {
+		.when("/discount", {
 			templateUrl: "/admin/admin-discount/index.html",
 			controller: "discount-ctrl"
 		})
-		.when("/admin/statistic", {
+		.when("/statistic", {
 			templateUrl: "/admin/admin-statistic/index.html",
 			controller: "statistic-ctrl"
 		})
 		.otherwise({
-			// templateUrl: "/admin/admin-home/index.html"
 			templateUrl: "/admin/admin-order/index.html",
 			controller: "order-ctrl"
 		});
+		// $locationProvider.html5Mode(true);
 });
-
 

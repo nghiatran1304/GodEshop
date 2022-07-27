@@ -151,17 +151,17 @@
 											<a class="btn btn-secondary" th:attr="ng-click=@{|cart.outOfStock()|}" >Out of stock</a>
 										</div> -->
 									</div>
-									<div class="wishlist-compear-area" >
-										<a  th:if="${isLiked}=='false'" th:attr="ng-click=@{|addToWishList(*{productId})|}"  >
-										<i   class="fa-regular fa-heart"></i>
+									<div class="wishlist-compear-area">
+										<a th:if="${isLiked}=='false'" th:attr="ng-click=@{|addToWishList(*{productId})|}">
+											<i class="fa-regular fa-heart"></i>
 											Add to Wishlist
 										</a>
-										
-									 	<a th:if="${isLiked}=='true'" th:attr="ng-click=@{|addToWishList(*{productId})|}"  >
-											<i  class="fa-solid fa-heart"></i>
+
+										<a th:if="${isLiked}=='true'" th:attr="ng-click=@{|addToWishList(*{productId})|}">
+											<i class="fa-solid fa-heart"></i>
 											Add to Wishlist
-										</a> 
-										
+										</a>
+
 										<a href="#">
 											<i class="ion-ios-loop-strong"></i>
 											Compare

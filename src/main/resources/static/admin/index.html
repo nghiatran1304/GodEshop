@@ -7,7 +7,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<title>GodWatch Admin</title>
 
-
 	<link rel="stylesheet" href="/admin/assets/vendors/mdi/css/materialdesignicons.min.css" />
 	<link rel="stylesheet" href="/admin/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
 	<link rel="stylesheet" href="/admin/assets/vendors/css/vendor.bundle.base.css" />
@@ -17,7 +16,7 @@
 
 	<link rel="shortcut icon" href="/admin/assets/images/favicon.png" />
 	<!-- ANGULARJS -->
-
+	<!-- <base href="/"> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.2/angular-route.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -206,11 +205,6 @@
 			<ul class="nav">
 				<li class="nav-item nav-profile">
 					<a href="#" class="nav-link">
-						<!-- <div class="nav-profile-image">
-							<img src="/admin/assets/images/faces/face1.jpg" alt="profile" />
-							<span class="login-status online"></span>
-							change to offline or busy as needed
-						</div> -->
 						<div class="nav-profile-text d-flex flex-column pr-3">
 							<span class="font-weight-bold mb-2 text-danger" style="font-size:15px;"
 								id="adminUsername">[[${#request.remoteUser}]]</span>
@@ -221,7 +215,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#!admin/order">
+					<a class="nav-link" href="#!order">
 						<i class="mdi mdi-home menu-icon"></i>
 						<span class="menu-title">Orders</span>
 					</a>
@@ -236,43 +230,41 @@
 					<div class="collapse" id="management">
 						<ul class="nav flex-column sub-menu">
 							<li class="nav-item">
-								<a class="nav-link" href="#!admin/management/watch">Watch</a>
+								<!-- <a class="nav-link" href="#!admin/management/watch">Watch</a> -->	
+								<a class="nav-link" href="#!management/watch">Watch</a>						
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#!admin/management/accessory">Accessory</a>
+								<a class="nav-link" href="#!management/accessory">Accessory</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#!admin/management/account">Account</a>
-							</li>
-							<!-- <li class="nav-item">
-								<a class="nav-link" href="#!admin/management/user">User</a>
-							</li> -->
-							<li class="nav-item">
-								<a class="nav-link" href="#!admin/management/brand">Brand</a>
+								<a class="nav-link" href="#!management/account">Account</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#!admin/management/category">Category</a>
+								<a class="nav-link" href="#!management/brand">Brand</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#!admin/management/glassmaterial">Glass Material</a>
+								<a class="nav-link" href="#!management/category">Category</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#!admin/management/braceletmaterial">Bracelet Material</a>
+								<a class="nav-link" href="#!management/glassmaterial">Glass Material</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#!admin/management/machineinside">Machine Inside</a>
+								<a class="nav-link" href="#!management/braceletmaterial">Bracelet Material</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#!management/machineinside">Machine Inside</a>
 							</li>
 						</ul>
 					</div>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#!admin/discount">
+					<a class="nav-link" href="#!discount">
 						<i class="mdi mdi-format-list-bulleted menu-icon"></i>
 						<span class="menu-title">Discount</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#!admin/statistic">
+					<a class="nav-link" href="#!statistic">
 						<i class="mdi mdi-chart-bar menu-icon"></i>
 						<span class="menu-title">Statistic</span>
 					</a>
@@ -493,6 +485,8 @@
 		</div>
 		<!-- page-body-wrapper ends -->
 	</div>
+	
+
 
 	<!-- JS Process -->
 	<script src="/admin/assets/js/admin-livestream.js"></script>
