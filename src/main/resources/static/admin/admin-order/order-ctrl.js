@@ -1,12 +1,12 @@
 app.controller("order-ctrl", function($scope, $http) {
-
+/*
 	$(document).keypress(
 		function(event) {
 			if (event.which == '13') {
 				event.preventDefault();
 			}
 		});
-
+*/
 	$scope.items = [];
 	$scope.itemsPending = [];
 	$scope.itemsConfirmed = [];
@@ -47,6 +47,19 @@ app.controller("order-ctrl", function($scope, $http) {
 	}
 
 	$scope.init();
+
+	$scope.findByAllOrder = function() {
+		var nameSearched = $scope.searchByName;
+		if (nameSearched.length > 0) {
+			$http.get(`/rest/allOrders/search/${nameSearched}`).then(resp => {
+				$scope.items = resp.data;
+			});
+		} else {
+			$http.get(`/rest/allOrders`).then(resp => {
+				$scope.items = resp.data;
+			});
+		}
+	}
 
 	$scope.getUsername;
 	$scope.getFullname;
@@ -114,12 +127,12 @@ app.controller("order-ctrl", function($scope, $http) {
 	}
 
 	$scope.getListDelivery = function() {
-			var btnExport = document.getElementById("btnExportListDelivery");
-			btnExport.href = '/rest/order-delivery/print';
-			btnExport.addEventListener('click', () => { });
-//		$http.get(`/rest/order-delivery/print`).then(resp => {
+		var btnExport = document.getElementById("btnExportListDelivery");
+		btnExport.href = '/rest/order-delivery/print';
+		btnExport.addEventListener('click', () => { });
+		//		$http.get(`/rest/order-delivery/print`).then(resp => {
 
-//		});
+		//		});
 	}
 
 

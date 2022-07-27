@@ -263,7 +263,12 @@
 			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="card-title">ALL ORDERS</h4>
+						<!-- <h4 class="col-5">ALL ORDERS</h4> -->
+						<form>
+							<div class="form-group">
+								<input type="text" id="el" autocomplete="off" class="form-control" placeholder="Search..." style="border: 1px solid black" ng-model="searchByName" onchange="angular.element(this).scope().findByAllOrder()">
+							</div>
+						</form>
 						<div class="table-responsive">
 							<table class="table table-hover">
 								<thead>

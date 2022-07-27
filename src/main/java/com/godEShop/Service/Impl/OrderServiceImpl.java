@@ -428,4 +428,10 @@ public class OrderServiceImpl implements OrderService {
 	return orderDAO.save(o);
     }
 
+    @Override
+    public List<Order> findAllOrderBySearch(String kw) {
+	// TODO Auto-generated method stub
+	return orderDAO.findAllOrderBySearch("%" + kw + "%");
+    }
+
 }

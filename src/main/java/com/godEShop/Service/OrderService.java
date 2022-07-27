@@ -40,5 +40,7 @@ public interface OrderService {
     Order updateCancel(Order o);
 
     Order update(Order o);
+    
+    List<Order> findAllOrderBySearch(String kw);
 
 }

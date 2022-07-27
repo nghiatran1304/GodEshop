@@ -235,5 +235,10 @@ public class OrderRestController {
 
 	//return workbook;
     }
+    
+    @GetMapping("/rest/allOrders/search/{nameSearched}")
+    public List<Order> findAllOrderBySearch(@PathVariable("nameSearched") String kw){
+	return orderService.findAllOrderBySearch(kw);
+    }
 
 }
