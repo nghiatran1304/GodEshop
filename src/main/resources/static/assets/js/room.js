@@ -4,7 +4,7 @@ let APP_ID = '9026d01943724f1c8178e41aa938e367'
 let token = null
 
 let currentUser = document.getElementById('current-user').innerText.trim()
-let url = 'http://localhost:8080/rest/getUserInfomation/'
+let url = 'https://24fb-2405-4802-9019-8460-82e-ca2c-c086-113e.ap.ngrok.io/rest/getUserInfomation/'
 
 let uid
 let btnKick

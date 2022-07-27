@@ -75,7 +75,7 @@ public class UsersExcelWriter {
         fontTitle.setFontHeight(30);
         titleStyle.setFont(fontTitle);
         titleStyle.setAlignment(HorizontalAlignment.RIGHT);
-        titleStyle.setVerticalAlignment(VerticalAlignment.CENTER);;
+        titleStyle.setVerticalAlignment(VerticalAlignment.CENTER);
         titleStyle.setWrapText(true);
         
         createCell(title1, 0, title + "\n" + keyword, titleStyle);  
@@ -177,10 +177,10 @@ public class UsersExcelWriter {
                 XSSFDrawing drawing = (XSSFDrawing) sheet.createDrawingPatriarch();
                 XSSFClientAnchor my_anchor = new XSSFClientAnchor();
 
-                my_anchor.setCol1(1); //Column B
-                my_anchor.setRow1(rowCount-1); //Row 3
-                my_anchor.setCol2(2); //Column C
-                my_anchor.setRow2(rowCount); //Row 4
+                my_anchor.setCol1(1);
+                my_anchor.setRow1(rowCount-1);
+                my_anchor.setCol2(2);
+                my_anchor.setRow2(rowCount);
 
                 drawing.createPicture(my_anchor, my_picture_id);
                 

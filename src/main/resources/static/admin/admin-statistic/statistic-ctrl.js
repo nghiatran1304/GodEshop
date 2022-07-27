@@ -120,9 +120,17 @@ app.controller("statistic-ctrl", function($scope, $http) {
 	$scope.initialize();
 
 	$scope.findByNameDto = function(a) {
+		$scope.exportProductsData = [];
 		if ($scope.newStart == null & $scope.newStart == null) {
 			a.length == 0 ? $scope.initialize() : $http.get(`/rest/statistic/products/${a}`).then(resp => {
 				$scope.itemsProduct = resp.data;
+				$scope.itemsProduct.forEach(item => {
+					$scope.exportProductsData.push({
+						ID: item.productId,
+						Name: item.productName,
+						Stock: item.quantityleft,
+						Sold: item.quantity});
+				})
 				$http.get(`/rest/products/image/${a}`).then(resp2 => {
 					for (var i = 0; i < resp.data.length; i++) {
 						if (resp.data.productId == resp2.data.productId) {
@@ -134,6 +142,13 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		}else {
 			a.length == 0 ? $scope.initialize() : $http.get(`/rest/statistic/productsByTime/${a}/start=` + $scope.newStart + '&end=' + $scope.newEnd).then(resp => {
 				$scope.itemsProduct = resp.data;
+				$scope.itemsProduct.forEach(item => {
+					$scope.exportProductsData.push({
+						ID: item.productId,
+						Name: item.productName,
+						Stock: item.quantityleft,
+						Sold: item.quantity});
+				})
 				$http.get(`/rest/products/image/${a}`).then(resp2 => {
 					for (var i = 0; i < resp.data.length; i++) {
 						if (resp.data.productId == resp2.data.productId) {
@@ -239,7 +254,6 @@ app.controller("statistic-ctrl", function($scope, $http) {
 				var tempDateTime = [];
 				
 				var dateDiffHanled = dateDiff(startDate, endDate)
-				
 				
 		        if (dateDiffHanled <= 30) {
 					if (dateDiffHanled == 0){
@@ -410,7 +424,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 			    	options: {
 						legend: {
 			          		display: false
-			       	 	},
+			       	 	}
 					}
 			  	};
 			  	
@@ -576,13 +590,30 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		$scope.initializeUser();
 	
 		$scope.findByNameDto = function(username) {
+			$scope.exportUsersData = []
 			if ($scope.newStart == null & $scope.newEnd == null) {
 				username.length == 0 ? $scope.initializeUser() : $http.get(`/rest/statistic/find1User/${username}`).then(resp => {
 					$scope.itemUsers = resp.data;
+					$scope.itemUsers.forEach(item => {
+						$scope.exportUsersData.push({
+							Id: item.id,
+							Username: item.username,
+							Fullname: item.fullname,
+							Orders: item.orders,
+							TotalBills: item.amount});
+					})
 				});
 			}else {
 				username.length == 0 ? $scope.initializeUser() : $http.get(`/rest/statistic/find1UserByTime/${username}/start=` + $scope.newStart + '&end=' + $scope.newEnd).then(resp => {
 					$scope.itemUsers = resp.data;
+					$scope.itemUsers.forEach(item => {
+						$scope.exportUsersData.push({
+							Id: item.id,
+							Username: item.username,
+							Fullname: item.fullname,
+							Orders: item.orders,
+							TotalBills: item.amount});
+					})
 				});
 			}
 		};
@@ -692,6 +723,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 						dataForUserChart.push({time: months[i], totalbill: tempValue});
 					}
 					
+					
 					data = {
 					    labels: labels,
 					    datasets: [{
@@ -725,6 +757,33 @@ app.controller("statistic-ctrl", function($scope, $http) {
 							        }
 							    }
 							},
+							scales: {
+						      x: {
+						        display: true,
+						        title: {
+						          display: true
+						        }
+						      },
+						      y: {
+						        display: true,
+						        title: {
+						          display: true,
+						          text: 'Value'
+						        },
+						      },
+						      yAxes: [{
+						          ticks: {
+						            beginAtZero: true,
+						            callback: function(value, index, values) {
+						              if(parseInt(value) >= 1000){
+						                return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
+						              } else {
+						                return '$' + value + '.00';
+						              }
+						            }
+						          }
+						      }]
+						    }
 						}
 					};
 					myChartUser = new Chart(
@@ -826,6 +885,33 @@ app.controller("statistic-ctrl", function($scope, $http) {
 							        }
 							    }
 							},
+							scales: {
+						      x: {
+						        display: true,
+						        title: {
+						          display: true
+						        }
+						      },
+						      y: {
+						        display: true,
+						        title: {
+						          display: true,
+						          text: 'Value'
+						        },
+						      },
+						      yAxes: [{
+						          ticks: {
+						            beginAtZero: true,
+						            callback: function(value, index, values) {
+						              if(parseInt(value) >= 1000){
+						                return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
+						              } else {
+						                return '$' + value + '.00';
+						              }
+						            }
+						          }
+						      }]
+						    }
 						}
 					};
 					myChartUser = new Chart(
@@ -1640,6 +1726,551 @@ app.controller("statistic-ctrl", function($scope, $http) {
 	
 	// ---------------- End Best seller nu --------------
 	
+	// ----------------Start sale revenue --------------
+	var myChartRevenue = null;
+	var labels = [];
+	var data = {};
+	var config = {};
+	var saleRevenueTab = document.getElementById('salerevenue-tab');
+	let urlGetRevenueAndOrders = 'http://localhost:8080/rest/statistic/revenueAndOrders/date='
+	let urlGetRevenueByTime = 'http://localhost:8080/rest/statistic/getAllRevenueByTime/start='
+	let urlAllTheRevenue = 'http://localhost:8080/rest/statistic/getAllRevenue'
+	let urlGetAllStat = 'http://localhost:8080/rest/statistic/revenueByAll'
+	let urlGetStatByTime = 'http://localhost:8080/rest/statistic/revenue/start='
+	saleRevenueTab.addEventListener('click', () => {
+		$scope.startDateInput = "";
+		$scope.endDateInput = "";
+		$scope.revenueToday = 0;
+		$scope.revenueYesterday = 0;
+		$scope.revenueDiff = 0;
+		$scope.ordersToday = 0;
+		$scope.ordersYesterday = 0;
+		$scope.ordersDiff = 0;
+		var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0');
+		var yyyy = today.getFullYear();
+		today = yyyy + '-' + mm + '-' + dd;
+		$http.get(urlGetRevenueAndOrders + today).then(resp => {
+			$scope.revenueToday = resp.data.totalRevenueToday;
+			$scope.revenueYesterday = resp.data.totalRevenueYesterday;
+			$scope.ordersToday = resp.data.totalOrdersToday;
+			$scope.ordersYesterday = resp.data.totalOrdersYesterday;
+			
+			if ($scope.revenueYesterday == 0) {
+				$scope.revenueDiff = Math.floor(($scope.revenueToday/1)*100);
+				$scope.revenueDiffPercent = $scope.revenueDiff + '%';
+			}else if ($scope.revenueToday > $scope.revenueYesterday){
+				$scope.revenueDiff = Math.floor((($scope.revenueToday-$scope.revenueYesterday)/$scope.revenueYesterday)*100);
+				$scope.revenueDiffPercent = $scope.revenueDiff + '%';
+			}else {
+				$scope.revenueDiff = Math.floor(($scope.revenueYesterday/$scope.revenueToday)*100);
+				$scope.revenueDiffPercent = '0%';
+			}
+			
+			
+			if ($scope.ordersYesterday == 0) {
+				$scope.ordersDiff = Math.floor(($scope.ordersToday/1)*100);
+				$scope.ordersDiffPercent = $scope.ordersDiff + '%';
+			}else if ($scope.ordersToday > $scope.ordersYesterday){
+				$scope.ordersDiff = Math.floor((($scope.ordersToday-$scope.ordersYesterday)/$scope.ordersYesterday)*100);
+				$scope.ordersDiffPercent = $scope.ordersDiff + '%';
+			}else {
+				$scope.ordersDiff = Math.floor(($scope.ordersYesterday/$scope.ordersToday)*100);
+				$scope.ordersDiffPercent = '0%';
+			}
+			
+		})
+		
+		
+		$scope.newStart;
+		$scope.newEnd;
+		$scope.disabledFlag = true;
+		$scope.disabledFlagToggle = function() {
+			$scope.disabledFlag = false;
+			$scope.getDate('revenueStart', 'revenueEnd');
+		}
+	
+		$scope.clearRevenueChart = function() {
+			$scope.newStart;
+			$scope.newEnd;
+			$("input[type=date]").val("");
+			$scope.disabledStatFlag = true;
+			$scope.initRevenueChart();
+		}
+		
+		$scope.totalRevenue = [];
+		var startDateRevenue;
+		var endDateRevenue;
+		$scope.initRevenueChart = function() {
+			if (myChartRevenue!=null) {
+				myChartRevenue.destroy();
+				labels = [];
+				data = {};
+			}
+			
+			$http.get(urlGetAllStat).then(resp => {
+				$scope.totalRevenue = resp.data;
+			})
+			
+			$scope.allRevenueData = [];
+			$scope.allRevenueCompletedData = [];
+			$scope.allRevenueCanceledData = [];
+			$http.get(urlAllTheRevenue).then(resp => {
+				resp.data.forEach(item => {
+					if (item.type === 'Total') {
+						$scope.allRevenueData.push({'createDate': item.createDate, 'totalRevenue' : item.totalRevenue});
+					}else if (item.type === 'Completed') {
+						$scope.allRevenueCompletedData.push({'createDate': item.createDate, 'totalRevenue' : item.totalRevenue});
+					}else {
+						$scope.allRevenueCanceledData.push({'createDate': item.createDate, 'totalRevenue' : item.totalRevenue});
+					}
+					console.log($scope.allRevenueCompletedData)
+				})
+				
+				
+				startDateRevenue = $scope.allRevenueData[0].createDate;
+				endDateRevenue = $scope.allRevenueData[$scope.allRevenueData.length-1].createDate;
+				var months = [];
+				
+				var dateDiffHanled = dateDiff(startDateRevenue, endDateRevenue)
+		        if (dateDiffHanled <= 30) {
+					if (dateDiffHanled == 0){
+						var {day} = datesBetween(startDateRevenue, endDateRevenue)
+			            day.forEach(item => {
+							months.push(item);
+						})
+					}else {
+						var {day} = datesBetween(startDateRevenue, endDateRevenue)
+			            day.forEach(item => {
+							months.push(item);
+						})
+					}
+		        }else if (dateDiffHanled <= 900) {
+		            var {month} = datesBetween(startDateRevenue, endDateRevenue)
+		            month.forEach(item => {
+						months.push(item);
+					})
+		        }else {
+		            var {year} = datesBetween(startDateRevenue, endDateRevenue)
+		            year.forEach(item => {
+						months.push(item);
+					})
+		        }
+		        
+		        $scope.allRevenueDataHandled = [];
+				$scope.allRevenueCompletedDataHandled = [];
+				$scope.allRevenueCanceledDataHandled = [];
+		        
+		        $scope.allRevenueData.forEach(item => {
+					const tempDate = new Date(item.createDate);
+					$scope.allRevenueDataHandled.push({key: getFormattedYear(tempDate), value: item.totalRevenue});
+				})
+				
+				$scope.allRevenueCompletedData.forEach(item => {
+					const tempDate = new Date(item.createDate);
+					$scope.allRevenueCompletedDataHandled.push({key: getFormattedYear(tempDate), value: item.totalRevenue});
+				})
+				
+				$scope.allRevenueCanceledData.forEach(item => {
+					const tempDate = new Date(item.createDate);
+					$scope.allRevenueCanceledDataHandled.push({key: getFormattedYear(tempDate), value: item.totalRevenue});
+				})
+				
+				
+				
+			    months.forEach(item => {
+					labels.push(item);
+				})
+				
+				var handledRevenueData = filterData($scope.allRevenueDataHandled);
+				var allRevenueForChart = [];
+				
+							
+				for (var i = 0; i < months.length; i++) {
+					var tempAllValue = 0;
+					for (var j = 0; j < handledRevenueData.length; j++) {
+						if (months[i] == handledRevenueData[j].key) {
+							tempAllValue = handledRevenueData[j].value;
+						}
+					}
+					allRevenueForChart.push({createDate: months[i], totalRevenue: tempAllValue});
+				}
+				
+				var handledRevenueFromCompletedData = filterData($scope.allRevenueCompletedDataHandled);
+				var revenueFromCompletedForChart = [];
+				
+							
+				for (var i = 0; i < months.length; i++) {
+					var tempCompletedValue = 0;
+					for (var j = 0; j < handledRevenueFromCompletedData.length; j++) {
+						if (months[i] == handledRevenueFromCompletedData[j].key) {
+							tempCompletedValue = handledRevenueFromCompletedData[j].value;
+						}
+					}
+					revenueFromCompletedForChart.push({createDate: months[i], totalRevenue: tempCompletedValue});
+				}
+				
+				var handledRevenueFromCanceledData = filterData($scope.allRevenueCanceledDataHandled);
+				var revenueFromCanceledForChart = [];
+				
+							
+				for (var i = 0; i < months.length; i++) {
+					var tempCanceledValue = 0;
+					for (var j = 0; j < handledRevenueFromCanceledData.length; j++) {
+						if (months[i] == handledRevenueFromCanceledData[j].key) {
+							tempCanceledValue = handledRevenueFromCanceledData[j].value;
+						}
+					}
+					revenueFromCanceledForChart.push({createDate: months[i], totalRevenue: tempCanceledValue});
+				}
+				
+				data = {
+				  labels: labels,
+				  datasets: [
+				    {
+				      label: 'Tổng doanh thu',
+				      data: [],
+				      borderColor: 'rgb(0,0,255)',
+				      fill: false,
+				      cubicInterpolationMode: 'monotone',
+				      tension: 0.4
+				    }, {
+				      label: 'Tổng doanh thu đơn hàng thành công',
+				      data: [],
+				      borderColor: 'rgb(0,255,0)',
+				      fill: false,
+				      tension: 0.4
+				    }, {
+				      label: 'Tổng doanh thu đơn hàng huỷ',
+				      data: [],
+				      borderColor: 'rgb(255, 99, 132)',
+				      fill: false
+				    }
+				  ]
+				};
+							
+				allRevenueForChart.forEach(item => {
+					data.datasets[0].data.push(item.totalRevenue);
+				})
+				
+				revenueFromCompletedForChart.forEach(item => {
+					data.datasets[1].data.push(item.totalRevenue);
+				})
+				
+				revenueFromCanceledForChart.forEach(item => {
+					data.datasets[2].data.push(item.totalRevenue);
+				})
+				
+				config = {
+				  type: 'line',
+				  data: data,
+				  options: {
+				    responsive: false,
+				    plugins: {
+				      title: {
+				        display: true,
+				        text: 'Biểu đồ doanh thu'
+				      },
+				    },
+				    tooltips: {
+						callbacks: {
+							label: function (tooltipItem) {
+								return (new Intl.NumberFormat('en-US', {
+									style: 'currency',
+									currency: 'USD',
+							    })).format(tooltipItem.value);
+							 }
+						}
+					},
+				    interaction: {
+				      intersect: false,
+				    },
+				    scales: {
+				      x: {
+				        display: true,
+				        title: {
+				          display: true
+				        }
+				      },
+				      y: {
+				        display: true,
+				        title: {
+				          display: true,
+				          text: 'Value'
+				        },
+				      },
+				      yAxes: [{
+				          ticks: {
+				            beginAtZero: true,
+				            callback: function(value, index, values) {
+				              if(parseInt(value) >= 1000){
+				                return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
+				              } else {
+				                return '$' + value + '.00';
+				              }
+				            }
+				          }
+				      }]
+				    }
+				  },
+				};
+				
+				myChartRevenue = new Chart(
+					document.getElementById('myChartRevenue'),
+					config
+				);
+			})
+		}
+		
+		$scope.initRevenueChart();
+		
+		
+		$scope.showRevenueChart = function() {
+			if (myChartRevenue!=null) {
+				myChartRevenue.destroy();
+				labels = [];
+				data = {};
+			}
+			
+			$http.get(urlGetStatByTime + $scope.newStart + '&end=' + $scope.newEnd).then(resp => {
+				$scope.totalRevenue = resp.data;
+			})
+			
+			$scope.allRevenueData = [];
+			$scope.allRevenueCompletedData = [];
+			$scope.allRevenueCanceledData = [];
+			var allRevenueDataTemp = [];
+			var allRevenueCompletedDataTemp = [];
+			var allRevenueCanceledDataTemp = [];
+			$http.get(urlGetRevenueByTime + $scope.newStart + '&end=' + $scope.newEnd).then(resp => {
+				resp.data.forEach(item => {
+					if (item.type === 'Total') {
+						$scope.allRevenueData.push({createDate: item.createDate, totalRevenue : item.totalRevenue});
+					}else if (item.type === 'Completed') {
+						$scope.allRevenueCompletedData.push({createDate: item.createDate, totalRevenue : item.totalRevenue});
+					}else {
+						$scope.allRevenueCanceledData.push({createDate: item.createDate, totalRevenue : item.totalRevenue});
+					}
+				})
+				
+				var months = [];
+				
+				var dateDiffHanled = dateDiff($scope.newStart, $scope.newEnd);
+				
+		        if (dateDiffHanled <= 30) {
+					if (dateDiffHanled == 0){
+						var {day} = datesBetween($scope.newStart, $scope.newEnd);
+			            day.forEach(item => {
+							months.push(item);
+						})
+					}else {
+						var {day} = datesBetween($scope.newStart, $scope.newEnd);
+			            day.forEach(item => {
+							months.push(item);
+						})
+						
+					}
+					
+					$scope.allRevenueData.forEach(item => {
+						const tempDate = new Date(item.createDate);
+						allRevenueDataTemp.push({key: getFormattedFullDate(tempDate), value: item.totalRevenue});
+					})
+										
+					$scope.allRevenueCompletedData.forEach(item => {
+						const tempDate = new Date(item.createDate);
+						allRevenueCompletedDataTemp.push({key: getFormattedFullDate(tempDate), value: item.totalRevenue});
+					})
+										
+					$scope.allRevenueCanceledData.forEach(item => {
+						const tempDate = new Date(item.createDate);
+						allRevenueCanceledDataTemp.push({key: getFormattedFullDate(tempDate), value: item.totalRevenue});
+					})
+		        }else if (dateDiffHanled <= 900) {
+		            var {month} = datesBetween($scope.newStart, $scope.newEnd);
+		            month.forEach(item => {
+						months.push(item);
+					})
+					$scope.allRevenueData.forEach(item => {
+						const tempDate = new Date(item.createDate);
+						allRevenueDataTemp.push({key: getFormattedDate(tempDate), value: item.totalRevenue});
+					})
+										
+					$scope.allRevenueCompletedData.forEach(item => {
+						const tempDate = new Date(item.createDate);
+						allRevenueCompletedDataTemp.push({key: getFormattedDate(tempDate), value: item.totalRevenue});
+					})
+										
+					$scope.allRevenueCanceledData.forEach(item => {
+						const tempDate = new Date(item.createDate);
+						allRevenueCanceledDataTemp.push({key: getFormattedDate(tempDate), value: item.totalRevenue});
+					})
+		        }else {
+		            var {year} = datesBetween($scope.newStart, $scope.newEnd);
+		            year.forEach(item => {
+						months.push(item);
+					})
+					
+					$scope.allRevenueData.forEach(item => {
+						const tempDate = new Date(item.createDate);
+						allRevenueDataTemp.push({key: getFormattedYear(tempDate), value: item.totalRevenue});
+					})
+										
+					$scope.allRevenueCompletedData.forEach(item => {
+						const tempDate = new Date(item.createDate);
+						allRevenueCompletedDataTemp.push({key: getFormattedYear(tempDate), value: item.totalRevenue});
+					})
+										
+					$scope.allRevenueCanceledData.forEach(item => {
+						const tempDate = new Date(item.createDate);
+						allRevenueCanceledDataTemp.push({key: getFormattedYear(tempDate), value: item.totalRevenue});
+					})
+		        }
+		        
+			    months.forEach(item => {
+					labels.push(item);
+				})
+				
+				var filterdRevenueData = filterData(allRevenueDataTemp);
+				var dataRevenueForChart = [];
+				
+				for(var i = 0; i < months.length; i++){
+					var tempValue = 0;
+					for(var j = 0; j < filterdRevenueData.length; j++){
+						if(months[i] == filterdRevenueData[j].key){
+							tempValue = filterdRevenueData[j].value;
+						}
+					}
+					dataRevenueForChart.push({key: months[i], value: tempValue});
+				}
+				
+				var filterdCompletedData = filterData(allRevenueCompletedDataTemp);
+				var dataCompletedForChart = [];
+				
+				for(var i = 0; i < months.length; i++){
+					var tempValue = 0;
+					for(var j = 0; j < filterdCompletedData.length; j++){
+						if(months[i] == filterdCompletedData[j].key){
+							tempValue = filterdCompletedData[j].value;
+						}
+					}
+					dataCompletedForChart.push({key: months[i], value: tempValue});
+				}
+				
+				var filterdCanceledData = filterData(allRevenueCanceledDataTemp);
+				var dataCanceledForChart = [];
+				
+				for(var i = 0; i < months.length; i++){
+					var tempValue = 0;
+					for(var j = 0; j < filterdCanceledData.length; j++){
+						if(months[i] == filterdCanceledData[j].key){
+							tempValue = filterdCanceledData[j].value;
+						}
+					}
+					dataCanceledForChart.push({key: months[i], value: tempValue});
+				}
+				
+				
+				data = {
+				  labels: labels,
+				  datasets: [
+				    {
+				      label: 'Tổng doanh thu',
+				      data: [],
+				      borderColor: 'rgb(0,0,255)',
+				      fill: false,
+				      cubicInterpolationMode: 'monotone',
+				      tension: 0.4
+				    }, {
+				      label: 'Tổng doanh thu đơn hàng thành công',
+				      data: [],
+				      borderColor: 'rgb(0,255,0)',
+				      fill: false,
+				      tension: 0.4
+				    }, {
+				      label: 'Tổng doanh thu đơn hàng huỷ',
+				      data: [],
+				      borderColor: 'rgb(255, 99, 132)',
+				      fill: false
+				    }
+				  ]
+				};
+				
+				dataRevenueForChart.forEach(item => {
+					data.datasets[0].data.push(item.value);
+				})
+				
+				dataCompletedForChart.forEach(item => {
+					data.datasets[1].data.push(item.value);
+				})
+				
+				dataCanceledForChart.forEach(item => {
+					data.datasets[2].data.push(item.value);
+				})
+				
+				config = {
+				  type: 'line',
+				  data: data,
+				  options: {
+				    responsive: false,
+				    plugins: {
+				      title: {
+				        display: true,
+				        text: 'Biểu đồ doanh thu'
+				      },
+				    },tooltips: {
+						callbacks: {
+							label: function (tooltipItem) {
+								return (new Intl.NumberFormat('en-US', {
+									style: 'currency',
+									currency: 'USD',
+							    })).format(tooltipItem.value);
+							 }
+						}
+					},
+				    interaction: {
+				      intersect: false,
+				    },
+				    scales: {
+				      x: {
+				        display: true,
+				        title: {
+				          display: true
+				        }
+				      },
+				      y: {
+				        display: true,
+				        title: {
+				          display: true,
+				          text: 'Value'
+				        },
+				      },
+				      yAxes: [{
+				          ticks: {
+				            beginAtZero: true,
+				            callback: function(value, index, values) {
+				              if(parseInt(value) >= 1000){
+				                return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
+				              } else {
+				                return '$' + value + '.00';
+				              }
+				            }
+				          }
+				      }]
+				    }
+				  },
+				};
+				
+				myChartRevenue = new Chart(
+					document.getElementById('myChartRevenue'),
+					config
+				);
+				
+			})
+		}
+	})
+	// ----------------End sale revenue --------------
+	
 	// --------- Cac ham xu ly du lieu -----------
 	// Xu ly lay cac thang trong khoang (ngay dau tien product co order - ngay cuoi cung product co order)
 	function monthsBetween(...args) {
@@ -1722,6 +2353,7 @@ app.controller("statistic-ctrl", function($scope, $http) {
 	
 	// Xu ly date thanh kieu dd-mm-yyyy
 	$scope.getDate = function(a, b) {
+		
 		$scope.start1 = document.getElementById(a).value;
 		$scope.newStart = $scope.start1.substring(0,4)  + '-' + $scope.start1.substring(5,7) + '-' + $scope.start1.substring(8,10);
 		$scope.end1 = document.getElementById(b).value;
@@ -1866,4 +2498,31 @@ app.controller("statistic-ctrl", function($scope, $http) {
 		$scope.kwords2 = "";
 		document.getElementById('kwordInput2').value = "";
 	}
+	
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

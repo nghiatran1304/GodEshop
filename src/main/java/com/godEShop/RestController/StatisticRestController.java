@@ -19,6 +19,10 @@ import com.godEShop.Dao.UserDAO;
 import com.godEShop.Dto.ProductImageDto;
 import com.godEShop.Dto.ProductStatisticDto;
 import com.godEShop.Dto.ProductsStatisticDto;
+import com.godEShop.Dto.RevenueAndOrders;
+import com.godEShop.Dto.RevenueByMonthDataDto;
+import com.godEShop.Dto.RevenueByMonthDto;
+import com.godEShop.Dto.RevenueDto;
 import com.godEShop.Dto.UserOrderedStatisticDto;
 import com.godEShop.Dto.UserStatisticDto;
 import com.godEShop.Dto.UsersStatisticDto;
@@ -219,6 +223,174 @@ public class StatisticRestController {
 			@PathVariable("dateStart") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateStart, 
 			@PathVariable("dateEnd") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateEnd) {
 		return prodDAO.getBestProductStatisticByMaleByTime(gender, dateStart, dateEnd);
+	}
+	
+	@GetMapping("/rest/statistic/revenueByAll")
+	public RevenueDto getRevenue() {
+		RevenueDto revenue = new RevenueDto();
+		double totalRevenue = orderDAO.getTotalRevenue();
+		double totalRevenueFromCompleted = orderDAO.getTotalRevenueFromCompleted();
+		double totalRevenueFromCanceled = orderDAO.getTotalRevenueFromCanceled();
+		revenue.setTotalRevenue(totalRevenue);
+		revenue.setTotalRevenueFromCompleted(totalRevenueFromCompleted);
+		revenue.setTotalRevenueFromCanceled(totalRevenueFromCanceled);
+		return revenue;
+	}
+	
+	@GetMapping("/rest/statistic/revenue/start={startDate}&end={endDate}")
+	public RevenueDto getRevenue(@PathVariable("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, 
+			@PathVariable("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+		RevenueDto revenue = new RevenueDto();
+		double totalRevenue;
+		double totalRevenueFromCompleted;
+		double totalRevenueFromCanceled;
+		
+		try {
+			totalRevenue = orderDAO.getTotalRevenueByTime(startDate, endDate);
+		}catch(Exception e) {
+			totalRevenue = 0.00;
+		}
+		
+		try {
+			totalRevenueFromCompleted = orderDAO.getTotalRevenueFromCompletedByTime(startDate, endDate);
+		}catch(Exception e) {
+			totalRevenueFromCompleted = 0.00;
+		}
+		
+		try {
+			totalRevenueFromCanceled = orderDAO.getTotalRevenueFromCanceledByTime(startDate, endDate);
+		}catch(Exception e) {
+			totalRevenueFromCanceled = 0.00;
+		}
+		
+		revenue.setTotalRevenue(totalRevenue);
+		revenue.setTotalRevenueFromCompleted(totalRevenueFromCompleted);
+		revenue.setTotalRevenueFromCanceled(totalRevenueFromCanceled);
+		return revenue;
+	}
+	
+	@GetMapping("/rest/statistic/revenueAndOrders/date={date}")
+	public RevenueAndOrders getRevenueAndOrdersToday(@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+		RevenueAndOrders revenueAndOrders = new RevenueAndOrders();
+		Date yesterday = new Date(date.getTime()-(1000 * 60 * 60 * 24));
+		double totalRevenueToday;
+		double totalRevenueYesterday;
+		int totalOrdersToday;
+		int totalOrdersYesterday;
+		
+		// Xu ly khi ngay hom do khong co doanh thu
+		try {
+			totalRevenueToday = orderDAO.getTotalRevenueInADay(date);
+			
+		}catch (Exception e) {
+			totalRevenueToday = 0.00;
+			
+		}
+		
+		// Xu ly khi ngay truoc do khong co doanh thu
+		try {
+			totalRevenueYesterday = orderDAO.getTotalRevenueInADay(yesterday);
+		}catch (Exception e) {
+			totalRevenueYesterday = 0;
+		}
+		
+		// Xu ly khi ngay hom do khong co don hang
+		try {
+			totalOrdersToday = orderDAO.getTotalOrdersInADay(date);
+			
+		}catch (Exception e) {
+			totalOrdersToday = 0;
+			
+		}
+		
+		// Xu ly khi ngay truoc do khong co don hang
+		try {
+			totalOrdersYesterday = orderDAO.getTotalOrdersInADay(yesterday);
+			
+		}catch (Exception e) {
+			totalOrdersYesterday = 0;
+			
+		}
+		
+		revenueAndOrders.setTotalRevenueToday(totalRevenueToday);
+		revenueAndOrders.setTotalOrdersToday(totalOrdersToday);
+		revenueAndOrders.setTotalRevenueYesterday(totalRevenueYesterday);
+		revenueAndOrders.setTotalOrdersYesterday(totalOrdersYesterday);
+		return revenueAndOrders;
+	}
+	
+	@GetMapping("/rest/statistic/getAllRevenue")
+	public List<RevenueByMonthDataDto> getListRevenueByMonth() {
+		List<RevenueByMonthDataDto> listAllRevenueData = new ArrayList<>();
+		
+		List<RevenueByMonthDto> listAllRevenue = new ArrayList<>();
+		listAllRevenue = orderDAO.findAllRevenue();
+		for (int i = 0; i < listAllRevenue.size(); i++) {
+			RevenueByMonthDataDto singleDateDate = new RevenueByMonthDataDto();
+			singleDateDate.setCreateDate(listAllRevenue.get(i).getCreateDate());
+			singleDateDate.setTotalRevenue(listAllRevenue.get(i).getTotalRevenue());
+			singleDateDate.setType("Total");
+			listAllRevenueData.add(singleDateDate);
+		}
+		
+		List<RevenueByMonthDto> listAllRevenueFromCompleted = new ArrayList<>();
+		listAllRevenueFromCompleted = orderDAO.findAllRevenueFromComplted();
+		for (int i = 0; i < listAllRevenueFromCompleted.size(); i++) {
+			RevenueByMonthDataDto singleDateDate = new RevenueByMonthDataDto();
+			singleDateDate.setCreateDate(listAllRevenueFromCompleted.get(i).getCreateDate());
+			singleDateDate.setTotalRevenue(listAllRevenueFromCompleted.get(i).getTotalRevenue());
+			singleDateDate.setType("Completed");
+			listAllRevenueData.add(singleDateDate);
+		}
+		
+		List<RevenueByMonthDto> listAllRevenueFromCanceled = new ArrayList<>();
+		listAllRevenueFromCanceled = orderDAO.findAllRevenueFromCanceled();
+		for (int i = 0; i < listAllRevenueFromCanceled.size(); i++) {
+			RevenueByMonthDataDto singleDateDate = new RevenueByMonthDataDto();
+			singleDateDate.setCreateDate(listAllRevenueFromCanceled.get(i).getCreateDate());
+			singleDateDate.setTotalRevenue(listAllRevenueFromCanceled.get(i).getTotalRevenue());
+			singleDateDate.setType("Canceledd");
+			listAllRevenueData.add(singleDateDate);
+		}
+		
+		return listAllRevenueData;
+	}
+	
+	@GetMapping("/rest/statistic/getAllRevenueByTime/start={startDate}&end={endDate}")
+	public List<RevenueByMonthDataDto> getListRevenueByTimeRange(@PathVariable("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, 
+			@PathVariable("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+		List<RevenueByMonthDataDto> listAllRevenueData = new ArrayList<>();
+		
+		List<RevenueByMonthDto> listAllRevenue = new ArrayList<>();
+		listAllRevenue = orderDAO.findAllRevenueByTime(startDate, endDate);
+		for (int i = 0; i < listAllRevenue.size(); i++) {
+			RevenueByMonthDataDto singleDateDate = new RevenueByMonthDataDto();
+			singleDateDate.setCreateDate(listAllRevenue.get(i).getCreateDate());
+			singleDateDate.setTotalRevenue(listAllRevenue.get(i).getTotalRevenue());
+			singleDateDate.setType("Total");
+			listAllRevenueData.add(singleDateDate);
+		}
+		
+		List<RevenueByMonthDto> listAllRevenueFromCompleted = new ArrayList<>();
+		listAllRevenueFromCompleted = orderDAO.findAllRevenueFromCompltedByTime(startDate, endDate);
+		for (int i = 0; i < listAllRevenueFromCompleted.size(); i++) {
+			RevenueByMonthDataDto singleDateDate = new RevenueByMonthDataDto();
+			singleDateDate.setCreateDate(listAllRevenueFromCompleted.get(i).getCreateDate());
+			singleDateDate.setTotalRevenue(listAllRevenueFromCompleted.get(i).getTotalRevenue());
+			singleDateDate.setType("Completed");
+			listAllRevenueData.add(singleDateDate);
+		}
+		
+		List<RevenueByMonthDto> listAllRevenueFromCanceled = new ArrayList<>();
+		listAllRevenueFromCanceled = orderDAO.findAllRevenueFromCanceledByTime(startDate, endDate);
+		for (int i = 0; i < listAllRevenueFromCanceled.size(); i++) {
+			RevenueByMonthDataDto singleDateDate = new RevenueByMonthDataDto();
+			singleDateDate.setCreateDate(listAllRevenueFromCanceled.get(i).getCreateDate());
+			singleDateDate.setTotalRevenue(listAllRevenueFromCanceled.get(i).getTotalRevenue());
+			singleDateDate.setType("Canceledd");
+			listAllRevenueData.add(singleDateDate);
+		}
+		return listAllRevenueData;
 	}
 	
 }

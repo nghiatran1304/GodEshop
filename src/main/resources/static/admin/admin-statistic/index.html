@@ -14,6 +14,9 @@
 	<li class="nav-item" role="presentation">
 		<a class="nav-link bg-danger text-light" id="statistic-tab" data-toggle="tab" href="#statistic" target="_self" role="tab" aria-controls="statistic" aria-selected="false">Statistic</a>
 	</li>
+	<li class="nav-item" role="presentation">
+		<a class="nav-link bg-danger text-light" id="salerevenue-tab" data-toggle="tab" href="#salerevenue" target="_self" role="tab" aria-controls="salerevenue" aria-selected="false">Sale Revenue</a>
+	</li>
 	
 </ul>
 <div class="tab-content p-0 pt-4" id="myTabContent">
@@ -31,6 +34,9 @@
 	</div>
 	<div class="tab-pane fade" id="statistic" role="tabpanel" aria-labelledby="statistic-tab">
 		<div ng-include="'/admin/admin-statistic/_statistic.html'"></div>
+	</div>
+	<div class="tab-pane fade" id="salerevenue" role="tabpanel" aria-labelledby="salerevenue-tab">
+		<div ng-include="'/admin/admin-statistic/_salerevenue.html'"></div>
 	</div>
 </div>
 

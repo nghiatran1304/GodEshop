@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.godEShop.Dto.OrderInfoDto;
 import com.godEShop.Dto.OrderListDto;
+import com.godEShop.Dto.RevenueByMonthDto;
 import com.godEShop.Entity.Order;
 
 @Repository
@@ -86,6 +87,93 @@ public interface OrderDAO extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o WHERE o.account.username LIKE ?1 ORDER BY o.createDate DESC")
     List<Order> findAllOrderBySearch(String kw);
     
+    @Query(value = "select sum(od.price*od.quantity) from Orders o"
+    		+ " inner join OrderDetails od on od.OrderId = o.Id"
+    		+ " where o.OrderstatusId between 4 and 5 ", nativeQuery=true)
+    double getTotalRevenue();
     
+    @Query(value = "select sum(od.price*od.quantity) from Orders o"
+    		+ " inner join OrderDetails od on od.OrderId = o.Id"
+    		+ " where o.OrderstatusId = 4 ", nativeQuery=true)
+    double getTotalRevenueFromCompleted();
+    
+    @Query(value = "select sum(od.price*od.quantity) from Orders o"
+    		+ " inner join OrderDetails od on od.OrderId = o.Id"
+    		+ " where o.OrderstatusId = 5 ", nativeQuery=true)
+    double getTotalRevenueFromCanceled();
+    
+    @Query(value = "select sum(od.price*od.quantity) from Orders o"
+    		+ " inner join OrderDetails od on od.OrderId = o.Id"
+    		+ " where (o.OrderstatusId between 4 and 5) and o.createDate between ?1 and ?2 ", nativeQuery=true)
+    double getTotalRevenueByTime(Date startDate, Date endDate);
+    
+    @Query(value = "select sum(od.price*od.quantity) from Orders o"
+    		+ " inner join OrderDetails od on od.OrderId = o.Id"
+    		+ " where (o.OrderstatusId = 4) and o.createDate between ?1 and ?2 ", nativeQuery=true)
+    double getTotalRevenueFromCompletedByTime(Date startDate, Date endDate);
+    
+    @Query(value = "select sum(od.price*od.quantity) from Orders o"
+    		+ " inner join OrderDetails od on od.OrderId = o.Id"
+    		+ " where (o.OrderstatusId = 5) and o.createDate between ?1 and ?2 ", nativeQuery=true)
+    double getTotalRevenueFromCanceledByTime(Date startDate, Date endDate);
+    
+    @Query(value = "select sum(od.price*od.quantity) from Orders o"
+    		+ " inner join OrderDetails od on od.OrderId = o.Id"
+    		+ " where createDate = ?1 and o.OrderstatusId between 2 and 4 ", nativeQuery=true)
+    double getTotalRevenueInADay(Date date);
+    
+    @Query(value = "select count(*) from Orders o"
+    		+ " inner join OrderDetails od on od.OrderId = o.Id"
+    		+ " where createDate = ?1 and o.OrderstatusId between 1 and 4 ", nativeQuery=true)
+    int getTotalOrdersInADay(Date date);
+    
+    
+    @Query("SELECT new com.godEShop.Dto.RevenueByMonthDto"
+        	+ "(o.createDate, sum(od.price*od.quantity)) "
+        	+ "FROM Order o "
+        	+ "INNER JOIN o.orderDetails od "
+        	+ "WHERE o.orderStatus between 4 and 5 "
+        	+ "GROUP BY o.createDate ")
+     List<RevenueByMonthDto> findAllRevenue();
+    
+    @Query("SELECT new com.godEShop.Dto.RevenueByMonthDto"
+        	+ "(o.createDate, sum(od.price*od.quantity)) "
+        	+ "FROM Order o "
+        	+ "INNER JOIN o.orderDetails od "
+        	+ "WHERE o.orderStatus = 4 "
+        	+ "GROUP BY o.createDate ")
+     List<RevenueByMonthDto> findAllRevenueFromComplted();
+    
+    @Query("SELECT new com.godEShop.Dto.RevenueByMonthDto"
+        	+ "(o.createDate, sum(od.price*od.quantity)) "
+        	+ "FROM Order o "
+        	+ "INNER JOIN o.orderDetails od "
+        	+ "WHERE o.orderStatus = 5 "
+        	+ "GROUP BY o.createDate ")
+     List<RevenueByMonthDto> findAllRevenueFromCanceled();
+    
+    @Query("SELECT new com.godEShop.Dto.RevenueByMonthDto"
+        	+ "(o.createDate, sum(od.price*od.quantity)) "
+        	+ "FROM Order o "
+        	+ "INNER JOIN o.orderDetails od "
+        	+ "WHERE o.orderStatus between 4 and 5 and o.createDate between ?1 and ?2 "
+        	+ "GROUP BY o.createDate ")
+     List<RevenueByMonthDto> findAllRevenueByTime(Date startDate, Date endDate);
+    
+    @Query("SELECT new com.godEShop.Dto.RevenueByMonthDto"
+        	+ "(o.createDate, sum(od.price*od.quantity)) "
+        	+ "FROM Order o "
+        	+ "INNER JOIN o.orderDetails od "
+        	+ "WHERE o.orderStatus = 4 and o.createDate between ?1 and ?2 "
+        	+ "GROUP BY o.createDate ")
+     List<RevenueByMonthDto> findAllRevenueFromCompltedByTime(Date startDate, Date endDate);
+    
+    @Query("SELECT new com.godEShop.Dto.RevenueByMonthDto"
+        	+ "(o.createDate, sum(od.price*od.quantity)) "
+        	+ "FROM Order o "
+        	+ "INNER JOIN o.orderDetails od "
+        	+ "WHERE o.orderStatus = 5 and o.createDate between ?1 and ?2 "
+        	+ "GROUP BY o.createDate ")
+     List<RevenueByMonthDto> findAllRevenueFromCanceledByTime(Date startDate, Date endDate);
     
 }

@@ -1,0 +1,97 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<div class="row">
+		<div class="col-2"><input ng-change="disabledFlagToggle();" placeholder="Select date" type="date"
+				id="revenueStart" ng-model="startDateInput" class="form-control"></div>
+		<div class="col-2"><input ng-change="disabledFlagToggle();" placeholder="Select date" type="date"
+				id="revenueEnd" ng-model="endDateInput" class="form-control"></div>
+		<div class="col-2">
+			<button class="btn btn-success" id="submit" ng-click="showRevenueChart();"
+				ng-disabled="disabledFlag">Submit</button>
+			<button class="btn btn-success" id="submit" ng-click="clearRevenueChart();">Clear</button>
+		</div>
+		<div class="col-4"></div>
+		<div class="col-2">
+		<!-- <button id="statistic" ng-click="exportStatistic();" class="btn btn-success">Export Report To
+				Excel</button> -->
+				</div>
+	</div>
+	
+	
+<!-- 	style="position: absolute; height: 800px; width: 800px;"
+	 style="position: absolute; right: 200px; height: 800px; width: 800px;" -->
+	<div class="row mt-12" style="margin-top: 50px;">
+		<div class="col-6">
+			<div class="card radius-10 ">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<h5 class="mb-0 text-primary">{{ordersToday}}</h5>
+						<div class="ms-auto">
+                        	<i class="bx bx-cart fs-3 text-primary"></i>
+						</div>
+					</div>
+					<div class="progress my-2" style="height:4px;">
+						<div class="progress-bar bg-primary" role="progressbar" ng-style="{'width' : ordersDiffPercent}" aria-valuenow="00" aria-valuemin="0" aria-valuemax="100">
+						</div>
+					</div>
+					<div class="d-flex align-items-center">
+						<p ng-if="ordersToday > ordersYesterday" class="mb-0 ms-auto" style="color: green">Số order hôm nay tăng {{ordersDiff|number:0:2}}% so với hôm qua<span><i class="bx bx-up-arrow-alt"></i></span></p>
+						<p ng-if="ordersToday < ordersYesterday"class="mb-0 ms-auto" style="color: red;">Số order hôm nay giảm {{ordersDiff|number:0:2}}% so với hôm qua<span><i class="bx bx-up-arrow-alt"></i></span></p>
+					</div>
+				</div>
+			 </div>
+		</div>
+		
+		<div class="col-6">
+			<div class="card radius-10">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<h5 class="mb-0 text-success">${{revenueToday}}</h5>
+						<div class="ms-auto">
+                            <i class="bx bx-dollar fs-3 text-success"></i>
+						</div>
+					</div>
+					<div class="progress my-2" style="height:4px;">
+						<div class="progress-bar bg-success" role="progressbar" ng-style="{'width' : revenueDiffPercent}" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+						</div>
+					</div>
+					<div class="d-flex align-items-center">
+						<p ng-if="revenueToday > revenueYesterday" class="mb-0 ms-auto" style="color: green">Doanh thu hôm nay tăng {{revenueDiff|number:0:2}}% so với hôm qua<span><i class="bx bx-up-arrow-alt"></i></span></p>
+						<p ng-if="revenueToday < revenueYesterday" class="mb-0 ms-auto" style="color: red;">Doanh thu hôm nay giảm {{revenueDiff|number:0:2}}% so với hôm qua<span><i class="bx bx-up-arrow-alt"></i></span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	<div class="col-10" style="margin: 50px auto;" >
+		<div class="card radius-10 overflow-hidden w-100">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-3">
+						<p>Tổng doanh thu từ tất cả đơn hàng</p>
+						<h4 class="mb-0">${{totalRevenue.totalRevenue|number:0:2}}</h4>
+						<hr>
+					</div>
+					<div class="col-3">
+						<p>Tổng doanh thu từ các đơn hàng hoàn thành</p>
+						<h4 class="mb-0">${{totalRevenue.totalRevenueFromCompleted|number:0:2}}</h4>
+						<hr>
+					</div>
+					<div class="col-3">
+						<p>Tổng doanh thu từ các đơn hàng huỷ</p>
+						<h4 class="mb-0">${{totalRevenue.totalRevenueFromCanceled|number:0:2}}</h4>
+						<hr>
+					</div>
+				</div>
+				<div class="mt-5">
+					<div class="chart-container-4">
+						<canvas id="myChartRevenue" width="1850px" height="550"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
