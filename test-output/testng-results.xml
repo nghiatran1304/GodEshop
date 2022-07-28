@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-07-20T00:58:31Z" name="Default suite" finished-at="2022-07-20T00:59:04Z" duration-ms="32863">
+  <suite started-at="2022-07-28T03:31:17Z" name="Default suite" finished-at="2022-07-28T03:32:06Z" duration-ms="48896">
     <groups>
     </groups>
-    <test started-at="2022-07-20T00:58:31Z" name="Default test" finished-at="2022-07-20T00:59:04Z" duration-ms="32863">
+    <test started-at="2022-07-28T03:31:17Z" name="Default test" finished-at="2022-07-28T03:32:06Z" duration-ms="48896">
       <class name="com.godEShop.Login.LoginTest">
-        <test-method is-config="true" signature="suiteTest()[pri:0, instance:com.godEShop.Login.LoginTest@41330d4f]" started-at="2022-07-20T00:58:31Z" name="suiteTest" finished-at="2022-07-20T00:58:33Z" duration-ms="1868" status="PASS">
+        <test-method is-config="true" signature="suiteTest()[pri:0, instance:com.godEShop.Login.LoginTest@2254127a]" started-at="2022-07-28T03:31:17Z" name="suiteTest" finished-at="2022-07-28T03:31:35Z" duration-ms="17583" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- suiteTest -->
-        <test-method signature="LoginTest()[pri:1, instance:com.godEShop.Login.LoginTest@41330d4f]" started-at="2022-07-20T00:58:33Z" name="LoginTest" description="Test Login" finished-at="2022-07-20T00:59:04Z" duration-ms="30544" status="PASS">
+        <test-method signature="LoginRunTest()[pri:1, instance:com.godEShop.Login.LoginTest@2254127a]" started-at="2022-07-28T03:31:35Z" name="LoginRunTest" description="Test Login" finished-at="2022-07-28T03:32:06Z" duration-ms="30832" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- LoginTest -->
-        <test-method is-config="true" signature="suiteTearDown()[pri:0, instance:com.godEShop.Login.LoginTest@41330d4f]" started-at="2022-07-20T00:59:04Z" name="suiteTearDown" finished-at="2022-07-20T00:59:04Z" duration-ms="437" status="PASS">
+        </test-method> <!-- LoginRunTest -->
+        <test-method is-config="true" signature="suiteTearDown()[pri:0, instance:com.godEShop.Login.LoginTest@2254127a]" started-at="2022-07-28T03:32:06Z" name="suiteTearDown" finished-at="2022-07-28T03:32:06Z" duration-ms="466" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- suiteTearDown -->
