@@ -50,7 +50,6 @@ public class InformationController {
     @Autowired
     BCryptPasswordEncoder pe;
     Boolean isVerificationEmail = false;
-
     @RequestMapping("/information")
     public String informationPage(HttpServletRequest request, Model model) {
 	System.out.println("OK");

@@ -32,6 +32,8 @@ public class ForgotPasswordController {
 
     @Autowired
     BCryptPasswordEncoder pe;
+    
+   static String messageForgot = " ";
     static Boolean isVerificationEmail = false;
 
     @GetMapping("/forgotPassword")
@@ -99,25 +101,35 @@ public class ForgotPasswordController {
 	}
 
     }
-
+    
     @RequestMapping("/changePasswordForgot")
     public String changePassword(HttpServletRequest request, Model model,
 	    @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword) {
-	try {
+    if(messageForgot.trim().length() <= 0 ) {
+    	messageForgot = " ";
+    	model.addAttribute("messageForgot",messageForgot);
+    }else {
+    	model.addAttribute("messageForgot",messageForgot);
+    }
+
+    try {
 	    Account acc = accountService.findByUsername(getAccount.getUsername());
 	    if (isVerificationEmail == true && newPassword.equals(confirmPassword)) {
 		acc.setPassword(pe.encode(newPassword));
 		accountService.update(acc);
-		model.addAttribute("mChangePassForgot", "Change password success");
+		messageForgot = "Change password success";
+		
 		return "/account/login";
 	    } else {
-		model.addAttribute("mChangePassForgot", "confirmation password does not match");
-		return "forward:/changePasswordForm";
+	    	messageForgot = "confirmation password does not match";
+	    
+		return "/account/changePasswordForm";
 	    }
 	} catch (Exception e) {
 	    // TODO: handle exception
-	    model.addAttribute("mChangePassForgot", "change password failed");
-	    return "forward:/changePasswordForm";
+		messageForgot = "change password failed";
+	
+	    return "/account/changePasswordForm";
 	}
 
     }
