@@ -1426,6 +1426,10 @@ INSERT INTO OrderDetails(OrderId,ProductId,Price,Quantity) VALUES
 (1,1,2,2),
 (1,2,5,2),
 (1,3,10,2),
+--
+(2,1,2,2),
+(2,2,5,2),
+(2,3,10,2),
 -- 
 (3,73,99600,1),
 (3,4,15,3),

@@ -21,7 +21,8 @@ app.controller("order-ctrl", function($scope, $http) {
 
 	$scope.init = function() {
 		$http.get(`/rest/allOrders`).then(resp => {
-			$scope.items = resp.data
+			$scope.items = resp.data;
+			$scope.edit($scope.items[0]);
 		})
 
 		$http.get(`/rest/order-pending`).then(resp => {

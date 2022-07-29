@@ -84,7 +84,8 @@ public interface OrderDAO extends JpaRepository<Order, Long> {
     @Query(value = "select count(*) from Orders where orderStatusId = 4 and createDate between ?1 and ?2", nativeQuery=true)
     int getTotalCompleteOrderByTime(Date dateStart, Date dateEnd);
     
-    @Query("SELECT o FROM Order o WHERE o.account.username LIKE ?1 ORDER BY o.createDate DESC")
+    // @Query("SELECT o FROM Order o WHERE o.account.username LIKE ?1 ORDER BY o.createDate DESC")
+    @Query("SELECT o FROM Order o INNER JOIN  o.account a INNER JOIN a.users u WHERE a.username LIKE ?1 OR u.phone LIKE ?1 ORDER BY o.createDate DESC")
     List<Order> findAllOrderBySearch(String kw);
     
     @Query(value = "select sum(od.price*od.quantity) from Orders o"
