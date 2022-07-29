@@ -52,7 +52,7 @@ public class SecurityController {
 
     @RequestMapping({ "/account/login/form", "/loginPage" })
     public String loginForm(Model model) {
-	model.addAttribute("message", "PLEASE LOG IN");
+	model.addAttribute("message", "PLEASE LOGIN");
 	return "account/login";
     }
 
@@ -67,6 +67,7 @@ public class SecurityController {
 	sessionService.remove("getUsernameValue");
 	temp = "";
 	usernameLoginFail = new ArrayList<>();
+
 	model.addAttribute("messageLogin", "LOGIN SUCCESS");
 	if (req.isUserInRole("Admin")) {
 	    return "redirect:/admin";
@@ -77,7 +78,6 @@ public class SecurityController {
     @RequestMapping("/account/login/error")
     public String loginError(Model model) {
 	model.addAttribute("messageLogin", "WRONG LOGIN INFORMATION!");
-	// System.out.println(sessionService.get("getUsernameValue").toString());
 	int count = 0;
 	usernameLoginFail.add(sessionService.get("getUsernameValue").toString());
 	String usernameUsingLogin = sessionService.get("getUsernameValue").toString();
@@ -105,7 +105,6 @@ public class SecurityController {
     @RequestMapping("/account/logoff/success")
     public String logoffSuccess(Model model) {
 	sessionService.remove("adminName");
-	// model.addAttribute("messageLogoff", "YOU ARE LOGGED OUT");
 	return "account/login";
     }
 
@@ -116,7 +115,6 @@ public class SecurityController {
 	String fullname = oauth2.getPrincipal().getAttribute("name");
 	String photo = oauth2.getPrincipal().getAttribute("picture");
 
-	
 	String password = Long.toHexString(System.currentTimeMillis());
 
 	System.out.println(oauth2.getPrincipal().getAttributes());

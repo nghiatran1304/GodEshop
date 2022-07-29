@@ -36,7 +36,7 @@ public class Account implements Serializable {
 
     @Column(name = "Isdelete")
     private Boolean isDelete;
-
+    
     @Column(name = "Password")
     private String password;
 

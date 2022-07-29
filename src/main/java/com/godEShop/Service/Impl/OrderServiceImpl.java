@@ -55,7 +55,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order create(JsonNode orderData) {
 	// TODO Auto-generated method stub
-
 	ObjectMapper mapper = new ObjectMapper();
 
 	boolean flag = false;
@@ -70,26 +69,18 @@ public class OrderServiceImpl implements OrderService {
 		break;
 	    }
 	}
-	if (flag) {
-	    return null;
-	}
+	if (flag) { return null; }
 
 	Order order = mapper.convertValue(orderData, Order.class);
 	Order afterSave = orderDAO.save(order);
-	TypeReference<List<OrderDetail>> type = new TypeReference<List<OrderDetail>>() {
-	};
-	List<OrderDetail> details = mapper.convertValue(orderData.get("orderDetails"), type).stream()
-		.peek(d -> d.setOrder(order)).collect(Collectors.toList());
+	TypeReference<List<OrderDetail>> type = new TypeReference<List<OrderDetail>>() {};
+	List<OrderDetail> details = mapper.convertValue(orderData.get("orderDetails"), type).stream().peek(d -> d.setOrder(order)).collect(Collectors.toList());
 	orderDetailDAO.saveAll(details);
 	// kiểm tra -> giảm số lượng sản phẩm ở đây
 	for (int i = 0; i < details.size(); i++) {
 	    Product oldProduct = productDAO.getById(details.get(i).getProduct().getId());
 	    oldProduct.setQuantity(oldProduct.getQuantity() - details.get(i).getQuantity());
 	    productDAO.save(oldProduct);
-	    System.out.println("---- UPDATE QUANTITY PRODUCT WHEN ORDER SUCCESS ----");
-	    System.out.println(i + " : Product Id : " + details.get(i).getProduct().getId());
-	    System.out.println(i + " : Quantity : " + details.get(i).getQuantity());
-	    System.out.println("------END UPDATE QUANTITY PRODUCT WHEN ORDER SUCCESS------");
 	}
 
 	// gui mail hoa don
