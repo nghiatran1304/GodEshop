@@ -22,5 +22,8 @@ public interface UserService {
     public User findById(Integer userId);
 
     List<UserInfoDto> lstFindUser(String kw);
-
+    
+    public User findByPhone(String phone);
+    
+    public User findByEmail(String email);
 }

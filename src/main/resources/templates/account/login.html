@@ -21,7 +21,7 @@
 		<!-- Breadcrumbs End -->
 		<!-- Page title -->
 		<div th:unless="${messageRegister}=='REGISTER SUCCESS'">
-			<h1 class="text-danger text-center">[[${messageRegister}]]</h1>
+			<h1 class="text-danger text-center" id="messageRegister">[[${messageRegister}]]</h1>
 		</div>
 		<div th:if="${messageRegister}=='REGISTER SUCCESS'">
 			<h1 class="text-success text-center">[[${messageRegister}]]</h1>
@@ -33,10 +33,8 @@
 			<h1 class="text-danger text-center">[[${messageLogoff}]]</h1>
 		</div>
 		<div th:if="${messageForgot}=='Change password success'">
-			<h1 class="text-success text-center">[[${messageForgot}]]</h1>
-			
-		</div>
-
+			<h1 class="text-success text-center">[[${messageForgot}]]</h1>			
+		</div>			
 		<!-- <h2>Sign in/up Form</h2>	 -->
 		<div class="container mt-5" id="container">
 			<div class="form-container sign-up-container">

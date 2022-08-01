@@ -123,4 +123,10 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     		+ "WHERE a.role != 'Admin' and a.username in (select account from Order) and o.createDate between ?1 and ?2 "
     		+ "ORDER BY u.id, a.username")
     List<UserOrderedStatisticDto> getTotalAccountOrderedByTime(Date dateStart, Date dateEnd);
+    
+    @Query(value = "SELECT * FROM Users WHERE phone = ?1", nativeQuery = true)
+	User findByPhone(String phone);
+    
+    @Query(value = "SELECT * FROM Users WHERE email = ?1", nativeQuery = true)
+	User findByEmail(String email);
 }

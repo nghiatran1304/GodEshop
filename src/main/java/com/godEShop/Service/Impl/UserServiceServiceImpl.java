@@ -63,4 +63,16 @@ public class UserServiceServiceImpl implements UserService {
 	return udao.lstFindUser(kw);
     }
 
+	@Override
+	public User findByPhone(String phone) {
+		// TODO Auto-generated method stub
+		return udao.findByPhone(phone);
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return udao.findByEmail(email);
+	}
+
 }

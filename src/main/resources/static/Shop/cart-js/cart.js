@@ -181,8 +181,8 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 							showConfirmButton: false,
 							timer: 1500
 						}).then((result) => {
-							$scope.cart.clear();
-							location.href = "/information";
+							$scope.cart.clear();		
+							location.href = "/information";							
 						});
 					} else {
 						Swal.fire({
