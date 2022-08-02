@@ -252,8 +252,7 @@ public class LoginTest {
 				By.xpath("/html/body/div[1]/div[1]/header/div[1]/div/div/div[2]/div/div/div[1]/div/a"))
 			.getText().trim();
 
-		System.out.println(
-			"--- " + username + " | " + password + " | " + expected + " | " + actualTitle + " ---");
+		System.out.println("--- " + username + " | " + password + " | " + expected + " | " + actualTitle + " ---");
 
 		Thread.sleep(1000);
 

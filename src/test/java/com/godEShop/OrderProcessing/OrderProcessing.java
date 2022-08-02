@@ -8,8 +8,6 @@ import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -23,7 +21,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
@@ -51,48 +48,6 @@ public class OrderProcessing {
     private XSSFWorkbook workbook;
     private XSSFSheet worksheet;
     private Map<String, Object[]> TestNGResult;
-    private Map<String, String[]> dataLoginTest;
-
-    //private final String EXCEL_DIR = "D:/DA2/GodEshop/test-resources/data/";
-    // private final String IMAGE_DIR = "D:/DA2/GodEshop/test-resources/images/";
-
-    // đọc dữ liệu từ file excel
-    private void readDataFromExcel() {
-	try {
-	    dataLoginTest = new HashMap<String, String[]>();
-	    worksheet = workbook.getSheet("TestData"); // tên sheet cần lấy data
-	    if (worksheet == null) {
-		System.out.println("Không tìm thấy worksheet : TestData");
-	    } else {
-		Iterator<Row> rowIterator = worksheet.iterator();
-		DataFormatter dataFormat = new DataFormatter();
-		while (rowIterator.hasNext()) {
-		    Row row = rowIterator.next();
-		    if (row.getRowNum() >= 1) {
-			Iterator<Cell> cellIterator = row.cellIterator();
-			String key = ""; // key - ô stt
-			String stage = ""; // giá trị ô username
-			String expected = ""; // giá trị ô expected
-			while (cellIterator.hasNext()) {
-			    Cell cell = cellIterator.next();
-			    if (cell.getColumnIndex() == 0) {
-				key = dataFormat.formatCellValue(cell);
-			    } else if (cell.getColumnIndex() == 1) {
-				stage = dataFormat.formatCellValue(cell);
-			    } else if (cell.getColumnIndex() == 2) {
-				expected = dataFormat.formatCellValue(cell);
-			    }
-			    String[] myArr = { stage, expected };
-			    dataLoginTest.put(key, myArr);
-			}
-		    }
-		}
-	    }
-	} catch (Exception e) {
-	    System.out.println("readDataFromExcel() : " + e.getMessage());
-	}
-    }
-    // ---------- Kết thúc đọc dữ liệu -------------------
 
     public void takeScreenShot(WebDriver driver, String outputSrc) throws IOException {
 	Screenshot screenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000))
@@ -130,11 +85,7 @@ public class OrderProcessing {
 	    WebDriverManager.chromedriver().setup();
 	    driver = new ChromeDriver();
 	    driver.manage().window().maximize();
-//	    workbook = new XSSFWorkbook(new FileInputStream(new File(EXCEL_DIR + "TEST_LOGIN.xlsx")));
-	    workbook = new XSSFWorkbook(
-		    new FileInputStream(new File("D:/DA2/GodEshop/test-resources/data/TEST_ORDER.xlsx")));
-	    worksheet = workbook.getSheet("TestData");
-	    readDataFromExcel(); // đọc dữ liệu
+
 	    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 	    workbook = new XSSFWorkbook();
@@ -146,8 +97,8 @@ public class OrderProcessing {
 	    rowStyle.setWrapText(true);
 
 	    // viết header vào dòng đầu tiên
-	    TestNGResult.put("1", new Object[] { "STT", "STATE", "Action", "Expected", "Actual", "Status", "Date Check",
-		    "LINK", "Image" });
+	    TestNGResult.put("1",
+		    new Object[] { "STT", "Action", "Expected", "Actual", "Status", "Date Check", "LINK", "Image" });
 	} catch (Exception e) {
 	    System.out.println("suiteTest() : " + e.getMessage());
 	}
@@ -200,14 +151,12 @@ public class OrderProcessing {
 		rowStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 		rowStyle.setWrapText(true);
 		worksheet.autoSizeColumn(cellnum);
-		worksheet.setColumnWidth(7, 7000);
+		worksheet.setColumnWidth(6, 7000);
 		row.setRowStyle(rowStyle);
 	    }
 	    try {
-//		FileOutputStream out = new FileOutputStream(new File(EXCEL_DIR + "RESULT_TEST_LOGIN.xlsx"));
 		FileOutputStream out = new FileOutputStream(
-			new File("D:/DA2/GodEshop/test-resources/data/RESULT_TEST_ORDER.xlsx"));
-
+			new File("test-resources/data/RESULT_TEST_ORDER.xlsx").getAbsolutePath());
 		workbook.write(out);
 		out.close();
 		System.out.println("Successfully save to Excel File!!!");
@@ -219,72 +168,89 @@ public class OrderProcessing {
 
     // -------------- TEST CAST -------------------------
 
-    @Test(description = "Test Registration", priority = 1)
+    @Test(description = "Test Order", priority = 1)
     public void LoginRegistration() {
 	try {
-	    Set<String> keySet = dataLoginTest.keySet();
-	    int index = 1;
-	    for (String key : keySet) {
-		String[] value = dataLoginTest.get(key);
-		String stage = value[0];
-		String expected = value[1];
+	    String expected = "http://localhost:8080/information";
+	    LocalDateTime myDateObj = LocalDateTime.now();
+	    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss | dd-MM-yyyy");
+	    String formattedDate = myDateObj.format(myFormatObj);
+	    
+	    // go to product page
+	    driver.get("http://localhost:8080/product");
+	    
+	    // view product
+	    WebElement btnProduct = driver.findElement(By.xpath("/html/body/div[1]/main/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div/div[5]/div/div/div[2]/div[1]/h2/a"));
+	    Actions actionViewProduct = new Actions(driver).click(btnProduct);
+	    actionViewProduct.build().perform();
+	    Thread.sleep(1000);
+	    
+	    // add product in to cart
+	    WebElement btnAddProduct = driver.findElement(By.xpath("/html/body/div[1]/main/div[1]/div[2]/div/div/div/div[2]/div/div[2]/div/a"));
+	    Actions actionAddProduct = new Actions(driver).click(btnAddProduct);
+	    actionAddProduct.build().perform();
+	    Thread.sleep(1000);
+	    
+	    // click view cart
+	    driver.get("http://localhost:8080/cart");
+	    Thread.sleep(1000);
+	    
+	    // click order
+	    WebElement btnClickOrder = driver.findElement(By.xpath("/html/body/div[1]/main/div[2]/div/div/div/form/div[2]/div[2]/div/div/a"));
+	    Actions actionClickOrder = new Actions(driver).click(btnClickOrder);
+	    actionClickOrder.build().perform();
+	    Thread.sleep(1000);
+	    
+	    
+	    // login
+//	    driver.get("http://localhost:8080/account/login/form");
+	    driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[2]/form/input")).sendKeys("cust08");
+	    driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[2]/form/div[2]/input")).sendKeys("MatKhau@123");
+	    WebElement btnSignIn = driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[2]/form/button"));
+	    Actions actionSignIn = new Actions(driver).click(btnSignIn);
+	    actionSignIn.build().perform();
+	    Thread.sleep(1000);	
+	    
+	    
+	    // start Order
+	    WebElement btnOrder = driver.findElement(By.xpath("/html/body/div[1]/main/div[2]/div[2]/div/div/div/div[1]/div/div[4]/div/div/button"));
+	    Actions actionOrder = new Actions(driver).click(btnOrder);
+	    actionOrder.build().perform();
+	    Thread.sleep(8000);	
+	    
+	    // view history
+	    WebElement btnViewHistory = driver.findElement(By.xpath("/html/body/div[1]/main/div[2]/div/div/div/div[2]/div/div[1]/div/div/table/tbody/tr[1]/td[9]/button"));
+	    Actions actionViewHistory = new Actions(driver).click(btnViewHistory);
+	    actionViewHistory.build().perform();
+	    Thread.sleep(3000);	
 
-		LocalDateTime myDateObj = LocalDateTime.now();
-		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss | dd-MM-yyyy");
-		String formattedDate = myDateObj.format(myFormatObj);
+	    String currentUrl = driver.getCurrentUrl();
+	    String actualTitle = currentUrl;
 
+	    Thread.sleep(1000);
+
+	    if (actualTitle.equalsIgnoreCase(expected)) {
+		TestNGResult.put(String.valueOf(2), new Object[] { String.valueOf(1), // STT
+			"Test Order",
+			expected, // expected
+			actualTitle, // actual
+			"PASS", // status
+			formattedDate, // date check
+			"" // image
+		});
+	    } else {
 		driver.get("http://localhost:8080/account/login/form");
-
-		WebElement btnSignUp1 = driver
+		WebElement btnSignUp3 = driver
 			.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[3]/div/div[2]/button"));
-		Actions actionSignUp1 = new Actions(driver).click(btnSignUp1);
-		actionSignUp1.build().perform();
-
-		// driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/input[1]")).sendKeys(username);
-
-		Thread.sleep(1000);
-
-		WebElement btnSignUp2 = driver
-			.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/button"));
-		Actions actionSignUp2 = new Actions(driver).click(btnSignUp2);
-		actionSignUp2.build().perform();
-
-//		String actualTitle = driver.getTitle();
-		// driver.findElement(By.xpath("/html/body/div[1]/main/div[2]/h1")).getText();
-		String currentUrl = driver.getCurrentUrl();
-		String actualTitle = currentUrl;
-
-		Thread.sleep(1000);
-
-		if (actualTitle.equalsIgnoreCase(expected)) {
-		    TestNGResult.put(String.valueOf(index + 1), new Object[] { String.valueOf(index), // STT
-			    stage, expected, // expected
-			    actualTitle, // actual
-			    "PASS", // status
-			    formattedDate, // date check
-			    "" // image
-		    });
-
-		} else {
-		    driver.get("http://localhost:8080/account/login/form");
-		    WebElement btnSignUp3 = driver
-			    .findElement(By.xpath("/html/body/div[1]/main/div[4]/div[3]/div/div[2]/button"));
-		    Actions actionSignUp3 = new Actions(driver).click(btnSignUp3);
-		    actionSignUp3.build().perform();
-
-		    // driver.findElement(By.xpath("/html/body/div[1]/main/div[4]/div[1]/form/input[1]")).sendKeys(username);
-
-		    String path = "D:/DA2/GodEshop/test-resources/images/" + "failure-" + System.currentTimeMillis()
-			    + ".png";
-
-		    takeScreenShot(driver, path);
-		    TestNGResult.put(String.valueOf(index + 1), new Object[] { String.valueOf(index), stage,
-			    "Test Order", expected, actualTitle, "FAILED", formattedDate, path.replace("\\", "/") });
-		}
-		index++;
+		Actions actionSignUp3 = new Actions(driver).click(btnSignUp3);
+		actionSignUp3.build().perform();
+		String path = "test-resources/images/" + "failure-" + System.currentTimeMillis() + ".png";
+		takeScreenShot(driver, path);
+		TestNGResult.put(String.valueOf(2), new Object[] { String.valueOf(1), "Test Order", expected,
+			actualTitle, "FAILED", formattedDate, path.replace("\\", "/") });
 	    }
 	} catch (Exception e) {
-	    System.out.println("LoginRegistration() : " + e.getMessage());
+	    System.out.println("Order() : " + e.getMessage());
 	}
     }
 
